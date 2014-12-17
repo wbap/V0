@@ -29,9 +29,9 @@ public abstract class Module {
 	}	
 
 	// 
-	// outputs, state <- compute(inputs, state)
+	// outputs, state <- fire(inputs, state)
 	//
-	abstract void compute();
+	abstract void fire();
 	
 	public void collect_input() {
 		for(Connection c: this.connections) {

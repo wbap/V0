@@ -23,7 +23,7 @@ public class NonRTSyncScheduler extends Scheduler{
 		}
 
 		for (Module m: modules) {
-			m.compute();
+			m.fire();
 		}
 
 		for (Module m: modules) {
