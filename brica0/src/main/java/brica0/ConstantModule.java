@@ -29,6 +29,7 @@ public class ConstantModule extends Module {
 			return;
 		}*/
 		// this is a shallow copy.  does this work?
+	    System.out.println("aaa");
 		results = new HashMap<String, short[]>(states);
 	}
 	

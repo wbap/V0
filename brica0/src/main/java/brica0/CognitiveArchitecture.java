@@ -17,6 +17,8 @@ public class CognitiveArchitecture {
 
 	public void add_module(String id, Module module) {
 		modules.put(id, module);
+
+		update_scheduler();
 	}
 	
 	public Module get_module(String id) {
@@ -25,6 +27,10 @@ public class CognitiveArchitecture {
 	
 	public double step() {
 		return scheduler.step();
+	}
+
+	protected void update_scheduler() {
+	    scheduler.update(this);
 	}
 	
 }
