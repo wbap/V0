@@ -2,10 +2,9 @@ package wba.rogue;
 
 public class Avatar {
     private Rogue environment;
-    private int[] state;
 
-    Avatar() {
-        environment = new Rogue();
+    Avatar(Rogue environment) {
+        this.environment = environment;
     }
 
     int[] move(int direction) {

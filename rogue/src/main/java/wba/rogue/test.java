@@ -3,8 +3,14 @@ package wba.rogue;
 import java.io.*;
 
 public class test { 
-    public static void main(String[] args) { 
-        Avatar player = new Avatar();
+    final static int NUMCOLS = 80;
+    final static int NUMLINES = 24;
+    final static int MAXROOMS = 9;
+
+    public static void main(String[] args) {
+        final RNG rng = new RNG();
+        Rogue rogue = new Rogue(new Coord(NUMCOLS, NUMLINES), MAXROOMS, rng);
+        Avatar player = new Avatar(rogue);
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String s = "4";
         do {
