@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="brica0.rogue" default="build">
+  <target name="build.prepare">
+    <mkdir dir="${basedir}/build/classes" />
+  </target>
+  <target name="build" depends="build.prepare">
+    <javac destdir="build/classes" srcdir="src/main/java">
+      <include name="*/**/*.java" />
+    </javac>
+  </target>
+  <target name="run" depends="build">
+    <java classpath="build/classes" classname="wba.rogue.test" fork="true" />
+  </target>
+</project>
