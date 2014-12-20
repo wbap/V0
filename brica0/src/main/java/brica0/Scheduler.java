@@ -1,4 +1,4 @@
-package wba.brica;
+package brica0;
 
 import java.util.ArrayList;
 
@@ -10,8 +10,8 @@ public abstract class Scheduler {
 	ArrayList<Module> modules;
 	
 	public Scheduler() {
-		this.num_steps = 0;
-		this.current_time = 0.0;
+		num_steps = 0;
+		current_time = 0.0;
 	}
 
 	public void reset() {

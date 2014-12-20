@@ -1,4 +1,4 @@
-package wba.brica;
+package brica0;
 
 /**
  * PipeModule simply copies inputs to output ports of the same names.

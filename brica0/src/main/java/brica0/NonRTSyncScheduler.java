@@ -1,17 +1,17 @@
-package wba.brica;
+package brica0;
 
 public class NonRTSyncScheduler extends Scheduler{
 
-	public float interval;
+	public double interval;
 	
 	public NonRTSyncScheduler(double interval) {
 		super();
-		this.interval = 1.0f;
+		this.interval = 1.0;
 	}
 	
 	public void reset() {
 		super.reset();
-		this.interval = 1.0f;
+		this.interval = 1.0;
 	}
 	
 	@Override

@@ -1,10 +1,10 @@
-package wba.brica;
+package brica0;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import platform.Vector;
+import brica0.Vector;
 
 public class VectorTest {
 

@@ -1,4 +1,4 @@
-package wba.brica;
+package brica0;
 
 public class Vector {
 	
