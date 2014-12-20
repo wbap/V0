@@ -94,7 +94,7 @@ public class Rogue {
         return state;
     }
     
-    int[] move(int direction) {
+    public int[] move(int direction) {
         visible.reset();
 
         Coord newCoord = new Coord();
@@ -160,6 +160,8 @@ public class Rogue {
                 }
             }
         }
+
+        visible.setPlace(coord, '@');
 
         rooms.drawRooms(map);
         return toStateArray();

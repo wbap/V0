@@ -19,25 +19,31 @@ public class test {
             } catch(IOException e) {
                 System.err.println("Error: " + e.getMessage());
             } finally {
+                char[] charArray = s.toCharArray();
+
                 int[] state;
                 int direction = 4;
 
-                if(s == "h") {
-                	direction = 3;
+                if(charArray.length > 0) {
+                    char c = charArray[0];
+
+                    if(c == 'h') {
+                        direction = 3;
+                    }
+
+                    if(c == 'j') {
+                        direction = 7;
+                    }
+                
+                    if(c == 'k') {
+                        direction = 1;
+                    }
+                
+                    if(c == 'l') {
+                        direction = 5;
+                    }
                 }
 
-                if(s == "j") {
-                	direction = 7;
-                }
-                
-                if(s == "k") {
-                	direction = 1;
-                }
-                
-                if(s == "l") {
-                	direction = 5;
-                }
-                
                 state = player.move(direction);
 
                 int i;
