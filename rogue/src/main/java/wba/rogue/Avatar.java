@@ -4,11 +4,16 @@ public class Avatar {
     private Rogue environment;
     private int[] state;
 
-    Avatar() {
-        environment = new Rogue();
+    Avatar(Rogue environment) {
+        this.environment = environment;
     }
 
-    int[] move(int direction) {
-        return environment.move(direction);
+    public int[] getState() {
+        return state;
+    }
+
+    public int[] move(int direction) {
+        state = environment.move(direction);
+        return state;
     }
 }

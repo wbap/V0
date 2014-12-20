@@ -1,0 +1,23 @@
+###############
+# viewer.prop #
+###############
+
+# AgentViewerの初期サイズ [幅,高さ]
+AgentViewerInitSize=460,120
+
+# SharedMemoryViewerの初期サイズ [幅,高さ]
+SharedMemoryViewerInitSize=320,300
+
+# FailAgentTreeViewerの初期サイズ [幅,高さ]
+FailAgentTreeViewerInitSize=460,740
+
+# エージェントごとの表示色 [エージェントID	R,G,B]
+700	255,0,0
+701	0,255,0
+705	0,0,255
+706	255,255,0
+708	0,255,255
+709	255,0,255
+710	200,200,200
+712	100,100,100
+

@@ -1,0 +1,39 @@
+
+####################
+# 実験に関する設定 #
+####################
+
+# 学習データをセーブするステップ数
+SaveStepNum=-15000
+
+# 学習データをセーブするファイル名
+SaveFileNeme=
+
+# 学習データをロードするファイル名
+LoadFileName=decompose\\dat\\task2\\task2_decompose_
+
+# タイムアウトのステップ数
+TimeOutStepNum=1000
+
+# スリープタイム
+SleepTime=20
+
+
+####################
+# 環境に関する設定 #
+####################
+
+# 地図情報のファイル名 
+Environment=DoorKeyMap_b.csv
+
+# ドアが開く条件 
+# 0：何も持っていない 1：カギを持っている 2：電話を持っている
+DoorOpenMode=2
+
+
+###################
+# GSAに関する設定 #
+###################
+
+# GSAの設定ファイル名
+GSAPropFileName=gsa_decompose.prop

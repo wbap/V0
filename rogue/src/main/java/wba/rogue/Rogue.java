@@ -1,9 +1,9 @@
 package wba.rogue;
 
 public class Rogue {
-    final private int NUMCOLS = 80;
-    final private int NUMLINES = 24;
-    final private int MAXROOMS = 9;
+    private Coord size;
+    private int maxRooms;
+    private RNG rng;
 
     private int level;
 
@@ -18,18 +18,19 @@ public class Rogue {
 
     private Room current;
 
-    private int[] state;
-
-    Rogue() {
+    Rogue(Coord size, int maxRooms, RNG rng) {
         hunger = 1000;
         gold = 0;
+        this.size = size;
+        this.maxRooms = maxRooms;
+        this.rng = rng;
         newLevel();
     }
 
     void newLevel() {
-        map = new Map(NUMCOLS, NUMLINES);
-        visible = new Map(NUMCOLS, NUMLINES);
-        rooms = new Rooms(map, NUMCOLS, NUMLINES, MAXROOMS, level);
+        visible = new Map(size);
+        map = new Map(size);
+        rooms = new Rooms(map, maxRooms, level, rng);
 
         key = 0;
 
@@ -39,18 +40,62 @@ public class Rogue {
         System.err.println("Initial position: (" + coord.x + ", " + coord.y + ")");
 
         rooms.drawRooms(map);
-
-        map.print();
-
         current.drawRoom(visible);
-        visible.setPlace(coord, '@');
-        visible.print();
-
-        state = new int[NUMCOLS * NUMLINES + 3];
     }
 
-    int[] move(int direction) {
-        visible = new Map(NUMCOLS, NUMLINES);
+    public Coord getCoord() {
+        return coord;
+    }
+
+    public int getHunger() {
+        return hunger;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public Map getVisible() {
+        return visible;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public Coord getSize() {
+        return size;
+    }
+
+    public int getMaxRooms() {
+        return maxRooms;
+    }
+
+    public int[] toStateArray() {
+        int i = 0;
+        final Coord size = map.getSize();
+        final int[] state = new int[size.y * size.x + 3];
+
+        for(int y = 0; y < size.y; ++y) {
+            for(int x = 0; x < size.x; ++x) {
+                Place tmpPlace = visible.getPlace(x, y);
+                state[i++] = (int)tmpPlace.type;
+            }
+        }
+
+        state[i++] = hunger;
+        state[i++] = gold;
+        state[i++] = key;
+
+        return state;
+    }
+    
+    public int[] move(int direction) {
+        visible.reset();
 
         Coord newCoord = new Coord();
 
@@ -117,23 +162,8 @@ public class Rogue {
         }
 
         visible.setPlace(coord, '@');
-        visible.print();
-
-        int i = 0;
-
-        for(int y = 0; y < NUMLINES; ++y) {
-            for(int x = 0; x < NUMCOLS; ++x) {
-                Place tmpPlace = visible.getPlace(x, y);
-                state[i++] = (int)tmpPlace.type;
-            }
-        }
 
         rooms.drawRooms(map);
-
-        state[i++] = hunger;
-        state[i++] = gold;
-        state[i++] = key;
-
-        return state;
+        return toStateArray();
     }
 }

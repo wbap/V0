@@ -2,25 +2,21 @@ package wba.rogue;
 
 public class Rooms {
     private Room[] rooms;
-    private int NUMCOLS;
-    private int NUMLINES;
-    private int MAXROOMS;
+    private int maxRooms;
     private RNG rng;
     private Map map;
 
-    Rooms(Map _map, int numcols, int numlines, int maxrooms, int level) {
-        map = _map;
-        NUMCOLS = numcols;
-        NUMLINES = numlines;
-        MAXROOMS = maxrooms;
-        rooms = new Room[MAXROOMS];
+    Rooms(Map map, int maxRooms, int level, RNG rng) {
+        this.map = map;
+        this.maxRooms = maxRooms;
+        rooms = new Room[maxRooms];
 
         /* Initialize rooms */
-        for(int i = 0; i < MAXROOMS; ++i) {
+        for(int i = 0; i < maxRooms; ++i) {
             rooms[i] = new Room();
         }
 
-        rng = new RNG();
+        this.rng = rng;
 
         /* Put the gone rooms */
         int goners = rng.nextInt(4);
@@ -32,19 +28,19 @@ public class Rooms {
         }
 
         /* Dig and populate rooms */
-        for(int i = 0; i < MAXROOMS; ++i) {
-            rooms[i].dig(map, i, NUMCOLS, NUMLINES, MAXROOMS, level);
+        for(int i = 0; i < maxRooms; ++i) {
+            rooms[i].dig(map, i, map.getSize().x, map.getSize().y, maxRooms, level);
         }
 
         /* Connect the rooms */
         System.err.println("Connect rooms: first pass");
-        int index1 = rng.nextInt(MAXROOMS);
+        int index1 = rng.nextInt(maxRooms);
         int index2 = 0;
         int roomcount = 1;
         rooms[index1].setInGraph();
         do {
             int j = 0;
-            for(int i = 0; i < MAXROOMS; ++i) {
+            for(int i = 0; i < maxRooms; ++i) {
                 if(rooms[index1].canConnTo(i)) {
                     if(!rooms[i].isInGraph()) {
                         if(rng.nextInt(++j) == 0) {
@@ -56,7 +52,7 @@ public class Rooms {
 
             if(j == 0) {
                 do {
-                    index1 = rng.nextInt(MAXROOMS);
+                    index1 = rng.nextInt(maxRooms);
                 } while(!(rooms[index1].isInGraph()));
             } else {
                 rooms[index2].setInGraph();
@@ -65,13 +61,13 @@ public class Rooms {
                 connect(index1, index2);
                 roomcount++;
             }
-        } while(roomcount < MAXROOMS);
+        } while(roomcount < maxRooms);
 
         for(roomcount = rng.nextInt(5); roomcount > 0; --roomcount) {
             System.err.println("Connect rooms: extra pass: " + roomcount);
-            index1 = rng.nextInt(MAXROOMS);
+            index1 = rng.nextInt(maxRooms);
             int j = 0;
-            for(int i = 0; i < MAXROOMS; ++i) {
+            for(int i = 0; i < maxRooms; ++i) {
                 if(rooms[index1].canConnTo(i)) {
                     if(!rooms[index1].isConnTo(i)) {
                         if(rng.nextInt(++j) == 0) {
@@ -120,7 +116,6 @@ public class Rooms {
         System.err.println("From: " + indexf + " To: " + indext + " Direction: " + (direction ? "Down" : "Right"));
 
         if(direction) {
-            Place place;
             delta = new Coord(0, 1);
             sdoor = rooms[indexf].doorPos(map, direction, false);
             edoor = rooms[indext].doorPos(map, direction, true);
@@ -138,7 +133,6 @@ public class Rooms {
             turn_delta = new Coord((sdoor.x < edoor.x ? 1 : -1), 0);
             turn_distance = Math.abs(sdoor.x - edoor.x);
         } else {
-            Place place;
             delta = new Coord(1, 0);
             sdoor = rooms[indexf].doorPos(map, direction, false);
             edoor = rooms[indext].doorPos(map, direction, true);
@@ -186,14 +180,14 @@ public class Rooms {
         int i;
 
         do {
-            i = rng.nextInt(MAXROOMS);
+            i = rng.nextInt(maxRooms);
         } while(rooms[i].isGone());
 
         return rooms[i];
     }
 
     void drawRooms(Map map) {
-        for(int i = 0; i < MAXROOMS; ++i) {
+        for(int i = 0; i < maxRooms; ++i) {
             if(!rooms[i].isGone()) {
                 rooms[i].drawRoom(map);
             }
@@ -201,7 +195,7 @@ public class Rooms {
     }
 
     boolean isInAnyRoom(Coord coord) {
-        for(int i = 0; i < MAXROOMS; ++i) {
+        for(int i = 0; i < maxRooms; ++i) {
             if(rooms[i].isInRoom(coord)) {
                 return true;
             }
@@ -213,7 +207,7 @@ public class Rooms {
     Room isInRoom(Coord coord) {
         Room room = new Room();
 
-        for(int i = 0; i < MAXROOMS; ++i) {
+        for(int i = 0; i < maxRooms; ++i) {
             if(rooms[i].isInRoom(coord)) {
                 room = rooms[i];
             }

@@ -3,8 +3,14 @@ package wba.rogue;
 import java.io.*;
 
 public class test { 
-    public static void main(String[] args) { 
-        Avatar player = new Avatar();
+    final static int NUMCOLS = 80;
+    final static int NUMLINES = 24;
+    final static int MAXROOMS = 9;
+
+    public static void main(String[] args) {
+        final RNG rng = new RNG();
+        Rogue rogue = new Rogue(new Coord(NUMCOLS, NUMLINES), MAXROOMS, rng);
+        Avatar player = new Avatar(rogue);
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String s = "4";
         do {
@@ -13,21 +19,29 @@ public class test {
             } catch(IOException e) {
                 System.err.println("Error: " + e.getMessage());
             } finally {
+                char[] charArray = s.toCharArray();
+
                 int[] state;
                 int direction = 4;
-                switch(s) {
-                case "h":
-                    direction = 3;
-                    break;
-                case "j":
-                    direction = 7;
-                    break;
-                case "k":
-                    direction = 1;
-                    break;
-                case "l":
-                    direction = 5;
-                    break;
+
+                if(charArray.length > 0) {
+                    char c = charArray[0];
+
+                    if(c == 'h') {
+                        direction = 3;
+                    }
+
+                    if(c == 'j') {
+                        direction = 7;
+                    }
+                
+                    if(c == 'k') {
+                        direction = 1;
+                    }
+                
+                    if(c == 'l') {
+                        direction = 5;
+                    }
                 }
 
                 state = player.move(direction);

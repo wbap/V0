@@ -1,0 +1,28 @@
+# manaを使用するか
+UseMana=false
+
+# ノード数
+NodeNum=7
+
+# エージェントに関する設定 #
+# エージェント数
+AgentNum=8
+
+# エージェントごとの設定
+# AentID	AgentType	UseNode
+700	CD	 decompose/conf/time_MS000035.conf	decompose/event/time_MS000035.dat
+701	CD	 decompose/conf/time_MS000065.conf	decompose/event/time_MS000065.dat
+705	CD	 decompose/conf/time_MS000075.conf	decompose/event/time_MS000075.dat
+706	CD	 decompose/conf/time_MS000089.conf	decompose/event/time_MS000089.dat
+708	CD	 decompose/conf/time_MS000097.conf	decompose/event/time_MS000097.dat
+709	CD	 decompose/conf/time_MS000133.conf	decompose/event/time_MS000133.dat
+710	CD	 decompose/conf/time_MS000181.conf	decompose/event/time_MS000181.dat
+712	CD	 decompose/conf/time_MS000189.conf	decompose/event/time_MS000189.dat
+
+# Viewerに関する設定
+
+AgentViewer=true
+
+GoalStackViewer=true
+
+FailAgentTreeViewer=true
