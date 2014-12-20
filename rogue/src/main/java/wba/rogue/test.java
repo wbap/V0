@@ -15,21 +15,23 @@ public class test {
             } finally {
                 int[] state;
                 int direction = 4;
-                switch(s) {
-                case "h":
-                    direction = 3;
-                    break;
-                case "j":
-                    direction = 7;
-                    break;
-                case "k":
-                    direction = 1;
-                    break;
-                case "l":
-                    direction = 5;
-                    break;
+
+                if(s == "h") {
+                	direction = 3;
                 }
 
+                if(s == "j") {
+                	direction = 7;
+                }
+                
+                if(s == "k") {
+                	direction = 1;
+                }
+                
+                if(s == "l") {
+                	direction = 5;
+                }
+                
                 state = player.move(direction);
 
                 int i;
