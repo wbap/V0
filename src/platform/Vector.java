@@ -2,14 +2,14 @@ package platform;
 
 public class Vector {
 	
-	static int MAX_VALUE = Short.MAX_VALUE;
+	static public final short MAX_VALUE = Short.MAX_VALUE;
 	
-	static float normalize(short v)
+	static public float normalize(short v)
 	{
 		return (float)v / MAX_VALUE;
 	}	
 	
-	static float[] normalize(short[] v)
+	static public float[] normalize(short[] v)
 	{
 		float[] result = new float[v.length];
 		for (int i = 0; i < v.length; i++)

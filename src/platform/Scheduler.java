@@ -23,6 +23,9 @@ public abstract class Scheduler {
 	public void addModule(Module m) {
 		modules.add(m);
 	}
+	
+	public abstract double step();
+
 
 	
 }

@@ -14,6 +14,7 @@ public class NonRTSyncScheduler extends Scheduler{
 		this.interval = 1.0f;
 	}
 	
+	@Override
 	public double step() {
 		this.num_steps += 1;
 		this.current_time += this.interval;
