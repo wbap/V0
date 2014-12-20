@@ -11,17 +11,20 @@ public class CognitiveArchitecture {
 	
 	
 	public CognitiveArchitecture(Scheduler s) {
-		this.scheduler = s;
+		scheduler = s;
+		modules = new HashMap<String, Module>();
 	}
 
 	public void add_module(String id, Module module) {
-		this.modules.put(id, module);
+		modules.put(id, module);
 	}
 	
 	public Module get_module(String id) {
-		return this.modules.get(id);
+		return modules.get(id);
 	}
 	
-	
+	public double step() {
+		return scheduler.step();
+	}
 	
 }

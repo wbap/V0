@@ -1,8 +1,10 @@
-package platform;
+package tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import platform.Vector;
 
 public class VectorTest {
 
