@@ -9,10 +9,12 @@ package gsa;
 import java.util.*;
 import java.io.*;
 
+import brica0.Module;
+
 /**
  * エージェントに共通の処理(共有メモリとの情報の受渡し等)を行なうクラス
  */
-public abstract class Agent {
+public abstract class Agent extends Module {
 
 	/*
 	 * エージェントの実行処理の結果を示すID
@@ -103,6 +105,21 @@ public abstract class Agent {
 
 	///////////////////////////////////////////////////////////////////
 	// public
+	
+	@Override
+	public void fire() {
+		// TODO
+		String port = "main";
+		short[] inputData = get_in_port(port);
+		
+		// input protocol
+		// 0: do nothing
+		// 1: run exec()
+		System.out.println("AgentId:" + String.valueOf(AGID) + " fire() " + String.valueOf(inputData[0]));
+		if (inputData[0] == 1) {
+			exec();
+		}
+	}
 
 	// 2001.12.14 追加 miyamoto
 	/**

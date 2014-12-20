@@ -7,6 +7,9 @@
 package gsa;
 
 import java.util.*;
+
+import brica0.CognitiveArchitecture;
+import brica0.NonRTSyncScheduler;
 import gsa.viewer.*;
 
 /**
@@ -66,6 +69,15 @@ public class GSA {
 	private boolean[] useAgentFlags = null;
 
 //	private Util util;
+	
+	NonRTSyncScheduler scheduler;
+	CognitiveArchitecture cognitiveArchitecture;
+	Agent[] agentModules;
+	AgentControllerModule agentController;
+	final int AGENT_COUNT = 8;
+	final double SCHEDULER_INTERVAL = 1;
+	final String AGENT_MODULE_ID_PREFIX = "agent_";
+	final String AGENT_CONTROLLER_MODULE_ID = "agentController";
 
 	////////////////////////////////////////////////////////////////
 	// コンストラクタ 初期化メソッド
@@ -92,6 +104,24 @@ public class GSA {
 			initViewer();
 		}
 //util = new Util(agentNum);
+		
+		// initialize brica
+		scheduler = new NonRTSyncScheduler(SCHEDULER_INTERVAL);
+		cognitiveArchitecture = new CognitiveArchitecture(scheduler);
+		agentModules = new Agent[AGENT_COUNT];
+		agentController = new AgentControllerModule();
+		for (int i=0; i<AGENT_COUNT; i++) {
+			String id = AGENT_MODULE_ID_PREFIX + String.valueOf(i);
+			cognitiveArchitecture.add_module(id, agentModules[i]);
+		}
+		cognitiveArchitecture.add_module(AGENT_CONTROLLER_MODULE_ID, agentController);
+		
+		for (int i=0; i<AGENT_COUNT; i++) {
+			// TODO generate connections: agentModules[i] -> agentController
+		}
+		for (int i=0; i<AGENT_COUNT; i++) {
+			// TODO generate connections: agentController -> agentModules[i] 
+		}
 	}
 
 	/**
@@ -223,32 +253,26 @@ public class GSA {
 		double reward = 0;
 		learn(false/*ゴール到達フラグ*/, reward);
 
-		/*
-		 * 実行可能なエージェントが選択されるか、すべてのエージェントが失敗
-		 * するまで繰り返し
-		 */
-		while(true) {
-			if(agent == null) {
-				agent = getExecAgent();
-			}
-
-			/* エージェントの実行処理 */
-			/* このエージェントがすでに失敗済みなら実行処理を行なわない */
-			int isSuccess = -1;
-//			if( failAgentTree.isFail(agent.AGID) ) {
-			if( failAgentTree.getChildAgr(agent.AGID) > -1) {
-//System.out.println("   already fail");
-				isSuccess = Agent.AGR_FAIL_AGENT;
-			}else {
-				isSuccess = agent.exec();
-			}
-
-// 実行処理を行なったエージェントを表示
+		
+		// TODO CognitiveArchitectureの実行
+		//cognitiveArchitecture.step();
+		
+		// TODO AgentControllerが選択したエージェントのサブゴールを取得
+		//failed = cognitiveArchitecture.get_module(AGENT_CONTROLLER_MODULE_ID).get_state("all_agent_result")
+		//isSuccess = cognitiveArchitecture.get_module(AGENT_CONTROLLER_MODULE_ID).get_state("action")
+		//agent = cognitiveArchitecture.get_module(AGENT_CONTROLLER_MODULE_ID).get_state("agent")
+		boolean failed = false;
+		int isSuccess = -1;
+		agent = agents[0];
+		
+		
+		if (!failed) {
+			// 実行処理を行なったエージェントを表示
 			if(viewer != null) {
 				viewer.setExecAgentID(agent.AGID);
 				viewer.repaint();
 			}
-
+						
 			if(isSuccess == Agent.AGR_SUCCESS) {
 				/* ゴールをツリーに設定 */
 				Vector agentGoalElementArray
@@ -266,13 +290,10 @@ public class GSA {
 				/* エージェント切り替え時に前エージェントの保持情報をクリア */
 				agent.suspend();
 				agent = null;
-
-				if(getNotUseAgentNum() == 0) {
-//				if(util.getNotUseNum() == 0) {
-					removeUnsolvedGoal();
-					break;
-				}
 			}
+		} else {
+			// すべてのエージェントが失敗だった場合
+			removeUnsolvedGoal();
 		}
 
 		if(viewer != null) {
