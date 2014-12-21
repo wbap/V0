@@ -21,7 +21,7 @@ public class Rogue {
 
     private boolean test;
 
-    Rogue(Coord size, int maxRooms, RNG rng) {
+    public Rogue(Coord size, int maxRooms, RNG rng) {
         hunger = 1000;
         gold = 0;
         this.size = size;
@@ -31,7 +31,7 @@ public class Rogue {
         newLevel();
     }
 
-    Rogue(Coord size, int maxRooms, RNG rng, boolean test) {
+    public Rogue(Coord size, int maxRooms, RNG rng, boolean test) {
         hunger = 1000;
         gold = 0;
         this.size = size;

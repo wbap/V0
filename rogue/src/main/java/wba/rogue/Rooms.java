@@ -6,7 +6,7 @@ public class Rooms {
     private RNG rng;
     private Map map;
 
-    Rooms(Map map, int maxRooms, int level, RNG rng) {
+    public Rooms(Map map, int maxRooms, int level, RNG rng) {
         this.map = map;
         this.maxRooms = maxRooms;
         rooms = new Room[maxRooms];

@@ -5,7 +5,7 @@ public class Map implements Cloneable {
     
     private Place[] map;
 
-    Map(Coord size) {
+    public Map(Coord size) {
         this.size = size;
         map = new Place[size.x * size.y];
         reset();

@@ -9,7 +9,7 @@ public class RNG {
     private boolean secure;
     private long seed;
 
-    RNG() {
+    public RNG() {
         try {
             rng = SecureRandom.getInstance("SHA1PRNG");
         } catch(NoSuchAlgorithmException nsae) {
@@ -20,7 +20,7 @@ public class RNG {
         }
     }
 
-    RNG(long seed) {
+    public RNG(long seed) {
         this.seed = seed;
         rng = new Random(seed);
     }

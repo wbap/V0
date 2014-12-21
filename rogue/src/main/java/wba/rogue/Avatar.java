@@ -4,7 +4,7 @@ public class Avatar {
     private Rogue environment;
     private int[] state;
 
-    Avatar(Rogue environment) {
+    public Avatar(Rogue environment) {
         this.environment = environment;
     }
 

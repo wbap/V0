@@ -24,7 +24,7 @@ public class Room {
 
     private RNG rng;
 
-    Room(RNG rng) {
+    public Room(RNG rng) {
         pos = new Coord(0, 0);
         max = new Coord(0, 0);
         gold = new Coord(0, 0);
