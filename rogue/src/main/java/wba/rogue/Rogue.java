@@ -101,6 +101,8 @@ public class Rogue {
 
         Coord newCoord = new Coord();
 
+        direction = direction % 9;
+
         newCoord.x = coord.x;
         newCoord.y = coord.y;
         newCoord.x += ((direction % 3) - 1);
