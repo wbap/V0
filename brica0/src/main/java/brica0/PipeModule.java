@@ -33,11 +33,7 @@ public class PipeModule extends Module {
 		    String outId = portMap.get(inId);
 		    short[] v = this.getInPort(inId);
 			if(this.results.containsKey(outId)) {
-				short[] out = this.results.get(outId);
-				if(out.length == v.length)
-				{
-					java.lang.System.arraycopy(v, 0, out, 0, v.length);
-				}
+			    this.results.put(outId, v);
 			}
 		}
 	}

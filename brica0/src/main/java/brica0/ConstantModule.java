@@ -10,27 +10,15 @@ import java.util.HashMap;
  */
 public class ConstantModule extends Module {
 
-	boolean dirty;
-	
 	public ConstantModule() {
 		super();
-		dirty = false;
 	}
 
-	@Override
-	public void setState(String id, short[] v) {
-		dirty = true;
-		super.setState(id, v);
-	}
-	
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public void fire() {
-		if(! dirty) {
-			return;
-		}
-
 		// this is a shallow copy.  does this work?
-		results = new HashMap<String, short[]>(states);
+		results = (HashMap<String,short[]>)states.clone();
 	}
 	
 }
