@@ -55,6 +55,7 @@ public class test {
                     }
                 }
                 System.err.println("");
+                System.err.println("Action:\t" + state[i++]);
                 System.err.println("Hunger:\t" + state[i++]);
                 System.err.println("Gold:\t" + state[i++]);
                 System.err.println("Key:\t" + state[i]);

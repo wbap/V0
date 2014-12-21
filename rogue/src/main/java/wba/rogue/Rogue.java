@@ -12,6 +12,7 @@ public class Rogue {
 
     private Coord coord;
     private Map visible;
+    private int action;
     private int hunger;
     private int key;
     private int gold;
@@ -78,7 +79,7 @@ public class Rogue {
     public int[] toStateArray() {
         int i = 0;
         final Coord size = map.getSize();
-        final int[] state = new int[size.y * size.x + 3];
+        final int[] state = new int[size.y * size.x + 4];
 
         for(int y = 0; y < size.y; ++y) {
             for(int x = 0; x < size.x; ++x) {
@@ -87,6 +88,7 @@ public class Rogue {
             }
         }
 
+        state[i++] = action;
         state[i++] = hunger;
         state[i++] = gold;
         state[i++] = key;
@@ -104,6 +106,7 @@ public class Rogue {
         newCoord.x += ((direction % 3) - 1);
         newCoord.y += ((direction / 3) - 1);
 
+        action = direction;
         hunger--;
 
         Place newPlace = map.getPlace(newCoord);
