@@ -19,21 +19,44 @@ public class Rogue {
 
     private Room current;
 
+    private boolean test;
+
     Rogue(Coord size, int maxRooms, RNG rng) {
         hunger = 1000;
         gold = 0;
         this.size = size;
         this.maxRooms = maxRooms;
         this.rng = rng;
+        this.test = false;
+        newLevel();
+    }
+
+    Rogue(Coord size, int maxRooms, RNG rng, boolean test) {
+        hunger = 1000;
+        gold = 0;
+        this.size = size;
+        this.maxRooms = maxRooms;
+        this.rng = rng;
+        this.test = test;
         newLevel();
     }
 
     void newLevel() {
         visible = new Map(size);
         map = new Map(size);
+
+        if(test) {
+            System.err.println("Test mode is on, resetting RNG");
+            rng.reset();
+        }
+
         rooms = new Rooms(map, maxRooms, level, rng);
 
         key = 0;
+
+        if(test) {
+            rng.setSeed(System.currentTimeMillis());
+        }
 
         current = rooms.rndRoom();
         coord = current.findFloor(map);
@@ -74,6 +97,55 @@ public class Rogue {
 
     public int getMaxRooms() {
         return maxRooms;
+    }
+
+    public int[] toGoalArray() {
+        int i = 0;
+        final Coord size = map.getSize();
+        final int[] state = new int[size.y * size.x];
+
+        for(int y = 0; y < size.y; ++y) {
+            for(int x = 0; x < size.x; ++x) {
+                Place tmpPlace = map.getPlace(x, y);
+                char type = tmpPlace.type;
+                if(type == '%') {
+                    type = '@';
+                }
+                state[i++] = (int)type;
+            }
+        }
+
+        return state;
+    }
+
+    public int[] toRealArray() {
+        int i = 0;
+        final Coord size = map.getSize();
+        final int[] state = new int[size.y * size.x];
+
+        for(int y = 0; y < size.y; ++y) {
+            for(int x = 0; x < size.x; ++x) {
+                Place tmpPlace = map.getPlace(x, y);
+                char type = tmpPlace.type;
+                if(coord.x == x && coord.y == y) {
+                    type = '@';
+                }
+                state[i++] = (int)type;
+            }
+        }
+
+        return state;
+    }
+
+    public boolean checkGoal() {
+        int[] goal = toGoalArray();
+        int[] real = toRealArray();
+        for(int i = 0; i < goal.length; ++i) {
+            if(goal[i] != real[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int[] toStateArray() {
@@ -139,19 +211,25 @@ public class Rogue {
             }
 
             if(newPlace.type == '*') {
-                gold += current.getGold();
-                current.drawRoom(map);
+                if(!test) {
+                    gold += current.getGold();
+                    current.drawRoom(map);
+                }
             }
 
             if(newPlace.type == '&') {
-                current.getKey();
-                key = 1;
-                current.drawRoom(map);
+                if(!test) {
+                    current.getKey();
+                    key = 1;
+                    current.drawRoom(map);
+                }
             }
 
             if(newPlace.type == '%') {
-                if(key > 0) {
-                    newLevel();
+                if(!test) {
+                    if(key > 0) {
+                        newLevel();
+                    }
                 }
             }
         }

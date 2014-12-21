@@ -24,7 +24,7 @@ public class Room {
 
     private RNG rng;
 
-    Room() {
+    Room(RNG rng) {
         pos = new Coord(0, 0);
         max = new Coord(0, 0);
         gold = new Coord(0, 0);
@@ -37,7 +37,7 @@ public class Room {
         maze = false;
         ingraph = false;
 
-        rng = new RNG();
+        this.rng = rng;
     }
 
     void dig(Map map, int index, int numcols, int numlines, int maxrooms, int level) {

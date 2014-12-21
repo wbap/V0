@@ -13,7 +13,7 @@ public class Rooms {
 
         /* Initialize rooms */
         for(int i = 0; i < maxRooms; ++i) {
-            rooms[i] = new Room();
+            rooms[i] = new Room(rng);
         }
 
         this.rng = rng;
@@ -21,10 +21,7 @@ public class Rooms {
         /* Put the gone rooms */
         int goners = rng.nextInt(4);
         for(int i = 0; i < goners; ++i) {
-            //int index = rndRoom();
-            //rooms[index].setGone();
             rndRoom().setGone();
-            //System.err.println("Room " + index + " is gone!");
         }
 
         /* Dig and populate rooms */
@@ -205,14 +202,12 @@ public class Rooms {
     }
 
     Room isInRoom(Coord coord) {
-        Room room = new Room();
-
         for(int i = 0; i < maxRooms; ++i) {
             if(rooms[i].isInRoom(coord)) {
-                room = rooms[i];
+                return rooms[i];
             }
         }
 
-        return room;
+        return null;
     }
 }

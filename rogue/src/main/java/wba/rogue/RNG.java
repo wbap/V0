@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 public class RNG {
     private Random rng;
     private boolean secure;
+    private long seed;
 
     RNG() {
         try {
@@ -14,8 +15,14 @@ public class RNG {
         } catch(NoSuchAlgorithmException nsae) {
             System.err.println("Caught NoSuchAlgorithmException: using native Java random");
             long seed = System.currentTimeMillis();
+            this.seed = seed;
             rng = new Random(seed);
         }
+    }
+
+    RNG(long seed) {
+        this.seed = seed;
+        rng = new Random(seed);
     }
 
     boolean nextBoolean() {
@@ -51,6 +58,19 @@ public class RNG {
     }
 
     void setSeed(long seed) {
+        if(!secure) {
+            rng.setSeed(seed);
+        }
+    }
+
+    void newSeed(long seed) {
+        if(!secure) {
+            this.seed = seed;
+            rng.setSeed(seed);
+        }
+    }
+
+    void reset() {
         if(!secure) {
             rng.setSeed(seed);
         }

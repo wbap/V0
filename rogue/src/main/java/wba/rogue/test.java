@@ -8,9 +8,13 @@ public class test {
     final static int MAXROOMS = 9;
 
     public static void main(String[] args) {
-        final RNG rng = new RNG();
-        Rogue rogue = new Rogue(new Coord(NUMCOLS, NUMLINES), MAXROOMS, rng);
+        final RNG rng = new RNG(0);
+        Rogue rogue = new Rogue(new Coord(NUMCOLS, NUMLINES), MAXROOMS, rng, true);
         Avatar player = new Avatar(rogue);
+
+                int[] goal = player.getGoal();
+                printState(goal);
+
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String s = "4";
         do {
@@ -44,24 +48,27 @@ public class test {
                     }
                 }
 
-                state = player.move(direction);
+                player.move(direction);
+                state = player.getReal();
 
-                int i;
+                printState(state);
 
-                for(i = 0; i < 80 * 24; ++i) {
-                    System.err.print((char)state[i]);
-                    if((i + 1) % 80 == 0) {
-                        System.err.println("");
-                    }
+                if(player.checkGoal()) {
+                    System.err.println("You win!");
+                    player.restart();
                 }
-                System.err.println("");
-                System.err.println("Action:\t" + state[i++]);
-                System.err.println("Hunger:\t" + state[i++]);
-                System.err.println("Gold:\t" + state[i++]);
-                System.err.println("Key:\t" + state[i]);
-
-                System.err.println(state.length);
             }
         } while(s != null);
+    }
+
+    public static void printState(int[] state) {
+        int i;
+        for(i = 0; i < 80 * 24; ++i) {
+            System.err.print((char)state[i]);
+            if((i + 1) % 80 == 0) {
+                System.err.println("");
+            }
+        }
+        System.err.println("");
     }
 }

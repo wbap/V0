@@ -12,6 +12,22 @@ public class Avatar {
         return state;
     }
 
+    public int[] getGoal() {
+        return environment.toGoalArray();
+    }
+
+    public int[] getReal() {
+        return environment.toRealArray();
+    }
+
+    public boolean checkGoal() {
+        return environment.checkGoal();
+    }
+
+    public void restart() {
+        environment.newLevel();
+    }
+
     public int[] move(int direction) {
         state = environment.move(direction);
         return state;
