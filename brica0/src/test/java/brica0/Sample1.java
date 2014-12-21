@@ -107,34 +107,26 @@ public class Sample1 {
         // 1
         ca.step();
 
-        assertTrue(Arrays.equals(v, A.getOutPort("p1")));
-        assertTrue(Arrays.equals(zero, B.getInPort("p1")));
-        assertTrue(Arrays.equals(zero, B.getOutPort("p1")));
-        assertTrue(Arrays.equals(zero, C.getInPort("p1")));
+        assertTrue(Arrays.equals(v, A.getOutPort("out1")));
+        assertTrue(Arrays.equals(zero, B.getInPort("in1")));
+        assertTrue(Arrays.equals(zero, B.getOutPort("out1")));
+        assertTrue(Arrays.equals(zero, C.getInPort("in1")));
         
         // 2
         ca.step();
 
-        assertTrue(Arrays.equals(v, A.getOutPort("p1")));
-        assertTrue(Arrays.equals(v, B.getInPort("p1")));
-        assertTrue(Arrays.equals(zero, B.getOutPort("p1")));
-        assertTrue(Arrays.equals(zero, C.getInPort("p1")));
+        assertTrue(Arrays.equals(v, A.getOutPort("out1")));
+        assertTrue(Arrays.equals(v, B.getInPort("in1")));
+        assertTrue(Arrays.equals(v, B.getOutPort("out1")));
+        assertTrue(Arrays.equals(zero, C.getInPort("in1")));
         
         // 3
         ca.step();
 
-        assertTrue(Arrays.equals(v, A.getOutPort("p1")));
-        assertTrue(Arrays.equals(v, B.getInPort("p1")));
-        assertTrue(Arrays.equals(v, B.getOutPort("p1")));
-        assertTrue(Arrays.equals(zero, C.getInPort("p1")));
-        
-        // 4
-        ca.step();
-
-        assertTrue(Arrays.equals(v, A.getOutPort("p1")));
-        assertTrue(Arrays.equals(v, B.getInPort("p1")));
-        assertTrue(Arrays.equals(v, B.getOutPort("p1")));
-        assertTrue(Arrays.equals(v, C.getInPort("p1")));
+        assertTrue(Arrays.equals(v, A.getOutPort("out1")));
+        assertTrue(Arrays.equals(v, B.getInPort("in1")));
+        assertTrue(Arrays.equals(v, B.getOutPort("out1")));
+        assertTrue(Arrays.equals(v, C.getInPort("in1")));
         
     }
 }

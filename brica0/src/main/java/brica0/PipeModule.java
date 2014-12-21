@@ -1,17 +1,23 @@
 package brica0;
 
+import java.util.HashMap;
+
 /**
  * PipeModule simply copies inputs to output ports of the same names.
  */
 public class PipeModule extends Module {
 
+    protected HashMap<String, String> portMap;
+    
 	public PipeModule() {
 		super();
+		
+		portMap = new HashMap<String, String>();
 	}
 	
 	
 	public void mapPort(String inId, String outId) {
-	    
+	    portMap.put(inId, outId);
 	}
 	
 	
@@ -23,10 +29,11 @@ public class PipeModule extends Module {
 	//
 	@Override
 	public void fire() {
-		for (String s: this.inPorts.keySet()) {
-			short[] v = this.getInPort(s);
-			if(this.results.containsKey(s)) {
-				short[] out = this.outPorts.get(s);
+		for (String inId: portMap.keySet()) {
+		    String outId = portMap.get(inId);
+		    short[] v = this.getInPort(inId);
+			if(this.results.containsKey(outId)) {
+				short[] out = this.results.get(outId);
 				if(out.length == v.length)
 				{
 					java.lang.System.arraycopy(v, 0, out, 0, v.length);
