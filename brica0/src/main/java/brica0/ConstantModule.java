@@ -3,10 +3,10 @@ package brica0;
 import java.util.HashMap;
 
 /*
- * ConstantModule simply copies states to out_ports.
+ * ConstantModule simply copies states to out ports.
  * 
- * Users could use set_state() method to define output of this Module.
- * Values of in_ports are not used.
+ * Users could use setState() method to define output of this Module.
+ * Values of in ports are not used.
  */
 public class ConstantModule extends Module {
 
@@ -18,9 +18,9 @@ public class ConstantModule extends Module {
 	}
 
 	@Override
-	public void set_state(String id, short[] v) {
+	public void setState(String id, short[] v) {
 		dirty = true;
-		super.set_state(id, v);
+		super.setState(id, v);
 	}
 	
 	@Override

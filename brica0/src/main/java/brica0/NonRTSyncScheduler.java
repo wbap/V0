@@ -16,11 +16,11 @@ public class NonRTSyncScheduler extends Scheduler{
 	
 	@Override
 	public double step() {
-		this.num_steps += 1;
-		this.current_time += this.interval;
+		this.numSteps += 1;
+		this.currentTime += this.interval;
 
 		for (Module m: modules) {
-			m.collect_input();
+			m.collectInput();
 		}
 
 		for (Module m: modules) {
@@ -28,10 +28,10 @@ public class NonRTSyncScheduler extends Scheduler{
 		}
 
 		for (Module m: modules) {
-			m.update_output();
+			m.updateOutput();
 		}
 		
-		return this.current_time;
+		return this.currentTime;
 	}
 
 }

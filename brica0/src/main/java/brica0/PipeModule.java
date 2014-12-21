@@ -9,18 +9,24 @@ public class PipeModule extends Module {
 		super();
 	}
 	
-	// Simply copy values of in_ports to out_ports.
+	
+	public void mapPort(String inId, String outId) {
+	    
+	}
+	
+	
+	// Simply copy values of in ports to out ports.
 	//
 	// For this copy to occur, 
-	// 1) there must be an out_port of the same id as the in_port, and
-	// 2) the out_port and the in_port must have an identical length.
+	// 1) there must be an out port of the same id as the in port, and
+	// 2) the out port and the in port must have an identical length.
 	//
 	@Override
 	public void fire() {
-		for (String s: this.in_ports.keySet()) {
-			short[] v = this.get_in_port(s);
+		for (String s: this.inPorts.keySet()) {
+			short[] v = this.getInPort(s);
 			if(this.results.containsKey(s)) {
-				short[] out = this.out_ports.get(s);
+				short[] out = this.outPorts.get(s);
 				if(out.length == v.length)
 				{
 					java.lang.System.arraycopy(v, 0, out, 0, v.length);

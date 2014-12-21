@@ -29,9 +29,9 @@ public class Sample1 {
 
         Module m = new NullModule();
 
-        ca.add_module("M1", m);
+        ca.addModule("M1", m);
 
-        Module mm = ca.get_module("M1");
+        Module mm = ca.getModule("M1");
         assertSame("failed to get module from ca.", m, mm);
     }
 
@@ -41,30 +41,30 @@ public class Sample1 {
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
         Module cm = new ConstantModule();
-        cm.make_out_port("out1", 3);
+        cm.makeOutPort("out1", 3);
 
         short[] setout = { 0, 1, 2 };
 
-        cm.set_state("out1", setout);
-        ca.add_module("M1", cm);
+        cm.setState("out1", setout);
+        ca.addModule("M1", cm);
 
         double t = ca.step();
         assertEquals("wrong time after one step.", 1.0, t, 1e-18);
 
-        Module mm = ca.get_module("M1");
+        Module mm = ca.getModule("M1");
         assertSame("failed to get module from ca.", cm, mm);
 
-        assertTrue(Arrays.equals(setout, mm.get_out_port("out1")));
+        assertTrue(Arrays.equals(setout, mm.getOutPort("out1")));
 
         short[] setout2 = { 3, 4, 5 };
-        mm.set_state("out1", setout2);
+        mm.setState("out1", setout2);
 
-        assertTrue(Arrays.equals(setout, mm.get_out_port("out1")));
+        assertTrue(Arrays.equals(setout, mm.getOutPort("out1")));
 
         ca.step();
         ca.step();
 
-        assertTrue(Arrays.equals(setout2, mm.get_out_port("out1")));
+        assertTrue(Arrays.equals(setout2, mm.getOutPort("out1")));
     }
 
     @Test
@@ -72,69 +72,69 @@ public class Sample1 {
         // A simple test to run the following three modules configuration.
         // ConstantModule A -> PipeModule B -> NullModule C
         
-        Module A = new ConstantModule();
-        Module B = new PipeModule();
-        Module C = new NullModule();
+        ConstantModule A = new ConstantModule();
+        PipeModule B = new PipeModule();
+        NullModule C = new NullModule();
         
         short[] zero = {0,0,0};
         short[] v = {1,2,3};
-        A.set_state("p1", v);
-        
-        assertTrue(Arrays.equals(A.get_state("p1"), v));
-        assertNotSame(A.get_state("p1"), v);
-        
-        A.make_out_port("p1", 3);
 
-        B.make_in_port("p1", 3);
-        B.make_out_port("p1", 3);
-        B.make_connection(A, "p1", "p1");
+        A.setState("out1", v);
+        
+        assertTrue(Arrays.equals(A.getState("out1"), v));
+        assertNotSame(A.getState("out1"), v);  // ensure that v is cloned.
+        
+        A.makeOutPort("out1", 3);
 
-        C.make_in_port("p1", 3);
-        C.make_connection(B, "p1", "p1");
+        B.makeOutPort("out1",3 );
+        B.connect(A, "out1", "in1"); // connection from A:out1 to B:in1
+        B.mapPort("in1","out1");    // B:out1 is a simple reflection of B:in1.
+        
+        C.connect(B, "out1", "in1"); // connection from B:out1 to C:in1
         
         Scheduler s = new NonRTSyncScheduler(1.0);
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
-        ca.add_module("A", A);
-        ca.add_module("B", B);
-        ca.add_module("C", C);
+        ca.addModule("A", A);
+        ca.addModule("B", B);
+        ca.addModule("C", C);
 
-        assertTrue(Arrays.equals(zero, A.get_out_port("p1")));
-        assertTrue(Arrays.equals(zero, B.get_in_port("p1")));
-        assertTrue(Arrays.equals(zero, B.get_out_port("p1")));
-        assertTrue(Arrays.equals(zero, C.get_in_port("p1")));
+        assertTrue(Arrays.equals(zero, A.getOutPort("out1")));
+        assertTrue(Arrays.equals(zero, B.getInPort("in1")));
+        assertTrue(Arrays.equals(zero, B.getOutPort("out1")));
+        assertTrue(Arrays.equals(zero, C.getInPort("in1")));
         
         // 1
         ca.step();
 
-        assertTrue(Arrays.equals(v, A.get_out_port("p1")));
-        assertTrue(Arrays.equals(zero, B.get_in_port("p1")));
-        assertTrue(Arrays.equals(zero, B.get_out_port("p1")));
-        assertTrue(Arrays.equals(zero, C.get_in_port("p1")));
+        assertTrue(Arrays.equals(v, A.getOutPort("p1")));
+        assertTrue(Arrays.equals(zero, B.getInPort("p1")));
+        assertTrue(Arrays.equals(zero, B.getOutPort("p1")));
+        assertTrue(Arrays.equals(zero, C.getInPort("p1")));
         
         // 2
         ca.step();
 
-        assertTrue(Arrays.equals(v, A.get_out_port("p1")));
-        assertTrue(Arrays.equals(v, B.get_in_port("p1")));
-        assertTrue(Arrays.equals(zero, B.get_out_port("p1")));
-        assertTrue(Arrays.equals(zero, C.get_in_port("p1")));
+        assertTrue(Arrays.equals(v, A.getOutPort("p1")));
+        assertTrue(Arrays.equals(v, B.getInPort("p1")));
+        assertTrue(Arrays.equals(zero, B.getOutPort("p1")));
+        assertTrue(Arrays.equals(zero, C.getInPort("p1")));
         
         // 3
         ca.step();
 
-        assertTrue(Arrays.equals(v, A.get_out_port("p1")));
-        assertTrue(Arrays.equals(v, B.get_in_port("p1")));
-        assertTrue(Arrays.equals(v, B.get_out_port("p1")));
-        assertTrue(Arrays.equals(zero, C.get_in_port("p1")));
+        assertTrue(Arrays.equals(v, A.getOutPort("p1")));
+        assertTrue(Arrays.equals(v, B.getInPort("p1")));
+        assertTrue(Arrays.equals(v, B.getOutPort("p1")));
+        assertTrue(Arrays.equals(zero, C.getInPort("p1")));
         
         // 4
         ca.step();
 
-        assertTrue(Arrays.equals(v, A.get_out_port("p1")));
-        assertTrue(Arrays.equals(v, B.get_in_port("p1")));
-        assertTrue(Arrays.equals(v, B.get_out_port("p1")));
-        assertTrue(Arrays.equals(v, C.get_in_port("p1")));
+        assertTrue(Arrays.equals(v, A.getOutPort("p1")));
+        assertTrue(Arrays.equals(v, B.getInPort("p1")));
+        assertTrue(Arrays.equals(v, B.getOutPort("p1")));
+        assertTrue(Arrays.equals(v, C.getInPort("p1")));
         
     }
 }

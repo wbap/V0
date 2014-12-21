@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 public abstract class Scheduler {
 
-	protected long num_steps;
-	protected double current_time;
+	protected long numSteps;
+	protected double currentTime;
 	
 	protected ArrayList<Module> modules;
 	
 	public Scheduler() {
-		num_steps = 0;
-		current_time = 0.0;
+		numSteps = 0;
+		currentTime = 0.0;
 		
 		modules = new ArrayList<Module>();
 	}
 
 	public void reset() {
 		modules.clear();
-		this.num_steps = 0;
-		this.current_time = 0.0;
+		this.numSteps = 0;
+		this.currentTime = 0.0;
 	}
 	
 	public void addModule(Module m) {
