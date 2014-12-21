@@ -8,7 +8,7 @@ package wba.citta.doorkeydemo;
 
 import java.io.*;
 import java.util.*;
-import gsa.*;
+import wba.citta.gsa.*;
 
 
 /**

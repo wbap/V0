@@ -6,7 +6,7 @@
  */
 package wba.citta.doorkeydemo;
 
-import environment.*;
+import wba.citta.environment.*;
 
 import java.util.*;
 
