@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * MapController.java
- * ’n}ƒtƒ@ƒCƒ‹‚ÌŠÇ—‚ğs‚È‚¤ƒNƒ‰ƒX
+ * åœ°å›³ãƒ•ã‚¡ã‚¤ãƒ«ã®ç®¡ç†ã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2001.05 BSC miyamoto
  */
@@ -11,26 +11,26 @@ import java.util.*;
 //import jp.ac.wakhok.tomoharu.csv.*;
 
 /**
- * ’n}ƒtƒ@ƒCƒ‹‚ÌŠÇ—‚ğs‚È‚¤ƒNƒ‰ƒX‚Å‚·
+ * åœ°å›³ãƒ•ã‚¡ã‚¤ãƒ«ã®ç®¡ç†ã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹ã§ã™
  */
 public class MapController {
 
-	/* ƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ‚»‚Ì‚Ü‚Ü”z—ñ‚Éİ’è String[x][y] */
+	/* ãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’ãã®ã¾ã¾é…åˆ—ã«è¨­å®š String[x][y] */
 	private String[][] fileArray;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼‚Å‚Ì’n}î•ñ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«åã§ã®åœ°å›³æƒ…å ±
 	 */
 	public MapController(String fileName) {
-		/* ƒe[ƒuƒ‹î•ñ‚Ìì¬ */
+		/* ãƒ†ãƒ¼ãƒ–ãƒ«æƒ…å ±ã®ä½œæˆ */
 		makeFileArray(fileName);
 	}
 
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param String[][] map String‚Ì”z—ñ‚Å‚Ì’n}î•ñ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param String[][] map Stringã®é…åˆ—ã§ã®åœ°å›³æƒ…å ±
 	 */
 	public MapController(String[][] fileArray) {
 		this.fileArray = new String[fileArray.length][fileArray[0].length];
@@ -42,37 +42,37 @@ public class MapController {
 	// public 
 
 	/**
-	 * String[][] ‚Ì’n}î•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @return String[][] ’n}î•ñ
+	 * String[][] ã®åœ°å›³æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return String[][] åœ°å›³æƒ…å ±
 	 */
 	public String[][] getMap() {
 		return fileArray;
 	}
 
 	/**
-	 * w’è‚³‚ê‚½ˆÊ’u‚Éw’è‚³‚ê‚½î•ñ‚ğİ’è‚µ‚Ü‚·B
-	 * @param int x XÀ•W
-	 * @param int y YÀ•W
-	 * @param String str İ’è‚·‚é’n}î•ñ
+	 * æŒ‡å®šã•ã‚ŒãŸä½ç½®ã«æŒ‡å®šã•ã‚ŒãŸæƒ…å ±ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int x Xåº§æ¨™
+	 * @param int y Yåº§æ¨™
+	 * @param String str è¨­å®šã™ã‚‹åœ°å›³æƒ…å ±
 	 */
 	public void set(int x, int y, String str) {
 		fileArray[x][y] = str;
 	}
 
 	/**
-	 * w’è‚³‚ê‚½ˆÊ’u‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int x XÀ•W
-	 * @param int y YÀ•W
-	 * @return String ’n}î•ñ
+	 * æŒ‡å®šã•ã‚ŒãŸä½ç½®ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x Xåº§æ¨™
+	 * @param int y Yåº§æ¨™
+	 * @return String åœ°å›³æƒ…å ±
 	 */
 	public String getString(int x, int y) {
 		return fileArray[x][y];
 	}
 
 	/**
-	 * w’è‚³‚ê‚½î•ñ‚Ìİ’è‚³‚ê‚Ä‚¢‚éˆÊ’u‚ğæ“¾‚µ‚Ü‚·B
-	 * @param String ’n}î•ñ
-	 * @return int[]  int[0] XÀ•W   int[1] YÀ•W
+	 * æŒ‡å®šã•ã‚ŒãŸæƒ…å ±ã®è¨­å®šã•ã‚Œã¦ã„ã‚‹ä½ç½®ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param String åœ°å›³æƒ…å ±
+	 * @return int[]  int[0] Xåº§æ¨™   int[1] Yåº§æ¨™
 	 */
 	public int[] getPos(String str) {
 		return searchMap(str);
@@ -80,8 +80,8 @@ public class MapController {
 
 
 	/**
-	 * ’n}‚ÌƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] int[0]:x•ûŒü‚ÌƒTƒCƒY int[1]:y•ûŒü‚ÌƒTƒCƒY
+	 * åœ°å›³ã®ã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] int[0]:xæ–¹å‘ã®ã‚µã‚¤ã‚º int[1]:yæ–¹å‘ã®ã‚µã‚¤ã‚º
 	 */
 	public int[] getSize() {
 		int[] size = new int[2];
@@ -91,10 +91,10 @@ public class MapController {
 	}
 
 	/**
-	 * w’è‚³‚ê‚½ˆÊ’u‚Ì•ñV‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int x ‚˜À•W
-	 * @param int y ‚™À•W
-	 * @return String •ñV
+	 * æŒ‡å®šã•ã‚ŒãŸä½ç½®ã®å ±é…¬ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x ï½˜åº§æ¨™
+	 * @param int y ï½™åº§æ¨™
+	 * @return String å ±é…¬
 	 */
 	public String getReward(int x, int y) {
 
@@ -105,15 +105,15 @@ public class MapController {
 
 		String reward = "";
 
-		if(fileArrayID.equals("W")) {              /* •Ç */
-			/* ˆ—‚µ‚È‚¢ */
-		}else if(fileArrayID.equals("O")) {        /* •ñV */
-			/* •¶š—ñ‚©‚ç•ñV‚ÉŠÖ‚·‚éî•ñ‚ğæ“¾ */
+		if(fileArrayID.equals("W")) {              /* å£ */
+			/* å‡¦ç†ã—ãªã„ */
+		}else if(fileArrayID.equals("O")) {        /* å ±é…¬ */
+			/* æ–‡å­—åˆ—ã‹ã‚‰å ±é…¬ã«é–¢ã™ã‚‹æƒ…å ±ã‚’å–å¾— */
 			int startIndex = fileArray[x][y].indexOf("(");
 			int endIndex = fileArray[x][y].indexOf(")");
 			reward = fileArray[x][y].substring(startIndex+1,endIndex);
 		}else if(fileArrayID.equals("J")) {        /* Jamp */
-			/* •¶š—ñ‚©‚ç•ñV‚ÉŠÖ‚·‚éî•ñ‚ğæ“¾ */
+			/* æ–‡å­—åˆ—ã‹ã‚‰å ±é…¬ã«é–¢ã™ã‚‹æƒ…å ±ã‚’å–å¾— */
 			int startIndex = fileArray[x][y].indexOf("(");
 			int endIndex = fileArray[x][y].indexOf(")");
 			String str = fileArray[x][y].substring(startIndex+1, endIndex);
@@ -125,11 +125,11 @@ public class MapController {
 				}
 				reward = st.nextToken();
 			}
-		}else {                              /* •ÇE•ñVEJAMPˆÈŠO */
-			/* •Ç‚É—×Ú‚·‚éˆÊ’u‚È‚ç•ñV‚ğİ’è */
+		}else {                              /* å£ãƒ»å ±é…¬ãƒ»JAMPä»¥å¤– */
+			/* å£ã«éš£æ¥ã™ã‚‹ä½ç½®ãªã‚‰å ±é…¬ã‚’è¨­å®š */
 			for(int n = -1; n < 2; n++) {
 				for(int m = -1; m < 2; m++) {
-					/* ”ÍˆÍ“à‚©ƒ`ƒFƒbƒN */
+					/* ç¯„å›²å†…ã‹ãƒã‚§ãƒƒã‚¯ */
 					if( (x+n >= 0)&&(y+m >= 0) && (x+n < fileArray.length)&&
 					        (y+m < fileArray[0].length) ) {
 						if(fileArray[x+n][y+m].equals("W")) {
@@ -145,23 +145,23 @@ public class MapController {
 
 
 	/**
-	 * w’è‚µ‚½ˆÊ’u‚ÌƒZƒ“ƒTî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param   int x  xÀ•W
-	 * @param   int y  yÀ•W
-	 * @return  int[]  int[8]‚ÌƒZƒ“ƒTî•ñ
+	 * æŒ‡å®šã—ãŸä½ç½®ã®ã‚»ãƒ³ã‚µæƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param   int x  xåº§æ¨™
+	 * @param   int y  yåº§æ¨™
+	 * @return  int[]  int[8]ã®ã‚»ãƒ³ã‚µæƒ…å ±
 	 */
 	public int[] getState(int x, int y){
 
-		/* ƒZƒ“ƒTî•ñ‚ğ‰Šú‰» */
+		/* ã‚»ãƒ³ã‚µæƒ…å ±ã‚’åˆæœŸåŒ– */
 		int[] state = new int[8];
 		for(int i=0; i<8; i++){
 			if(i<4){           /* ShortRenge */
-				state[i] = 5;  /* U‚èØ‚êó‘Ô */
+				state[i] = 5;  /* æŒ¯ã‚Šåˆ‡ã‚ŒçŠ¶æ…‹ */
 			}else{             /* LongRenge */
-				state[i] = 0;  /* U‚èØ‚êó‘Ô */
+				state[i] = 0;  /* æŒ¯ã‚Šåˆ‡ã‚ŒçŠ¶æ…‹ */
 			}
 		}
-		/* Œ»“_‚ª•Ç */
+		/* ç¾æ™‚ç‚¹ãŒå£ */
 		if(fileArray[x][y].equals("W")){
 			for(int i=0; i<8; i++){
 				state[i] = -1;
@@ -169,7 +169,7 @@ public class MapController {
 			return state;
 		}
 
-		/* ¶•ûŒü */
+		/* å·¦æ–¹å‘ */
 		for(int i=1; i<20; i++){
 			if(fileArray[x-i][y].equals("W")){
 				if(i >= 11){
@@ -193,7 +193,7 @@ public class MapController {
 			}
 		}
 
-		/* ‰E•ûŒü */
+		/* å³æ–¹å‘ */
 		for(int i=1; i<20; i++){
 			if(fileArray[x+i][y].equals("W")){
 				if(i >= 11){
@@ -217,7 +217,7 @@ public class MapController {
 			}
 		}
 
-		/* ã•ûŒü */
+		/* ä¸Šæ–¹å‘ */
 		for(int i=1; i < 20; i++){
 			if(fileArray[x][y-i].equals("W")){
 				if(i >= 11){
@@ -241,7 +241,7 @@ public class MapController {
 			}
 		}
 
-		/* ‰º•ûŒü */
+		/* ä¸‹æ–¹å‘ */
 		for(int i=1; i < 20; i++){
 			if(fileArray[x][y+i].equals("W")){
 				if(i >= 11){
@@ -272,27 +272,27 @@ public class MapController {
 	// private
 
 	/**
-	 * ’n}ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğ•¶š—ñ‚Ì”z—ñ‚Éİ’è
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * åœ°å›³ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’æ–‡å­—åˆ—ã®é…åˆ—ã«è¨­å®š
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	private void makeFileArray(String fileName) {
 
-		/* ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğ“Ç‚İ‚İ ˆês‚¸‚Â‚Ì•¶š—ñî•ñ‚ğƒŠƒXƒg‚Åæ“¾ */
+		/* ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’èª­ã¿è¾¼ã¿ ä¸€è¡Œãšã¤ã®æ–‡å­—åˆ—æƒ…å ±ã‚’ãƒªã‚¹ãƒˆã§å–å¾— */
 		LinkedList mapStringList = loadMap(fileName);
 
-		/* ”z—ñ‚ÌƒTƒCƒYİ’è */
+		/* é…åˆ—ã®ã‚µã‚¤ã‚ºè¨­å®š */
 		String s = (String)mapStringList.get(0);
 // 2001.12.20 miyamoto
-// CSVTokenizer‚Ìg—p‚ğ‚â‚ßAStringTokenizer‚Å‘Î‰
+// CSVTokenizerã®ä½¿ç”¨ã‚’ã‚„ã‚ã€StringTokenizerã§å¯¾å¿œ
 //		CSVTokenizer csvTokenizer = new CSVTokenizer(s);
 //		int tokenNum = csvTokenizer.countTokens();
 		StringTokenizer stringTokenizer = new StringTokenizer(s, ",");
 		int tokenNum = stringTokenizer.countTokens();
-// ‚±‚±‚Ü‚Å
+// ã“ã“ã¾ã§
 
 		fileArray = new String[tokenNum][mapStringList.size()];
 
-		/* 1s•ª‚Ìƒf[ƒ^‚ğ‰ğÍ ”z—ñ‚Éİ’è */
+		/* 1è¡Œåˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’è§£æ é…åˆ—ã«è¨­å®š */
 		int lineCnt = 0;
 		ListIterator literator = mapStringList.listIterator();
 		while(literator.hasNext()) {
@@ -304,15 +304,15 @@ public class MapController {
 
 
 	/**
-	 * ’n}î•ñ‚ğƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚İ‚Ü‚·B
-	 * @ param String fileName ’n}î•ñ‚Ìƒtƒ@ƒCƒ‹–¼
-	 * @ return LinkedList ’n}î•ñ‚ğ“Ç‚İ‚ñ‚¾String‚ÌƒŠƒXƒg
+	 * åœ°å›³æƒ…å ±ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã¿ã¾ã™ã€‚
+	 * @ param String fileName åœ°å›³æƒ…å ±ã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	 * @ return LinkedList åœ°å›³æƒ…å ±ã‚’èª­ã¿è¾¼ã‚“ã Stringã®ãƒªã‚¹ãƒˆ
 	 */
 	private LinkedList loadMap(String fileName) {
 
 		LinkedList lList = new LinkedList();
 		try {
-			/* ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ */
+			/* ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­è¾¼ã¿ */
 			FileReader fReader = new FileReader(fileName);
 			BufferedReader bReader = new BufferedReader(fReader);
 
@@ -321,7 +321,7 @@ public class MapController {
 					if(bReader.ready() == false) {
 						break;
 					}
-					/* ƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ1s‚¸‚Âæ“¾‚µ•¶š—ñ‚ÌƒŠƒXƒg‚Æ‚µ‚Äİ’è */
+					/* ãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’1è¡Œãšã¤å–å¾—ã—æ–‡å­—åˆ—ã®ãƒªã‚¹ãƒˆã¨ã—ã¦è¨­å®š */
 					String mapData = bReader.readLine();
 					lList.add(mapData);
 				}
@@ -339,19 +339,19 @@ public class MapController {
 
 
 	/**
-	 * ƒJƒ“ƒ}‚Å‹æØ‚ç‚ê‚½•¶šî•ñ‚ğString‚Ì”z—ñ‚É•ÏŠ·‚µ‚Ü‚·B
-	 * @param String mapData •¶š—ñ‚Ì’n}î•ñ
-	 * @param int lineCnt s”(yÀ•W)‚ÌƒJƒEƒ“ƒg
+	 * ã‚«ãƒ³ãƒã§åŒºåˆ‡ã‚‰ã‚ŒãŸæ–‡å­—æƒ…å ±ã‚’Stringã®é…åˆ—ã«å¤‰æ›ã—ã¾ã™ã€‚
+	 * @param String mapData æ–‡å­—åˆ—ã®åœ°å›³æƒ…å ±
+	 * @param int lineCnt è¡Œæ•°(yåº§æ¨™)ã®ã‚«ã‚¦ãƒ³ãƒˆ
 	 */
 	private void parseString(String mapData, int lineCnt) {
 // 2001.12.20 miyamoto
-// CSVTokenizer‚Ìg—p‚ğ‚â‚ßAStringTokenizer‚Å‘Î‰
+// CSVTokenizerã®ä½¿ç”¨ã‚’ã‚„ã‚ã€StringTokenizerã§å¯¾å¿œ
 //		CSVTokenizer csvTokenizer = new CSVTokenizer(mapData);
 //		int tokenCnt = 0;
 //		while(csvTokenizer.hasMoreElements()) {
 //			String str = csvTokenizer.nextToken();
 //
-//			/* ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğ”z—ñ‚Æ‚µ‚Ä•Û */
+//			/* ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’é…åˆ—ã¨ã—ã¦ä¿æŒ */
 //			fileArray[tokenCnt][lineCnt] = str;
 //
 //			tokenCnt ++;
@@ -361,7 +361,7 @@ public class MapController {
 		while(stringTokenizer.hasMoreElements()) {
 			String str = stringTokenizer.nextToken();
 
-			/* ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğ”z—ñ‚Æ‚µ‚Ä•Û */
+			/* ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’é…åˆ—ã¨ã—ã¦ä¿æŒ */
 			if(str.equals("x")) {
 				str = "";
 			}
@@ -369,14 +369,14 @@ public class MapController {
 
 			tokenCnt ++;
 		}
-// ‚±‚±‚Ü‚Å
+// ã“ã“ã¾ã§
 	}
 
 
 	/**
-	 * ’n}ã‚©‚çw’è‚³‚ê‚½•¶š—ñ‚Ì‚ ‚éÀ•W‚ğæ“¾‚µ‚Ü‚·B
-	 * @param String targerID ’T‚·•¶š—ñ
-	 * @param int[]           À•W
+	 * åœ°å›³ä¸Šã‹ã‚‰æŒ‡å®šã•ã‚ŒãŸæ–‡å­—åˆ—ã®ã‚ã‚‹åº§æ¨™ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param String targerID æ¢ã™æ–‡å­—åˆ—
+	 * @param int[]           åº§æ¨™
 	 */
 	private int[] searchMap(String targetID) {
 		int[] pos = null;

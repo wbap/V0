@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * SharedMemoryViewer.java
- *  ƒS[ƒ‹ƒXƒ^ƒbƒN‚Ìó‘Ô‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚éƒNƒ‰ƒX
+ *  ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã®çŠ¶æ…‹ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.10 BSC miyamoto
  */
@@ -10,24 +10,24 @@ import java.awt.*;
 import java.util.*;
 
 /**
- *  ƒS[ƒ‹ƒXƒ^ƒbƒN‚Ìó‘Ô‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚éƒNƒ‰ƒX
+ *  ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã®çŠ¶æ…‹ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class SharedMemoryViewer extends Frame {
 
 	private ScrollPane scrollPane = null;
 	private SharedMemoryViewerCanvas canvas = null;
 
-	/* ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹ */
+	/* ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ« */
 	private static final String TITLE = "Shared Memory Viewer";
 
-	/* ƒEƒBƒ“ƒhƒE‚Ì‰ŠúƒTƒCƒY */
+	/* ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®åˆæœŸã‚µã‚¤ã‚º */
 	private int initXSize = 320;
 	private int initYSize = 300;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param Integer[] stateArray ‹¤—Lƒƒ‚ƒŠ‚ÌŒ»İ‚Ìó‘Ô‚Ö‚ÌQÆ
-	 * @param LinkedList[] goalStackArray ‹¤—Lƒƒ‚ƒŠ‚ÌƒS[ƒ‹ƒXƒ^ƒbƒN‚Ö‚ÌQÆ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param Integer[] stateArray å…±æœ‰ãƒ¡ãƒ¢ãƒªã®ç¾åœ¨ã®çŠ¶æ…‹ã¸ã®å‚ç…§
+	 * @param LinkedList[] goalStackArray å…±æœ‰ãƒ¡ãƒ¢ãƒªã®ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã¸ã®å‚ç…§
 	 */
 	public SharedMemoryViewer(Integer[] stateArray,
 	        LinkedList[] goalStackArray) {
@@ -46,7 +46,7 @@ public class SharedMemoryViewer extends Frame {
 	}
 
 	/**
-	 * •`‰æ‚ğXV‚µ‚Ü‚·B
+	 * æç”»ã‚’æ›´æ–°ã—ã¾ã™ã€‚
 	 */
 	private void renew() {
 		Dimension d = scrollPane.getViewportSize();
@@ -56,7 +56,7 @@ public class SharedMemoryViewer extends Frame {
 	}
 
 	/**
-	 * paintƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * paintãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 * @param Graphics g
 	 */
 	public void paint(Graphics graphics) {

@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * TreeViewerCanvas.java
- *  ƒcƒŠ[‚Ìó‘Ô‚ğ•`‰æ‚·‚éƒNƒ‰ƒX
+ *  ãƒ„ãƒªãƒ¼ã®çŠ¶æ…‹ã‚’æç”»ã™ã‚‹ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2001.10 BSC miyamoto
  */
@@ -12,43 +12,43 @@ import java.util.*;
 import wba.citta.gsa.*;
 
 /**
- *  ƒcƒŠ[‚Ìó‘Ô‚ğ•`‰æ‚·‚éƒNƒ‰ƒX
+ *  ãƒ„ãƒªãƒ¼ã®çŠ¶æ…‹ã‚’æç”»ã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class TreeViewerCanvas extends Canvas {
 
-	/* ƒcƒŠ[‚Ìƒ‹[ƒg */
+	/* ãƒ„ãƒªãƒ¼ã®ãƒ«ãƒ¼ãƒˆ */
 	private FailAgentTreeElement rootElement = null;
-	/* ƒcƒŠ[‚ÌƒJƒŒƒ“ƒg */
+	/* ãƒ„ãƒªãƒ¼ã®ã‚«ãƒ¬ãƒ³ãƒˆ */
 	private FailAgentTreeElement currentElement = null;
 
-	/* •`‰æ‚·‚é—v‘f‚ÌŠÔŠu */
+	/* æç”»ã™ã‚‹è¦ç´ ã®é–“éš” */
 	private final int X_SPACE = 30;
 	private final int Y_SPACE = 20;
-	/* •`‰æ‚·‚é—v‘f‚ÌƒTƒCƒY */
+	/* æç”»ã™ã‚‹è¦ç´ ã®ã‚µã‚¤ã‚º */
 	private final int X_ELEMENT_SIZE = 30;
 	private final int Y_ELEMENT_SIZE = 30;
 
-	/* •\¦‚³‚ê‚Ä‚¢‚é—Ìˆæ‚ÌƒTƒCƒY */
+	/* è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹é ˜åŸŸã®ã‚µã‚¤ã‚º */
 	private int height;
 	private int width;
 
-	/* ƒ_ƒuƒ‹ƒoƒbƒtƒ@ƒŠƒ“ƒO—p ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW */
+	/* ãƒ€ãƒ–ãƒ«ãƒãƒƒãƒ•ã‚¡ãƒªãƒ³ã‚°ç”¨ ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ */
 	private Image offImage;
 	private Graphics offGraphics;
 
-	/* •¶š‚ÌƒtƒHƒ“ƒg */
+	/* æ–‡å­—ã®ãƒ•ã‚©ãƒ³ãƒˆ */
 	private Font agidFont = new Font("Dialog", Font.BOLD, 20);
 	private Font agrFont = new Font("Dialog", Font.PLAIN , 12);
 
-	/* y•ûŒü‚Ì•`‰æˆÊ’u */
+	/* yæ–¹å‘ã®æç”»ä½ç½® */
 	private int yPos = 0;
 
 	////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param FailAgentTreeElement rootElement ƒcƒŠ[‚Ìƒ‹[ƒg
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param FailAgentTreeElement rootElement ãƒ„ãƒªãƒ¼ã®ãƒ«ãƒ¼ãƒˆ
 	 */
 	public TreeViewerCanvas(FailAgentTreeElement rootElement) {
 		super();
@@ -59,15 +59,15 @@ public class TreeViewerCanvas extends Canvas {
 	// public 
 
 	/**
-	 * ƒcƒŠ[‚ÌƒJƒŒƒ“ƒg‚ğİ’è‚µ‚Ü‚·B
-	 * @param FailAgentTreeElement currentElement ƒcƒŠ[‚ÌƒJƒŒƒ“ƒg
+	 * ãƒ„ãƒªãƒ¼ã®ã‚«ãƒ¬ãƒ³ãƒˆã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param FailAgentTreeElement currentElement ãƒ„ãƒªãƒ¼ã®ã‚«ãƒ¬ãƒ³ãƒˆ
 	 */
 	public void setCurrentElement(FailAgentTreeElement currentElement) {
 		this.currentElement = currentElement;
 	}
 
 	/**
-	 * updateƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * updateãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 * @param Graphics g
 	 */
 	public void update(Graphics g) {
@@ -78,41 +78,41 @@ public class TreeViewerCanvas extends Canvas {
 	private int ySizeOld = 0;
 
 	/**
-	 * paintƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * paintãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 * @param Graphics g
 	 */
 	public void paint(Graphics g) {
 
-		/* •`‰æ‚·‚éƒGƒŠƒA‚ÌƒTƒCƒY‚ğæ“¾ */
+		/* æç”»ã™ã‚‹ã‚¨ãƒªã‚¢ã®ã‚µã‚¤ã‚ºã‚’å–å¾— */
 //		int[] size = getUseCanvasSize();
 //		if(xSizeOld != size[0] || ySizeOld != size[1]) {
 //			setSize(size[0], size[1]);
-//			/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚Ìì¬ */
+//			/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ä½œæˆ */
 //			offImage = createImage(size[0], size[1]);
 //			offGraphics = offImage.getGraphics();
 //		}
 //		xSizeOld = size[0];
 //		ySizeOld = size[1];
 
-// •`‰æƒGƒŠƒA‚ÌƒTƒCƒY‚ğŒÅ’è
+// æç”»ã‚¨ãƒªã‚¢ã®ã‚µã‚¤ã‚ºã‚’å›ºå®š
 		if(offImage == null) {
-			/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚Ìì¬ */
+			/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ä½œæˆ */
 			setSize(1500, 2000);
 			offImage = createImage(1500, 2000);
 			offGraphics = offImage.getGraphics();
 		}
-// ‚±‚±‚Ü‚Å
+// ã“ã“ã¾ã§
 
-		/* ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”» */
 		drawOffImage(offGraphics);
-		/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚ğ•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æç”» */
 		g.drawImage(offImage, 0, 0, this);
 	}
 
 	/**
-	 * Canvas’†‚Ì•\¦‚³‚ê‚Ä‚¢‚é—Ìˆæ‚ÌƒTƒCƒY‚ğİ’è‚µ‚Ü‚·B
-	 * @param int width  •
-	 * @param int height ‚‚³
+	 * Canvasä¸­ã®è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹é ˜åŸŸã®ã‚µã‚¤ã‚ºã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int width  å¹…
+	 * @param int height é«˜ã•
 	 */
 	public void setViewportSize(int width, int height) {
 		this.width = width;
@@ -123,29 +123,29 @@ public class TreeViewerCanvas extends Canvas {
 	// private
 
 	/**
-	 * ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ
+	 * ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”»
 	 * @param Graphics graphics
 	 */
 	private void drawOffImage(Graphics graphics) {
-		/* ƒCƒ[ƒW‚ÌƒNƒŠƒA */
+		/* ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢ */
 		clearOffImage(graphics);
-		/* ƒcƒŠ[‚Ì•`‰æ */
+		/* ãƒ„ãƒªãƒ¼ã®æç”» */
 		drawTree(graphics);
 	}
 
 	/**
-	 * ƒIƒtƒXƒNƒŠ[ƒ“ã‚ÌƒCƒ[ƒW‚ÌƒNƒŠƒA
+	 * ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ä¸Šã®ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢
 	 * @param Graphics graphics
 	 */
 	private void clearOffImage(Graphics graphics) {
 		graphics.setColor(getBackground());
 //		graphics.fillRect(0, 0, width, height);
-// •`‰æƒGƒŠƒA‚ğŒÅ’è
+// æç”»ã‚¨ãƒªã‚¢ã‚’å›ºå®š
 		graphics.fillRect(0, 0, 1500, 2000);
 	}
 
 	/**
-	 * ƒcƒŠ[‘S‘Ì‚ğ•`‰æ‚µ‚Ü‚·B
+	 * ãƒ„ãƒªãƒ¼å…¨ä½“ã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics g
 	 */
 	private void drawTree(Graphics graphics) {
@@ -157,18 +157,18 @@ public class TreeViewerCanvas extends Canvas {
 
 
 	/**
-	 * w’è‚³‚ê‚½—v‘f‚Ìq‚ÌƒcƒŠ[‚ğ•`‰æ‚µ‚Ü‚·B
+	 * æŒ‡å®šã•ã‚ŒãŸè¦ç´ ã®å­ã®ãƒ„ãƒªãƒ¼ã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics g
-	 * @param int x element‚ÌƒcƒŠ[ã‚Ìx•ûŒü‚ÌˆÊ’u
-	 * @param int y element‚ÌƒcƒŠ[ã‚Ìy•ûŒü‚ÌˆÊ’u
-	 * @param int FailAgentTreeElement element •`‰æ‚·‚éq‚Ìe‚Æ‚È‚é—v‘f
+	 * @param int x elementã®ãƒ„ãƒªãƒ¼ä¸Šã®xæ–¹å‘ã®ä½ç½®
+	 * @param int y elementã®ãƒ„ãƒªãƒ¼ä¸Šã®yæ–¹å‘ã®ä½ç½®
+	 * @param int FailAgentTreeElement element æç”»ã™ã‚‹å­ã®è¦ªã¨ãªã‚‹è¦ç´ 
 	 */
 	private void drawChild(Graphics graphics, int x, int y,
 	        FailAgentTreeElement element) {
 //		for(int i = 0; i < element.next.size(); i++) {
 //			FailAgentTreeElement nextElement = 
 //			        (FailAgentTreeElement)element.next.get(i);
-		// q‚ÌƒŠƒXƒg‚ğ‹t‚É‚½‚Ç‚é
+		// å­ã®ãƒªã‚¹ãƒˆã‚’é€†ã«ãŸã©ã‚‹
 		for(int i = element.next.size()-1; i >= 0 ; i--) {
 			FailAgentTreeElement nextElement = 
 			        (FailAgentTreeElement)element.next.get(i);
@@ -181,12 +181,12 @@ public class TreeViewerCanvas extends Canvas {
 	}
 
 	/**
-	 * eqŠÖŒW‚ÌƒŠƒ“ƒN‚ğ•`‰æ
+	 * è¦ªå­é–¢ä¿‚ã®ãƒªãƒ³ã‚¯ã‚’æç”»
 	 * @param Graphics graphics
-	 * @param int parentX e‚Ìx•ûŒü‚ÌˆÊ’u
-	 * @param int parentY e‚Ìy•ûŒü‚ÌˆÊ’u
-	 * @param int childX q‚Ìx•ûŒü‚ÌˆÊ’u
-	 * @param int childY q‚Ìy•ûŒü‚ÌˆÊ’u
+	 * @param int parentX è¦ªã®xæ–¹å‘ã®ä½ç½®
+	 * @param int parentY è¦ªã®yæ–¹å‘ã®ä½ç½®
+	 * @param int childX å­ã®xæ–¹å‘ã®ä½ç½®
+	 * @param int childY å­ã®yæ–¹å‘ã®ä½ç½®
 	 */
 	private void drawLink(Graphics graphics, int parentX, int parentY,
 	        int childX, int childY) {
@@ -201,24 +201,24 @@ public class TreeViewerCanvas extends Canvas {
 	}
 
 	/**
-	 * ƒcƒŠ[‚Ìw’è‚³‚ê‚½—v‘f‚ğ•`‰æ‚µ‚Ü‚·B
+	 * ãƒ„ãƒªãƒ¼ã®æŒ‡å®šã•ã‚ŒãŸè¦ç´ ã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics graphics
-	 * @param FailAgentTreeElement element •`‰æ‚·‚é—v‘f
-	 * @param int x x•ûŒü‚ÌˆÊ’u
-	 * @param int y y•ûŒü‚ÌˆÊ’u
+	 * @param FailAgentTreeElement element æç”»ã™ã‚‹è¦ç´ 
+	 * @param int x xæ–¹å‘ã®ä½ç½®
+	 * @param int y yæ–¹å‘ã®ä½ç½®
 	 */
 	private void drawTreeElement(Graphics graphics,
 	        FailAgentTreeElement element, int x, int y) {
 
-		/* •`‰æ‚·‚éî•ñ‚Ìæ“¾ */
+		/* æç”»ã™ã‚‹æƒ…å ±ã®å–å¾— */
 		int rectInfo[] = getTreeElementRectSize(x, y);
 		String agidAndValue = element.agid + "";
 //		String agidAndValue = element.agid + ":" + element.goal;
 		String agr = " " + element.agr;
 
-		/* •`‰æˆ— */
+		/* æç”»å‡¦ç† */
 
-		/* ƒcƒŠ[‚ÌƒJƒŒƒ“ƒg‚È‚çÂ˜g‚ÅˆÍ‚Ş */
+		/* ãƒ„ãƒªãƒ¼ã®ã‚«ãƒ¬ãƒ³ãƒˆãªã‚‰é’æ ã§å›²ã‚€ */
 		if(element == currentElement) {
 			graphics.setColor(Color.blue);
 			for(int i = 0; i < 5; i++) {
@@ -227,11 +227,11 @@ public class TreeViewerCanvas extends Canvas {
 			}
 		}
 
-		/* ƒG[ƒWƒFƒ“ƒg‚²‚Æ‚ÌF‚ğƒe[ƒuƒ‹‚©‚çæ“¾ */
+		/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã”ã¨ã®è‰²ã‚’ãƒ†ãƒ¼ãƒ–ãƒ«ã‹ã‚‰å–å¾— */
 		Color color = (Color)(ViewerProperty.colorTable).get(
 		        new Integer(element.agid));
 
-		/* Še—v‘f‚Ì•`‰æ */
+		/* å„è¦ç´ ã®æç”» */
 		if(element.agr == 0) {
 			if(color != null) {
 				graphics.setColor(color);
@@ -276,7 +276,7 @@ public class TreeViewerCanvas extends Canvas {
 
 		}
 
-		/* ƒG[ƒWƒFƒ“ƒgID‚Ì•`‰æ */
+		/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã®æç”» */
 		graphics.setFont(agidFont);
 		graphics.drawString(agidAndValue, rectInfo[0]+(rectInfo[2]/2),
 		        rectInfo[1]+rectInfo[3] );
@@ -284,10 +284,10 @@ public class TreeViewerCanvas extends Canvas {
 
 
 	/**
-	 * ƒLƒƒƒ“ƒoƒX‚É•K—v‚ÈƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
-	 * ƒLƒƒƒ“ƒoƒX‚É•K—v‚ÈƒTƒCƒY‚ÍA•`‰æ‚É•K—v‚ÈƒTƒCƒY‚ÆAƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚Ì
-	 * ‚¤‚¿‘å‚«‚ÈƒTƒCƒY‚ğ—˜—pB
-	 * @return int[] ƒLƒƒƒ“ƒoƒX‚É•K—v‚ÈƒTƒCƒY int[0]:• int[1]:‚‚³
+	 * ã‚­ãƒ£ãƒ³ãƒã‚¹ã«å¿…è¦ãªã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * ã‚­ãƒ£ãƒ³ãƒã‚¹ã«å¿…è¦ãªã‚µã‚¤ã‚ºã¯ã€æç”»ã«å¿…è¦ãªã‚µã‚¤ã‚ºã¨ã€ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºã®
+	 * ã†ã¡å¤§ããªã‚µã‚¤ã‚ºã‚’åˆ©ç”¨ã€‚
+	 * @return int[] ã‚­ãƒ£ãƒ³ãƒã‚¹ã«å¿…è¦ãªã‚µã‚¤ã‚º int[0]:å¹… int[1]:é«˜ã•
 	 */
 	private int[] getUseCanvasSize() {
 		int[] drawAreaSize = getDrawAreaSize();
@@ -301,16 +301,16 @@ public class TreeViewerCanvas extends Canvas {
 	}
 
 	/**
-	 * •`‰æ‚É•K—v‚ÈƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] •`‰æ‚É•K—v‚ÈƒTƒCƒY int[0]:• int[1]:‚‚³
+	 * æç”»ã«å¿…è¦ãªã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] æç”»ã«å¿…è¦ãªã‚µã‚¤ã‚º int[0]:å¹… int[1]:é«˜ã•
 	 */
 	private int[] getDrawAreaSize() {
 
-		/* •`‰æ‚·‚é—v‘f”‚ğæ“¾ */
+		/* æç”»ã™ã‚‹è¦ç´ æ•°ã‚’å–å¾— */
 		int[] drawNum = new int[2];
 		childSize(rootElement, drawNum);
 
-		/* —v‘f”‚ğƒTƒCƒY‚É•ÏŠ· */
+		/* è¦ç´ æ•°ã‚’ã‚µã‚¤ã‚ºã«å¤‰æ› */
 		int[] drawSize = new int[2];
 		drawSize[0] = (drawNum[0] * (X_SPACE + X_ELEMENT_SIZE)) + X_SPACE;
 		drawSize[1] = (drawNum[1] * (Y_SPACE + Y_ELEMENT_SIZE)) + Y_SPACE;
@@ -318,7 +318,7 @@ public class TreeViewerCanvas extends Canvas {
 	}
 
 	/**
-	 * •`‰æ‚ğs‚È‚¤—v‘f”‚ğæ“¾‚µ‚Ü‚·B
+	 * æç”»ã‚’è¡Œãªã†è¦ç´ æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @param FailAgentTreeElement element
 	 * @param int[] drawNum
 	 */
@@ -333,7 +333,7 @@ public class TreeViewerCanvas extends Canvas {
 	}
 
 	/**
-	 * ƒcƒŠ[‚Ìƒ‹[ƒg‚ğ•`‰æ‚µ‚Ü‚·B
+	 * ãƒ„ãƒªãƒ¼ã®ãƒ«ãƒ¼ãƒˆã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics g
 	 */
 	private void drawRoot(Graphics graphics) {
@@ -347,10 +347,10 @@ public class TreeViewerCanvas extends Canvas {
 	}
 
 	/**
-	 * ƒcƒŠ[ã‚Ìw’è‚³‚ê‚½ˆÊ’u‚Ì—v‘f‚ğ•`‰æ‚·‚é‹éŒ`‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int x —v‘f‚Ìx•ûŒü‚ÌˆÊ’u
-	 * @param int y —v‘f‚Ìy•ûŒü‚ÌˆÊ’u
-	 * @return int[] int[4]‚Ì”z—ñ ‡‚ÉƒLƒƒƒ“ƒoƒXã‚Ì XÀ•WEYÀ•WE•E‚‚³
+	 * ãƒ„ãƒªãƒ¼ä¸Šã®æŒ‡å®šã•ã‚ŒãŸä½ç½®ã®è¦ç´ ã‚’æç”»ã™ã‚‹çŸ©å½¢ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x è¦ç´ ã®xæ–¹å‘ã®ä½ç½®
+	 * @param int y è¦ç´ ã®yæ–¹å‘ã®ä½ç½®
+	 * @return int[] int[4]ã®é…åˆ— é †ã«ã‚­ãƒ£ãƒ³ãƒã‚¹ä¸Šã® Xåº§æ¨™ãƒ»Yåº§æ¨™ãƒ»å¹…ãƒ»é«˜ã•
 	 */
 	private int[] getTreeElementRectSize(int x, int y) {
 		int[] rectInfo = new int[4];

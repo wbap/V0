@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * AssociateAgent.java
- * ˜A‘zˆ—‚ğs‚È‚¤GSA‚ÌƒG[ƒWƒFƒ“ƒg
+ * é€£æƒ³å‡¦ç†ã‚’è¡Œãªã†GSAã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.07
  */
@@ -10,29 +10,29 @@ import java.util.*;
 import java.io.*;
 
 /**
- * ˜A‘zˆ—‚ğs‚È‚¤GSA‚ÌƒG[ƒWƒFƒ“ƒg
+ * é€£æƒ³å‡¦ç†ã‚’è¡Œãªã†GSAã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
  */
 public class AssociateAgent extends Agent{
 
-	/* ŒoŒ±‚µ‚½ó‘Ô‚ğ•Û‚·‚éƒe[ƒuƒ‹ */
+	/* çµŒé¨“ã—ãŸçŠ¶æ…‹ã‚’ä¿æŒã™ã‚‹ãƒ†ãƒ¼ãƒ–ãƒ« */
 	private LinkedList stateList = null;
 	private Hashtable stateTable = null;
 
-	/* ˜A‘z‚·‚é‚½‚ß‚ÌƒL[‚Æ‚»‚Ì•]‰¿’l‚ğ•Û‚·‚éƒe[ƒuƒ‹ */
+	/* é€£æƒ³ã™ã‚‹ãŸã‚ã®ã‚­ãƒ¼ã¨ãã®è©•ä¾¡å€¤ã‚’ä¿æŒã™ã‚‹ãƒ†ãƒ¼ãƒ–ãƒ« */
 	private Hashtable profitTable = null;
 
-	/* ˜A‘z‚·‚é‚½‚ß‚ÌƒL[‚Ì‘JˆÚ‚ğ•Û‚·‚éƒe[ƒuƒ‹ */
+	/* é€£æƒ³ã™ã‚‹ãŸã‚ã®ã‚­ãƒ¼ã®é·ç§»ã‚’ä¿æŒã™ã‚‹ãƒ†ãƒ¼ãƒ–ãƒ« */
 	private LinkedList keyBuffer = null;
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int agid  ƒG[ƒWƒFƒ“ƒgID
-	 * @param boolean[] useNode  ƒm[ƒh‚Ìg—pA•sg—p‚ğİ’è‚µ‚½”z—ñ
-	 * @param SharedMemory sharedMemory  stateEgoal‚ğŠÇ—‚·‚é‹¤—Lƒƒ‚ƒŠ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int agid  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
+	 * @param boolean[] useNode  ãƒãƒ¼ãƒ‰ã®ä½¿ç”¨ã€ä¸ä½¿ç”¨ã‚’è¨­å®šã—ãŸé…åˆ—
+	 * @param SharedMemory sharedMemory  stateãƒ»goalã‚’ç®¡ç†ã™ã‚‹å…±æœ‰ãƒ¡ãƒ¢ãƒª
 	 */
 	public AssociateAgent(int agid, boolean[] useNode,
 	         SharedMemory sharedMemory) {
@@ -49,10 +49,10 @@ public class AssociateAgent extends Agent{
 	// public
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgŒÅ—L‚ÌŠwKˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @param boolean flagGoalReach ƒS[ƒ‹‚Ö‚Ì“’B‚ğ•\‚·ƒtƒ‰ƒO
-	 * @param double profit •ñV
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆå›ºæœ‰ã®å­¦ç¿’å‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param boolean flagGoalReach ã‚´ãƒ¼ãƒ«ã¸ã®åˆ°é”ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
+	 * @param double profit å ±é…¬
 	 */
 	public void learn(Vector state, boolean flagGoalReach, double profit) {
 		stateLearning(state);
@@ -64,42 +64,42 @@ public class AssociateAgent extends Agent{
 
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgŒÅ—L‚ÌÀsˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @param Vector goalElementArray GoalStackElement‚ÌVector
-	 * @return Vector ƒTƒuƒS[ƒ‹
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆå›ºæœ‰ã®å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Vector goalElementArray GoalStackElementã®Vector
+	 * @return Vector ã‚µãƒ–ã‚´ãƒ¼ãƒ«
 	 */
 	public Vector execProcess(Vector state, Vector goalElement) {
 
-		/* İ’èƒG[ƒWƒFƒ“ƒg‚²‚Æ‚É•ª‰ğ */
+		/* è¨­å®šã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã”ã¨ã«åˆ†è§£ */
 		Vector[] subsetGoalsElement = getSubsetGoals(goalElement);
 
-		/* ƒL[‚ğ‘I‘ğ */
+		/* ã‚­ãƒ¼ã‚’é¸æŠ */
 		Vector selectedKeyElement
 		        =  selectKey(goalElement, subsetGoalsElement);
 
-		/* ƒL[‚É‘Î‰‚·‚éó‘Ô‚ğ˜A‘z */
+		/* ã‚­ãƒ¼ã«å¯¾å¿œã™ã‚‹çŠ¶æ…‹ã‚’é€£æƒ³ */
 		Vector selectedKeyValue = getGoalValueArray(selectedKeyElement);
 		Vector subgoal = associateSubgoal(selectedKeyValue);
 
-		/* ˜A‘z‚Ég—p‚µ‚½ƒL[‚ğƒXƒ^ƒbƒN‚©‚çíœ */
+		/* é€£æƒ³ã«ä½¿ç”¨ã—ãŸã‚­ãƒ¼ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å‰Šé™¤ */
 //		remove(selectedKeyElement);
 
 		return subgoal;
 	}
 
 	/**
-	 * ŠwKŒ‹‰Ê‚ğƒtƒ@ƒCƒ‹‚É•Û‘¶‚µ‚Ü‚·B
-	 * @param String fileNameƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’çµæœã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã—ã¾ã™ã€‚
+	 * @param String fileNameãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public void save(String fileName) {
 		System.out.println("Saving learning data....");
 		try{
-			/* ƒXƒgƒŠ[ƒ€‚Ìì¬ */
+			/* ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®ä½œæˆ */
 			FileOutputStream ostream = new FileOutputStream(fileName, false);
 			ObjectOutputStream oOutputStream = new ObjectOutputStream(ostream);
 
-			/* ƒIƒuƒWƒFƒNƒg‚Ì‘‚«‚İ */
+			/* ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ›¸ãè¾¼ã¿ */
 			oOutputStream.writeObject(stateList);
 //			oOutputStream.writeObject(profitTable);
 
@@ -115,17 +115,17 @@ public class AssociateAgent extends Agent{
 
 
 	/**
-	 * ŠwKŒ‹‰Ê‚ğƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚İ‚Ü‚·B
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’çµæœã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã¿ã¾ã™ã€‚
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public void load(String fileName) {
 		System.out.println("Loading learning data....");
 		try{
-			/* ƒXƒgƒŠ[ƒ€‚Ìì¬ */
+			/* ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®ä½œæˆ */
 			FileInputStream istream = new FileInputStream(fileName);
 			ObjectInputStream oInputStream = new ObjectInputStream(istream);
 
-			/* ƒIƒuƒWƒFƒNƒg‚Ì‘‚«‚İ */
+			/* ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ›¸ãè¾¼ã¿ */
 			stateList = (LinkedList)oInputStream.readObject();
 //			profitTable = (Vector)oInputStream.readObject();
 
@@ -136,7 +136,7 @@ public class AssociateAgent extends Agent{
 			System.out.println(e);
 		}
 
-		/* stateList‚Ì—v‘f‚ğstateTable‚Éİ’è */
+		/* stateListã®è¦ç´ ã‚’stateTableã«è¨­å®š */
 		ListIterator listIterator = stateList.listIterator();
 		while(listIterator.hasNext()) {
 			Vector state = (Vector)listIterator.next();
@@ -145,15 +145,15 @@ public class AssociateAgent extends Agent{
 	}
 
 	/**
-	 * GSAƒNƒ‰ƒX‚Ìreset()ƒƒ\ƒbƒh‚©‚çŒÄ‚Ño‚³‚ê‚Ü‚·B<BR>
-	 * ˜A‘z‚ÌƒL[‚Æ‚µ‚Äg—p‚µ‚½‚à‚Ì‚Ì—š—ğ‚ğƒNƒŠƒA‚µ‚Ü‚·B<BR>
+	 * GSAã‚¯ãƒ©ã‚¹ã®reset()ãƒ¡ã‚½ãƒƒãƒ‰ã‹ã‚‰å‘¼ã³å‡ºã•ã‚Œã¾ã™ã€‚<BR>
+	 * é€£æƒ³ã®ã‚­ãƒ¼ã¨ã—ã¦ä½¿ç”¨ã—ãŸã‚‚ã®ã®å±¥æ­´ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚<BR>
 	 */
 	public void reset() {
 		keyBuffer.clear();
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void suspend() {
 	}
@@ -163,22 +163,22 @@ public class AssociateAgent extends Agent{
 	// private
 
 	/**
-	 * ó‘Ô‚ÌŠwK‚ğs‚¢‚Ü‚·B
+	 * çŠ¶æ…‹ã®å­¦ç¿’ã‚’è¡Œã„ã¾ã™ã€‚
 	 */
 	private void stateLearning(Vector state) {
 		if(stateTable.get(state) == null) {
 			stateList.add(state);
-			/* “¯‚¶ó‘Ô‚ğ•¡”İ’è‚µ‚È‚¢‚½‚ß‚Ìƒe[ƒuƒ‹ */
+			/* åŒã˜çŠ¶æ…‹ã‚’è¤‡æ•°è¨­å®šã—ãªã„ãŸã‚ã®ãƒ†ãƒ¼ãƒ–ãƒ« */
 			stateTable.put(state, state);
 		}
 	}
 
 
 	/**
-	 * ˆø”‚Åw’è‚³‚ê‚½ƒS[ƒ‹‚ğİ’è‚µ‚½ƒG[ƒWƒFƒ“ƒg–ˆ‚É•ª‰ğB
-	 * İ’èƒG[ƒWƒFƒ“ƒg–ˆ‚ÌƒS[ƒ‹‚Æ‚µ‚ÄVector‚Ì”z—ñ‚Åæ“¾‚µ‚Ü‚·B
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã—ãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ¯ã«åˆ†è§£ã€‚
+	 * è¨­å®šã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ¯ã®ã‚´ãƒ¼ãƒ«ã¨ã—ã¦Vectorã®é…åˆ—ã§å–å¾—ã—ã¾ã™ã€‚
 	 * @param Vector goal
-	 * @return Vector[] ƒG[ƒWƒFƒ“ƒg–ˆ‚ÌƒS[ƒ‹”z—ñ
+	 * @return Vector[] ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ¯ã®ã‚´ãƒ¼ãƒ«é…åˆ—
 	 */
 	private Vector[] getSubsetGoals(Vector goal) {
 
@@ -188,7 +188,7 @@ public class AssociateAgent extends Agent{
 
 		int[] agids = getAgids(goal);
 
-		/* ƒG[ƒWƒFƒ“ƒgID–ˆ‚ÌVector‚É•ª‰ğ */
+		/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDæ¯ã®Vectorã«åˆ†è§£ */
 		Vector[] subsetGoals = new Vector[agids.length];
 		for(int i = 0; i < agids.length; i++) {
 			subsetGoals[i] = new Vector();
@@ -207,8 +207,8 @@ public class AssociateAgent extends Agent{
 
 
 	/**
-	 * ˆø”‚Ìgoal‚©‚ç‘SƒG[ƒWƒFƒ“ƒgID‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] ƒG[ƒWƒFƒ“ƒgID‚Ì”z—ñ
+	 * å¼•æ•°ã®goalã‹ã‚‰å…¨ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã®é…åˆ—
 	 */
 	private int[] getAgids(Vector goal) {
 		Hashtable agidTable = new Hashtable();
@@ -231,10 +231,10 @@ public class AssociateAgent extends Agent{
 	}
 
 
-	/* •]‰¿’l‚ª“¯‚¶ê‡ƒ‰ƒ“ƒ_ƒ€‚ÉƒL[‚ğ‘I‘ğ‚·‚é‚½‚ß‚Ì—” */
+	/* è©•ä¾¡å€¤ãŒåŒã˜å ´åˆãƒ©ãƒ³ãƒ€ãƒ ã«ã‚­ãƒ¼ã‚’é¸æŠã™ã‚‹ãŸã‚ã®ä¹±æ•° */
 	private Random random = new Random(0);
 	/**
-	 * ˆø”‚Åİ’è‚³‚ê‚½•¡”‚Ì•”•ªƒS[ƒ‹‚©‚ç‚ ‚é•”•ªƒS[ƒ‹‚ğ‘I‘ğ‚µ‚Ü‚·B
+	 * å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸè¤‡æ•°ã®éƒ¨åˆ†ã‚´ãƒ¼ãƒ«ã‹ã‚‰ã‚ã‚‹éƒ¨åˆ†ã‚´ãƒ¼ãƒ«ã‚’é¸æŠã—ã¾ã™ã€‚
 	 * @param Vector   Element
 	 * @param Vector[] Element
 	 * @return Vector  Element
@@ -247,7 +247,7 @@ public class AssociateAgent extends Agent{
 
 			Vector goalValue = getGoalValueArray(goalElement);
 
-			// –³o—Í‚ğ‚ ‚è‚É‚·‚é‚©‚Ç‚¤‚©H
+			// ç„¡å‡ºåŠ›ã‚’ã‚ã‚Šã«ã™ã‚‹ã‹ã©ã†ã‹ï¼Ÿ
 			int loopNum = subsetGoalsElement.length + 1;
 //			int loopNum = subsetGoalsElement.length;
 
@@ -255,7 +255,7 @@ public class AssociateAgent extends Agent{
 
 			for(int i = 0; i < loopNum; i++) {
 
-				/* •]‰¿’l‚ªİ’è‚³‚ê‚Ä‚¢‚éŒ^‚ğì¬ –³o—Í‚É‚Â‚¢‚Ä‚àæ“¾ */
+				/* è©•ä¾¡å€¤ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹å‹ã‚’ä½œæˆ ç„¡å‡ºåŠ›ã«ã¤ã„ã¦ã‚‚å–å¾— */
 				Vector subsetGoalValue = null;
 				if(i < subsetGoalsElement.length) {
 					subsetGoalValue = getGoalValueArray(subsetGoalsElement[i]);
@@ -264,19 +264,19 @@ public class AssociateAgent extends Agent{
 				obj.add(goalValue);
 				obj.add(subsetGoalValue);
 
-				/* Še•]‰¿’l‚ğ”z—ñ‚Éİ’è */
+				/* å„è©•ä¾¡å€¤ã‚’é…åˆ—ã«è¨­å®š */
 				Double profitD = (Double)profitTable.get(obj);
 				if(profitD != null) {
 					profits[i] = profitD.doubleValue();
 				}else{
-					// ‰Šú’l‚T‚O
+					// åˆæœŸå€¤ï¼•ï¼
 					profits[i] = 10;
 				}
 			}
 
-			/* •]‰¿’l‚ªÅ‘å‚Ì‚à‚Ì‚ğ‘I‘ğ */
+			/* è©•ä¾¡å€¤ãŒæœ€å¤§ã®ã‚‚ã®ã‚’é¸æŠ */
 //			int index = selectMaxProfit(profits);
-			/* •]‰¿’l‚ª‚‚¢‚à‚Ì‚ğ‚Šm—¦‚Å‘I‘ğ */
+			/* è©•ä¾¡å€¤ãŒé«˜ã„ã‚‚ã®ã‚’é«˜ç¢ºç‡ã§é¸æŠ */
 			int index = selectProfit(profits);
 //			int index = selectProfitExp(profits);
 
@@ -284,7 +284,7 @@ public class AssociateAgent extends Agent{
 				selectedSubset = subsetGoalsElement[index];
 			}
 
-			/* ‘I‘ğ‚³‚ê‚½ƒL[‚ğ—š—ğ‚É“o˜^ */
+			/* é¸æŠã•ã‚ŒãŸã‚­ãƒ¼ã‚’å±¥æ­´ã«ç™»éŒ² */
 			Vector selectedSubsetValue = getGoalValueArray(selectedSubset);
 			Vector obj = new Vector();
 			obj.add(goalValue);
@@ -297,10 +297,10 @@ public class AssociateAgent extends Agent{
 	}
 
 	/**
-	 * ˆø”‚Ì•]‰¿’l‚Ì”z—ñ‚©‚çÅ‘å‚Ì•]‰¿’l‚ğ‚ÂƒCƒ“ƒfƒbƒNƒX‚ğæ“¾‚µ‚Ü‚·B
+	 * å¼•æ•°ã®è©•ä¾¡å€¤ã®é…åˆ—ã‹ã‚‰æœ€å¤§ã®è©•ä¾¡å€¤ã‚’æŒã¤ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å–å¾—ã—ã¾ã™ã€‚
 	 */
 	private int selectMaxProfit(double[] profits) {
-		/* Å‘å‚Ì•]‰¿’l‚Ì‚à‚Ì‚ğ‘I‘ğ */
+		/* æœ€å¤§ã®è©•ä¾¡å€¤ã®ã‚‚ã®ã‚’é¸æŠ */
 		int sameElmNum = 0;
 		int[] sameElms = new int[profits.length];
 		double selectedProfit = -1;
@@ -319,14 +319,14 @@ public class AssociateAgent extends Agent{
 
 
 	/**
-	 * ˆø”‚Ì•]‰¿’l‚Ì”z—ñ‚©‚çŠm—¦“I‚É•]‰¿’l‚ğ‘I‘ğ‚µ‚»‚ÌƒCƒ“ƒfƒbƒNƒX‚ğ
-	 * æ“¾‚µ‚Ü‚·B
-	 * •]‰¿’l‚Í‚‚¢‚à‚Ì‚Ù‚Ç‚Šm—¦‚Å‘I‘ğ‚³‚ê‚Ü‚·B
+	 * å¼•æ•°ã®è©•ä¾¡å€¤ã®é…åˆ—ã‹ã‚‰ç¢ºç‡çš„ã«è©•ä¾¡å€¤ã‚’é¸æŠã—ãã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’
+	 * å–å¾—ã—ã¾ã™ã€‚
+	 * è©•ä¾¡å€¤ã¯é«˜ã„ã‚‚ã®ã»ã©é«˜ç¢ºç‡ã§é¸æŠã•ã‚Œã¾ã™ã€‚
 	 */
 	Random randomKeySelect = new Random(0);
 	private int selectProfit(double[] profits) {
 
-		// •]‰¿’l‚Ì‡Œv
+		// è©•ä¾¡å€¤ã®åˆè¨ˆ
 		double totalProfit = 0;
 		for(int i = 0; i < profits.length; i++) {
 			totalProfit += profits[i];
@@ -354,14 +354,14 @@ System.out.println(" select index " + index );
 
 	private final double T = 0.999;
 	/**
-	 * ˆø”‚Ì•]‰¿’l‚Ì”z—ñ‚©‚çŠm—¦“I‚É•]‰¿’l‚ğ‘I‘ğ‚µ‚»‚ÌƒCƒ“ƒfƒbƒNƒX‚ğ
-	 * æ“¾‚µ‚Ü‚·B
-	 * •]‰¿’l‚Í‚‚¢‚à‚Ì‚Ù‚Ç‚Šm—¦‚Å‘I‘ğ‚³‚ê‚Ü‚·B
+	 * å¼•æ•°ã®è©•ä¾¡å€¤ã®é…åˆ—ã‹ã‚‰ç¢ºç‡çš„ã«è©•ä¾¡å€¤ã‚’é¸æŠã—ãã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’
+	 * å–å¾—ã—ã¾ã™ã€‚
+	 * è©•ä¾¡å€¤ã¯é«˜ã„ã‚‚ã®ã»ã©é«˜ç¢ºç‡ã§é¸æŠã•ã‚Œã¾ã™ã€‚
 	 */
 	private int selectProfitExp(double[] profits) {
 
 System.out.println(" ####################  ");
-		// •]‰¿’l‚Ì‡Œv
+		// è©•ä¾¡å€¤ã®åˆè¨ˆ
 		double totalProfitExp = 0;
 		for(int i = 0; i < profits.length; i++) {
 			totalProfitExp += Math.exp(profits[i]/T);
@@ -394,9 +394,9 @@ System.out.println(" select index " + index );
 
 
 	/**
-	 * ˆø”‚Åw’è‚³‚ê‚½ƒL[‚©‚çŒoŒ±Ï‚İ‚Ìó‘Ô‚ğ˜A‘z
-	 * @param Vector key ˜A‘z‚·‚éƒL[(value)
-	 * @return Vector    ˜A‘z‚³‚ê‚½ó‘Ô
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸã‚­ãƒ¼ã‹ã‚‰çµŒé¨“æ¸ˆã¿ã®çŠ¶æ…‹ã‚’é€£æƒ³
+	 * @param Vector key é€£æƒ³ã™ã‚‹ã‚­ãƒ¼(value)
+	 * @return Vector    é€£æƒ³ã•ã‚ŒãŸçŠ¶æ…‹
 	 */
 	private Vector associateSubgoal(Vector key) {
 		ListIterator listIterator = stateList.listIterator();
@@ -411,8 +411,8 @@ System.out.println(" select index " + index );
 	}
 
 	/**
-	 * ˆø”‚Åw’è‚³‚ê‚½—v‘f‚ÆA‚»‚Ì—v‘f‚ğ“¯‚¶ƒG[ƒWƒFƒ“ƒg‚Éİ’è‚³‚ê‚Ä‚¢‚é
-	 * —v‘f‚ğƒXƒ^ƒbƒN‚©‚çíœ‚µ‚Ü‚·B
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸè¦ç´ ã¨ã€ãã®è¦ç´ ã‚’åŒã˜ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã«è¨­å®šã•ã‚Œã¦ã„ã‚‹
+	 * è¦ç´ ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã€‚
 	 */
 //	private void remove(Vector keyElement) {
 //
@@ -433,19 +433,19 @@ System.out.println(" select index " + index );
 	///////////////////////////////////////////////////////////////////
 	// 
 
-	/* ’è” */
-	private final double REWARD = 100; /* •ñV */
+	/* å®šæ•° */
+	private final double REWARD = 100; /* å ±é…¬ */
 	private final double GAMMA = 0.9;
 	private final double BETA = 0.1;
 	/**
-	 * •]‰¿’l‚ÌŠwK‚ğs‚¢‚Ü‚·B
+	 * è©•ä¾¡å€¤ã®å­¦ç¿’ã‚’è¡Œã„ã¾ã™ã€‚
 	 */
 	private void profitLearning() {
 		profitLearning(REWARD);
 	}
 
 	/**
-	 * •]‰¿’l‚ÌŠwK‚ğs‚¢‚Ü‚·B
+	 * è©•ä¾¡å€¤ã®å­¦ç¿’ã‚’è¡Œã„ã¾ã™ã€‚
 	 */
 	private void profitLearning(double reward) {
 
@@ -463,7 +463,7 @@ if(count != null) {
 }
 keyCountTable.put(key, new Integer(newCount));
 
-			/* ƒe[ƒuƒ‹‚É“¯‚¶ó‘Ô‚ª‚ ‚ê‚ÎƒvƒƒtƒBƒbƒg‚ÌXV‚ğs‚È‚í‚È‚¢ */
+			/* ãƒ†ãƒ¼ãƒ–ãƒ«ã«åŒã˜çŠ¶æ…‹ãŒã‚ã‚Œã°ãƒ—ãƒ­ãƒ•ã‚£ãƒƒãƒˆã®æ›´æ–°ã‚’è¡Œãªã‚ãªã„ */
 			Vector v = (Vector)checkTable.get(key);
 			if(v == null) {
 				checkTable.put(key, key);
@@ -472,10 +472,10 @@ keyCountTable.put(key, new Integer(newCount));
 				if(profitD != null) {
 					profit = profitD.doubleValue();
 				}else {
-					// ‰Šú’l‚T‚O
+					// åˆæœŸå€¤ï¼•ï¼
 					profit = 10;
 				}
-				/* ƒ¢S = ƒÀ(ƒÁ^nP(t) - Si(t)) */
+				/* Î”S = Î²(Î³^nP(t) - Si(t)) */
 				profit = profit + BETA*(Math.pow(GAMMA,i)*reward - profit);
 				profitTable.put(key, new Double(profit));
 			}
@@ -485,7 +485,7 @@ keyCountTable.put(key, new Integer(newCount));
 if(reward <= 0) {
 	zeroRewardCount++;
 }
-		// ‘Sƒe[ƒuƒ‹‚Ìó‹µ‚ğ•\¦
+		// å…¨ãƒ†ãƒ¼ãƒ–ãƒ«ã®çŠ¶æ³ã‚’è¡¨ç¤º
 		printProfitTable();
 	}
 
@@ -494,7 +494,7 @@ if(reward <= 0) {
 	
 
 	/**
-	 * •]‰¿’l‚Ìƒe[ƒuƒ‹‚Ìó‘Ô‚ğo—ÍB
+	 * è©•ä¾¡å€¤ã®ãƒ†ãƒ¼ãƒ–ãƒ«ã®çŠ¶æ…‹ã‚’å‡ºåŠ›ã€‚
 	 */
 	private int zeroRewardCount = 0;
 	private int count = 0;

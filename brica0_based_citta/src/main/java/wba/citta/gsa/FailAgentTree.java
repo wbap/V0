@@ -1,7 +1,7 @@
-/**
+ï»¿/**
  * FailAgentTree.java
- * ƒXƒ^ƒbƒN‚ÌƒS[ƒ‹‚Ìó‘ÔA‰ğŒˆ‚Å‚«‚È‚¢ƒS[ƒ‹AƒS[ƒ‹‚ğ‰ğŒˆ‚Å‚«‚È‚¢ƒG[ƒWƒFƒ“ƒg
- * ‚É‚Â‚¢‚ÄƒcƒŠ[\‘¢‚ÅŠÇ—‚·‚éƒNƒ‰ƒX
+ * ã‚¹ã‚¿ãƒƒã‚¯ã®ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã€è§£æ±ºã§ããªã„ã‚´ãƒ¼ãƒ«ã€ã‚´ãƒ¼ãƒ«ã‚’è§£æ±ºã§ããªã„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
+ * ã«ã¤ã„ã¦ãƒ„ãƒªãƒ¼æ§‹é€ ã§ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.08
  */
@@ -11,22 +11,22 @@ import java.util.*;
 import wba.citta.gsa.viewer.*;
 
 /**
- * ƒXƒ^ƒbƒN‚ÌƒS[ƒ‹‚Ìó‘ÔA¸”sƒS[ƒ‹AƒTƒuƒS[ƒ‹–¢o—ÍƒG[ƒWƒFƒ“ƒg
- * ‚É‚Â‚¢‚ÄƒcƒŠ[\‘¢‚ÅŠÇ—‚·‚éƒNƒ‰ƒXB<BR>
- * ƒcƒŠ[ã‚ÌŒ»İ‚ÌˆÊ’u‚ğƒJƒŒƒ“ƒg‚Æ‚µ‚Äˆ—‚ğs‚¢‚Ü‚·B<BR>
- * ‚±‚ÌƒcƒŠ[‚Åˆµ‚¤ƒm[ƒh‚Æ‚µ‚ÄAFailAgentTreeElement‚ğg—p‚µ‚Ü‚·B<BR>
+ * ã‚¹ã‚¿ãƒƒã‚¯ã®ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã€å¤±æ•—ã‚´ãƒ¼ãƒ«ã€ã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
+ * ã«ã¤ã„ã¦ãƒ„ãƒªãƒ¼æ§‹é€ ã§ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã€‚<BR>
+ * ãƒ„ãƒªãƒ¼ä¸Šã®ç¾åœ¨ã®ä½ç½®ã‚’ã‚«ãƒ¬ãƒ³ãƒˆã¨ã—ã¦å‡¦ç†ã‚’è¡Œã„ã¾ã™ã€‚<BR>
+ * ã“ã®ãƒ„ãƒªãƒ¼ã§æ‰±ã†ãƒãƒ¼ãƒ‰ã¨ã—ã¦ã€FailAgentTreeElementã‚’ä½¿ç”¨ã—ã¾ã™ã€‚<BR>
  */
 public class FailAgentTree {
 
 	private FailAgentTreeElement currentElement = null;
 	private FailAgentTreeElement rootElement = null;
 
-	/* ¸”sƒG[ƒWƒFƒ“ƒg‚Ìó‘Ô‚ğ•\¦‚·‚éviewer */
+	/* å¤±æ•—ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®çŠ¶æ…‹ã‚’è¡¨ç¤ºã™ã‚‹viewer */
 	private TreeViewer viewer = null;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param boolean isShowViewer ƒcƒŠ[‚Ìó‘Ô‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚é‚©
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param boolean isShowViewer ãƒ„ãƒªãƒ¼ã®çŠ¶æ…‹ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‹
 	 */
 	public FailAgentTree(boolean isShowViewer) {
 		rootElement = new FailAgentTreeElement(null, -1, null, 0);
@@ -42,12 +42,12 @@ public class FailAgentTree {
 	// public
 
 	/**
-	 * ƒJƒŒƒ“ƒgƒm[ƒh‚Éqƒm[ƒh‚ğ’Ç‰Á‚µ‚Ü‚·B<BR>
-	 * ’Ç‰Áƒm[ƒh‚É‚ÍƒG[ƒWƒFƒ“ƒgID‚ÆƒS[ƒ‹‚ğİ’è‚µ‚Ü‚·Bagr‚É‚Í0‚ğİ’è‚µ‚Ü‚·B
+	 * ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒ¼ãƒ‰ã«å­ãƒãƒ¼ãƒ‰ã‚’è¿½åŠ ã—ã¾ã™ã€‚<BR>
+	 * è¿½åŠ ãƒãƒ¼ãƒ‰ã«ã¯ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã¨ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã—ã¾ã™ã€‚agrã«ã¯0ã‚’è¨­å®šã—ã¾ã™ã€‚
 	 * <BR>
-	 * ƒJƒŒƒ“ƒg‚ÌˆÊ’u‚ÍA’Ç‰Á‚µ‚½V‚½‚ÈƒS[ƒ‹‚ÉˆÚ“®‚µ‚Ü‚·B<BR>
-	 * @param int agid ƒG[ƒWƒFƒ“ƒg‚ÌID
-	 * @param Vector goal ƒS[ƒ‹
+	 * ã‚«ãƒ¬ãƒ³ãƒˆã®ä½ç½®ã¯ã€è¿½åŠ ã—ãŸæ–°ãŸãªã‚´ãƒ¼ãƒ«ã«ç§»å‹•ã—ã¾ã™ã€‚<BR>
+	 * @param int agid ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ID
+	 * @param Vector goal ã‚´ãƒ¼ãƒ«
 	 */
 	public void addTreeNode(int agid, Vector goal) {
 		FailAgentTreeElement newFailAgentTreeElement
@@ -61,14 +61,14 @@ public class FailAgentTree {
 	}
 
 	/**
-	 * ƒJƒŒƒ“ƒgƒm[ƒh‚Éqƒm[ƒh‚ğ’Ç‰Á‚µ‚Ü‚·B<BR>
-	 * ’Ç‰Á‚·‚éƒm[ƒh‚É‚ÍƒG[ƒWƒFƒ“ƒgID‚Æagr‚ğİ’è‚µ‚Ü‚·BƒS[ƒ‹‚Ínull‚É‚È‚è‚Ü‚·	 * B<BR>
-	 * ƒJƒŒƒ“ƒg‚ÌˆÊ’u‚ÍˆÚ“®‚µ‚Ü‚¹‚ñB<BR>
-	 * @param int agid ƒG[ƒWƒFƒ“ƒg‚ÌID
-	 * @param int agr Àsˆ—‚ÌŒ‹‰Ê‚ğ•\‚·ID
+	 * ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒ¼ãƒ‰ã«å­ãƒãƒ¼ãƒ‰ã‚’è¿½åŠ ã—ã¾ã™ã€‚<BR>
+	 * è¿½åŠ ã™ã‚‹ãƒãƒ¼ãƒ‰ã«ã¯ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã¨agrã‚’è¨­å®šã—ã¾ã™ã€‚ã‚´ãƒ¼ãƒ«ã¯nullã«ãªã‚Šã¾ã™	 * ã€‚<BR>
+	 * ã‚«ãƒ¬ãƒ³ãƒˆã®ä½ç½®ã¯ç§»å‹•ã—ã¾ã›ã‚“ã€‚<BR>
+	 * @param int agid ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ID
+	 * @param int agr å®Ÿè¡Œå‡¦ç†ã®çµæœã‚’è¡¨ã™ID
 	 */
 	public void addTreeNode(int agid, int agr) {
-		/* ƒ‹[ƒg‚É‚Í¸”sƒG[ƒWƒFƒ“ƒg‚ğ’Ç‰Á‚µ‚È‚¢ */
+		/* ãƒ«ãƒ¼ãƒˆã«ã¯å¤±æ•—ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’è¿½åŠ ã—ãªã„ */
 		if(currentElement != rootElement) {
 			if(getChildAgr(agid) == -1) {
 				FailAgentTreeElement newFailAgentTreeElement
@@ -84,8 +84,8 @@ public class FailAgentTree {
 	}
 
 	/**
-	 * ƒcƒŠ[‚ÌƒJƒŒƒ“ƒgƒm[ƒh‚ğíœ‚µ‚Ü‚·B<BR>
-	 * ƒJƒŒƒ“ƒg‚Íeƒm[ƒh‚ÉˆÚ“®‚µ‚Ü‚·B<BR>
+	 * ãƒ„ãƒªãƒ¼ã®ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒ¼ãƒ‰ã‚’å‰Šé™¤ã—ã¾ã™ã€‚<BR>
+	 * ã‚«ãƒ¬ãƒ³ãƒˆã¯è¦ªãƒãƒ¼ãƒ‰ã«ç§»å‹•ã—ã¾ã™ã€‚<BR>
 	 */
 	public void removeCurrent() {
 		FailAgentTreeElement parent = currentElement.parentElement;
@@ -98,7 +98,7 @@ public class FailAgentTree {
 	}
 
 	/**
-	 * ƒcƒŠ[‚ÌƒJƒŒƒ“ƒgƒm[ƒh‚ğe‚ÖˆÚ“®‚µ‚Ü‚·B<BR>
+	 * ãƒ„ãƒªãƒ¼ã®ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒ¼ãƒ‰ã‚’è¦ªã¸ç§»å‹•ã—ã¾ã™ã€‚<BR>
 	 */
 	public void moveParent() {
 		currentElement = currentElement.parentElement;
@@ -109,11 +109,11 @@ public class FailAgentTree {
 	}
 
 	/**
-	 * ƒJƒŒƒ“ƒgƒm[ƒh‚Ìqƒm[ƒh‚©‚çAˆø”‚Åw’è‚³‚ê‚½ƒG[ƒWƒFƒ“ƒgID‚ğ‚à‚Â
-	 * ƒm[ƒh‚ğ’T‚µA‚»‚Ìagr‚ğæ“¾‚µ‚Ü‚·B<BR>
-	 * ˆø”‚Åw’è‚³‚ê‚½ƒG[ƒWƒFƒ“ƒgID‚ğ‚à‚Âƒm[ƒh‚ª‚È‚¯‚ê‚Î-1‚ğ•Ô‚µ‚Ü‚·B<BR>
-	 * @param int agid ƒG[ƒWƒFƒ“ƒg‚ÌID
-	 * @return int Àsˆ—Œ‹‰Ê‚ğ•\‚·ID
+	 * ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒ¼ãƒ‰ã®å­ãƒãƒ¼ãƒ‰ã‹ã‚‰ã€å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã‚’ã‚‚ã¤
+	 * ãƒãƒ¼ãƒ‰ã‚’æ¢ã—ã€ãã®agrã‚’å–å¾—ã—ã¾ã™ã€‚<BR>
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã‚’ã‚‚ã¤ãƒãƒ¼ãƒ‰ãŒãªã‘ã‚Œã°-1ã‚’è¿”ã—ã¾ã™ã€‚<BR>
+	 * @param int agid ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ID
+	 * @return int å®Ÿè¡Œå‡¦ç†çµæœã‚’è¡¨ã™ID
 	 */
 	public int getChildAgr(int agid) {
 		if(currentElement != null) {
@@ -127,7 +127,7 @@ public class FailAgentTree {
 	}
 
 	/**
-	 * ƒcƒŠ[‚Ìƒm[ƒh‚ğ‘S‚Äíœ‚µ‚Ü‚·B
+	 * ãƒ„ãƒªãƒ¼ã®ãƒãƒ¼ãƒ‰ã‚’å…¨ã¦å‰Šé™¤ã—ã¾ã™ã€‚
 	 */
 	public void clear() {
 		currentElement = rootElement;
@@ -140,12 +140,12 @@ public class FailAgentTree {
 
 
 	/**
-	 * ƒcƒŠ[ã‚É‚ ‚éƒm[ƒh‚ÉAˆø”‚Åw’è‚³‚ê‚½ƒG[ƒWƒFƒ“ƒgID‚ÆƒS[ƒ‹‚ğ‚à‚Â
-	 * ƒm[ƒh‚ª‚ ‚é‚©‚Ç‚¤‚©”»’è‚µ‚Ü‚·B<BR>
-	 * ƒm[ƒh‚ª‚ ‚ê‚ÎtrueA‚È‚¯‚ê‚Îfalse‚ğ•Ô‚µ‚Ü‚·B<BR>
-	 * @param int agid ƒG[ƒWƒFƒ“ƒgID
-	 * @param Vector goal ƒS[ƒ‹
-	 * @return boolean trueFƒm[ƒh‚ª‚ ‚é falseFƒm[ƒh‚ª‚È‚¢
+	 * ãƒ„ãƒªãƒ¼ä¸Šã«ã‚ã‚‹ãƒãƒ¼ãƒ‰ã«ã€å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã¨ã‚´ãƒ¼ãƒ«ã‚’ã‚‚ã¤
+	 * ãƒãƒ¼ãƒ‰ãŒã‚ã‚‹ã‹ã©ã†ã‹åˆ¤å®šã—ã¾ã™ã€‚<BR>
+	 * ãƒãƒ¼ãƒ‰ãŒã‚ã‚Œã°trueã€ãªã‘ã‚Œã°falseã‚’è¿”ã—ã¾ã™ã€‚<BR>
+	 * @param int agid ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
+	 * @param Vector goal ã‚´ãƒ¼ãƒ«
+	 * @return boolean trueï¼šãƒãƒ¼ãƒ‰ãŒã‚ã‚‹ falseï¼šãƒãƒ¼ãƒ‰ãŒãªã„
 	 */
 	public boolean isContain(int agid, Vector goal) {
 		boolean b = isContainChild(rootElement, agid, goal);
@@ -154,7 +154,7 @@ public class FailAgentTree {
 
 
 	/**
-	 * ƒcƒŠ[‚Ìó‘Ô‚ğ•\¦‚µ‚Ü‚·B
+	 * ãƒ„ãƒªãƒ¼ã®çŠ¶æ…‹ã‚’è¡¨ç¤ºã—ã¾ã™ã€‚
 	 */
 	public void printTree() {
 		System.out.println("");
@@ -166,19 +166,19 @@ public class FailAgentTree {
 	// private 
 
 	/**
-	 * ‘æˆêˆø”‚Åw’è‚³‚ê‚½ƒm[ƒh‚Ìq‚É‘æ“ñˆø”E‘æOˆø”‚ÌƒG[ƒWƒFƒ“ƒgIDA
-	 * ƒS[ƒ‹‚ğ‚à‚Âƒm[ƒh‚ª‚ ‚ê‚Îtrue‚ğ•Ô‚·B<BR>
-	 * Ä‹A“I‚ÈŒÄ‚Ño‚µ‚ğs‚¢A[‚¢qƒm[ƒh‚Ü‚Åƒ`ƒFƒbƒN‚·‚éB<BR>
+	 * ç¬¬ä¸€å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸãƒãƒ¼ãƒ‰ã®å­ã«ç¬¬äºŒå¼•æ•°ãƒ»ç¬¬ä¸‰å¼•æ•°ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã€
+	 * ã‚´ãƒ¼ãƒ«ã‚’ã‚‚ã¤ãƒãƒ¼ãƒ‰ãŒã‚ã‚Œã°trueã‚’è¿”ã™ã€‚<BR>
+	 * å†å¸°çš„ãªå‘¼ã³å‡ºã—ã‚’è¡Œã„ã€æ·±ã„å­ãƒãƒ¼ãƒ‰ã¾ã§ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã€‚<BR>
 	 * @param FailAgentTreeElement Element 
 	 * @param int agid 
 	 * @param Vector goal
 	 */
 	private boolean isContainChild(FailAgentTreeElement element, int agid, 
 	        Vector goal) {
-// Œ»İ‚Ìˆ—•û–@‚Å‚ÍAˆ—‚ÉŠÔ‚ª‚©‚©‚éB
-// ‚±‚ÌƒNƒ‰ƒX‚ÅAAgent‚Ì”z—ñ‚Ö‚ÌQÆ‚ğ‚à‚¿AŠeƒm[ƒh‚ÌƒG[ƒWƒFƒ“ƒgID‚É‘Î‰‚·‚é
-// ƒG[ƒWƒFƒ“ƒg‚Ì‚İˆ—‚ğs‚È‚¤‚æ‚¤‚É‚·‚é‚±‚Æ‚Å‘Î‰‰Â”\‚¾‚ªAAgent‚Ì”z—ñ‚Ö‚Ì
-// QÆ‚ğ‚½‚¹‚é‚±‚Æ‚Í‚ ‚Ü‚ès‚È‚¢‚½‚­‚È‚¢B
+// ç¾åœ¨ã®å‡¦ç†æ–¹æ³•ã§ã¯ã€å‡¦ç†ã«æ™‚é–“ãŒã‹ã‹ã‚‹ã€‚
+// ã“ã®ã‚¯ãƒ©ã‚¹ã§ã€Agentã®é…åˆ—ã¸ã®å‚ç…§ã‚’ã‚‚ã¡ã€å„ãƒãƒ¼ãƒ‰ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã«å¯¾å¿œã™ã‚‹
+// ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ã¿å‡¦ç†ã‚’è¡Œãªã†ã‚ˆã†ã«ã™ã‚‹ã“ã¨ã§å¯¾å¿œå¯èƒ½ã ãŒã€Agentã®é…åˆ—ã¸ã®
+// å‚ç…§ã‚’æŒãŸã›ã‚‹ã“ã¨ã¯ã‚ã¾ã‚Šè¡Œãªã„ãŸããªã„ã€‚
 		ListIterator li = element.next.listIterator();
 		while(li.hasNext()) {
 			FailAgentTreeElement nextElement = (FailAgentTreeElement)li.next();
@@ -195,7 +195,7 @@ public class FailAgentTree {
 	}
 
 	/**
-	 * ˆø”‚Åw’è‚³‚ê‚½ƒm[ƒh‚Ìq‚ÉŠÖ‚µ‚Ä‚Ìî•ñ‚ğ•¶š—ñ‚Åæ“¾‚µ‚Ü‚·B
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸãƒãƒ¼ãƒ‰ã®å­ã«é–¢ã—ã¦ã®æƒ…å ±ã‚’æ–‡å­—åˆ—ã§å–å¾—ã—ã¾ã™ã€‚
 	 */
 	private String getTree(int depth, FailAgentTreeElement goal) {
 		StringBuffer stringBuffer = new StringBuffer();

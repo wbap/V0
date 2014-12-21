@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * EnvironmentAgent.java
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.09 BSC miyamoto
@@ -10,9 +10,9 @@ import java.util.*;
 public class EnvironmentAgent {
 
 	private Environment environment = null;
-	/* ŠÂ‹«‚Ìƒtƒ@ƒCƒ‹–¼ */
+	/* ç’°å¢ƒã®ãƒ•ã‚¡ã‚¤ãƒ«å */
 
-	/* ŠÂ‹«‚Ìî•ñ */
+	/* ç’°å¢ƒã®æƒ…å ± */
 	private String[][] MAP_ARRAY = {
 		        {"W","W","W","W","W","W","W","W","W","W","W","W","W","W","W"},
 		        {"W","","","","","","","","","","","","","","W"},
@@ -36,33 +36,33 @@ public class EnvironmentAgent {
 		        {"W","W","W","W","W","W","W","W","W","W","W","W","W","W","W"}
 		};
 
-	/* ƒS[ƒ‹‚ğƒ‰ƒ“ƒ_ƒ€‚ÈˆÊ’u‚Éİ’è‚·‚é‚½‚ß‚Ì—” */
+	/* ã‚´ãƒ¼ãƒ«ã‚’ãƒ©ãƒ³ãƒ€ãƒ ãªä½ç½®ã«è¨­å®šã™ã‚‹ãŸã‚ã®ä¹±æ•° */
 	private Random randomGoal = new Random(0);
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	public EnvironmentAgent() {
-		/* ŠÂ‹«‚Ì¶¬ */
+		/* ç’°å¢ƒã®ç”Ÿæˆ */
 		environment = new Environment(MAP_ARRAY);
 		environment.initRobotPos();
-		/* ƒS[ƒ‹‚ğİ’è */
+		/* ã‚´ãƒ¼ãƒ«ã‚’è¨­å®š */
 		int[] goalEnv = getRandomState();
 		environment.setGoal(goalEnv[0], goalEnv[1]);
 	}
 
 
 	/**
-	 * Œ»İ‚ÌˆÊ’u‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[]  int[0] xÀ•W  int[1] yÀ•W
+	 * ç¾åœ¨ã®ä½ç½®ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[]  int[0] xåº§æ¨™  int[1] yåº§æ¨™
 	 */
 	public int[] getState() {
 		return environment.getXYState();
 	}
 
 	/**
-	 * ƒS[ƒ‹‚ÌˆÊ’u‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[]  int[0] xÀ•W  int[1] yÀ•W
+	 * ã‚´ãƒ¼ãƒ«ã®ä½ç½®ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[]  int[0] xåº§æ¨™  int[1] yåº§æ¨™
 	 */
 	public int[] getGoal() {
 		return environment.getXYGoalState();
@@ -72,10 +72,10 @@ public class EnvironmentAgent {
 	 * 
 	 */
 	public void run(int action) {
-		/* action‚ÅŠÂ‹«‚ğ“®ì‚³‚¹‚é */
+		/* actionã§ç’°å¢ƒã‚’å‹•ä½œã•ã›ã‚‹ */
 		environment.run(action);
 
-		/* ƒS[ƒ‹“’B‚ÍƒS[ƒ‹‚ÌˆÊ’u‚ğ•ÏX */
+		/* ã‚´ãƒ¼ãƒ«åˆ°é”æ™‚ã¯ã‚´ãƒ¼ãƒ«ã®ä½ç½®ã‚’å¤‰æ›´ */
 		int[] stateEnv = environment.getXYState();
 		int[] goalEnv = environment.getXYGoalState();
 		if( (goalEnv[0]==stateEnv[0] && goalEnv[1]==stateEnv[1]) ) {
@@ -86,21 +86,21 @@ public class EnvironmentAgent {
 
 
 	/**
-	 * ƒ‰ƒ“ƒ_ƒ€‚É¶¬‚µ‚½ó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] ƒ‰ƒ“ƒ_ƒ€‚É¶¬‚³‚ê‚½ó‘Ô
-	 *               int[0] xÀ•W
-	 *               int[1] yÀ•W
+	 * ãƒ©ãƒ³ãƒ€ãƒ ã«ç”Ÿæˆã—ãŸçŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ãƒ©ãƒ³ãƒ€ãƒ ã«ç”Ÿæˆã•ã‚ŒãŸçŠ¶æ…‹
+	 *               int[0] xåº§æ¨™
+	 *               int[1] yåº§æ¨™
 	 */
 	private int[] getRandomState() {
 
 		int[] randomState = new int[2];
 
 		/*
-		 * ƒ‰ƒ“ƒ_ƒ€‚ÉÀ•W‚ğæ“¾AV‚½‚Éw’è‚³‚ê‚½ˆÊ’u‚É‚·‚Å‚É‰½‚©İ’è‚³‚ê‚Ä
-		 * ‚¢‚éê‡‚ÍÄ“xÀ•W‚ğæ“¾
+		 * ãƒ©ãƒ³ãƒ€ãƒ ã«åº§æ¨™ã‚’å–å¾—ã€æ–°ãŸã«æŒ‡å®šã•ã‚ŒãŸä½ç½®ã«ã™ã§ã«ä½•ã‹è¨­å®šã•ã‚Œã¦
+		 * ã„ã‚‹å ´åˆã¯å†åº¦åº§æ¨™ã‚’å–å¾—
 		 */
 		while(true) {
-			/* ’n}‚ÌƒTƒCƒY‚ğæ“¾ */
+			/* åœ°å›³ã®ã‚µã‚¤ã‚ºã‚’å–å¾— */
 			int[] mapSize = environment.getMapSize();
 			randomState[0] = randomGoal.nextInt(mapSize[0]-1) + 1;
 			randomState[1] = randomGoal.nextInt(mapSize[1]-1) + 1;

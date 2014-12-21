@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * Agent.java
- * ƒG[ƒWƒFƒ“ƒg‚É‹¤’Ê‚Ìˆ—(‹¤—Lƒƒ‚ƒŠ‚Æ‚Ìî•ñ‚Ìó“n‚µ“™)‚ğs‚È‚¤ƒNƒ‰ƒX
+ * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã«å…±é€šã®å‡¦ç†(å…±æœ‰ãƒ¡ãƒ¢ãƒªã¨ã®æƒ…å ±ã®å—æ¸¡ã—ç­‰)ã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.07
  */
@@ -12,88 +12,88 @@ import java.io.*;
 import brica0.Module;
 
 /**
- * ƒG[ƒWƒFƒ“ƒg‚É‹¤’Ê‚Ìˆ—(‹¤—Lƒƒ‚ƒŠ‚Æ‚Ìî•ñ‚Ìó“n‚µ“™)‚ğs‚È‚¤ƒNƒ‰ƒX
+ * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã«å…±é€šã®å‡¦ç†(å…±æœ‰ãƒ¡ãƒ¢ãƒªã¨ã®æƒ…å ±ã®å—æ¸¡ã—ç­‰)ã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹
  */
 public abstract class Agent extends Module {
 
 	/*
-	 * ƒG[ƒWƒFƒ“ƒg‚ÌÀsˆ—‚ÌŒ‹‰Ê‚ğ¦‚·ID
-	 * ¬Œ÷ˆÈŠO‚ÍƒTƒuƒS[ƒ‹–¢o—ÍğŒ
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å®Ÿè¡Œå‡¦ç†ã®çµæœã‚’ç¤ºã™ID
+	 * æˆåŠŸä»¥å¤–ã¯ã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›æ¡ä»¶
 	 */
 
 	/**
-	 * Àsˆ—¬Œ÷
+	 * å®Ÿè¡Œå‡¦ç†æˆåŠŸ
 	 */ 
 	public static final int AGR_SUCCESS = 0;
 
 	/**
-	 * ‚·‚Å‚ÉFailAgentTree‚Éİ’è‚³‚ê‚Ä‚¢‚é‚±‚Æ‚É‚æ‚èƒTƒuƒS[ƒ‹–¢o—Í
+	 * ã™ã§ã«FailAgentTreeã«è¨­å®šã•ã‚Œã¦ã„ã‚‹ã“ã¨ã«ã‚ˆã‚Šã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›
 	 */
 	public static final int AGR_FAIL_AGENT = 1;
 
 	/**
-	 * ƒS[ƒ‹“’B‚É‚æ‚èƒTƒuƒS[ƒ‹–¢o—Í
+	 * ã‚´ãƒ¼ãƒ«åˆ°é”ã«ã‚ˆã‚Šã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›
 	 */
 	public static final int AGR_REACH_GOAL = 2;
 
 	/**
-	 * ƒTƒuƒS[ƒ‹–¢“’B‚É‚æ‚èƒTƒuƒS[ƒ‹–¢o—Í
+	 * ã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªåˆ°é”ã«ã‚ˆã‚Šã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›
 	 */
 	public static final int AGR_UNREACH_SUBGOAL = 3;
 
 	/**
-	 * ’Tõ•s”\‚É‚æ‚èƒTƒuƒS[ƒ‹–¢o—Í
+	 * æ¢ç´¢ä¸èƒ½ã«ã‚ˆã‚Šã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›
 	 */
 	public static final int AGR_SEARCH_FAIL = 4;
 
 	/** 
-	 * d•¡ƒTƒuƒS[ƒ‹‚É‚æ‚èƒTƒuƒS[ƒ‹–¢o—Í
+	 * é‡è¤‡ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã«ã‚ˆã‚Šã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›
 	 */
 	public static final int AGR_SAME_SUBGOAL = 5;
 
 	/**
-	 * “¯ˆêƒS[ƒ‹‚É‚æ‚èƒTƒuƒS[ƒ‹–¢o—Í
+	 * åŒä¸€ã‚´ãƒ¼ãƒ«ã«ã‚ˆã‚Šã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›
 	 */
 	public static final int AGR_SAME_GOAL = 6;
 
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgID
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
 	 */
 	public final int AGID;
 
-	/* ‹¤—Lƒƒ‚ƒŠ */
+	/* å…±æœ‰ãƒ¡ãƒ¢ãƒª */
 	private SharedMemory sharedMemory = null;
 
-	/* ƒG[ƒWƒFƒ“ƒg–ˆ‚Ìƒm[ƒh‚Ìg—pA•sg—p‚ğİ’è‚µ‚½boolean‚Ì”z—ñ */
+	/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ¯ã®ãƒãƒ¼ãƒ‰ã®ä½¿ç”¨ã€ä¸ä½¿ç”¨ã‚’è¨­å®šã—ãŸbooleanã®é…åˆ— */
 	private boolean[] useNode = null;
 
-	/* ƒG[ƒWƒFƒ“ƒg‚ªg—p‚·‚éƒm[ƒh”(useNode‚Ìtrue‚Ì”) */
+	/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒä½¿ç”¨ã™ã‚‹ãƒãƒ¼ãƒ‰æ•°(useNodeã®trueã®æ•°) */
 	private int useNodeNum;
 
 	/*
-	 * ‚±‚Ì’ŠÛƒNƒ‰ƒX‚ÌÀsˆ—‚Å‘O‰ño—Í‚µ‚½ƒTƒuƒS[ƒ‹
-	 * ƒTƒuƒS[ƒ‹–¢“’B‚Ì”»’è‚Ég—p
+	 * ã“ã®æŠ½è±¡ã‚¯ãƒ©ã‚¹ã®å®Ÿè¡Œå‡¦ç†ã§å‰å›å‡ºåŠ›ã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«
+	 * ã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªåˆ°é”ã®åˆ¤å®šã«ä½¿ç”¨
 	 */
 	private Vector subgoalOld;
 
 	/*
-	 * ‚±‚Ì’ŠÛƒNƒ‰ƒX‚ÌÀ‘•ƒNƒ‰ƒX‚ÌÀsˆ—‚Å‘O‰ño—Í‚µ‚½ƒTƒuƒS[ƒ‹
-	 * À‘•ƒNƒ‰ƒX‚©‚ço—Í‚³‚ê‚½ƒTƒuƒS[ƒ‹‚ª•K‚¸ƒG[ƒWƒFƒ“ƒg‚ÌƒTƒuƒS[ƒ‹
-	 * ‚Æ‚µ‚Äo—Í‚³‚ê‚é•ª‚¯‚Å‚Í‚È‚¢‚Ì‚ÅAsubgoalOld‚Æ‚ÍˆÙ‚È‚é
-	 * d•¡ƒTƒuƒS[ƒ‹‚Ì”»’è‚Ég—p
+	 * ã“ã®æŠ½è±¡ã‚¯ãƒ©ã‚¹ã®å®Ÿè£…ã‚¯ãƒ©ã‚¹ã®å®Ÿè¡Œå‡¦ç†ã§å‰å›å‡ºåŠ›ã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«
+	 * å®Ÿè£…ã‚¯ãƒ©ã‚¹ã‹ã‚‰å‡ºåŠ›ã•ã‚ŒãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«ãŒå¿…ãšã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«
+	 * ã¨ã—ã¦å‡ºåŠ›ã•ã‚Œã‚‹åˆ†ã‘ã§ã¯ãªã„ã®ã§ã€subgoalOldã¨ã¯ç•°ãªã‚‹
+	 * é‡è¤‡ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®åˆ¤å®šã«ä½¿ç”¨
 	 */
 	private Vector impleAgSubgoalOld = null;
 
 
 	///////////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int agid  ƒG[ƒWƒFƒ“ƒgID
-	 * @param boolean[] useNode  ƒm[ƒh‚Ìg—pA•sg—p‚ğİ’è‚µ‚½”z—ñ
-	 * @param SharedMemory sharedMemory  stateEgoal‚ğŠÇ—‚·‚é‹¤—Lƒƒ‚ƒŠ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int agid  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
+	 * @param boolean[] useNode  ãƒãƒ¼ãƒ‰ã®ä½¿ç”¨ã€ä¸ä½¿ç”¨ã‚’è¨­å®šã—ãŸé…åˆ—
+	 * @param SharedMemory sharedMemory  stateãƒ»goalã‚’ç®¡ç†ã™ã‚‹å…±æœ‰ãƒ¡ãƒ¢ãƒª
 	 */
 	public Agent(int agid, boolean[] useNode, SharedMemory sharedMemory) {
 		this.AGID = agid;
@@ -121,25 +121,25 @@ public abstract class Agent extends Module {
 		}
 	}
 
-	// 2001.12.14 ’Ç‰Á miyamoto
+	// 2001.12.14 è¿½åŠ  miyamoto
 	/**
-	 * ƒCƒxƒ“ƒgî•ñ‚ğŠwKƒf[ƒ^‚Æ‚µ‚Ä—˜—p‚µAŠwKˆ—‚ğs‚È‚¢‚Ü‚·B
-	 * @param String eventFileName ƒCƒxƒ“ƒgî•ñ‚Ì‹Lq‚³‚ê‚½ƒtƒ@ƒCƒ‹–¼
+	 * ã‚¤ãƒ™ãƒ³ãƒˆæƒ…å ±ã‚’å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã¨ã—ã¦åˆ©ç”¨ã—ã€å­¦ç¿’å‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * @param String eventFileName ã‚¤ãƒ™ãƒ³ãƒˆæƒ…å ±ã®è¨˜è¿°ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public void learnEvent(String eventFileName) {
 
-		System.out.println(" Load Event File EEE");
-		/* ƒtƒ@ƒCƒ‹‚Ì‰Šú‰» */
+		System.out.println(" Load Event File ãƒ»ãƒ»ãƒ»");
+		/* ãƒ•ã‚¡ã‚¤ãƒ«ã®åˆæœŸåŒ– */
 		try{
 			FileReader fr = new FileReader(eventFileName);
 			BufferedReader br = new BufferedReader(fr);
 
 			try {
 				while( br.ready() ) {
-					/* ƒCƒxƒ“ƒgƒtƒ@ƒCƒ‹‚©‚çƒCƒxƒ“ƒg‚ğ‚P‚Âæ“¾ */
+					/* ã‚¤ãƒ™ãƒ³ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚¤ãƒ™ãƒ³ãƒˆã‚’ï¼‘ã¤å–å¾— */
 					String event = br.readLine();
 
-					/* æ“¾‚µ‚½ƒCƒxƒ“ƒg‚ğƒG[ƒWƒFƒ“ƒg‚Ìó‘Ô‚É•ÏŠ· */
+					/* å–å¾—ã—ãŸã‚¤ãƒ™ãƒ³ãƒˆã‚’ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®çŠ¶æ…‹ã«å¤‰æ› */
 					StringTokenizer stringTokenizer
 					         = new StringTokenizer(event, ",");
 					Vector eventState = new Vector();
@@ -148,7 +148,7 @@ public abstract class Agent extends Module {
 						        new Integer(stringTokenizer.nextToken()));
 					}
 
-					/* ƒCƒxƒ“ƒg‚ğŠwKˆ— */
+					/* ã‚¤ãƒ™ãƒ³ãƒˆã‚’å­¦ç¿’å‡¦ç† */
 					learn(eventState, false, 0);
 				}
 			}catch(Exception e) {
@@ -165,17 +165,17 @@ public abstract class Agent extends Module {
 			System.exit(0);
 		}
 
-		/* ’Êí‚ÌŠwK‚Æ‚Í˜A‘±«‚ª‚È‚¢‚Ì‚ÅƒŠƒZƒbƒg‚·‚é */
+		/* é€šå¸¸ã®å­¦ç¿’ã¨ã¯é€£ç¶šæ€§ãŒãªã„ã®ã§ãƒªã‚»ãƒƒãƒˆã™ã‚‹ */
 		reset();
 	}
-	// ‚±‚±‚Ü‚Å
+	// ã“ã“ã¾ã§
 
 	/**
-	 * ŠwKˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * (ˆø”‚ÌflagGoalReachAprofit‚ÍA˜A‘zƒG[ƒWƒFƒ“ƒg‚Ì‹­‰»ŠwK—pB
-	 * ‚b‚cƒG[ƒWƒFƒ“ƒg‚Å‚Íg—p‚µ‚Ä‚¢‚È‚¢B)
-	 * @param flagGoalReach ƒS[ƒ‹‚Ö‚Ì“’B‚ğ•\‚·ƒtƒ‰ƒO
-	 * @param double profit •ñV
+	 * å­¦ç¿’å‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * (å¼•æ•°ã®flagGoalReachã€profitã¯ã€é€£æƒ³ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å¼·åŒ–å­¦ç¿’ç”¨ã€‚
+	 * ï¼£ï¼¤ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã§ã¯ä½¿ç”¨ã—ã¦ã„ãªã„ã€‚)
+	 * @param flagGoalReach ã‚´ãƒ¼ãƒ«ã¸ã®åˆ°é”ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
+	 * @param double profit å ±é…¬
 	 */
 	public void learn(boolean flagGoalReach, double profit) {
 		Vector state = getState();
@@ -183,20 +183,20 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * Àsˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * ‹¤—Lƒƒ‚ƒŠ‚©‚çstateAgoal‚ğæ“¾‚µAƒ†[ƒU’è‹`‚ÌÀsˆ—(protected‚Ì
-	 * exec(Vector, Vector)Œo—R‚ÅAabstruct‚ÌexecProcess(Vector, Vector)‚ğ
-	 * ŒÄ‚Ño‚µ)‚ğs‚È‚¢Aƒ†[ƒU’è‹`‚ÌÀsˆ—‚Å¶¬‚³‚ê‚½subgoal‚ğ‹¤—Lƒƒ‚ƒŠ
-	 * ‚Éİ’è‚µ‚Ü‚·B<BR>
-	 * @return int Àsˆ—‚ÌŒ‹‰Ê‚ğ¦‚·ID<BR>
-	 * AGR_SUCCESSAAGR_REACH_GOALAAGR_UNREACH_SUBGOALAAGR_SEARCH_FAILA
-	 * AGR_SAME_SUBGOALAAGR_SAME_GOAL‚Ì‚¢‚Ã‚ê‚©
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * å…±æœ‰ãƒ¡ãƒ¢ãƒªã‹ã‚‰stateã€goalã‚’å–å¾—ã—ã€ãƒ¦ãƒ¼ã‚¶å®šç¾©ã®å®Ÿè¡Œå‡¦ç†(protectedã®
+	 * exec(Vector, Vector)çµŒç”±ã§ã€abstructã®execProcess(Vector, Vector)ã‚’
+	 * å‘¼ã³å‡ºã—)ã‚’è¡Œãªã„ã€ãƒ¦ãƒ¼ã‚¶å®šç¾©ã®å®Ÿè¡Œå‡¦ç†ã§ç”Ÿæˆã•ã‚ŒãŸsubgoalã‚’å…±æœ‰ãƒ¡ãƒ¢ãƒª
+	 * ã«è¨­å®šã—ã¾ã™ã€‚<BR>
+	 * @return int å®Ÿè¡Œå‡¦ç†ã®çµæœã‚’ç¤ºã™ID<BR>
+	 * AGR_SUCCESSã€AGR_REACH_GOALã€AGR_UNREACH_SUBGOALã€AGR_SEARCH_FAILã€
+	 * AGR_SAME_SUBGOALã€AGR_SAME_GOALã®ã„ã¥ã‚Œã‹
 	 */
 	public int exec() {
 
 		Vector state = getState();
 
-		/* ƒS[ƒ‹‚ğæ“¾ ‘I‘ğ‚Í“à•”‚Å */
+		/* ã‚´ãƒ¼ãƒ«ã‚’å–å¾— é¸æŠã¯å†…éƒ¨ã§ */
 		Vector goalElementArray = getGoalElementArray();
 
 //		System.out.println("");
@@ -204,14 +204,14 @@ public abstract class Agent extends Module {
 //		System.out.println(" state:" + state);
 //		System.out.println(" goalElementArray:" + goalElementArray);
 
-		/* Àsˆ—‚ğs‚¤‚© */
+		/* å®Ÿè¡Œå‡¦ç†ã‚’è¡Œã†ã‹ */
 		int isExexMode = isExec(state, goalElementArray);
 		if( isExexMode != AGR_SUCCESS ) {
 			subgoalOld = null;
 			return isExexMode;
 		}
 
-		/* ’ŠÛƒƒ\ƒbƒh */
+		/* æŠ½è±¡ãƒ¡ã‚½ãƒƒãƒ‰ */
 		Vector subgoal = exec(state, goalElementArray);
 
 //		System.out.println(" subgoal:" + subgoal);
@@ -229,21 +229,21 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * “’BƒS[ƒ‹‚Ìíœ‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * ©ŒÈİ’èƒS[ƒ‹(Ú‘±ƒm[ƒh‘S‚Ä‚ğ©‚çİ’è‚µ‚Ä‚¢‚éƒS[ƒ‹)‚ÉŒ»İ‚Ìó‘Ô‚ª
-	 * “’B‚µ‚½ê‡A‚»‚ÌƒS[ƒ‹‚ğƒS[ƒ‹ƒXƒ^ƒbƒN‚©‚çíœ‚µ‚Ü‚·B
-	 * @return boolean trueF©ŒÈİ’èƒS[ƒ‹‚É“’B‚µAƒS[ƒ‹ƒXƒ^ƒbƒN‚©‚çíœ
-	 * ‚µ‚½ê‡
+	 * åˆ°é”ã‚´ãƒ¼ãƒ«ã®å‰Šé™¤ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * è‡ªå·±è¨­å®šã‚´ãƒ¼ãƒ«(æ¥ç¶šãƒãƒ¼ãƒ‰å…¨ã¦ã‚’è‡ªã‚‰è¨­å®šã—ã¦ã„ã‚‹ã‚´ãƒ¼ãƒ«)ã«ç¾åœ¨ã®çŠ¶æ…‹ãŒ
+	 * åˆ°é”ã—ãŸå ´åˆã€ãã®ã‚´ãƒ¼ãƒ«ã‚’ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã€‚
+	 * @return boolean trueï¼šè‡ªå·±è¨­å®šã‚´ãƒ¼ãƒ«ã«åˆ°é”ã—ã€ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å‰Šé™¤
+	 * ã—ãŸå ´åˆ
 	 */
 	public boolean removeReachGoal() {
-		/* ”»’è‚Ég—p‚·‚é‚¾‚¯‚È‚Ì‚ÅAQÆ‚ğæ“¾ */
+		/* åˆ¤å®šã«ä½¿ç”¨ã™ã‚‹ã ã‘ãªã®ã§ã€å‚ç…§ã‚’å–å¾— */
 		Vector state = getStateReference();
 
 		Vector selfSetGoalElementArray = getSelfSetGoalElementArray();
 		Vector selfSetGoalValueArray
 		        = getGoalValueArray(selfSetGoalElementArray);
 
-		/* ©‚ç‚ªİ’è‚µ‚½ƒTƒuƒS[ƒ‹‚É“’B‚µ‚Ä‚¢‚ê‚Îíœ */
+		/* è‡ªã‚‰ãŒè¨­å®šã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«ã«åˆ°é”ã—ã¦ã„ã‚Œã°å‰Šé™¤ */
 		if( state.equals(selfSetGoalValueArray) ) {
 			removeGoal();
 			return true;
@@ -252,10 +252,10 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * ©ŒÈİ’èƒS[ƒ‹(Ú‘±ƒm[ƒh‘S‚Ä‚ğ©‚çİ’è‚µ‚Ä‚¢‚éƒS[ƒ‹)‚ªƒS[ƒ‹ƒXƒ^ƒbƒN
-	 * ‚É‚ ‚ê‚ÎA‚»‚ÌƒS[ƒ‹‚ğƒXƒ^ƒbƒN‚©‚çíœ‚µ‚Ü‚·B
-	 * @return boolean true:©ŒÈİ’èƒS[ƒ‹‚ª‚ ‚èAíœ‚Å‚«‚½ê‡<BR>
-	 * false:©ŒÈİ’èƒS[ƒ‹‚ª‚È‚¢‚½‚ßAíœ‚Å‚«‚È‚©‚Á‚½ê‡<BR>
+	 * è‡ªå·±è¨­å®šã‚´ãƒ¼ãƒ«(æ¥ç¶šãƒãƒ¼ãƒ‰å…¨ã¦ã‚’è‡ªã‚‰è¨­å®šã—ã¦ã„ã‚‹ã‚´ãƒ¼ãƒ«)ãŒã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯
+	 * ã«ã‚ã‚Œã°ã€ãã®ã‚´ãƒ¼ãƒ«ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã€‚
+	 * @return boolean true:è‡ªå·±è¨­å®šã‚´ãƒ¼ãƒ«ãŒã‚ã‚Šã€å‰Šé™¤ã§ããŸå ´åˆ<BR>
+	 * false:è‡ªå·±è¨­å®šã‚´ãƒ¼ãƒ«ãŒãªã„ãŸã‚ã€å‰Šé™¤ã§ããªã‹ã£ãŸå ´åˆ<BR>
 	 */
 	public boolean removeSelfSetGoal() {
 		Vector selfSetGoalStackElement = getSelfSetGoalElementArray();
@@ -268,8 +268,8 @@ public abstract class Agent extends Module {
 
 	private Vector stateReference = new Vector();
 	/**
-	 * Œ»İ‚Ìó‘Ô(State)‚ğ‹¤—Lƒƒ‚ƒŠ‚©‚çæ“¾‚µ‚Ü‚·(QÆ‚ğæ“¾)B
-	 * @return Vector Œ»İ‚Ìó‘Ô
+	 * ç¾åœ¨ã®çŠ¶æ…‹(State)ã‚’å…±æœ‰ãƒ¡ãƒ¢ãƒªã‹ã‚‰å–å¾—ã—ã¾ã™(å‚ç…§ã‚’å–å¾—)ã€‚
+	 * @return Vector ç¾åœ¨ã®çŠ¶æ…‹
 	 */
 	public Vector getStateReference() {
 		stateReference.clear();
@@ -282,13 +282,13 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * ©‚çİ’è‚µ‚½ƒS[ƒ‹‚Ìó‘Ô‚ğƒXƒ^ƒbƒN‚©‚çæ“¾‚µ‚Ü‚·B<BR>
-	 * ƒG[ƒWƒFƒ“ƒg‚ªÚ‘±‚µ‚Ä‚¢‚éƒm[ƒh‚Ì—v‘f‘S‚Ä‚ğ©‚çİ’è‚µ‚Ä‚¢‚éê‡‚ÉA
-	 * ‚»‚ê‚ç‚ğƒG[ƒWƒFƒ“ƒg‚Ìó‘Ô‚Æ‚µ‚Äæ“¾‚µ‚Ü‚·B<BR>
-	 * ‘¼‚ÌƒG[ƒWƒFƒ“ƒg‚ªİ’è‚µ‚Ä‚¢‚é—v‘f‚ª‚ ‚ê‚ÎAnull‚ª•Ô‚è‚Ü‚·B
-	 * @return Vector ƒS[ƒ‹‚Ìó‘Ô<BR>
+	 * è‡ªã‚‰è¨­å®šã—ãŸã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å–å¾—ã—ã¾ã™ã€‚<BR>
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒæ¥ç¶šã—ã¦ã„ã‚‹ãƒãƒ¼ãƒ‰ã®è¦ç´ å…¨ã¦ã‚’è‡ªã‚‰è¨­å®šã—ã¦ã„ã‚‹å ´åˆã«ã€
+	 * ãã‚Œã‚‰ã‚’ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®çŠ¶æ…‹ã¨ã—ã¦å–å¾—ã—ã¾ã™ã€‚<BR>
+	 * ä»–ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒè¨­å®šã—ã¦ã„ã‚‹è¦ç´ ãŒã‚ã‚Œã°ã€nullãŒè¿”ã‚Šã¾ã™ã€‚
+	 * @return Vector ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹<BR>
 	 */
-// GSAƒNƒ‰ƒXAManualAgentƒNƒ‰ƒX‚©‚ç‚à—˜—p‚·‚é‚½‚ßpublic‰»
+// GSAã‚¯ãƒ©ã‚¹ã€ManualAgentã‚¯ãƒ©ã‚¹ã‹ã‚‰ã‚‚åˆ©ç”¨ã™ã‚‹ãŸã‚publicåŒ–
 	public Vector getSelfSetGoalElementArray() {
 		Vector selfGoal = new Vector();
 		for(int i = 0; i < sharedMemory.LENGTH; i++) {
@@ -307,51 +307,51 @@ public abstract class Agent extends Module {
 
 
 	////////////////////////////////////////////////////////////
-	// ’ŠÛƒƒ\ƒbƒh
+	// æŠ½è±¡ãƒ¡ã‚½ãƒƒãƒ‰
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgŒÅ—L‚ÌŠwKˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @param boolean flagGoalReach ƒS[ƒ‹‚Ö‚Ì“’B‚ğ•\‚·ƒtƒ‰ƒO
-	 * @param double profit •ñV
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆå›ºæœ‰ã®å­¦ç¿’å‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param boolean flagGoalReach ã‚´ãƒ¼ãƒ«ã¸ã®åˆ°é”ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
+	 * @param double profit å ±é…¬
 	 */
 	public abstract void learn(Vector state, boolean flagGoalReach,
 	        double profit);
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgŒÅ—L‚ÌÀsˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @param Vector goalElementArray GoalStackElement‚ÌVector
-	 * @return Vector ƒTƒuƒS[ƒ‹
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆå›ºæœ‰ã®å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Vector goalElementArray GoalStackElementã®Vector
+	 * @return Vector ã‚µãƒ–ã‚´ãƒ¼ãƒ«
 	 */
 	public abstract Vector execProcess(Vector state, Vector goalElementArray);
 
 	/**
-	 * ŠwKŒ‹‰Ê‚ğƒtƒ@ƒCƒ‹‚É•Û‘¶‚µ‚Ü‚·B
-	 * @param String fileNameƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’çµæœã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã—ã¾ã™ã€‚
+	 * @param String fileNameãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public abstract void save(String fileName);
 
 	/**
-	 * ŠwKŒ‹‰Ê‚ğƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚İ‚Ü‚·B
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’çµæœã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã¿ã¾ã™ã€‚
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public abstract void load(String fileName);
 
 	/**
-	 * GSAƒNƒ‰ƒX‚Ìreset()ƒƒ\ƒbƒh‚©‚çŒÄ‚Ño‚³‚ê‚Ü‚·B<BR>
-	 * ó‘Ô‘JˆÚ‚Ì—š—ğ‚ÌƒNƒŠƒAA‘OƒTƒCƒNƒ‹‚Ì•Ûî•ñ‚ÌƒNƒŠƒA‚È‚ÇAŠwKA
-	 * Àsˆ—‚Ì˜A‘±«‚ª“rØ‚ê‚éê‡‚És‚È‚¤î•ñ‚ÌƒNƒŠƒA‚È‚Ç‚Ìˆ—‚ğ
-	 * ‹Lq‚µ‚Ü‚·B<BR>
+	 * GSAã‚¯ãƒ©ã‚¹ã®reset()ãƒ¡ã‚½ãƒƒãƒ‰ã‹ã‚‰å‘¼ã³å‡ºã•ã‚Œã¾ã™ã€‚<BR>
+	 * çŠ¶æ…‹é·ç§»ã®å±¥æ­´ã®ã‚¯ãƒªã‚¢ã€å‰ã‚µã‚¤ã‚¯ãƒ«ã®ä¿æŒæƒ…å ±ã®ã‚¯ãƒªã‚¢ãªã©ã€å­¦ç¿’ã€
+	 * å®Ÿè¡Œå‡¦ç†ã®é€£ç¶šæ€§ãŒé€”åˆ‡ã‚Œã‚‹å ´åˆã«è¡Œãªã†æƒ…å ±ã®ã‚¯ãƒªã‚¢ãªã©ã®å‡¦ç†ã‚’
+	 * è¨˜è¿°ã—ã¾ã™ã€‚<BR>
 	 */
 	public abstract void reset();
 
 	/**
-	 * GSAƒNƒ‰ƒX‚É‚æ‚Á‚ÄAÀsˆ—‚ğs‚È‚¤ƒG[ƒWƒFƒ“ƒg‚ª©g‚ÌƒG[ƒWƒFƒ“ƒg
-	 * ‚©‚ç‘¼‚ÌƒG[ƒWƒFƒ“ƒg‚ÉØ‚è‘Ö‚¦‚ç‚ê‚½‚Æ‚«‚ÉŒÄ‚Ño‚³‚ê‚Ü‚·B<BR>
-	 * ‚±‚Ì‚½‚ßAŠeƒG[ƒWƒFƒ“ƒg‚ÌÀsˆ—‚Å—˜—p‚·‚é‘OƒTƒCƒNƒ‹‚Ì•Ûî•ñ
-	 * ‚È‚ÇAÀsˆ—‚Ì˜A‘±«‚ÉˆË‘¶‚µ‚Ä•Û‚µ‚Ä‚¢‚éî•ñ‚ÌƒNƒŠƒA‚È‚Ç‚Ìˆ—‚ğ
-	 * ‹Lq‚µ‚Ü‚·B<BR>
+	 * GSAã‚¯ãƒ©ã‚¹ã«ã‚ˆã£ã¦ã€å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒè‡ªèº«ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
+	 * ã‹ã‚‰ä»–ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã«åˆ‡ã‚Šæ›¿ãˆã‚‰ã‚ŒãŸã¨ãã«å‘¼ã³å‡ºã•ã‚Œã¾ã™ã€‚<BR>
+	 * ã“ã®ãŸã‚ã€å„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å®Ÿè¡Œå‡¦ç†ã§åˆ©ç”¨ã™ã‚‹å‰ã‚µã‚¤ã‚¯ãƒ«ã®ä¿æŒæƒ…å ±
+	 * ãªã©ã€å®Ÿè¡Œå‡¦ç†ã®é€£ç¶šæ€§ã«ä¾å­˜ã—ã¦ä¿æŒã—ã¦ã„ã‚‹æƒ…å ±ã®ã‚¯ãƒªã‚¢ãªã©ã®å‡¦ç†ã‚’
+	 * è¨˜è¿°ã—ã¾ã™ã€‚<BR>
 	 */
 	public abstract void suspend();
 
@@ -359,7 +359,7 @@ public abstract class Agent extends Module {
 	// protected
 
 	/**
-	 * Àsˆ—‚ğs‚È‚¢‚Ü‚·B
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚
 	 * 
 	 */
 	protected Vector exec(Vector state, Vector goalElementArray) {;
@@ -367,9 +367,9 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * GoalStackElement‚ÌVector‚©‚çGoalValue‚ÌVector‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Vector goalElementArray GoalStackElement‚ÌVector
-	 * @return Vector            goalValue‚ÌVector
+	 * GoalStackElementã®Vectorã‹ã‚‰GoalValueã®Vectorã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Vector goalElementArray GoalStackElementã®Vector
+	 * @return Vector            goalValueã®Vector
 	 */
 	protected Vector getGoalValueArray(Vector goalElementArray) {
 		if(goalElementArray == null) {
@@ -392,16 +392,16 @@ public abstract class Agent extends Module {
 	// private
 
 	/**
-	 * Àsˆ—‚ğs‚¤‚©‚Ç‚¤‚©‚Ì”»’è
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @param Vector goalElementArray ƒS[ƒ‹ƒXƒ^ƒbƒN‚Ìó‘Ô
-	 * @return int ƒTƒuƒS[ƒ‹–¢o—ÍğŒ
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œã†ã‹ã©ã†ã‹ã®åˆ¤å®š
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Vector goalElementArray ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã®çŠ¶æ…‹
+	 * @return int ã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›æ¡ä»¶
 	 */
 	private int isExec(Vector state, Vector goalElementArray) {
 
 		/*
-		 * ƒS[ƒ‹‚É“’B‚µ‚Ä‚¢‚ê‚ÎÀsˆ—‚ğs‚í‚È‚¢
-		 * ƒS[ƒ‹‚É‚Ínull‚Ì—v‘f‚ª‚ ‚é‰Â”\«‚ª‚ ‚é‚Ì‚ÅAnullˆÈŠO‚Ì—v‘f‚Å”»’è
+		 * ã‚´ãƒ¼ãƒ«ã«åˆ°é”ã—ã¦ã„ã‚Œã°å®Ÿè¡Œå‡¦ç†ã‚’è¡Œã‚ãªã„
+		 * ã‚´ãƒ¼ãƒ«ã«ã¯nullã®è¦ç´ ãŒã‚ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§ã€nullä»¥å¤–ã®è¦ç´ ã§åˆ¤å®š
 		 */
 		Vector goalValue = getGoalValueArray(goalElementArray);
 		if( Util.equalsValidElement(state, goalValue) ) {
@@ -409,8 +409,8 @@ public abstract class Agent extends Module {
 		}
 
 		/*
-		 * ‘OƒTƒCƒNƒ‹‚Ìˆ—‚ª¸”s‚µ‚½‚çÀsˆ—‚ğs‚í‚È‚¢
-		 * ˆ—ƒG[ƒWƒFƒ“ƒg‚ğØ‚è‘Ö‚¦‚é‚½‚ß
+		 * å‰ã‚µã‚¤ã‚¯ãƒ«ã®å‡¦ç†ãŒå¤±æ•—ã—ãŸã‚‰å®Ÿè¡Œå‡¦ç†ã‚’è¡Œã‚ãªã„
+		 * å‡¦ç†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ãŸã‚
 		 */
 		if( subgoalOld != null && !state.equals(subgoalOld) ) {
 			return AGR_UNREACH_SUBGOAL;
@@ -420,19 +420,19 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * ƒTƒuƒS[ƒ‹‚ğo—Í‚·‚é‚©‚Ç‚¤‚©‚Ì”»’è
-	 * @param Vector sugoal ƒTƒuƒS[ƒ‹
-	 * @param Vector goalElementArray GoalStackElement‚ÌVector
-	 * @return int ƒTƒuƒS[ƒ‹–¢o—ÍğŒ
+	 * ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’å‡ºåŠ›ã™ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
+	 * @param Vector sugoal ã‚µãƒ–ã‚´ãƒ¼ãƒ«
+	 * @param Vector goalElementArray GoalStackElementã®Vector
+	 * @return int ã‚µãƒ–ã‚´ãƒ¼ãƒ«æœªå‡ºåŠ›æ¡ä»¶
 	 */
 	private int isReturnSubgoal(Vector subgoal, Vector goalElementArray) {
-		/* ƒTƒuƒS[ƒ‹‚ğo—Í‚Å‚«‚È‚¢ê‡ */
+		/* ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’å‡ºåŠ›ã§ããªã„å ´åˆ */
 		if(subgoal == null) {
 			impleAgSubgoalOld = subgoal;
 			return AGR_SEARCH_FAIL;
 		}
 
-		/* ƒTƒuƒS[ƒ‹‚ª‘OƒTƒCƒNƒ‹‚ÌƒTƒuƒS[ƒ‹‚Æ“¯‚¶ê‡‚Ío—Í‚µ‚È‚¢ */
+		/* ã‚µãƒ–ã‚´ãƒ¼ãƒ«ãŒå‰ã‚µã‚¤ã‚¯ãƒ«ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã¨åŒã˜å ´åˆã¯å‡ºåŠ›ã—ãªã„ */
 		if( (impleAgSubgoalOld != null) &&
 		        (impleAgSubgoalOld.equals(subgoal)) ) {
 			impleAgSubgoalOld = subgoal;
@@ -440,7 +440,7 @@ public abstract class Agent extends Module {
 		}
 		impleAgSubgoalOld = subgoal;
 
-		/* ƒTƒuƒS[ƒ‹‚ªƒS[ƒ‹‚Æ“¯‚¶ê‡‚Ío—Í‚µ‚È‚¢ */
+		/* ã‚µãƒ–ã‚´ãƒ¼ãƒ«ãŒã‚´ãƒ¼ãƒ«ã¨åŒã˜å ´åˆã¯å‡ºåŠ›ã—ãªã„ */
 		Vector goal = getGoalValueArray(goalElementArray);
 		if(subgoal.equals(goal)) {
 			return AGR_SAME_GOAL;
@@ -451,8 +451,8 @@ public abstract class Agent extends Module {
 
 
 	/**
-	 * ‚±‚ÌƒG[ƒWƒFƒ“ƒg‚Ìg—p‚·‚éƒm[ƒh”‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int g—p‚·‚éƒm[ƒh”
+	 * ã“ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ä½¿ç”¨ã™ã‚‹ãƒãƒ¼ãƒ‰æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int ä½¿ç”¨ã™ã‚‹ãƒãƒ¼ãƒ‰æ•°
 	 */
 	private int getUseNodeNum() {
 		int counter = 0;
@@ -466,8 +466,8 @@ public abstract class Agent extends Module {
 
 
 	/**
-	 * ƒS[ƒ‹‚Ìíœ
-	 * Ú‘±æ‚Ìƒm[ƒh‘S‚Ä‚©‚ç1—v‘f‚Ã‚Âíœ
+	 * ã‚´ãƒ¼ãƒ«ã®å‰Šé™¤
+	 * æ¥ç¶šå…ˆã®ãƒãƒ¼ãƒ‰å…¨ã¦ã‹ã‚‰1è¦ç´ ã¥ã¤å‰Šé™¤
 	 */
 	private void removeGoal() {
 		for(int i = 0; i<sharedMemory.LENGTH; i++) {
@@ -478,8 +478,8 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * Œ»İ‚Ìó‘Ô(State)‚ğ‹¤—Lƒƒ‚ƒŠ‚©‚çæ“¾‚µ‚Ü‚·B
-	 * @return Vector Œ»İ‚Ìó‘Ô
+	 * ç¾åœ¨ã®çŠ¶æ…‹(State)ã‚’å…±æœ‰ãƒ¡ãƒ¢ãƒªã‹ã‚‰å–å¾—ã—ã¾ã™ã€‚
+	 * @return Vector ç¾åœ¨ã®çŠ¶æ…‹
 	 */
 	private Vector getState() {
 		Vector state = new Vector();
@@ -492,31 +492,31 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * ƒS[ƒ‹‚ğæ“¾‚µ‚Ü‚·B
-	 * ‘¼‚ÌƒG[ƒWƒFƒ“ƒg‚ªİ’è‚µ‚½ƒS[ƒ‹‚ª‚ ‚éê‡‚ÍA‘¼‚ÌƒG[ƒWƒFƒ“ƒg‚ªİ’è
-	 * ‚µ‚½ƒS[ƒ‹B‚È‚¯‚ê‚ÎA©‚ç‚ªİ’è‚µ‚½ƒS[ƒ‹‚ÆƒS[ƒ‹‚Æ‚µ‚Ä—˜—p‚µ‚Ü‚·B
-	 * @return Vector GoalStackElement‚ÌVector
+	 * ã‚´ãƒ¼ãƒ«ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * ä»–ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒè¨­å®šã—ãŸã‚´ãƒ¼ãƒ«ãŒã‚ã‚‹å ´åˆã¯ã€ä»–ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒè¨­å®š
+	 * ã—ãŸã‚´ãƒ¼ãƒ«ã€‚ãªã‘ã‚Œã°ã€è‡ªã‚‰ãŒè¨­å®šã—ãŸã‚´ãƒ¼ãƒ«ã¨ã‚´ãƒ¼ãƒ«ã¨ã—ã¦åˆ©ç”¨ã—ã¾ã™ã€‚
+	 * @return Vector GoalStackElementã®Vector
 	 */
 	private Vector getGoalElementArray() {
-// ©ŒÈİ’èˆÓ}A‘¼İ’èˆÓ}‚Ì‹æ•Ê‚ğs‚È‚¤İ’è
+// è‡ªå·±è¨­å®šæ„å›³ã€ä»–è¨­å®šæ„å›³ã®åŒºåˆ¥ã‚’è¡Œãªã†è¨­å®š
 		Vector goalElementArray = getOtherSetGoalElementArray();
 		if(goalElementArray == null)  {
 			goalElementArray = getSelfSetGoalElementArray();
 		}
 		return goalElementArray;
 
-// ©ŒÈİ’èˆÓ}A‘¼İ’èˆÓ}‚Ì‹æ•Ê‚ğs‚È‚í‚È‚¢İ’è
+// è‡ªå·±è¨­å®šæ„å›³ã€ä»–è¨­å®šæ„å›³ã®åŒºåˆ¥ã‚’è¡Œãªã‚ãªã„è¨­å®š
 //		return getGoalElementArray2();
 	}
 
 
 	/**
-	 * ‘¼‚ÌƒG[ƒWƒFƒ“ƒg‚ªİ’è‚µ‚½ƒS[ƒ‹‚Ìó‘Ô‚ğƒXƒ^ƒbƒN‚©‚çæ“¾‚µ‚Ü‚·B
-	 * ƒG[ƒWƒFƒ“ƒg‚ªÚ‘±‚µ‚Ä‚¢‚éƒm[ƒh‚©‚ç‘¼‚ÌƒG[ƒWƒFƒ“ƒg‚ªİ’è‚µ‚½‚à‚Ì
-	 * ‚Ì‚İ‚ğAƒG[ƒWƒFƒ“ƒg‚Ìó‘Ô‚Æ‚µ‚Äæ“¾‚µ‚Ü‚·B©‚çİ’è‚µ‚Ä‚¢‚é—v‘f‚Ínull
-	 * ‚ğİ’è‚µ‚Ü‚·B
-	 * @return Vector GoalStackElement‚ÌVector
-	 * Vector‚Ì‘S‚Ä‚Ì—v‘f‚ªnull‚È‚çVector©‘Ì‚ğnull‚Éİ’è‚µ‚Ä•Ô‚·B
+	 * ä»–ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒè¨­å®šã—ãŸã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å–å¾—ã—ã¾ã™ã€‚
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒæ¥ç¶šã—ã¦ã„ã‚‹ãƒãƒ¼ãƒ‰ã‹ã‚‰ä»–ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒè¨­å®šã—ãŸã‚‚ã®
+	 * ã®ã¿ã‚’ã€ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®çŠ¶æ…‹ã¨ã—ã¦å–å¾—ã—ã¾ã™ã€‚è‡ªã‚‰è¨­å®šã—ã¦ã„ã‚‹è¦ç´ ã¯null
+	 * ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @return Vector GoalStackElementã®Vector
+	 * Vectorã®å…¨ã¦ã®è¦ç´ ãŒnullãªã‚‰Vectorè‡ªä½“ã‚’nullã«è¨­å®šã—ã¦è¿”ã™ã€‚
 	 */
 	private Vector getOtherSetGoalElementArray() {
 		Vector otherGoal = new Vector();
@@ -533,7 +533,7 @@ public abstract class Agent extends Module {
 				}
 			}
 		}
-		/* —v‘f‚ª‚·‚×‚Änull‚È‚çVector©‘Ì‚ğnull‚Éİ’è */
+		/* è¦ç´ ãŒã™ã¹ã¦nullãªã‚‰Vectorè‡ªä½“ã‚’nullã«è¨­å®š */
 		if(nullNum == useNodeNum) {
 			otherGoal = null;
 		}
@@ -542,8 +542,8 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * ƒTƒuƒS[ƒ‹‚ğİ’è‚µ‚Ü‚·B
-	 * @param Vector subgoal ƒTƒuƒS[ƒ‹(GoalValueArray)
+	 * ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param Vector subgoal ã‚µãƒ–ã‚´ãƒ¼ãƒ«(GoalValueArray)
 	 */
 	private void setSubgoal(Vector subgoal) {
 		if(subgoal != null) {
@@ -552,8 +552,8 @@ public abstract class Agent extends Module {
 	}
 
 	/**
-	 * ƒTƒuƒS[ƒ‹‚ğƒXƒ^ƒbƒN‚Éİ’è‚µ‚Ü‚·B
-	 * @param Vector subgoal ƒTƒuƒS[ƒ‹(GoalValueArray)
+	 * ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã«è¨­å®šã—ã¾ã™ã€‚
+	 * @param Vector subgoal ã‚µãƒ–ã‚´ãƒ¼ãƒ«(GoalValueArray)
 	 */
 	private void pushGoalToStack(Vector subgoal) {
 		int index = 0;
@@ -572,7 +572,7 @@ public abstract class Agent extends Module {
 
 
 	///////////////////////////////////////////////////////////////////////
-	// ˆÓ}‚Ì‹æ•Ê‚ğs‚È‚í‚È‚­‚Ä‚à³í‚É“®ì‚·‚é‚©Šm”F‚·‚é‚½‚ß‚É‰¼‚Ìƒƒ\ƒbƒh
+	// æ„å›³ã®åŒºåˆ¥ã‚’è¡Œãªã‚ãªãã¦ã‚‚æ­£å¸¸ã«å‹•ä½œã™ã‚‹ã‹ç¢ºèªã™ã‚‹ãŸã‚ã«ä»®ã®ãƒ¡ã‚½ãƒƒãƒ‰
 
 	private Vector getGoalElementArray2() {
 		Vector goal2 = new Vector();
@@ -589,7 +589,7 @@ public abstract class Agent extends Module {
 				}
 			}
 		}
-		/* —v‘f‚ª‚·‚×‚Änull‚È‚çVector©‘Ì‚ğnull‚Éİ’è */
+		/* è¦ç´ ãŒã™ã¹ã¦nullãªã‚‰Vectorè‡ªä½“ã‚’nullã«è¨­å®š */
 		if(nullNum == useNodeNum) {
 			goal2 = null;
 		}

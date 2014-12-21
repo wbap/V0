@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * Util.java
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.10
@@ -14,9 +14,9 @@ import java.util.*;
 public class Util {
 
 	/**
-	 * ˆø”‚Åw’è‚³‚ê‚½‚Q‚Â‚ÌVector‚Ì—LŒø‚È—v‘f‚ª“¯‚¶‚©‚Ç‚¤‚©”»’è‚µ‚Ü‚·B<BR>
-	 * ‚Q‚Â‚ÌVector‚ªnull‚Å‚È‚­A—v‘f”‚Í“¯‚¶‚ÅAVector‚Ì—LŒø‚È—v‘f
-	 * (null‚Å‚È‚¢—v‘f)‚ª‚·‚×‚Ä“™‚µ‚¯‚ê‚Îtrue‚ğ•Ô‚µ‚Ü‚·B
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸï¼’ã¤ã®Vectorã®æœ‰åŠ¹ãªè¦ç´ ãŒåŒã˜ã‹ã©ã†ã‹åˆ¤å®šã—ã¾ã™ã€‚<BR>
+	 * ï¼’ã¤ã®VectorãŒnullã§ãªãã€è¦ç´ æ•°ã¯åŒã˜ã§ã€Vectorã®æœ‰åŠ¹ãªè¦ç´ 
+	 * (nullã§ãªã„è¦ç´ )ãŒã™ã¹ã¦ç­‰ã—ã‘ã‚Œã°trueã‚’è¿”ã—ã¾ã™ã€‚
 	 * @param Vector v1
 	 * @param Vector v2
 	 * @return boolean 
@@ -43,27 +43,27 @@ public class Util {
 
 
 	////////////////////////////////////////////////////////////////
-	// ÀsƒG[ƒWƒFƒ“ƒg‚Ì‘I‘ğ
+	// å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é¸æŠ
 
-	/*  ‚·‚Å‚Éæ“¾‚³‚ê‚½”‚ğİ’è‚·‚éboolean‚Ì”z—ñ */
+	/*  ã™ã§ã«å–å¾—ã•ã‚ŒãŸæ•°ã‚’è¨­å®šã™ã‚‹booleanã®é…åˆ— */
 	private boolean[] useIndex;
 
-	/* —”‚ÌƒV[ƒh */
+	/* ä¹±æ•°ã®ã‚·ãƒ¼ãƒ‰ */
 	private int seed = 1;
-	/* —” */
+	/* ä¹±æ•° */
 	private Random random = new Random(seed);
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int num —˜—p‚·‚é”
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int num åˆ©ç”¨ã™ã‚‹æ•°
 	 */
 	public Util(int num) {
 		useIndex = new boolean[num];
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ_ƒ€‚È’l‚ğæ“¾‚µ‚Ü‚·B<BR>
-	 * ‘S‚Äæ“¾Ï‚İ‚È‚ç-1‚ğ•Ô‚·B
+	 * ãƒ©ãƒ³ãƒ€ãƒ ãªå€¤ã‚’å–å¾—ã—ã¾ã™ã€‚<BR>
+	 * å…¨ã¦å–å¾—æ¸ˆã¿ãªã‚‰-1ã‚’è¿”ã™ã€‚
 	 * @return int 
 	 */
 	public int getRandomNum() {
@@ -71,7 +71,7 @@ public class Util {
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒ_ƒ€‚Éæ“¾‚µ‚½ó‘Ô‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * ãƒ©ãƒ³ãƒ€ãƒ ã«å–å¾—ã—ãŸçŠ¶æ…‹ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void reset() {
 		for(int i = 0; i < useIndex.length; i++) {
@@ -80,8 +80,8 @@ public class Util {
 	}
 
 	/**
-	 * –¢g—p‚Èindex‚Ì”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int Àsˆ—‚ğs‚È‚Á‚Ä‚¢‚È‚¢ƒG[ƒWƒFƒ“ƒg”
+	 * æœªä½¿ç”¨ãªindexã®æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã£ã¦ã„ãªã„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ•°
 	 */
 	public int getNotUseNum() {
 		int num = 0;
@@ -95,14 +95,14 @@ public class Util {
 
 
 	/**
-	 * Às‚·‚éƒG[ƒWƒFƒ“ƒg‚Ì”z—ñ’†‚ÌIndex‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int Às‚·‚éƒG[ƒWƒFƒ“ƒg‚Ì”z—ñ’†‚ÌIndex
+	 * å®Ÿè¡Œã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é…åˆ—ä¸­ã®Indexã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int å®Ÿè¡Œã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é…åˆ—ä¸­ã®Index
 	 */
 	private int getRandomIndex() {
-		/* –¢g—p‚È”‚ğæ“¾ */
+		/* æœªä½¿ç”¨ãªæ•°ã‚’å–å¾— */
 		int notUseNum = getNotUseNum();
 
-		/* ‚·‚×‚Äg—p‚³‚ê‚Ä‚¢‚ê‚Î‘S‚Ä‚ğ–¢g—p‚Éİ’è‚µ‘S‚Ä‚©‚ç‘I‘ğ */
+		/* ã™ã¹ã¦ä½¿ç”¨ã•ã‚Œã¦ã„ã‚Œã°å…¨ã¦ã‚’æœªä½¿ç”¨ã«è¨­å®šã—å…¨ã¦ã‹ã‚‰é¸æŠ */
 		if(notUseNum == 0) {
 //			clearUseFlag();
 //			notUseAgentNum = getNotUseAgentNum();

@@ -1,34 +1,34 @@
-/**
+ï»¿/**
  * ExecInfo.java
- * Às‚Ìî•ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·
+ * å®Ÿè¡Œæ™‚ã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2001.03 BSC miyamoto
  */
 package wba.citta.cognitivedistance;
 
 /**
- * Às‚Ìî•ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+ * å®Ÿè¡Œæ™‚ã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class ExecInfo {
 
-	private Integer nodeID;           /* Œ»İ‚Ìó‘Ô */
-	private Integer goalNodeID;       /* ƒS[ƒ‹‚Ìó‘Ô */
-	private Integer subgoal;          /* ãˆÊ‘w‚©‚ç‚ÌƒTƒuƒS[ƒ‹‚Ìó‘Ô  */
-	private Integer nextNodeID;       /* Ÿ‚Ìó‘Ô */
-	private int processID;            /* Ÿ‚Ìó‘Ô‚ğo—Í‚µ‚Ä‚¢‚éˆ—‚ÌID */
-	private boolean flagRenewSubgoal; /* ƒTƒuƒS[ƒ‹‚ª•ÏX‚³‚ê‚½‚Ìƒtƒ‰ƒO */
+	private Integer nodeID;           /* ç¾åœ¨ã®çŠ¶æ…‹ */
+	private Integer goalNodeID;       /* ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ */
+	private Integer subgoal;          /* ä¸Šä½å±¤ã‹ã‚‰ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹  */
+	private Integer nextNodeID;       /* æ¬¡ã®çŠ¶æ…‹ */
+	private int processID;            /* æ¬¡ã®çŠ¶æ…‹ã‚’å‡ºåŠ›ã—ã¦ã„ã‚‹å‡¦ç†ã®ID */
+	private boolean flagRenewSubgoal; /* ã‚µãƒ–ã‚´ãƒ¼ãƒ«ãŒå¤‰æ›´ã•ã‚ŒãŸæ™‚ã®ãƒ•ãƒ©ã‚° */
 
 	/**
-	 * Às‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] Às‚Ìƒm[ƒh‚ÉŠÖ‚·‚éî•ñ
-	 *               ’l‚Ì‚È‚¢ó‘Ô‚É‚Â‚¢‚Ä‚Í-1‚ªİ’è‚³‚ê‚é
-	 *               int[0] Œ»İ‚Ìó‘Ô‚ÌID
-	 *               int[1] ƒS[ƒ‹‚Ìó‘Ô‚ÌID
-	 *               int[2] ãˆÊ‘w‚©‚ç‚ÌƒTƒuƒS[ƒ‹‚Ìó‘Ô‚ÌID
-	 *               int[3] Ÿ‚Ìó‘Ô‚ÌID
-	 *               int[4] Ÿ‚Ìó‘Ô‚ğo—Í‚µ‚Ä‚¢‚éˆ—‚ÌID
-	 *               int[5] ƒTƒuƒS[ƒ‹‚ªXV‚³‚ê‚Ä‚¢‚é‚©
-	 *                      0FXV‚³‚ê‚Ä‚¢‚È‚¢ 1FXV‚³‚ê‚Ä‚¢‚é
+	 * å®Ÿè¡Œæ™‚ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] å®Ÿè¡Œæ™‚ã®ãƒãƒ¼ãƒ‰ã«é–¢ã™ã‚‹æƒ…å ±
+	 *               å€¤ã®ãªã„çŠ¶æ…‹ã«ã¤ã„ã¦ã¯-1ãŒè¨­å®šã•ã‚Œã‚‹
+	 *               int[0] ç¾åœ¨ã®çŠ¶æ…‹ã®ID
+	 *               int[1] ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã®ID
+	 *               int[2] ä¸Šä½å±¤ã‹ã‚‰ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã®ID
+	 *               int[3] æ¬¡ã®çŠ¶æ…‹ã®ID
+	 *               int[4] æ¬¡ã®çŠ¶æ…‹ã‚’å‡ºåŠ›ã—ã¦ã„ã‚‹å‡¦ç†ã®ID
+	 *               int[5] ã‚µãƒ–ã‚´ãƒ¼ãƒ«ãŒæ›´æ–°ã•ã‚Œã¦ã„ã‚‹ã‹
+	 *                      0ï¼šæ›´æ–°ã•ã‚Œã¦ã„ãªã„ 1ï¼šæ›´æ–°ã•ã‚Œã¦ã„ã‚‹
 	 */
 	public int[] getExecInfo() {
 		int[] execInfo = new int[6];
@@ -69,27 +69,27 @@ public class ExecInfo {
 	}
 
 	/**
-	 * Œ»İ‚Ìó‘Ô‚ğİ’è‚µ‚Ü‚·B
-	 * @param Integer nodeID Œ»İ‚Ìó‘Ô‚ÌID
+	 * ç¾åœ¨ã®çŠ¶æ…‹ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param Integer nodeID ç¾åœ¨ã®çŠ¶æ…‹ã®ID
 	 */
 	public void setNodeID(Integer nodeID) {
 		this.nodeID = nodeID;
 	}
 
 	/**
-	 * ƒS[ƒ‹‚Ìó‘Ô‚ğİ’è‚µ‚Ü‚·B
-	 * @param Integer goalNodeID ƒS[ƒ‹‚Ìó‘Ô‚ÌID
+	 * ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param Integer goalNodeID ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã®ID
 	 */
 	public void setGoalNodeID(Integer goalNodeID) {
 		this.goalNodeID = goalNodeID;
 	}
 
 	/**
-	 * Ÿ‚Ìó‘Ô‚ÆA‚»‚Ìó‘Ô‚Ìæ“¾‚ÉŠÖ‚·‚éî•ñ‚ğİ’è‚µ‚Ü‚·B
-	 * @param Integer nextNodeID       Ÿ‚Ìó‘Ô‚ÌID
-	 * @param int processID            Ÿ‚Ìó‘Ô‚ğo—Í‚µ‚Ä‚¢‚éˆ—‚ÌID
-	 * @param Integer subgoal          ãˆÊ‘w‚©‚ç‚ÌƒTƒuƒS[ƒ‹‚Ìó‘Ô‚ÌID
-	 * @param boolean flagRenewSubgoal ƒTƒuƒS[ƒ‹‚ªXV‚³‚ê‚Ä‚¢‚é‚©
+	 * æ¬¡ã®çŠ¶æ…‹ã¨ã€ãã®çŠ¶æ…‹ã®å–å¾—ã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param Integer nextNodeID       æ¬¡ã®çŠ¶æ…‹ã®ID
+	 * @param int processID            æ¬¡ã®çŠ¶æ…‹ã‚’å‡ºåŠ›ã—ã¦ã„ã‚‹å‡¦ç†ã®ID
+	 * @param Integer subgoal          ä¸Šä½å±¤ã‹ã‚‰ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã®ID
+	 * @param boolean flagRenewSubgoal ã‚µãƒ–ã‚´ãƒ¼ãƒ«ãŒæ›´æ–°ã•ã‚Œã¦ã„ã‚‹ã‹
 	 */
 	public void setNextNodeID(Integer nextNodeID, int processID,
 	        Integer subgoal, boolean flagRenewSubgoal) {
@@ -100,10 +100,10 @@ public class ExecInfo {
 	}
 
 	/**
-	 * Šeƒpƒ‰ƒ[ƒ^‚ğ‰Šú‰»‚µ‚Ü‚·B
+	 * å„ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’åˆæœŸåŒ–ã—ã¾ã™ã€‚
 	 */
 	public void paramReset() {
-// Œ»İ‚Ìó‘Ô‚ÍƒNƒŠƒA‚µ‚È‚¢ 2001.03.08 C³ miyamoto 
+// ç¾åœ¨ã®çŠ¶æ…‹ã¯ã‚¯ãƒªã‚¢ã—ãªã„ 2001.03.08 ä¿®æ­£ miyamoto 
 //		nodeID = null;
 		goalNodeID = null;
 		subgoal = null;

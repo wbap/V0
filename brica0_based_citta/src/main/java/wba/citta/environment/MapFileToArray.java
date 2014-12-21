@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * MapFileToArray.java
- * CSVŒ`®‚Ì’n}ƒtƒ@ƒCƒ‹‚ğ”z—ñ‚É•ÏŠ·‚·‚éƒNƒ‰ƒX
+ * CSVå½¢å¼ã®åœ°å›³ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é…åˆ—ã«å¤‰æ›ã™ã‚‹ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2001.08 miyamoto
  */
@@ -11,19 +11,19 @@ import java.util.*;
 //import jp.ac.wakhok.tomoharu.csv.*;
 
 /**
- * CSVŒ`®‚Ì’n}ƒtƒ@ƒCƒ‹‚ğ”z—ñ‚É•ÏŠ·‚·‚éƒNƒ‰ƒX
+ * CSVå½¢å¼ã®åœ°å›³ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é…åˆ—ã«å¤‰æ›ã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class MapFileToArray {
 
-	/* ƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ‚»‚Ì‚Ü‚Ü”z—ñ‚Éİ’è String[x][y] */
+	/* ãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’ãã®ã¾ã¾é…åˆ—ã«è¨­å®š String[x][y] */
 	private String[][] fileArray;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼‚Å‚Ì’n}î•ñ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«åã§ã®åœ°å›³æƒ…å ±
 	 */
 	public MapFileToArray(String fileName) {
-		/* ƒe[ƒuƒ‹î•ñ‚Ìì¬ */
+		/* ãƒ†ãƒ¼ãƒ–ãƒ«æƒ…å ±ã®ä½œæˆ */
 		makeFileArray(fileName);
 	}
 
@@ -33,27 +33,27 @@ public class MapFileToArray {
 	}
 
 	/**
-	 * ’n}ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğ•¶š—ñ‚Ì”z—ñ‚Éİ’è
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * åœ°å›³ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’æ–‡å­—åˆ—ã®é…åˆ—ã«è¨­å®š
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	private void makeFileArray(String fileName) {
 
-		/* ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğ“Ç‚İ‚İ ˆês‚¸‚Â‚Ì•¶š—ñî•ñ‚ğƒŠƒXƒg‚Åæ“¾ */
+		/* ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’èª­ã¿è¾¼ã¿ ä¸€è¡Œãšã¤ã®æ–‡å­—åˆ—æƒ…å ±ã‚’ãƒªã‚¹ãƒˆã§å–å¾— */
 		LinkedList mapStringList = loadMap(fileName);
 
-		/* ”z—ñ‚ÌƒTƒCƒYİ’è */
+		/* é…åˆ—ã®ã‚µã‚¤ã‚ºè¨­å®š */
 		String s = (String)mapStringList.get(0);
 // 2001.12.20 miyamoto
-// CSVTokenizer‚Ìg—p‚ğ‚â‚ßAStringTokenizer‚Å‘Î‰
+// CSVTokenizerã®ä½¿ç”¨ã‚’ã‚„ã‚ã€StringTokenizerã§å¯¾å¿œ
 //		CSVTokenizer csvTokenizer = new CSVTokenizer(s);
 //		int tokenNum = csvTokenizer.countTokens();
 		StringTokenizer stringTokenizer = new StringTokenizer(s, ",");
 		int tokenNum = stringTokenizer.countTokens();
-// ‚±‚±‚Ü‚Å
+// ã“ã“ã¾ã§
 
 		fileArray = new String[tokenNum][mapStringList.size()];
 
-		/* 1s•ª‚Ìƒf[ƒ^‚ğ‰ğÍ ”z—ñ‚Éİ’è */
+		/* 1è¡Œåˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’è§£æ é…åˆ—ã«è¨­å®š */
 		int lineCnt = 0;
 		ListIterator literator = mapStringList.listIterator();
 		while(literator.hasNext()) {
@@ -65,15 +65,15 @@ public class MapFileToArray {
 
 
 	/**
-	 * ’n}î•ñ‚ğƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚İ‚Ü‚·B
-	 * @ param String fileName ’n}î•ñ‚Ìƒtƒ@ƒCƒ‹–¼
-	 * @ return LinkedList ’n}î•ñ‚ğ“Ç‚İ‚ñ‚¾String‚ÌƒŠƒXƒg
+	 * åœ°å›³æƒ…å ±ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã¿ã¾ã™ã€‚
+	 * @ param String fileName åœ°å›³æƒ…å ±ã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	 * @ return LinkedList åœ°å›³æƒ…å ±ã‚’èª­ã¿è¾¼ã‚“ã Stringã®ãƒªã‚¹ãƒˆ
 	 */
 	private LinkedList loadMap(String fileName) {
 
 		LinkedList lList = new LinkedList();
 		try {
-			/* ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ */
+			/* ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­è¾¼ã¿ */
 			FileReader fReader = new FileReader(fileName);
 			BufferedReader bReader = new BufferedReader(fReader);
 
@@ -82,7 +82,7 @@ public class MapFileToArray {
 					if(bReader.ready() == false) {
 						break;
 					}
-					/* ƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ1s‚¸‚Âæ“¾‚µ•¶š—ñ‚ÌƒŠƒXƒg‚Æ‚µ‚Äİ’è */
+					/* ãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’1è¡Œãšã¤å–å¾—ã—æ–‡å­—åˆ—ã®ãƒªã‚¹ãƒˆã¨ã—ã¦è¨­å®š */
 					String mapData = bReader.readLine();
 					lList.add(mapData);
 				}
@@ -100,19 +100,19 @@ public class MapFileToArray {
 
 
 	/**
-	 * ƒJƒ“ƒ}‚Å‹æØ‚ç‚ê‚½•¶šî•ñ‚ğString‚Ì”z—ñ‚É•ÏŠ·‚µ‚Ü‚·B
-	 * @param String mapData •¶š—ñ‚Ì’n}î•ñ
-	 * @param int lineCnt s”(yÀ•W)‚ÌƒJƒEƒ“ƒg
+	 * ã‚«ãƒ³ãƒã§åŒºåˆ‡ã‚‰ã‚ŒãŸæ–‡å­—æƒ…å ±ã‚’Stringã®é…åˆ—ã«å¤‰æ›ã—ã¾ã™ã€‚
+	 * @param String mapData æ–‡å­—åˆ—ã®åœ°å›³æƒ…å ±
+	 * @param int lineCnt è¡Œæ•°(yåº§æ¨™)ã®ã‚«ã‚¦ãƒ³ãƒˆ
 	 */
 	private void parseString(String mapData, int lineCnt) {
 // 2001.12.20 miyamoto
-// CSVTokenizer‚Ìg—p‚ğ‚â‚ßAStringTokenizer‚Å‘Î‰
+// CSVTokenizerã®ä½¿ç”¨ã‚’ã‚„ã‚ã€StringTokenizerã§å¯¾å¿œ
 //		CSVTokenizer csvTokenizer = new CSVTokenizer(mapData);
 //		int tokenCnt = 0;
 //		while(csvTokenizer.hasMoreElements()) {
 //			String str = csvTokenizer.nextToken();
 //
-//			/* ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğ”z—ñ‚Æ‚µ‚Ä•Û */
+//			/* ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’é…åˆ—ã¨ã—ã¦ä¿æŒ */
 //			fileArray[tokenCnt][lineCnt] = str;
 //
 //			tokenCnt ++;
@@ -122,19 +122,19 @@ public class MapFileToArray {
 		while(stringTokenizer.hasMoreElements()) {
 			String str = stringTokenizer.nextToken();
 
-			/* ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğ”z—ñ‚Æ‚µ‚Ä•Û */
+			/* ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’é…åˆ—ã¨ã—ã¦ä¿æŒ */
 			fileArray[tokenCnt][lineCnt] = str;
 
 			tokenCnt ++;
 		}
-// ‚±‚±‚Ü‚Å
+// ã“ã“ã¾ã§
 	}
 
 
 	/**
-	 * ’n}ã‚©‚çw’è‚³‚ê‚½•¶š—ñ‚Ì‚ ‚éÀ•W‚ğæ“¾‚µ‚Ü‚·B
-	 * @param String targerID ’T‚·•¶š—ñ
-	 * @param int[]           À•W
+	 * åœ°å›³ä¸Šã‹ã‚‰æŒ‡å®šã•ã‚ŒãŸæ–‡å­—åˆ—ã®ã‚ã‚‹åº§æ¨™ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param String targerID æ¢ã™æ–‡å­—åˆ—
+	 * @param int[]           åº§æ¨™
 	 */
 	private int[] searchMap(String targetID) {
 		int[] pos = null;

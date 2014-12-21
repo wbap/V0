@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * TransitionCounter.java
- * ’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚Ö‚Ì‘JˆÚ‚Ì‰ñ”‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+ * ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã¸ã®é·ç§»ã®å›æ•°ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2000.10 BSC miyamoto
  */
@@ -9,16 +9,16 @@ package wba.citta.cognitivedistance;
 import java.io.*;
 
 /**
- * ’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚Ö‚Ì‘JˆÚ‚Ì‰ñ”‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·B
+ * ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã¸ã®é·ç§»ã®å›æ•°ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  */
 public class TransitionCounter implements Serializable {
 
-	private Integer nextNodeID;  /* ˆÚ“®æ‚Ìƒm[ƒh‚ÌID */
-	private int trasitionCount;  /* ‚»‚Ìƒm[ƒh‚Ö‚ÌˆÚ“®‰ñ” */
+	private Integer nextNodeID;  /* ç§»å‹•å…ˆã®ãƒãƒ¼ãƒ‰ã®ID */
+	private int trasitionCount;  /* ãã®ãƒãƒ¼ãƒ‰ã¸ã®ç§»å‹•å›æ•° */
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param Integer nextNodeID  ’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌID
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param Integer nextNodeID  ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®ID
 	 */
 	public TransitionCounter(Integer nextNodeID) {
 		this.nextNodeID = nextNodeID;
@@ -27,15 +27,15 @@ public class TransitionCounter implements Serializable {
 
 
 	/**
-	 * ˆÚ“®‰ñ”‚ğ‚P‘‰Á‚³‚¹‚Ü‚·B
+	 * ç§»å‹•å›æ•°ã‚’ï¼‘å¢—åŠ ã•ã›ã¾ã™ã€‚
 	 */
 	public void count() {
 		trasitionCount++;
 	}
 
 	/**
-	 * ˆÚ“®‰ñ”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int   ˆÚ“®‰ñ”
+	 * ç§»å‹•å›æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int   ç§»å‹•å›æ•°
 	 */
 	public int getCount() {
 		return trasitionCount;

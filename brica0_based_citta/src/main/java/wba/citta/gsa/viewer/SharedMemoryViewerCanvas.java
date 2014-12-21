@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * SharedMemoryViewerCanvas.java
- *  ‹¤—Lƒƒ‚ƒŠ‚Ìó‘Ô‚ğ•`‰æ‚·‚éƒNƒ‰ƒX
+ *  å…±æœ‰ãƒ¡ãƒ¢ãƒªã®çŠ¶æ…‹ã‚’æç”»ã™ã‚‹ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2001.10 BSC miyamoto
  */
@@ -11,43 +11,43 @@ import java.util.*;
 import wba.citta.gsa.*;
 
 /**
- *  ‹¤—Lƒƒ‚ƒŠ‚Ìó‘Ô‚ğ•`‰æ‚·‚éƒNƒ‰ƒX
+ *  å…±æœ‰ãƒ¡ãƒ¢ãƒªã®çŠ¶æ…‹ã‚’æç”»ã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class SharedMemoryViewerCanvas extends Canvas {
 
-	/* Œ»İ‚Ìó‘Ô‚Ö‚ÌQÆ */
+	/* ç¾åœ¨ã®çŠ¶æ…‹ã¸ã®å‚ç…§ */
 	private Integer[] stateArray;
-	/* ƒS[ƒ‹ƒXƒ^ƒbƒN‚Ö‚ÌQÆ */
+	/* ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã¸ã®å‚ç…§ */
 	private LinkedList[] goalStackArray;
 
-	/* ¶‰E‚ÌŠÔŠu */
+	/* å·¦å³ã®é–“éš” */
 	private final int X_SPACE = 40;
-	/* ‰º‚ÌŠÔŠu */
+	/* ä¸‹ã®é–“éš” */
 	private final int Y_SPACE = 10;
 
-	/* •`‰æ‚·‚é—v‘f‚ÌƒTƒCƒY */
+	/* æç”»ã™ã‚‹è¦ç´ ã®ã‚µã‚¤ã‚º */
 	private final int X_ELEMENT_SIZE = 30;
 	private final int Y_ELEMENT_SIZE = 30;
 
-	/* •\¦‚³‚ê‚Ä‚¢‚é—Ìˆæ‚ÌƒTƒCƒY */
+	/* è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹é ˜åŸŸã®ã‚µã‚¤ã‚º */
 	private int height;
 	private int width;
 
-	/* ƒ_ƒuƒ‹ƒoƒbƒtƒ@ƒŠƒ“ƒO—p ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW */
+	/* ãƒ€ãƒ–ãƒ«ãƒãƒƒãƒ•ã‚¡ãƒªãƒ³ã‚°ç”¨ ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ */
 	private Image offImage;
 	private Graphics offGraphics;
 
-	/* •¶š‚ÌƒtƒHƒ“ƒg */
+	/* æ–‡å­—ã®ãƒ•ã‚©ãƒ³ãƒˆ */
 	private Font agidFont = new Font("Dialog", Font.BOLD, 20);
 	private Font valueFont = new Font("Dialog", Font.PLAIN , 12);
 
 	////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param Integer[] stateArray Œ»İ‚Ìó‘Ô‚Ö‚ÌQÆ
-	 * @param LinkedList[] goalStackArray ƒS[ƒ‹ƒXƒ^ƒbƒN‚Ö‚ÌQÆ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param Integer[] stateArray ç¾åœ¨ã®çŠ¶æ…‹ã¸ã®å‚ç…§
+	 * @param LinkedList[] goalStackArray ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã¸ã®å‚ç…§
 	 */
 	public SharedMemoryViewerCanvas(Integer[] stateArray,
 	        LinkedList[] goalStackArray) {
@@ -60,7 +60,7 @@ public class SharedMemoryViewerCanvas extends Canvas {
 	// public 
 
 	/**
-	 * updateƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * updateãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 * @param Graphics g
 	 */
 	public void update(Graphics g) {
@@ -71,17 +71,17 @@ private int xSizeOld = 0;
 private int ySizeOld = 0;
 
 	/**
-	 * paintƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * paintãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 * @param Graphics g
 	 */
 	public void paint(Graphics g) {
 
-		/* •`‰æ‚·‚éƒGƒŠƒA‚ÌƒTƒCƒY‚ğæ“¾ */
+		/* æç”»ã™ã‚‹ã‚¨ãƒªã‚¢ã®ã‚µã‚¤ã‚ºã‚’å–å¾— */
 		int[] size = getUseCanvasSize();
 
 		if(xSizeOld != size[0] || ySizeOld != size[1]) {
 			setSize(size[0], size[1]);
-			/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚Ìì¬ */
+			/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ä½œæˆ */
 			offImage = createImage(size[0], size[1]);
 			offGraphics = offImage.getGraphics();
 		}
@@ -89,16 +89,16 @@ private int ySizeOld = 0;
 		xSizeOld = size[0];
 		ySizeOld = size[1];
 
-		/* ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”» */
 		drawOffImage(offGraphics);
-		/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚ğ•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æç”» */
 		g.drawImage(offImage, 0, 0, this);
 	}
 
 	/**
-	 * Canvas’†‚Ì•\¦‚³‚ê‚Ä‚¢‚é—Ìˆæ‚ÌƒTƒCƒY‚ğİ’è‚µ‚Ü‚·B
-	 * @param int width  •
-	 * @param int height ‚‚³
+	 * Canvasä¸­ã®è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹é ˜åŸŸã®ã‚µã‚¤ã‚ºã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int width  å¹…
+	 * @param int height é«˜ã•
 	 */
 	public void setViewportSize(int width, int height) {
 		this.width = width;
@@ -109,24 +109,24 @@ private int ySizeOld = 0;
 	// private
 
 	/**
-	 * ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ
+	 * ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”»
 	 * @param Graphics graphics
 	 */
 	private void drawOffImage(Graphics graphics) {
 
-		/* ƒCƒ[ƒW‚ÌƒNƒŠƒA */
+		/* ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢ */
 		clearOffImage(graphics);
 
-		/* ƒx[ƒX•”•ª‚Ì•`‰æ */
+		/* ãƒ™ãƒ¼ã‚¹éƒ¨åˆ†ã®æç”» */
 		drawBase(graphics);
-		/* Œ»İ‚Ìó‘Ô‚Ì•`‰æ */
+		/* ç¾åœ¨ã®çŠ¶æ…‹ã®æç”» */
 		drawState(graphics);
-		/* ƒS[ƒ‹ƒXƒ^ƒbƒN‘S‘Ì‚Ì•`‰æ */
+		/* ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯å…¨ä½“ã®æç”» */
 		drawStackArray(graphics);
 	}
 
 	/**
-	 * ƒIƒtƒXƒNƒŠ[ƒ“ã‚ÌƒCƒ[ƒW‚ÌƒNƒŠƒA
+	 * ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ä¸Šã®ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢
 	 * @param Graphics graphics
 	 */
 	private void clearOffImage(Graphics graphics) {
@@ -135,7 +135,7 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * Œ»İ‚Ìó‘Ô‚ğ•`‰æ‚µ‚Ü‚·B
+	 * ç¾åœ¨ã®çŠ¶æ…‹ã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics graphics
 	 */
 	private void drawState(Graphics graphics) {
@@ -147,15 +147,15 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * Œ»İ‚Ìó‘Ô‚ÌŠe—v‘f‚ğ•`‰æ‚µ‚Ü‚·B
+	 * ç¾åœ¨ã®çŠ¶æ…‹ã®å„è¦ç´ ã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics g
-	 * @param int nodeIndex •`‰æ‚·‚éƒm[ƒh
-	 * @param Integer element •`‰æ‚·‚é’l
+	 * @param int nodeIndex æç”»ã™ã‚‹ãƒãƒ¼ãƒ‰
+	 * @param Integer element æç”»ã™ã‚‹å€¤
 	 */
 	private void drawStateElement(Graphics graphics, int nodeIndex,
 	        Integer element) {
 
-		/* •`‰æ‚·‚éCanvasã‚ÌˆÊ’u‚ğæ“¾ */
+		/* æç”»ã™ã‚‹Canvasä¸Šã®ä½ç½®ã‚’å–å¾— */
 		int rectInfo[] = getStackElementRectSize(nodeIndex, 0);
 
 		graphics.setColor(Color.black);
@@ -168,7 +168,7 @@ private int ySizeOld = 0;
 
 
 	/**
-	 * ƒS[ƒ‹ƒXƒ^ƒbƒN‘S‘Ì‚ğ•`‰æ‚µ‚Ü‚·B
+	 * ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯å…¨ä½“ã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics g
 	 */
 	private void drawStackArray(Graphics graphics) {
@@ -178,9 +178,9 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * ƒS[ƒ‹ƒXƒ^ƒbƒN‚Ìw’è‚³‚ê‚½ƒm[ƒh‚ğ•`‰æ‚µ‚Ü‚·B
+	 * ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã®æŒ‡å®šã•ã‚ŒãŸãƒãƒ¼ãƒ‰ã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics g
-	 * @param int nodeIndex •`‰æ‚·‚éƒm[ƒh
+	 * @param int nodeIndex æç”»ã™ã‚‹ãƒãƒ¼ãƒ‰
 	 */
 	private void drawStack(Graphics graphics, int nodeIndex) {
 		for(int i = 0; i < goalStackArray[nodeIndex].size(); i++) {
@@ -191,11 +191,11 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * ƒS[ƒ‹ƒXƒ^ƒbƒN‚Ìw’è‚³‚ê‚½—v‘f‚ğ•`‰æ‚µ‚Ü‚·B
+	 * ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã®æŒ‡å®šã•ã‚ŒãŸè¦ç´ ã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics g
-	 * @param int x •`‰æ‚·‚éƒm[ƒh
-	 * @param int y •`‰æ‚·‚é—v‘f‚Ìƒm[ƒh’†‚ÌˆÊ’u
-	 * @param GoalStackElement element •`‰æ‚·‚é—v‘f
+	 * @param int x æç”»ã™ã‚‹ãƒãƒ¼ãƒ‰
+	 * @param int y æç”»ã™ã‚‹è¦ç´ ã®ãƒãƒ¼ãƒ‰ä¸­ã®ä½ç½®
+	 * @param GoalStackElement element æç”»ã™ã‚‹è¦ç´ 
 	 */
 	private void drawStackElement(Graphics graphics, int x, int y,
 	        GoalStackElement element) {
@@ -203,11 +203,11 @@ private int ySizeOld = 0;
 		String value = " " + element.value;
 		String agid = " " + element.agid;
 
-		/* •`‰æ‚·‚éCanvasã‚ÌˆÊ’u‚ğæ“¾ */
+		/* æç”»ã™ã‚‹Canvasä¸Šã®ä½ç½®ã‚’å–å¾— */
 		int rectInfo[] = getStackElementRectSize(x, y+2);
 
-		/* •`‰æˆ— */
-		/* ƒG[ƒWƒFƒ“ƒg‚²‚Æ‚ÌF‚ğƒe[ƒuƒ‹‚©‚çæ“¾ */
+		/* æç”»å‡¦ç† */
+		/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã”ã¨ã®è‰²ã‚’ãƒ†ãƒ¼ãƒ–ãƒ«ã‹ã‚‰å–å¾— */
 		Color color = (Color)(ViewerProperty.colorTable).get(
 		        new Integer(element.agid));
 
@@ -229,13 +229,13 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * ƒXƒ^ƒbƒN‚Ìƒx[ƒX•”•ª‚ğ•`‰æ‚µ‚Ü‚·B
+	 * ã‚¹ã‚¿ãƒƒã‚¯ã®ãƒ™ãƒ¼ã‚¹éƒ¨åˆ†ã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics g
 	 */
 	private void drawBase(Graphics graphics) {
 		graphics.setColor(Color.blue);
 
-		/* ƒm[ƒh‚ÌID‚Ì•`‰æ */
+		/* ãƒãƒ¼ãƒ‰ã®IDã®æç”» */
 		for(int i = 0; i < goalStackArray.length; i++) {
 			int[] rectInfo = getStackElementRectSize(i, 1);
 			int xPos = rectInfo[0] + (rectInfo[2]/2);
@@ -243,7 +243,7 @@ private int ySizeOld = 0;
 			graphics.drawString(""+ i, xPos, yPos );
 		}
 
-		/* "GoalStack","State"‚Ì•`‰æ */
+		/* "GoalStack","State"ã®æç”» */
 		graphics.setFont(valueFont);
 
 		int[] rectInfo = getStackElementRectSize(0, 2);
@@ -255,10 +255,10 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * w’è‚³‚ê‚½‹¤—Lƒƒ‚ƒŠ‚ÌˆÊ’u‚É•`‰æ‚·‚é‹éŒ`‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int x x•ûŒü‚Ö‚ÌˆÊ’u
-	 * @param int y y•ûŒü‚Ö‚ÌˆÊ’u
-	 * @return int[] int[4]‚Ì”z—ñ ‡‚ÉƒLƒƒƒ“ƒoƒXã‚Ì XÀ•WEYÀ•WE•E‚‚³
+	 * æŒ‡å®šã•ã‚ŒãŸå…±æœ‰ãƒ¡ãƒ¢ãƒªã®ä½ç½®ã«æç”»ã™ã‚‹çŸ©å½¢ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x xæ–¹å‘ã¸ã®ä½ç½®
+	 * @param int y yæ–¹å‘ã¸ã®ä½ç½®
+	 * @return int[] int[4]ã®é…åˆ— é †ã«ã‚­ãƒ£ãƒ³ãƒã‚¹ä¸Šã® Xåº§æ¨™ãƒ»Yåº§æ¨™ãƒ»å¹…ãƒ»é«˜ã•
 	 */
 	private int[] getStackElementRectSize(int x, int y) {
 		Dimension d = getSize();
@@ -271,10 +271,10 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * ƒLƒƒƒ“ƒoƒX‚É•K—v‚ÈƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
-	 * ƒLƒƒƒ“ƒoƒX‚É•K—v‚ÈƒTƒCƒY‚ÍA•`‰æƒGƒŠƒA‚ÆƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚Ì‚¤‚¿
-	 * ‚Ç‚¿‚ç‚©‘å‚«‚¢•û‚ğ—˜—p‚µ‚Ü‚·B
-	 * @return int[] [0]•  [1]‚‚³
+	 * ã‚­ãƒ£ãƒ³ãƒã‚¹ã«å¿…è¦ãªã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * ã‚­ãƒ£ãƒ³ãƒã‚¹ã«å¿…è¦ãªã‚µã‚¤ã‚ºã¯ã€æç”»ã‚¨ãƒªã‚¢ã¨ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºã®ã†ã¡
+	 * ã©ã¡ã‚‰ã‹å¤§ãã„æ–¹ã‚’åˆ©ç”¨ã—ã¾ã™ã€‚
+	 * @return int[] [0]å¹…  [1]é«˜ã•
 	 */
 	private int[] getUseCanvasSize() {
 
@@ -289,8 +289,8 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * •`‰æ‚É•K—v‚ÈƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] [0]•  [1]‚‚³
+	 * æç”»ã«å¿…è¦ãªã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] [0]å¹…  [1]é«˜ã•
 	 */
 	private int[] getDrawAreaSize() {
 		int[] drawNum = getDrawNum();
@@ -301,8 +301,8 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * •`‰æ‚·‚é—v‘f”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] •`‰æ‚·‚é—v‘f” [0]x²•ûŒü‚Ö‚Ì” [1]y²•ûŒü‚Ö‚Ì”
+	 * æç”»ã™ã‚‹è¦ç´ æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] æç”»ã™ã‚‹è¦ç´ æ•° [0]xè»¸æ–¹å‘ã¸ã®æ•° [1]yè»¸æ–¹å‘ã¸ã®æ•°
 	 */
 	private int[] getDrawNum() {
 		int[] drawNum = new int[2];
@@ -313,7 +313,7 @@ private int ySizeOld = 0;
 			}
 		}
 
-		/* ƒx[ƒX‚ÆAƒXƒeƒCƒg‚Ì•ª‚ğ’Ç‰Á */
+		/* ãƒ™ãƒ¼ã‚¹ã¨ã€ã‚¹ãƒ†ã‚¤ãƒˆã®åˆ†ã‚’è¿½åŠ  */
 		drawNum[1] += 2;
 		return drawNum;
 	}

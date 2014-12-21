@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * TreeViewer.java
- *  ƒcƒŠ[‚Ìó‘Ô‚ğƒOƒ‰ƒtƒBƒbƒNƒX•\¦‚·‚éƒNƒ‰ƒX
+ *  ãƒ„ãƒªãƒ¼ã®çŠ¶æ…‹ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.10 BSC miyamoto
  */
@@ -10,23 +10,23 @@ import java.awt.*;
 import wba.citta.gsa.*;
 
 /**
- *  ƒcƒŠ[‚Ìó‘Ô‚ğƒOƒ‰ƒtƒBƒbƒNƒX•\¦‚·‚éƒNƒ‰ƒX
+ *  ãƒ„ãƒªãƒ¼ã®çŠ¶æ…‹ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class TreeViewer extends Frame {
 
 	private ScrollPane scrollPane = null;
 	private TreeViewerCanvas canvas = null;
 
-	/* ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹ */
+	/* ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ« */
 	private static final String TITLE = "Fail Agent Tree Viewer";
 
-	/* ƒEƒBƒ“ƒhƒE‚Ì‰ŠúƒTƒCƒY */
+	/* ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®åˆæœŸã‚µã‚¤ã‚º */
 	private int initXSize = 460;
 	private int initYSize = 740;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param FailAgentTreeElement rootElement ƒcƒŠ[‚Ìƒ‹[ƒg‚Ö‚ÌQÆ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param FailAgentTreeElement rootElement ãƒ„ãƒªãƒ¼ã®ãƒ«ãƒ¼ãƒˆã¸ã®å‚ç…§
 	 */
 	public TreeViewer(FailAgentTreeElement rootElement) {
 		super(TITLE);
@@ -44,7 +44,7 @@ public class TreeViewer extends Frame {
 	}
 
 	/**
-	 * •`‰æ‚ğXV
+	 * æç”»ã‚’æ›´æ–°
 	 */
 	private void renew() {
 		Dimension d = scrollPane.getViewportSize();
@@ -54,7 +54,7 @@ public class TreeViewer extends Frame {
 	}
 
 	/**
-	 * paintƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * paintãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 * @param Graphics g
 	 */
 	public void paint(Graphics graphics) {
@@ -62,8 +62,8 @@ public class TreeViewer extends Frame {
 	}
 
 	/**
-	 * ƒcƒŠ[‚ÌƒJƒŒƒ“ƒg‚ğİ’è‚µ‚Ü‚·B
-	 * @param FailAgentTreeElement currentElement ƒcƒŠ[‚ÌƒJƒŒƒ“ƒg
+	 * ãƒ„ãƒªãƒ¼ã®ã‚«ãƒ¬ãƒ³ãƒˆã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param FailAgentTreeElement currentElement ãƒ„ãƒªãƒ¼ã®ã‚«ãƒ¬ãƒ³ãƒˆ
 	 */
 	public void setCurrentElement(FailAgentTreeElement currentElement) {
 		canvas.setCurrentElement(currentElement);

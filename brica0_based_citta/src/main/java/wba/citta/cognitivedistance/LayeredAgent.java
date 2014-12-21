@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * LayeredAgent.java
- * CognitiveDistance‚Ì‚P‚Â‚Ì‘w‚É‚Â‚¢‚Ä‚Ìˆ—‚ğs‚¤ƒG[ƒWƒFƒ“ƒg‚ÌƒNƒ‰ƒX
+ * CognitiveDistanceã®ï¼‘ã¤ã®å±¤ã«ã¤ã„ã¦ã®å‡¦ç†ã‚’è¡Œã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2000.10 BSC miyamoto
  */
@@ -11,119 +11,119 @@ import java.io.*;
 import wba.citta.cognitivedistance.viewer.*;
 
 /**
- * CognitiveDistance‚Ì‚P‚Â‚Ì‘w‚É‚Â‚¢‚Ä‚Ìˆ—‚ğs‚¤ƒG[ƒWƒFƒ“ƒg‚ÌƒNƒ‰ƒX‚Å‚·B
+ * CognitiveDistanceã®ï¼‘ã¤ã®å±¤ã«ã¤ã„ã¦ã®å‡¦ç†ã‚’è¡Œã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  */
 public class LayeredAgent {
 
-	/* ‚±‚ÌƒG[ƒWƒFƒ“ƒg‚ÌƒŒƒCƒ„ID */
+	/* ã“ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ãƒ¬ã‚¤ãƒ¤ID */
 	private int layerID;
 
-	/* ãˆÊ‘w‚ÌƒG[ƒWƒFƒ“ƒg */
+	/* ä¸Šä½å±¤ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ */
 	private LayeredAgent upperLayerAgent;
-	/* •¡”‚ÌNode‚ğ‚à‚ÂVector */
+	/* è¤‡æ•°ã®Nodeã‚’ã‚‚ã¤Vector */
 	private Vector nodes;
-	/* ˆÚ“®‚µ‚½ƒm[ƒhID(Integer)‚Ì—š—ğ */
+	/* ç§»å‹•ã—ãŸãƒãƒ¼ãƒ‰ID(Integer)ã®å±¥æ­´ */
 	private StateBuffer stateBuffer;
 
 	/**
-	 * ó‚¢’Tõ‚ğs‚È‚¤Å‘å‚Ì[‚³
-	 * “’B‰Â”\‚Èƒm[ƒh‚ªŒ©‚Â‚©‚é‚©A‚±‚Ì’l‚Ì[‚³‚Ü‚Å‚Ì’Tõ‚ğs‚¤
+	 * æµ…ã„æ¢ç´¢ã‚’è¡Œãªã†æœ€å¤§ã®æ·±ã•
+	 * åˆ°é”å¯èƒ½ãªãƒãƒ¼ãƒ‰ãŒè¦‹ã¤ã‹ã‚‹ã‹ã€ã“ã®å€¤ã®æ·±ã•ã¾ã§ã®æ¢ç´¢ã‚’è¡Œã†
 	 */
 	public static int shallowSearchLngth = 3;
 
 	/**
-	 * [‚¢’Tõ‚ğs‚È‚¤Å‘å‚Ì[‚³
-	 * “’B‰Â”\‚Èƒm[ƒh‚ªŒ©‚Â‚©‚é‚©A‚±‚Ì’l‚Ì[‚³‚Ü‚Å‚Ì’Tõ‚ğs‚¤
+	 * æ·±ã„æ¢ç´¢ã‚’è¡Œãªã†æœ€å¤§ã®æ·±ã•
+	 * åˆ°é”å¯èƒ½ãªãƒãƒ¼ãƒ‰ãŒè¦‹ã¤ã‹ã‚‹ã‹ã€ã“ã®å€¤ã®æ·±ã•ã¾ã§ã®æ¢ç´¢ã‚’è¡Œã†
 	 */
 	public static int deepSearchLngth = 200;
 
 	/**
-	 * Å¬‚Ås‚¤’Tõ‚Ì[‚³
-	 * ‚±‚±‚Åw’è‚³‚ê‚½[‚³‚Ü‚Å’Tõ‚ğs‚¢AÅ‚à‹ß‚¢‹——£‚Ìƒm[ƒh‚ğ‘I‘ğ
-	 * (ƒTƒuƒS[ƒ‹‚É‚Ì’Tõ‚É‚à‹¤’Ê)
+	 * æœ€å°ã§è¡Œã†æ¢ç´¢ã®æ·±ã•
+	 * ã“ã“ã§æŒ‡å®šã•ã‚ŒãŸæ·±ã•ã¾ã§æ¢ç´¢ã‚’è¡Œã„ã€æœ€ã‚‚è¿‘ã„è·é›¢ã®ãƒãƒ¼ãƒ‰ã‚’é¸æŠ
+	 * (ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã«ã®æ¢ç´¢ã«ã‚‚å…±é€š)
 	 */
 	public static int minSearchLngth = 2;
 
 	/**
-	 * ƒ‰ƒ“ƒhƒ}[ƒN‚ğİ’è‚µ‚Ä‚¢‚­ŠÔŠu
-	 * ‚±‚Ì”ÍˆÍ“à‚Åƒ‰ƒ“ƒhƒ}[ƒN‚ğ’Tõ‚µA‚È‚¯‚ê‚Î©‚ç‚ğƒ‰ƒ“ƒhƒ}[ƒN‚Éİ’è
-	 * (0‚Ìê‡‚·‚×‚Ä‚ğƒ‰ƒ“ƒhƒ}[ƒN‰»)
+	 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’è¨­å®šã—ã¦ã„ãé–“éš”
+	 * ã“ã®ç¯„å›²å†…ã§ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’æ¢ç´¢ã—ã€ãªã‘ã‚Œã°è‡ªã‚‰ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«è¨­å®š
+	 * (0ã®å ´åˆã™ã¹ã¦ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯åŒ–)
 	 */
 	public static int maxSegmentSize = 5;
 
 	/**
-	 * ƒ‰ƒ“ƒhƒ}[ƒNŠÔ‚ÌÅ¬‚ÌŠÔŠu
-	 * ‚±‚Ì”ÍˆÍ“à‚É‘¼‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ª‚ ‚éê‡‚ÍŒ»İ‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ğíœ‚·‚é
-	 * (0‚Ìê‡‚Ííœ‚Ís‚È‚í‚È‚¢)
+	 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯é–“ã®æœ€å°ã®é–“éš”
+	 * ã“ã®ç¯„å›²å†…ã«ä»–ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒã‚ã‚‹å ´åˆã¯ç¾åœ¨ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’å‰Šé™¤ã™ã‚‹
+	 * (0ã®å ´åˆã¯å‰Šé™¤ã¯è¡Œãªã‚ãªã„)
 	 */
 	public static int minSegmentSize = 3;
 
 	/**
-	 * V‹K’Tõ‚É‚æ‚éƒTƒuƒS[ƒ‹‚ğİ’è‚·‚é‚Ü‚Å‚ÌŠÔŠu
+	 * æ–°è¦æ¢ç´¢ã«ã‚ˆã‚‹ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã™ã‚‹ã¾ã§ã®é–“éš”
 	 */
 	public static int maxFamiliarCount = 10;
 
-	// 2001.05.22 ’Ç‰Á miyamoto 
+	// 2001.05.22 è¿½åŠ  miyamoto 
 	/**
-	 * ƒZƒOƒƒ“ƒg‰»‚Ìƒ‰ƒ“ƒhƒ}[ƒN’Tõ‚ÌŒü‚«‚ğØ‚èŠ·‚¦‚éƒtƒ‰ƒO
-	 * true:ForwardModel‚ÅƒZƒOƒƒ“ƒg‰»  false:InverseModel‚ÅƒZƒOƒƒ“ƒg‰»
+	 * ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ–ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯æ¢ç´¢ã®å‘ãã‚’åˆ‡ã‚Šæ›ãˆã‚‹ãƒ•ãƒ©ã‚°
+	 * true:ForwardModelã§ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ–  false:InverseModelã§ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ–
 	 */
 	public static boolean flagLandmarkSearchDirection = false;
 
 
-	/* ƒZƒOƒƒ“ƒg”‚ÌƒJƒEƒ“ƒg */
+	/* ã‚»ã‚°ãƒ¡ãƒ³ãƒˆæ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ */
 	private int segmentCount;
 
-	/* ƒS[ƒ‹’Tõ‚Ég—p‚·‚é•Ï” */
-	/* ˆê‚Â‘O‚ÌãˆÊ‘w‚ÌŸ‚Ìó‘Ô */
+	/* ã‚´ãƒ¼ãƒ«æ¢ç´¢ã«ä½¿ç”¨ã™ã‚‹å¤‰æ•° */
+	/* ä¸€ã¤å‰ã®ä¸Šä½å±¤ã®æ¬¡ã®çŠ¶æ…‹ */
 	private Integer id_Vu0;
-	/* ˆê‚Â‘O‚ÌƒS[ƒ‹‚Ìó‘Ô */
+	/* ä¸€ã¤å‰ã®ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ */
 	private Integer id_Gu0;
-	/* ãˆÊ‘w‚ğ—˜—p‚·‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO */
+	/* ä¸Šä½å±¤ã‚’åˆ©ç”¨ã™ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚° */
 	private boolean useUpperFlag = true;
 
-	/* V‹Kó‘Ô‚Ì’Tõ‚Ég—p‚·‚é•Ï” */
-	/* ‘OƒTƒCƒNƒ‹‚Ìó‘Ô */
+	/* æ–°è¦çŠ¶æ…‹ã®æ¢ç´¢ã«ä½¿ç”¨ã™ã‚‹å¤‰æ•° */
+	/* å‰ã‚µã‚¤ã‚¯ãƒ«ã®çŠ¶æ…‹ */
 	private Integer id_S0;
-	/* ‘OƒTƒCƒNƒ‹‚Ì©‚ç‚Ì‘w‚Å‚ÌV‹K’Tõ‚É‚æ‚éƒTƒuƒS[ƒ‹ */
+	/* å‰ã‚µã‚¤ã‚¯ãƒ«ã®è‡ªã‚‰ã®å±¤ã§ã®æ–°è¦æ¢ç´¢ã«ã‚ˆã‚‹ã‚µãƒ–ã‚´ãƒ¼ãƒ« */
 	private Integer id_F0;
-	/* ‘OƒTƒCƒNƒ‹‚ÌV‹K’Tõˆ—‚ÅãˆÊ‘w‚©‚çæ“¾‚µ‚½ƒTƒuƒS[ƒ‹ */
+	/* å‰ã‚µã‚¤ã‚¯ãƒ«ã®æ–°è¦æ¢ç´¢å‡¦ç†ã§ä¸Šä½å±¤ã‹ã‚‰å–å¾—ã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ« */
 	private Integer id_FVu0;
-	/* ’m‚Á‚Ä‚¢‚éó‘Ô‚ª˜A‘±‚µ‚½”‚ÌƒJƒEƒ“ƒ^[ */
+	/* çŸ¥ã£ã¦ã„ã‚‹çŠ¶æ…‹ãŒé€£ç¶šã—ãŸæ•°ã®ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ */
 	private int familiarCount;
 
-	/* ƒeƒXƒgEÀŒ±—p‚Ì•Ï” */
-	/* ŠK‘w‰»EƒZƒOƒƒ“ƒg‰»‚ÉŠÖ‚µ‚Ä‚Ìî•ñ‚Ìİ’è—p */
+	/* ãƒ†ã‚¹ãƒˆãƒ»å®Ÿé¨“ç”¨ã®å¤‰æ•° */
+	/* éšå±¤åŒ–ãƒ»ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ–ã«é–¢ã—ã¦ã®æƒ…å ±ã®è¨­å®šç”¨ */
 	private ExecInfo execInfo = new ExecInfo();
-	/* ƒS[ƒ‹’Tõ‚Ìî•ñ‚Ìİ’è—p */
+	/* ã‚´ãƒ¼ãƒ«æ¢ç´¢æ™‚ã®æƒ…å ±ã®è¨­å®šç”¨ */
 	private GoalSearchInfo goalSearchInfo = new GoalSearchInfo();
 
-	/** ŠwK‚ğs‚È‚¤‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO */
+	/** å­¦ç¿’ã‚’è¡Œãªã†ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚° */
 	private boolean learningFlag = true;
-	/* ƒ‰ƒ“ƒhƒ}[ƒN‚ÌŠwK‚ğs‚È‚¤‚Ç‚¤‚©‚Ìƒtƒ‰ƒO */
+	/* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®å­¦ç¿’ã‚’è¡Œãªã†ã©ã†ã‹ã®ãƒ•ãƒ©ã‚° */
 	private boolean landmarkLearningFlag = true;
 
 	/////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param LayeredAgent layeredAgent  ãˆÊ‘w‚Ìˆ—‚ğs‚¤ƒG[ƒWƒFƒ“ƒg
-	 * @param int layerID               ‚±‚ÌƒG[ƒWƒFƒ“ƒg‚ªˆ—‚ğs‚¤ƒŒƒCƒ„‚ÌID
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param LayeredAgent layeredAgent  ä¸Šä½å±¤ã®å‡¦ç†ã‚’è¡Œã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
+	 * @param int layerID               ã“ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒå‡¦ç†ã‚’è¡Œã†ãƒ¬ã‚¤ãƒ¤ã®ID
 	 */
 	public LayeredAgent(LayeredAgent layeredAgent, int layerID) {
 
-		/* ƒŒƒCƒ„‚ÌID */
+		/* ãƒ¬ã‚¤ãƒ¤ã®ID */
 		this.layerID = layerID;
-		/* ãˆÊ‘w‚ÌƒG[ƒWƒFƒ“ƒg */
+		/* ä¸Šä½å±¤ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ */
 		upperLayerAgent = layeredAgent;
-		/* Œ»İ‚Ì‘w‚Å‚Ìó‘Ô‚ğŠÇ—‚·‚éVector */
+		/* ç¾åœ¨ã®å±¤ã§ã®çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹Vector */
 //		nodes = new Vector();
 		nodes = new Vector(10000);
-		/* StateBuffer‚ÌÅ‘å‚ÌƒTƒCƒY‚Í‚b‚c‚ÌÅ‘å’l{‚P */
+		/* StateBufferã®æœ€å¤§ã®ã‚µã‚¤ã‚ºã¯ï¼£ï¼¤ã®æœ€å¤§å€¤ï¼‹ï¼‘ */
 		stateBuffer = new StateBuffer(Node.maxCDLngth+1);
 
-		/* ƒpƒ‰ƒ[ƒ^‚Ì•\¦ */
+		/* ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®è¡¨ç¤º */
 		System.out.println("LayerID " + layerID);
 		System.out.println(" Max CD Length             " + Node.maxCDLngth);
 		System.out.println(" Shallow Search Length     " + shallowSearchLngth);
@@ -136,12 +136,12 @@ public class LayeredAgent {
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// Node‚Ì‘€ì
+	// Nodeã®æ“ä½œ
 
 	/**
-	 * ˆø”‚ÌID‚É‘Î‰‚·‚éƒm[ƒhƒIƒuƒWƒFƒNƒg‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer id ƒm[ƒh‚ÌID
-	 * @return Node      ƒm[ƒh
+	 * å¼•æ•°ã®IDã«å¯¾å¿œã™ã‚‹ãƒãƒ¼ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer id ãƒãƒ¼ãƒ‰ã®ID
+	 * @return Node      ãƒãƒ¼ãƒ‰
 	 */
 	public Node getNode(Integer id) {
 
@@ -153,30 +153,30 @@ public class LayeredAgent {
 		if( nodes.size() <= intID ) {
 			return null;
 		}
-		// 2001.05.24 C³ miyamoto ŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚Ìjava‚É‘Î‰
+		// 2001.05.24 ä¿®æ­£ miyamoto å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®javaã«å¯¾å¿œ
 //		return (Node)nodes.get(intID);
 		return (Node)nodes.elementAt(intID);
 	}
 
 	/**
-	 * V‚µ‚¢ƒm[ƒhƒIƒuƒWƒFƒNƒg‚ğ¶¬‚µ‚Ü‚·B
-	 * @param Integer lowerID ‰ºˆÊ‘w‚Å‚Ìƒm[ƒh‚ÌID
-	 * @return Node            ¶¬‚³‚ê‚½ƒm[ƒh
+	 * æ–°ã—ã„ãƒãƒ¼ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¾ã™ã€‚
+	 * @param Integer lowerID ä¸‹ä½å±¤ã§ã®ãƒãƒ¼ãƒ‰ã®ID
+	 * @return Node            ç”Ÿæˆã•ã‚ŒãŸãƒãƒ¼ãƒ‰
 	 */
 	public Node newNode(Integer lowerID) {
 		Node node = new Node(new Integer(nodes.size()), lowerID);
-		// 2001.05.24 C³ miyamoto ŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚Ìjava‚É‘Î‰
+		// 2001.05.24 ä¿®æ­£ miyamoto å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®javaã«å¯¾å¿œ
 //		nodes.add(node);
 		nodes.addElement(node);
 		return node;
 	}
 
 	/**
-	 * ƒm[ƒh‚ğ–³Œø‚É‚µ‚Ü‚·B
-	 * @param Integer nodeID    –³Œø‚É‚·‚éƒm[ƒhID
-	 * @param Integer refID ¡Œã‚ÌQÆæ‚ÌID
-	 * @param int refStep   QÆæ‚Ü‚Å‚Ì‹——£
-	 * @return boolean      true íœ¬Œ÷ false íœ¸”s
+	 * ãƒãƒ¼ãƒ‰ã‚’ç„¡åŠ¹ã«ã—ã¾ã™ã€‚
+	 * @param Integer nodeID    ç„¡åŠ¹ã«ã™ã‚‹ãƒãƒ¼ãƒ‰ID
+	 * @param Integer refID ä»Šå¾Œã®å‚ç…§å…ˆã®ID
+	 * @param int refStep   å‚ç…§å…ˆã¾ã§ã®è·é›¢
+	 * @return boolean      true å‰Šé™¤æˆåŠŸ false å‰Šé™¤å¤±æ•—
 	 */
 	private boolean deleteNode(Integer nodeID, Integer refID, int refStep) {
 		Node node = getNode(nodeID);
@@ -184,31 +184,31 @@ public class LayeredAgent {
 	}
 
 	/**
-	 * ˆø”‚Ìƒm[ƒhID‚É‘Î‰‚·‚éãˆÊ‘w‚Ìƒm[ƒhID‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer nodeID ƒm[ƒhID
-	 * @return Integer       ãˆÊ‘w‚Ìƒm[ƒhID
+	 * å¼•æ•°ã®ãƒãƒ¼ãƒ‰IDã«å¯¾å¿œã™ã‚‹ä¸Šä½å±¤ã®ãƒãƒ¼ãƒ‰IDã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer nodeID ãƒãƒ¼ãƒ‰ID
+	 * @return Integer       ä¸Šä½å±¤ã®ãƒãƒ¼ãƒ‰ID
 	 */
 	private Integer getUpperLayerNodeID(Integer nodeID) {
 
 		if(nodeID == null) {
 			return null;
 		}
-		/* ãˆÊ‘w‚Ìƒm[ƒh‚ª–³Œø‚É‚È‚Á‚Ä‚¢‚È‚¢‚©ƒ`ƒFƒbƒNE–³Œø‚È‚çXV */
+		/* ä¸Šä½å±¤ã®ãƒãƒ¼ãƒ‰ãŒç„¡åŠ¹ã«ãªã£ã¦ã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯ãƒ»ç„¡åŠ¹ãªã‚‰æ›´æ–° */
 		Integer upperLayerNodeID = renewUpperIDAndStep(nodeID);
 		return upperLayerNodeID;
 	}
 
 	/**
-	 * ˆø”‚Ìƒm[ƒhID‚É‘Î‰‚·‚é‰ºˆÊ‘w‚Ìƒm[ƒhID‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer nodeID ƒm[ƒhID
-	 * @return Integer       ‰ºˆÊ‘w‚Ìƒm[ƒhID
+	 * å¼•æ•°ã®ãƒãƒ¼ãƒ‰IDã«å¯¾å¿œã™ã‚‹ä¸‹ä½å±¤ã®ãƒãƒ¼ãƒ‰IDã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer nodeID ãƒãƒ¼ãƒ‰ID
+	 * @return Integer       ä¸‹ä½å±¤ã®ãƒãƒ¼ãƒ‰ID
 	 */
 	private Integer getLowerLayerNodeID(Integer nodeID) {
 
 		if(nodeID == null) {
 			return null;
 		}
-		/* ƒm[ƒh‚©‚ç‰ºˆÊ‘w‚ÌID‚ğæ“¾ */
+		/* ãƒãƒ¼ãƒ‰ã‹ã‚‰ä¸‹ä½å±¤ã®IDã‚’å–å¾— */
 		Node node = getNode(nodeID);
 		Integer lowerLayerNodeID = node.getLowerID();
 
@@ -216,15 +216,15 @@ public class LayeredAgent {
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚ÌƒXƒeƒbƒv”‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer currentNodeID Œ»İ‘w‚Å‚Ìó‘Ô
-	 * @return int                  ƒXƒeƒbƒv”
+	 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®ã‚¹ãƒ†ãƒƒãƒ—æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer currentNodeID ç¾åœ¨å±¤ã§ã®çŠ¶æ…‹
+	 * @return int                  ã‚¹ãƒ†ãƒƒãƒ—æ•°
 	 */
 	private int getToLandmarkStep(Integer nodeID) {
 		if(nodeID == null) {
 			return -1;
 		}
-		/* ƒm[ƒh‚Ì—LŒø«‚ğƒ`ƒFƒbƒN‚µAî•ñ‚ğXV */
+		/* ãƒãƒ¼ãƒ‰ã®æœ‰åŠ¹æ€§ã‚’ãƒã‚§ãƒƒã‚¯ã—ã€æƒ…å ±ã‚’æ›´æ–° */
 		renewUpperIDAndStep(nodeID);
 		Node node = getNode(nodeID);
 		int step = node.getToLandmarkStep();
@@ -233,38 +233,38 @@ public class LayeredAgent {
 
 
 	/**
-	 * ãˆÊ‘w‚Ìó‘Ô‚ªXV‚³‚ê‚Ä‚¢‚È‚¢‚©ƒ`ƒFƒbƒNAXV‚³‚ê‚Ä‚¢‚ê‚ÎV‚µ‚¢ó‘Ô
-	 * ‚ÉC³‚µA‚»‚Ìƒm[ƒhID‚ğæ“¾
-	 * @param Integer nodeID  Œ»İ‚Ì‘w‚Å‚Ìƒm[ƒhID
-	 * @return Integer        C³Œã‚ÌãˆÊ‘w‚Ìƒm[ƒhID
+	 * ä¸Šä½å±¤ã®çŠ¶æ…‹ãŒæ›´æ–°ã•ã‚Œã¦ã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯ã€æ›´æ–°ã•ã‚Œã¦ã„ã‚Œã°æ–°ã—ã„çŠ¶æ…‹
+	 * ã«ä¿®æ­£ã—ã€ãã®ãƒãƒ¼ãƒ‰IDã‚’å–å¾—
+	 * @param Integer nodeID  ç¾åœ¨ã®å±¤ã§ã®ãƒãƒ¼ãƒ‰ID
+	 * @return Integer        ä¿®æ­£å¾Œã®ä¸Šä½å±¤ã®ãƒãƒ¼ãƒ‰ID
 	 */
 	private Integer renewUpperIDAndStep(Integer nodeID) {
 		Node node = getNode(nodeID);
-		/* ãˆÊ‘w‚ÌID‚ğæ“¾ */
+		/* ä¸Šä½å±¤ã®IDã‚’å–å¾— */
 		Integer upperLayerNodeID = node.getUpperID();
 
 		if(upperLayerNodeID == null) {
 			return null;
 		}
 
-		/* ãˆÊ‘w‚Ìƒm[ƒh‚ğæ“¾ */
+		/* ä¸Šä½å±¤ã®ãƒãƒ¼ãƒ‰ã‚’å–å¾— */
 		Node upperLayerNode = upperLayerAgent.getNode(upperLayerNodeID);
 
-		/* ãˆÊ‘w‚Ìƒm[ƒh‚Ì—LŒø«‚ğƒ`ƒFƒbƒN –³Œø‚Ìê‡‚Íî•ñ‚ğQÆæ‚ÉC³*/
+		/* ä¸Šä½å±¤ã®ãƒãƒ¼ãƒ‰ã®æœ‰åŠ¹æ€§ã‚’ãƒã‚§ãƒƒã‚¯ ç„¡åŠ¹ã®å ´åˆã¯æƒ…å ±ã‚’å‚ç…§å…ˆã«ä¿®æ­£*/
 		boolean validty = upperLayerNode.isValid();
 		if( validty == false ) {
-			// 2000.11.30 C³
-			// ƒ‰ƒ“ƒhƒ}[ƒN‚ªíœ‚³‚ê‚Ä‚¢‚éê‡‚ÍƒZƒOƒƒ“ƒg“à‚Ìó‘Ô‚Í
-			// ‚Ç‚ÌƒZƒOƒƒ“ƒg‚É‚à‘®‚³‚È‚¢‚æ‚¤‚É‚·‚é
+			// 2000.11.30 ä¿®æ­£
+			// ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒå‰Šé™¤ã•ã‚Œã¦ã„ã‚‹å ´åˆã¯ã‚»ã‚°ãƒ¡ãƒ³ãƒˆå†…ã®çŠ¶æ…‹ã¯
+			// ã©ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã«ã‚‚å±ã•ãªã„ã‚ˆã†ã«ã™ã‚‹
 			node.setUpperIDAndStep(null, -1);
 			upperLayerNodeID = null;
-			/* QÆæ‚Éî•ñ‚ğ’u‚«Š·‚¦ */
+			/* å‚ç…§å…ˆã«æƒ…å ±ã‚’ç½®ãæ›ãˆ */
 //			Integer newUpperNodeID = upperNode.getReferenceNodeID();
 //			int newLandmarkStep = upperNode.getRefarenceStep();
 //			int nowStep = currentNode.getToLandmarkStep();
 //			node.setUpperIDAndStep(newUpperNodeID,
 //			        nowStep+newLandmarkStep);
-//			/* XVŒã‚ÌãˆÊ‘w‚ÌID‚É‚Â‚¢‚Ä‚àƒ`ƒFƒbƒN */
+//			/* æ›´æ–°å¾Œã®ä¸Šä½å±¤ã®IDã«ã¤ã„ã¦ã‚‚ãƒã‚§ãƒƒã‚¯ */
 //			upperLayerNodeID = renewUpperIDAndStep(nodeID);
 		}
 		return upperLayerNodeID;
@@ -272,20 +272,20 @@ public class LayeredAgent {
 
 
 	/**
-	 * ˆø”‚Ìƒm[ƒhID‚©‚ç‡•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌID‚ğƒŠƒXƒg‚Åæ“¾‚µ‚Ü‚·B
-	 * @param Integer nodeID ƒm[ƒhID
-	 * @return LinkedList    ˆø”‚Ìƒm[ƒhID‚©‚ç‡•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒhID
-	 *                       ‚ÌƒŠƒXƒg
+	 * å¼•æ•°ã®ãƒãƒ¼ãƒ‰IDã‹ã‚‰é †æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®IDã‚’ãƒªã‚¹ãƒˆã§å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer nodeID ãƒãƒ¼ãƒ‰ID
+	 * @return LinkedList    å¼•æ•°ã®ãƒãƒ¼ãƒ‰IDã‹ã‚‰é †æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ID
+	 *                       ã®ãƒªã‚¹ãƒˆ
 	 */
 	private LinkedList getForwardNodeIDList(Integer nodeID) {
 		Node node = getNode(nodeID);
 		LinkedList forwardNodeIDList = node.getForwardNodeIDList();
-// ƒ‰ƒ“ƒhƒ}[ƒNíœ‚Ìˆ—‚É‚Â‚¢‚Ä‚Í•Û—¯’†
-		/* ƒŠƒXƒg“à‚Ìíœ‚³‚ê‚½ƒm[ƒhID‚ğQÆæ‚É’u‚«Š·‚¦ */
+// ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯å‰Šé™¤ã®å‡¦ç†ã«ã¤ã„ã¦ã¯ä¿ç•™ä¸­
+		/* ãƒªã‚¹ãƒˆå†…ã®å‰Šé™¤ã•ã‚ŒãŸãƒãƒ¼ãƒ‰IDã‚’å‚ç…§å…ˆã«ç½®ãæ›ãˆ */
 //		renewNodeList(forwardNodeIDList);
-		/* ©‚ç‚Æ“¯‚¶ID‚ªƒŠƒXƒg“à‚É‚ ‚éê‡‚Ííœ */
+		/* è‡ªã‚‰ã¨åŒã˜IDãŒãƒªã‚¹ãƒˆå†…ã«ã‚ã‚‹å ´åˆã¯å‰Šé™¤ */
 		node.removeSameForwardNodeID();
-		/* ’u‚«Š·‚¦‚È‚µ‚ÅAíœ‚Ì‚İs‚È‚¤ */
+		/* ç½®ãæ›ãˆãªã—ã§ã€å‰Šé™¤ã®ã¿è¡Œãªã† */
 		ListIterator li = forwardNodeIDList.listIterator();
 		while(li.hasNext()) {
 			Integer forwardNodeID = (Integer)li.next();
@@ -298,20 +298,20 @@ public class LayeredAgent {
 	}
 
 	/**
-	 * ˆø”‚Ìƒm[ƒhID‚©‚ç‹t•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌID‚ğƒŠƒXƒg‚Åæ“¾‚µ‚Ü‚·B
-	 * @param Integer nodeID ƒm[ƒh‚ÌID
-	 * @return LinkedList    ˆø”‚Ìƒm[ƒhID‚©‚ç‹t•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒhID
-	 *                       ‚ÌƒŠƒXƒg
+	 * å¼•æ•°ã®ãƒãƒ¼ãƒ‰IDã‹ã‚‰é€†æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®IDã‚’ãƒªã‚¹ãƒˆã§å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer nodeID ãƒãƒ¼ãƒ‰ã®ID
+	 * @return LinkedList    å¼•æ•°ã®ãƒãƒ¼ãƒ‰IDã‹ã‚‰é€†æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ID
+	 *                       ã®ãƒªã‚¹ãƒˆ
 	 */
 	private LinkedList getInverseNodeIDList(Integer nodeID) {
 		Node node = getNode(nodeID);
 		LinkedList inversNodeIDList = node.getInverseNodeIDList();
-// ƒ‰ƒ“ƒhƒ}[ƒNíœ‚Ìˆ—‚É‚Â‚¢‚Ä‚Í•Û—¯’†
-		/* ƒŠƒXƒg“à‚Ìíœ‚³‚ê‚½ƒm[ƒhID‚ğQÆæ‚É’u‚«Š·‚¦ */
+// ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯å‰Šé™¤ã®å‡¦ç†ã«ã¤ã„ã¦ã¯ä¿ç•™ä¸­
+		/* ãƒªã‚¹ãƒˆå†…ã®å‰Šé™¤ã•ã‚ŒãŸãƒãƒ¼ãƒ‰IDã‚’å‚ç…§å…ˆã«ç½®ãæ›ãˆ */
 //		renewNodeList(inversNodeIDList);
-		/* ©‚ç‚Æ“¯‚¶ID‚ªƒŠƒXƒg“à‚É‚ ‚éê‡‚Ííœ */
+		/* è‡ªã‚‰ã¨åŒã˜IDãŒãƒªã‚¹ãƒˆå†…ã«ã‚ã‚‹å ´åˆã¯å‰Šé™¤ */
 		node.removeSameInverseNodeID();
-		/* ’u‚«Š·‚¦‚È‚µ‚ÅAíœ‚Ì‚İs‚È‚¤ */
+		/* ç½®ãæ›ãˆãªã—ã§ã€å‰Šé™¤ã®ã¿è¡Œãªã† */
 		ListIterator li = inversNodeIDList.listIterator();
 		while(li.hasNext()) {
 			Integer inverseNodeID = (Integer)li.next();
@@ -324,9 +324,9 @@ public class LayeredAgent {
 	}
 
 	/**
-	 * ƒŠƒXƒg“à‚ÌŠeó‘Ô‚ğƒ`ƒFƒbƒN‚µA–³Œø‚Èƒm[ƒh‚É‚Â‚¢‚Ä‚ÍQÆæ‚Ìƒm[ƒh‚É
-	 * ’u‚«Š·‚¦‚Ü‚·B
-	 * @param LinkedList nodeIDList ƒm[ƒhID‚ÌƒŠƒXƒg
+	 * ãƒªã‚¹ãƒˆå†…ã®å„çŠ¶æ…‹ã‚’ãƒã‚§ãƒƒã‚¯ã—ã€ç„¡åŠ¹ãªãƒãƒ¼ãƒ‰ã«ã¤ã„ã¦ã¯å‚ç…§å…ˆã®ãƒãƒ¼ãƒ‰ã«
+	 * ç½®ãæ›ãˆã¾ã™ã€‚
+	 * @param LinkedList nodeIDList ãƒãƒ¼ãƒ‰IDã®ãƒªã‚¹ãƒˆ
 	 */
 	private void renewNodeIDList(LinkedList nodeIDList) {
 		ListIterator li = nodeIDList.listIterator();
@@ -338,46 +338,46 @@ public class LayeredAgent {
 	}
 
 	/**
-	 * ƒm[ƒh‚Ì—LŒø«‚ğƒ`ƒFƒbƒN‚µA–³Œø‚È‚çID‚ğQÆæ‚ÌID‚É’u‚«Š·‚¦‚Ü‚·B
-	 * @param Integer nodeID  —LŒø«‚ğƒ`ƒFƒbƒN‚·‚éƒm[ƒhID
-	 * @return Integer        —LŒø‚Èƒm[ƒh‚ÉC³Œã‚Ìƒm[ƒhID
+	 * ãƒãƒ¼ãƒ‰ã®æœ‰åŠ¹æ€§ã‚’ãƒã‚§ãƒƒã‚¯ã—ã€ç„¡åŠ¹ãªã‚‰IDã‚’å‚ç…§å…ˆã®IDã«ç½®ãæ›ãˆã¾ã™ã€‚
+	 * @param Integer nodeID  æœ‰åŠ¹æ€§ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ãƒãƒ¼ãƒ‰ID
+	 * @return Integer        æœ‰åŠ¹ãªãƒãƒ¼ãƒ‰ã«ä¿®æ­£å¾Œã®ãƒãƒ¼ãƒ‰ID
 	 */
 	private Integer renewNodeID(Integer nodeID) {
 		Node node = getNode(nodeID);
 		if(node.isValid() == false) {
 			nodeID = node.getReferenceNodeID();
-			/* QÆæ‚Ìƒm[ƒhID‚É‚Â‚¢‚Ä‚à—LŒø«‚ğƒ`ƒFƒbƒN */
+			/* å‚ç…§å…ˆã®ãƒãƒ¼ãƒ‰IDã«ã¤ã„ã¦ã‚‚æœ‰åŠ¹æ€§ã‚’ãƒã‚§ãƒƒã‚¯ */
 			renewNodeID(nodeID);
 		}
 		return nodeID;
 	}
 
 	///////////////////////////////////////////////////////////////////////////
-	// ˆ—‚Ì•ª—£ 2001.01.29 miyamoto
+	// å‡¦ç†ã®åˆ†é›¢ 2001.01.29 miyamoto
 
 	/**
-	 * ”F’m‹——£‚ÌŠwK‚ğs‚È‚¢‚Ü‚·B
-	 * @param Integer id_S Œ»İ‚Ìƒm[ƒhID
+	 * èªçŸ¥è·é›¢ã®å­¦ç¿’ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * @param Integer id_S ç¾åœ¨ã®ãƒãƒ¼ãƒ‰ID
 	 */
 	public void learn(Integer id_S) {
 
-		/* ƒtƒ‰ƒO‚É‚æ‚èŠwK‚ğ§Œä */
+		/* ãƒ•ãƒ©ã‚°ã«ã‚ˆã‚Šå­¦ç¿’ã‚’åˆ¶å¾¡ */
 		if(learningFlag) {
-			/* ó‘Ô‚ª•Ï‰»‚µ‚Ä‚¢‚È‚¯‚ê‚ÎŠwK‚ğs‚È‚í‚È‚¢ */
+			/* çŠ¶æ…‹ãŒå¤‰åŒ–ã—ã¦ã„ãªã‘ã‚Œã°å­¦ç¿’ã‚’è¡Œãªã‚ãªã„ */
 			if( (id_S != null) && ( (stateBuffer.size() == 0) ||
 			        (!id_S.equals(stateBuffer.getLast())) ) ) {
-				/* ‚±‚Ì‘w‚ÌŠwK */
+				/* ã“ã®å±¤ã®å­¦ç¿’ */
 //				System.out.println();
 //				System.out.println("[layerID:" + layerID + "] learn");
 //				System.out.println("  CurrentNodeID " + id_S);
 				learning(id_S);
 
-				/* Àsˆ—‚ÉŠÖ‚·‚éî•ñ‚ğİ’è */
+				/* å®Ÿè¡Œå‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®š */
 				execInfo.setNodeID(id_S);
 
-				/* ãˆÊ‘w‚ª‚ ‚ê‚ÎãˆÊ‘w‚ÌŠwK */
+				/* ä¸Šä½å±¤ãŒã‚ã‚Œã°ä¸Šä½å±¤ã®å­¦ç¿’ */
 				if(upperLayerAgent != null) {
-					/* ó‘Ô‚ğ•ÏŠ· */
+					/* çŠ¶æ…‹ã‚’å¤‰æ› */
 					Integer id_Su = getUpperLayerNodeID(id_S);
 					upperLayerAgent.learn(id_Su);
 				}
@@ -387,85 +387,85 @@ public class LayeredAgent {
 
 
 	/**
-	 * Àsˆ—‚ğs‚È‚¢‚Ü‚·B
-	 * @param Integer id_S Œ»İ‚Ìƒm[ƒhID
-	 * @param Integer id_G ƒS[ƒ‹‚Ìƒm[ƒhID
-	 * @return Integer     Ÿ‚Ìƒm[ƒhID
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * @param Integer id_S ç¾åœ¨ã®ãƒãƒ¼ãƒ‰ID
+	 * @param Integer id_G ã‚´ãƒ¼ãƒ«ã®ãƒãƒ¼ãƒ‰ID
+	 * @return Integer     æ¬¡ã®ãƒãƒ¼ãƒ‰ID
 	 */
 	public Integer exec(Integer id_S, Integer id_G) {
 
-		/* Œ»İ‚Ìó‘Ô‚ª‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢ */
-		/* ŠwK‚ª\•ª‚Å‚È‚¢ó‘Ô‚ÅŠwK‚ğ’â~‚µ‚½ê‡”­¶ */
+		/* ç¾åœ¨ã®çŠ¶æ…‹ãŒãªã‘ã‚Œã°å‡¦ç†ã—ãªã„ */
+		/* å­¦ç¿’ãŒååˆ†ã§ãªã„çŠ¶æ…‹ã§å­¦ç¿’ã‚’åœæ­¢ã—ãŸå ´åˆç™ºç”Ÿ */
 		if( id_S == null) {
 //			System.out.println("state == null");
 			return null;
 		}
 
-		/* ‰æ–Ê•\¦ */
+		/* ç”»é¢è¡¨ç¤º */
 //		System.out.println("");
 //		System.out.println("[layerID:" + layerID + "] exec");
 //		System.out.println("  CurrentNodeID " + id_S);
 //		System.out.println("  GoalNodeID    " + id_G);
 
-		/* Àsˆ—‚ÉŠÖ‚·‚éî•ñ‚ğİ’è */
+		/* å®Ÿè¡Œå‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®š */
 		execInfo.setGoalNodeID(id_G);
 
-		/* ’Tõî•ñ‚ğƒNƒŠƒA */
-		/* (‚±‚Ì‘w©‘Ì‚ğg—p‚µ‚È‚¢ê‡‚ÌƒNƒŠƒAˆ—‚Í‚Ç‚¤‚·‚é‚©H) */
+		/* æ¢ç´¢æƒ…å ±ã‚’ã‚¯ãƒªã‚¢ */
+		/* (ã“ã®å±¤è‡ªä½“ã‚’ä½¿ç”¨ã—ãªã„å ´åˆã®ã‚¯ãƒªã‚¢å‡¦ç†ã¯ã©ã†ã™ã‚‹ã‹ï¼Ÿ) */
 		goalSearchInfo.clear();
-		// 2001.04.10 ’Ç‰Á miyamoto
-		// ƒS[ƒ‹‚Ìó‘Ô‚ª–³‚¢ê‡‚ÉˆÈ‰º‚Ì•Ï”‚Ì’l‚ªƒNƒŠƒA‚³‚ê‚¸A
-		// ˆÈ‘O‚Ì’l‚ªgoalSearchInfo‚Éİ’è‚³‚ê‚Ä‚µ‚Ü‚¤
+		// 2001.04.10 è¿½åŠ  miyamoto
+		// ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ãŒç„¡ã„å ´åˆã«ä»¥ä¸‹ã®å¤‰æ•°ã®å€¤ãŒã‚¯ãƒªã‚¢ã•ã‚Œãšã€
+		// ä»¥å‰ã®å€¤ãŒgoalSearchInfoã«è¨­å®šã•ã‚Œã¦ã—ã¾ã†
 		goalSearchCDLngth = null;
 		goalSearchLngth = 0;
 		goalSearchNum = 0;
 
-		/* ãˆÊ‘w‚ ‚è */
+		/* ä¸Šä½å±¤ã‚ã‚Š */
 		if( upperLayerAgent != null ) {
-			/* ãˆÊ‘w‚Ìó‘Ô‚É•ÏŠ· */
+			/* ä¸Šä½å±¤ã®çŠ¶æ…‹ã«å¤‰æ› */
 			Integer id_Su = getUpperLayerNodeID(id_S);
 			Integer id_Gu = getUpperLayerNodeID(id_G);
 
-			/* ãˆÊ‘w‚ÌŒ»İ‚Ìó‘Ô‚ª‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢ */
-			/* ƒtƒF[ƒY•ª‚¯‚É‚æ‚è”­¶‚·‚éó‹µ‚É‘Î‰ */
+			/* ä¸Šä½å±¤ã®ç¾åœ¨ã®çŠ¶æ…‹ãŒãªã‘ã‚Œã°å‡¦ç†ã—ãªã„ */
+			/* ãƒ•ã‚§ãƒ¼ã‚ºåˆ†ã‘ã«ã‚ˆã‚Šç™ºç”Ÿã™ã‚‹çŠ¶æ³ã«å¯¾å¿œ */
 			if(id_Su == null) {
 				return null;
 			}
 
-			/* ƒS[ƒ‹‚Ì•Ï‰»‚ğ•\‚í‚·ƒtƒ‰ƒO */
+			/* ã‚´ãƒ¼ãƒ«ã®å¤‰åŒ–ã‚’è¡¨ã‚ã™ãƒ•ãƒ©ã‚° */
 			boolean goalChangeFlag = true;
 
-			/* ãˆÊ‘w—˜—p‚ÌğŒ */
+			/* ä¸Šä½å±¤åˆ©ç”¨ã®æ¡ä»¶ */
 			if( id_Gu != null ) {
-				/* ƒS[ƒ‹‚Ì•Ï‰»‚ğƒ`ƒFƒbƒN */
+				/* ã‚´ãƒ¼ãƒ«ã®å¤‰åŒ–ã‚’ãƒã‚§ãƒƒã‚¯ */
 				if( id_Gu.equals(id_Gu0) ) {
 					goalChangeFlag = false;
 				}
 
 				if( id_Su.equals(id_Gu) ) {
 					/*
-					 * ãˆÊ‘w‚Ìó‘Ô(Su)‚ªƒS[ƒ‹(Gu)‚É“’B‚µ‚½ê‡‚Í
-					 * g—p‚µ‚È‚¢
+					 * ä¸Šä½å±¤ã®çŠ¶æ…‹(Su)ãŒã‚´ãƒ¼ãƒ«(Gu)ã«åˆ°é”ã—ãŸå ´åˆã¯
+					 * ä½¿ç”¨ã—ãªã„
 					 */
 					useUpperFlag = false;
 				}else if(goalChangeFlag) {
 					/*
-					 *ƒS[ƒ‹(Gu)‚ª•ÏX‚³‚ê‚½ê‡‚Íg—p‚·‚é
+					 *ã‚´ãƒ¼ãƒ«(Gu)ãŒå¤‰æ›´ã•ã‚ŒãŸå ´åˆã¯ä½¿ç”¨ã™ã‚‹
 					 */
 					useUpperFlag = true;
 				}
 			}else {
-				/* ãˆÊ‘w‚ÌƒS[ƒ‹‚ª‚È‚¯‚ê‚Îg—p‚µ‚È‚¢ */  
+				/* ä¸Šä½å±¤ã®ã‚´ãƒ¼ãƒ«ãŒãªã‘ã‚Œã°ä½¿ç”¨ã—ãªã„ */  
 				useUpperFlag = false;
 			}
 
-			/* ‚PƒTƒCƒNƒ‹‘O‚ÌƒS[ƒ‹‚ğ•Û */
+			/* ï¼‘ã‚µã‚¤ã‚¯ãƒ«å‰ã®ã‚´ãƒ¼ãƒ«ã‚’ä¿æŒ */
 			id_Gu0 = id_Gu;
 
 			if(useUpperFlag) {
-				/* ©g‚Ì‘w‚Ìó‚¢’Tõˆ—‚ÅƒS[ƒ‹(G)‚ğ’Tõ */
+				/* è‡ªèº«ã®å±¤ã®æµ…ã„æ¢ç´¢å‡¦ç†ã§ã‚´ãƒ¼ãƒ«(G)ã‚’æ¢ç´¢ */
 				Integer id_D1 = getNextNodeID(id_S, id_G, shallowSearchLngth);
-				/* ’Tõî•ñ‚ğİ’è */
+				/* æ¢ç´¢æƒ…å ±ã‚’è¨­å®š */
 				goalSearchInfo.setGoalSearchInfo(0, id_D1, goalSearchCDLngth,
 				        goalSearchLngth, goalSearchNum);
 //System.out.println("");
@@ -476,31 +476,31 @@ public class LayeredAgent {
 //System.out.println("  goalSearchLngth   " + goalSearchLngth);
 //System.out.println("  SubgoalNodeID id_D1 " + id_D1);
 				if(id_D1 != null) {
-					/* Vu0‚ğƒNƒŠƒA */
+					/* Vu0ã‚’ã‚¯ãƒªã‚¢ */
 					id_Vu0 = null;
-					/* Àsˆ—‚ÉŠÖ‚·‚éî•ñ‚ğİ’è */
+					/* å®Ÿè¡Œå‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®š */
 					execInfo.setNextNodeID(id_D1, 0, null, false);
 					return id_D1;
 				}
 
 				/*
-				 * ˆÈ‰º‚Ì‚¢‚Ã‚ê‚©‚Ìê‡V‚½‚ÉVu‚ğæ“¾‚·‚éB
-				 * E‘OƒTƒCƒNƒ‹‚ÌãˆÊ‘w‚ÌÀsˆ—‚É‚æ‚éƒTƒuƒS[ƒ‹(Vu0)
-				 *   ‚ª‚È‚¢
-				 * E‘OƒTƒCƒNƒ‹‚ÌãˆÊ‘w‚ÌÀsˆ—‚É‚æ‚éƒTƒuƒS[ƒ‹(Vu0)
-				 *   ‚É“’B
-				 * EãˆÊ‘w‚ÌƒS[ƒ‹(Gu)‚ª‘OƒTƒCƒNƒ‹‚ÌãˆÊ‘w‚ÌƒS[ƒ‹
-				 *   (Gu0)‚ÆˆÙ‚È‚é
+				 * ä»¥ä¸‹ã®ã„ã¥ã‚Œã‹ã®å ´åˆæ–°ãŸã«Vuã‚’å–å¾—ã™ã‚‹ã€‚
+				 * ãƒ»å‰ã‚µã‚¤ã‚¯ãƒ«ã®ä¸Šä½å±¤ã®å®Ÿè¡Œå‡¦ç†ã«ã‚ˆã‚‹ã‚µãƒ–ã‚´ãƒ¼ãƒ«(Vu0)
+				 *   ãŒãªã„
+				 * ãƒ»å‰ã‚µã‚¤ã‚¯ãƒ«ã®ä¸Šä½å±¤ã®å®Ÿè¡Œå‡¦ç†ã«ã‚ˆã‚‹ã‚µãƒ–ã‚´ãƒ¼ãƒ«(Vu0)
+				 *   ã«åˆ°é”
+				 * ãƒ»ä¸Šä½å±¤ã®ã‚´ãƒ¼ãƒ«(Gu)ãŒå‰ã‚µã‚¤ã‚¯ãƒ«ã®ä¸Šä½å±¤ã®ã‚´ãƒ¼ãƒ«
+				 *   (Gu0)ã¨ç•°ãªã‚‹
 				 */
 				if( ( !id_Su.equals(id_Vu0) ) && ( id_Vu0 != null) 
 				        && (!goalChangeFlag) ) {
 
-					/* V0‚ğ’Tõ */
+					/* V0ã‚’æ¢ç´¢ */
 					Integer id_V0 = upperLayerAgent.getLowerLayerNodeID(
 					        id_Vu0);
 					Integer id_D2 = getNextNodeID(id_S, id_V0,
 					        deepSearchLngth);
-					/* ’Tõî•ñ‚ğİ’è */
+					/* æ¢ç´¢æƒ…å ±ã‚’è¨­å®š */
 					goalSearchInfo.setGoalSearchInfo(1, id_D2,
 					        goalSearchCDLngth, goalSearchLngth, goalSearchNum);
 //System.out.println("");
@@ -511,17 +511,17 @@ public class LayeredAgent {
 //System.out.println("  goalSearchLngth   " + goalSearchLngth);
 //System.out.println("  SubgoalNodeID id_D2 " + id_D2);
 					if(id_D2 != null) {
-						/* Àsˆ—‚ÉŠÖ‚·‚éî•ñ‚ğİ’è */
+						/* å®Ÿè¡Œå‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®š */
 						execInfo.setNextNodeID(id_D2, 1, id_V0, false);
 						return id_D2;
 					}
 				}
-				/* Vu‚ğæ“¾‚µAV‚ğ’Tõ */
+				/* Vuã‚’å–å¾—ã—ã€Vã‚’æ¢ç´¢ */
 				id_Vu0 = upperLayerAgent.exec(id_Su, id_Gu);
 				Integer id_V0 = upperLayerAgent.getLowerLayerNodeID(id_Vu0);
 				Integer id_D3 = getNextNodeID(id_S, id_V0,
 				        deepSearchLngth);
-				/* ’Tõ‚Ìî•ñİ’è */
+				/* æ¢ç´¢ã®æƒ…å ±è¨­å®š */
 				goalSearchInfo.setGoalSearchInfo(2, id_D3, goalSearchCDLngth,
 				        goalSearchLngth, goalSearchNum);
 //System.out.println("");
@@ -532,7 +532,7 @@ public class LayeredAgent {
 //System.out.println("  goalSearchLngth   " + goalSearchLngth);
 //System.out.println("  SubgoalNodeID id_D3 " + id_D3);
 				if(id_D3 != null) {
-					/* Àsˆ—‚ÉŠÖ‚·‚éî•ñ‚ğİ’è */
+					/* å®Ÿè¡Œå‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®š */
 					execInfo.setNextNodeID(id_D3, 2, id_V0, true);
 					return id_D3;
 				}
@@ -540,14 +540,14 @@ public class LayeredAgent {
 		}
 
 		/*
-		 * ãˆÊ‘w‚ğ—˜—p‚µ‚È‚¢A‚Ü‚½‚ÍãˆÊ‘w‚ğ—˜—p‚µ‚ÄŸ‚Ìó‘Ô‚ğæ“¾‚Å‚«‚È‚¢
-		 * ê‡‚ÍV0‚ğ•Û‚µ‚È‚¢
+		 * ä¸Šä½å±¤ã‚’åˆ©ç”¨ã—ãªã„ã€ã¾ãŸã¯ä¸Šä½å±¤ã‚’åˆ©ç”¨ã—ã¦æ¬¡ã®çŠ¶æ…‹ã‚’å–å¾—ã§ããªã„
+		 * å ´åˆã¯V0ã‚’ä¿æŒã—ãªã„
 		 */
 		id_Vu0 = null;
 
-		/* ƒS[ƒ‹‚É‚Â‚¢‚Ä[‚¢’Tõˆ—‚ğs‚È‚¤ */
+		/* ã‚´ãƒ¼ãƒ«ã«ã¤ã„ã¦æ·±ã„æ¢ç´¢å‡¦ç†ã‚’è¡Œãªã† */
 		Integer id_D4 = getNextNodeID(id_S, id_G, deepSearchLngth);
-		/* ’Tõ‚Ìî•ñİ’è */
+		/* æ¢ç´¢ã®æƒ…å ±è¨­å®š */
 		goalSearchInfo.setGoalSearchInfo(3, id_D4, goalSearchCDLngth,
 		        goalSearchLngth, goalSearchNum);
 //System.out.println("");
@@ -558,10 +558,10 @@ public class LayeredAgent {
 //System.out.println("  goalSearchLngth   " + goalSearchLngth);
 //System.out.println("  SubgoalNodeID id_D4 " + id_D4);
 		if(id_D4 != null) {
-			/* Àsˆ—‚ÉŠÖ‚·‚éî•ñ‚ğİ’è */
+			/* å®Ÿè¡Œå‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®š */
 			execInfo.setNextNodeID(id_D4, 3, null, false);
-			// 2001.09.06 ’Ç‰Á miyamoto
-			// D4‚Ìˆ—‚ğs‚È‚Á‚½‚çƒS[ƒ‹“’B‚Ü‚ÅD4‚Ìˆ—‚ğs‚È‚¤
+			// 2001.09.06 è¿½åŠ  miyamoto
+			// D4ã®å‡¦ç†ã‚’è¡Œãªã£ãŸã‚‰ã‚´ãƒ¼ãƒ«åˆ°é”ã¾ã§D4ã®å‡¦ç†ã‚’è¡Œãªã†
 			useUpperFlag = false;
 			return id_D4;
 		}
@@ -571,13 +571,13 @@ public class LayeredAgent {
 
 
 	/**
-	 * ‚æ‚è’m‚ç‚È‚¢ó‘Ô‚ÖˆÚ“®‚·‚é‚½‚ß‚Ì’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer id_S Œ»İ‚Ìƒm[ƒhID
-	 * @return Integer     Ÿ‚Ìƒm[ƒhID
+	 * ã‚ˆã‚ŠçŸ¥ã‚‰ãªã„çŠ¶æ…‹ã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®ç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer id_S ç¾åœ¨ã®ãƒãƒ¼ãƒ‰ID
+	 * @return Integer     æ¬¡ã®ãƒãƒ¼ãƒ‰ID
 	 */
 	public Integer novelSearch(Integer id_S) {
 
-		/* ‰æ–Ê•\¦ */
+		/* ç”»é¢è¡¨ç¤º */
 //		System.out.println();
 //		System.out.println("[layerID:" + layerID + "] novelSearch");
 //		System.out.println("  CurrentNodeID " + id_S);
@@ -586,15 +586,15 @@ public class LayeredAgent {
 //		System.out.println("  F0 " + id_F0 );
 //		System.out.println("  FVu0 " + id_FVu0 );
 
-		/* ó‘Ô‚Ì•Ï‰»‚ª‚È‚¯‚ê‚ÎƒJƒEƒ“ƒgEƒŠƒZƒbƒgˆ—‚ğ‚µ‚È‚¢ */
+		/* çŠ¶æ…‹ã®å¤‰åŒ–ãŒãªã‘ã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆãƒ»ãƒªã‚»ãƒƒãƒˆå‡¦ç†ã‚’ã—ãªã„ */
 		if(!id_S.equals(id_S0)) {
-			/* Œ»İ‚Ìó‘Ô‚Ö‚ÌˆÚ“®‰ñ”‚ğƒ`ƒFƒbƒN */
+			/* ç¾åœ¨ã®çŠ¶æ…‹ã¸ã®ç§»å‹•å›æ•°ã‚’ãƒã‚§ãƒƒã‚¯ */
 			Node node = getNode(id_S);
 			if(node.getVisitCount() > 0) {
-				/* ‚·‚Å‚ÉˆÚ“®Ï‚İ‚Ìó‘Ô‚È‚çƒJƒEƒ“ƒg */
+				/* ã™ã§ã«ç§»å‹•æ¸ˆã¿ã®çŠ¶æ…‹ãªã‚‰ã‚«ã‚¦ãƒ³ãƒˆ */
 				familiarCount++;
 			}else {
-				/* V‚µ‚¢ó‘Ô‚È‚çŒ»İ‚Ì‘w‚Æ‚»‚êˆÈã‚Ì‘w‚ÌƒJƒEƒ“ƒ^‚ğƒŠƒZƒbƒg */
+				/* æ–°ã—ã„çŠ¶æ…‹ãªã‚‰ç¾åœ¨ã®å±¤ã¨ãã‚Œä»¥ä¸Šã®å±¤ã®ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒªã‚»ãƒƒãƒˆ */
 				resetUpperAndThisLayerFamiliarCount();
 			}
 		}
@@ -603,12 +603,12 @@ public class LayeredAgent {
 
 		Integer id_D = novelSearchCore(id_S);
 
-		/* D‚ªæ“¾‚Å‚«‚Ä‚¢‚éê‡‚ÍƒJƒEƒ“ƒg‚ğƒŠƒZƒbƒg */
+		/* DãŒå–å¾—ã§ãã¦ã„ã‚‹å ´åˆã¯ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ */
 		if(id_D != null) {
 			resetFamiliarCount();
 		}
 
-		/* ‘OƒTƒCƒNƒ‹‚Ìó‘Ô‚ğ•Û */
+		/* å‰ã‚µã‚¤ã‚¯ãƒ«ã®çŠ¶æ…‹ã‚’ä¿æŒ */
 		id_S0 = id_S;
 
 		return id_D;
@@ -616,32 +616,32 @@ public class LayeredAgent {
 
 
 	/**
-	 * V‹K’Tõˆ—‚Ìå—p•”
-	 * ‚æ‚è’m‚ç‚È‚¢ó‘Ô‚ÖˆÚ“®‚·‚é‚½‚ß‚Ì’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer id_S Œ»İ‚Ìó‘Ô
-	 * @return Integer     Ÿ‚Ìó‘Ô
+	 * æ–°è¦æ¢ç´¢å‡¦ç†ã®ä¸»ç”¨éƒ¨
+	 * ã‚ˆã‚ŠçŸ¥ã‚‰ãªã„çŠ¶æ…‹ã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®ç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer id_S ç¾åœ¨ã®çŠ¶æ…‹
+	 * @return Integer     æ¬¡ã®çŠ¶æ…‹
 	 */
 	private Integer novelSearchCore(Integer id_S) {
 
-		/* ‡@ ‘OƒTƒCƒNƒ‹‚ÌV‹K’Tõ‚ÌƒTƒuƒS[ƒ‹‚É(F0)‚É“’B‚µ‚Ä‚¢‚È‚¢ */
+		/* â‘  å‰ã‚µã‚¤ã‚¯ãƒ«ã®æ–°è¦æ¢ç´¢ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã«(F0)ã«åˆ°é”ã—ã¦ã„ãªã„ */
 		if( (id_F0 != null) && (!id_S.equals(id_F0)) ) {
-			/* F0‚ğ’Tõ */
+			/* F0ã‚’æ¢ç´¢ */
 			Integer id_D8 = getNextNodeID(id_S, id_F0, 1);
 			if(id_D8 != null) {
 				return id_D8;
 			}
 		}
-		/* “’B‚Å‚«‚È‚¢ê‡‚ÍƒNƒŠƒA */
+		/* åˆ°é”ã§ããªã„å ´åˆã¯ã‚¯ãƒªã‚¢ */
 		id_F0 = null;
 
-		/* ãˆÊ‘w‚ª‚ ‚éê‡‚Ìˆ— */
+		/* ä¸Šä½å±¤ãŒã‚ã‚‹å ´åˆã®å‡¦ç† */
 		if( upperLayerAgent != null ) {
-			/* ãˆÊ‘w‚Ìó‘Ô‚É•ÏŠ· */
+			/* ä¸Šä½å±¤ã®çŠ¶æ…‹ã«å¤‰æ› */
 			Integer id_Su = getUpperLayerNodeID(id_S);
 
-			/* ‡A ãˆÊ‘w‚Ìó‘ÔSu‚ªFVu0‚É“’B‚µ‚Ä‚¢‚È‚¢ */
+			/* â‘¡ ä¸Šä½å±¤ã®çŠ¶æ…‹SuãŒFVu0ã«åˆ°é”ã—ã¦ã„ãªã„ */
 			if( (!id_Su.equals(id_FVu0)) && (id_FVu0 != null) ) {
-				/* FVu0‚É‘Î‰‚·‚éFV0‚ğ’Tõ */
+				/* FVu0ã«å¯¾å¿œã™ã‚‹FV0ã‚’æ¢ç´¢ */
 				Integer id_FV0 = upperLayerAgent.getLowerLayerNodeID(
 				        id_FVu0);
 				Integer id_D5 = getNextNodeID(id_S, id_FV0,
@@ -650,30 +650,30 @@ public class LayeredAgent {
 					return id_D5;
 				}
 			}else {
-			/* ‡B Su‚ªFVu0‚É“’B ‚Ü‚½‚Í FVu0‚ª‚È‚¢ */
-				/* V‚½‚ÉFVu‚ğæ“¾‚µA‘Î‰‚·‚éFV‚ğ’Tõ */
+			/* â‘¢ SuãŒFVu0ã«åˆ°é” ã¾ãŸã¯ FVu0ãŒãªã„ */
+				/* æ–°ãŸã«FVuã‚’å–å¾—ã—ã€å¯¾å¿œã™ã‚‹FVã‚’æ¢ç´¢ */
 				Integer id_FVu = upperLayerAgent.novelSearch(id_Su);
 				Integer id_FV = upperLayerAgent.getLowerLayerNodeID(id_FVu);
 				Integer id_D6 = getNextNodeID(id_S, id_FV,
 				        deepSearchLngth);
 				if(id_D6 != null) {
-					/* V‚½‚Éæ“¾‚µ‚½ƒTƒuƒS[ƒ‹‚ğ•Û */
+					/* æ–°ãŸã«å–å¾—ã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’ä¿æŒ */
 					id_FVu0 = id_FVu;
 					return id_D6;
 				}
 			}
 		}
-		/* “’B‚Å‚«‚È‚¢ê‡‚ÍƒNƒŠƒA */
+		/* åˆ°é”ã§ããªã„å ´åˆã¯ã‚¯ãƒªã‚¢ */
 		id_FVu0 = null;
 
-		/* ‡C ’m‚Á‚Ä‚¢‚éó‘Ô‚ª˜A‘±‚µAƒJƒEƒ“ƒ^‚ª’™‚Ü‚Á‚Ä‚¢‚é */
+		/* â‘£ çŸ¥ã£ã¦ã„ã‚‹çŠ¶æ…‹ãŒé€£ç¶šã—ã€ã‚«ã‚¦ãƒ³ã‚¿ãŒè²¯ã¾ã£ã¦ã„ã‚‹ */
 		if( familiarCount > maxFamiliarCount ) {
-			/* V‹K’Tõˆ—‚ÅƒTƒuƒS[ƒ‹(F)‚ğæ“¾ */
+			/* æ–°è¦æ¢ç´¢å‡¦ç†ã§ã‚µãƒ–ã‚´ãƒ¼ãƒ«(F)ã‚’å–å¾— */
 			Integer id_F = getNovelNodeID(id_S);
-			/* F‚ğ’Tõ */
+			/* Fã‚’æ¢ç´¢ */
 			Integer id_D7 = getNextNodeID(id_S, id_F, 1);
 			if(id_D7 != null) {
-				/* V‚½‚Éæ“¾‚µ‚½F‚ğ•Û */
+				/* æ–°ãŸã«å–å¾—ã—ãŸFã‚’ä¿æŒ */
 				id_F0 = id_F;
 				return id_D7;
 			}
@@ -682,12 +682,12 @@ public class LayeredAgent {
 		return null;
 	}
 
-	// 2001.08.14 ’Ç‰Á miyamoto
+	// 2001.08.14 è¿½åŠ  miyamoto
 	/**
-	 * ó‘Ô a ‚©‚çó‘Ô b ‚Ö‚Ì“’B‰Â”\«‚ğ’²‚×‚Ü‚·B
+	 * çŠ¶æ…‹ a ã‹ã‚‰çŠ¶æ…‹ b ã¸ã®åˆ°é”å¯èƒ½æ€§ã‚’èª¿ã¹ã¾ã™ã€‚
 	 * @param Integer a
 	 * @param Integer b
-	 * @return boolean true “’B‰Â”\ false “’B•s‰Â”\
+	 * @return boolean true åˆ°é”å¯èƒ½ false åˆ°é”ä¸å¯èƒ½
 	 */
 	public boolean isReach(Integer a, Integer b) {
 		boolean isReach = false;
@@ -703,7 +703,7 @@ public class LayeredAgent {
 				Integer upperB = getUpperLayerNodeID(b);
 				isReach = upperLayerAgent.isReach(upperA, upperB);
 			}else {
-				// [‚­’Tõ
+				// æ·±ãæ¢ç´¢
 //				Integer subgoal = exec(a, b);
 //				if(subgoal != null) {
 //					isReach = true;
@@ -733,8 +733,8 @@ public class LayeredAgent {
 	}
 
 	/**
-	 * ˆø”‚Å—^‚¦‚ç‚ê‚½ƒŠƒXƒg“à‚Ìó‘Ô‚©‚çAˆø”‚Å—^‚¦‚ç‚ê‚½–Ú“I‚É“’B‰Â”\‚È
-	 * ó‘Ô‚ª‚ ‚é‚©’Tõ‚µ‚Ü‚·B
+	 * å¼•æ•°ã§ä¸ãˆã‚‰ã‚ŒãŸãƒªã‚¹ãƒˆå†…ã®çŠ¶æ…‹ã‹ã‚‰ã€å¼•æ•°ã§ä¸ãˆã‚‰ã‚ŒãŸç›®çš„ã«åˆ°é”å¯èƒ½ãª
+	 * çŠ¶æ…‹ãŒã‚ã‚‹ã‹æ¢ç´¢ã—ã¾ã™ã€‚
 	 */
 	private boolean searchReachableState(LinkedList list, Integer target) {
 		ListIterator li = list.listIterator();
@@ -771,35 +771,35 @@ public class LayeredAgent {
 	}
 
 
-	// ‚±‚±‚Ü‚Å
+	// ã“ã“ã¾ã§
 	///////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * nodeID‚©‚çgoalNodeID‚ÖˆÚ“®‚·‚é‚Ì‚ÉAÅ’Z‚Ì‹——£‚ğ‚à‚Â’¼ÚˆÚ“®‰Â”\‚È
-	 * ó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * ˆÚ“®‰Â”\‚Èó‘Ô‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚ÎmaxSearchLength‚Åw’è‚³‚ê‚½[‚³‚Ü‚Å
-	 * ’Tõ‚ğs‚È‚¢‚Ü‚·B
-	 * @param Integer nodeID       ƒm[ƒhID
-	 * @param Integer goalNodeID   ƒS[ƒ‹‚ÌID
-	 * @param int maxSearchLength  ’Tõ‚ğs‚È‚¤Å‘å‚Ì[‚³
-	 * @return Integer             Ÿ‚Ìó‘Ô‚Ìƒm[ƒhID
+	 * nodeIDã‹ã‚‰goalNodeIDã¸ç§»å‹•ã™ã‚‹ã®ã«ã€æœ€çŸ­ã®è·é›¢ã‚’ã‚‚ã¤ç›´æ¥ç§»å‹•å¯èƒ½ãª
+	 * çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ãŒè¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°maxSearchLengthã§æŒ‡å®šã•ã‚ŒãŸæ·±ã•ã¾ã§
+	 * æ¢ç´¢ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * @param Integer nodeID       ãƒãƒ¼ãƒ‰ID
+	 * @param Integer goalNodeID   ã‚´ãƒ¼ãƒ«ã®ID
+	 * @param int maxSearchLength  æ¢ç´¢ã‚’è¡Œãªã†æœ€å¤§ã®æ·±ã•
+	 * @return Integer             æ¬¡ã®çŠ¶æ…‹ã®ãƒãƒ¼ãƒ‰ID
 	 */
 	private Integer getNextNodeID(Integer nodeID, Integer goalNodeID,
 	        int maxSearchLength) {
-		/* ƒS[ƒ‹‚Ìó‘Ô‚ª‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢ */
+		/* ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ãŒãªã‘ã‚Œã°å‡¦ç†ã—ãªã„ */
 		if( goalNodeID == null ) {
 			return null;
 		}
 
 		/*
-	 	 * ƒS[ƒ‹‚Ö‚ÌÅ’Z‹——£‚ğ‚Âó‘Ô‚ÆA‚»‚Ìó‘Ô‚ğ‚à‚ÂStateList‚ğæ“¾
+	 	 * ã‚´ãƒ¼ãƒ«ã¸ã®æœ€çŸ­è·é›¢ã‚’æŒã¤çŠ¶æ…‹ã¨ã€ãã®çŠ¶æ…‹ã‚’ã‚‚ã¤StateListã‚’å–å¾—
 		 */
 		Object[] selectedStateInfo = getNextNodeInfo(nodeID, goalNodeID,
 		        maxSearchLength);
 
 		/*
-		 * æ“¾‚µ‚½ó‘Ô‚ª’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚Å‚È‚¯‚ê‚ÎA‚»‚Ìó‘Ô‚É‘Î‚µ‚Ä‚Ì
-		 * ˆÚ“®‰Â”\‚Èó‘Ô‚ğæ“¾
+		 * å–å¾—ã—ãŸçŠ¶æ…‹ãŒç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã§ãªã‘ã‚Œã°ã€ãã®çŠ¶æ…‹ã«å¯¾ã—ã¦ã®
+		 * ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã‚’å–å¾—
 		 */
 		Integer nextNodeID = pathLearning(selectedStateInfo, goalNodeID);
 
@@ -809,12 +809,12 @@ public class LayeredAgent {
 private Random randomSearch = new Random(0);
 
 	/**
-	 * ƒS[ƒ‹‚Ö‚ÌÅ’Z‹——£‚à‚Âƒm[ƒh‚ÉŠÖ‚·‚éî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * ’Tõ‚ÍminSearchLngth“à‚Ås‚È‚¢A‚»‚±‚ÉƒS[ƒ‹‚Ö‚ÌÅ’Z‹——£‚ğ‚Âó‘Ô‚ª
-	 * ‚È‚¢ê‡AmaxSearchLngth‚Ü‚Å’Tõˆ—‚ğs‚È‚¢‚Ü‚·B
-	 * @param Integer nodeID       ƒm[ƒhID
-	 * @param Integer goalNodeID   ƒS[ƒ‹‚Ìƒm[ƒhID
-	 * @return Object[]            Å’Z‚Ì‹——£‚ğ‚Âƒm[ƒh‚ÉŠÖ‚·‚éî•ñ
+	 * ã‚´ãƒ¼ãƒ«ã¸ã®æœ€çŸ­è·é›¢ã‚‚ã¤ãƒãƒ¼ãƒ‰ã«é–¢ã™ã‚‹æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * æ¢ç´¢ã¯minSearchLngthå†…ã§è¡Œãªã„ã€ãã“ã«ã‚´ãƒ¼ãƒ«ã¸ã®æœ€çŸ­è·é›¢ã‚’æŒã¤çŠ¶æ…‹ãŒ
+	 * ãªã„å ´åˆã€maxSearchLngthã¾ã§æ¢ç´¢å‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * @param Integer nodeID       ãƒãƒ¼ãƒ‰ID
+	 * @param Integer goalNodeID   ã‚´ãƒ¼ãƒ«ã®ãƒãƒ¼ãƒ‰ID
+	 * @return Object[]            æœ€çŸ­ã®è·é›¢ã‚’æŒã¤ãƒãƒ¼ãƒ‰ã«é–¢ã™ã‚‹æƒ…å ±
 	 *                             Object[0] nodeID
 	 *                             Object[1] Distance
 	 *                             Object[2] StateList
@@ -822,27 +822,27 @@ private Random randomSearch = new Random(0);
 	private Object[] getNextNodeInfo(Integer nodeID, Integer goalNodeID,
 	        int maxSearchLength) {
 
-		/* “¯ˆêó‘Ô‚ğÄ“xŒŸõ‚µ‚È‚¢‚½‚ß‚Ìƒe[ƒuƒ‹ */
+		/* åŒä¸€çŠ¶æ…‹ã‚’å†åº¦æ¤œç´¢ã—ãªã„ãŸã‚ã®ãƒ†ãƒ¼ãƒ–ãƒ« */
 		Hashtable checkTable = new Hashtable();
 
-		/* ©‚ç‚ğƒe[ƒuƒ‹‚Éİ’è */
+		/* è‡ªã‚‰ã‚’ãƒ†ãƒ¼ãƒ–ãƒ«ã«è¨­å®š */
 		checkTable.put(nodeID, nodeID);
 
-		/* ’Tõ‚ğs‚È‚¤ƒm[ƒh‚ÌƒŠƒXƒg‚Ì”z—ñ */
+		/* æ¢ç´¢ã‚’è¡Œãªã†ãƒãƒ¼ãƒ‰ã®ãƒªã‚¹ãƒˆã®é…åˆ— */
 		StateList[] stateListArray = null;
 
-		/* ‘I‘ğ‚³‚ê‚½ƒm[ƒh‚Ìî•ñ‚ğİ’è */
+		/* é¸æŠã•ã‚ŒãŸãƒãƒ¼ãƒ‰ã®æƒ…å ±ã‚’è¨­å®š */
 		Object[] selectedObj = null;
 		int selectedLngth = 0;
 		int currentLngth = 0;
 
-		/* minSearchLngth‚Ü‚Å’Tõ */
+		/* minSearchLngthã¾ã§æ¢ç´¢ */
 //		for( ; currentLngth < minSearchLngth; currentLngth++) {
-		// 2001.04.16 C³ miyamoto
-		/* Å¬‚Ås‚È‚¤’Tõ‚Ì[‚³‚ğƒ‰ƒ“ƒ_ƒ€‚Éİ’è‚·‚é */
+		// 2001.04.16 ä¿®æ­£ miyamoto
+		/* æœ€å°ã§è¡Œãªã†æ¢ç´¢ã®æ·±ã•ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«è¨­å®šã™ã‚‹ */
 		int minLoopLngth = minSearchLngth;
 		if(minLoopLngth == -1) {
-//			// 2001.05.25 C³ miyamoto ŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚Ìjava‚É‘Î‰
+//			// 2001.05.25 ä¿®æ­£ miyamoto å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®javaã«å¯¾å¿œ
 			int num = randomSearch.nextInt(15);
 			if(num < 8) {
 				minLoopLngth = 1;
@@ -863,31 +863,31 @@ private Random randomSearch = new Random(0);
 //			}else {
 //				minLoopLngth = 4;
 //			}
-			// ‚±‚±‚Ü‚Å
+			// ã“ã“ã¾ã§
 		}
 		for( ; currentLngth < minLoopLngth; currentLngth++) {
-		/* ‚±‚±‚Ü‚Å */
+		/* ã“ã“ã¾ã§ */
 
-			/* ‰‚ß‚ÌstateListArray‚Ìì¬‚Í“Áê‚Èˆ— */
+			/* åˆã‚ã®stateListArrayã®ä½œæˆã¯ç‰¹æ®Šãªå‡¦ç† */
 			if(stateListArray == null) {
-				/* ’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚ÌƒŠƒXƒg‚ğæ“¾ */
+				/* ç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã‚’å–å¾— */
 				StateList nextNodeIDList = getChildList(nodeID, null,
 				        checkTable);
 				stateListArray = new StateList[1];
 				stateListArray[0] = nextNodeIDList;
 			}else {
-				/* Ÿ‚ÌStateList‚Ì”z—ñ‚ğæ“¾ */
+				/* æ¬¡ã®StateListã®é…åˆ—ã‚’å–å¾— */
 				stateListArray = getChildListArray(stateListArray, checkTable);
 			}
 
 			Object[] obj = getNextNodeInfoFromStateListArray(stateListArray,
 			        goalNodeID);
-			/* ”äŠrˆ— */
+			/* æ¯”è¼ƒå‡¦ç† */
 			if( obj != null ) {
 				if( selectedObj == null ) {
 					selectedObj = obj;
 				}else {
-					/* ‹——£‚Ì’Z‚¢•û‚ğİ’è ‹——£‚É‚Í’Tõ‚µ‚½[‚³‚ğ‚½‚· */
+					/* è·é›¢ã®çŸ­ã„æ–¹ã‚’è¨­å®š è·é›¢ã«ã¯æ¢ç´¢ã—ãŸæ·±ã•ã‚’ãŸã™ */
 					if( ((Integer)obj[1]).intValue() + currentLngth <=
 					        (((Integer)selectedObj[1]).intValue()
 					        + selectedLngth)){
@@ -899,27 +899,27 @@ private Random randomSearch = new Random(0);
 		}
 
 		/*
-		 * minSearchFNLngth‚ÅƒS[ƒ‹‚Ö“’B‰Â”\‚Èƒm[ƒh‚ª‚È‚¢ê‡‚ÍA
-		 * maxSearchFNdepth‚Ü‚Å’Tõ‚ğs‚¤
+		 * minSearchFNLngthã§ã‚´ãƒ¼ãƒ«ã¸åˆ°é”å¯èƒ½ãªãƒãƒ¼ãƒ‰ãŒãªã„å ´åˆã¯ã€
+		 * maxSearchFNdepthã¾ã§æ¢ç´¢ã‚’è¡Œã†
 		 */
 		for( ; currentLngth < maxSearchLength; currentLngth++) {
 			if( selectedObj != null ) {
 				break;
 			}
-			/* ‰‚ß‚ÌstateListArray‚Ìì¬‚Í“Áê‚Èˆ— */
+			/* åˆã‚ã®stateListArrayã®ä½œæˆã¯ç‰¹æ®Šãªå‡¦ç† */
 			if(stateListArray == null) {
-				/* ’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚ÌƒŠƒXƒg‚ğæ“¾ */
+				/* ç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã‚’å–å¾— */
 				StateList nextNodeIDList = getChildList(nodeID, null,
 				        checkTable);
 				stateListArray = new StateList[1];
 				stateListArray[0] = nextNodeIDList;
 			}else {
-				/* Ÿ‚ÌStateList‚Ì”z—ñ‚ğæ“¾ */
+				/* æ¬¡ã®StateListã®é…åˆ—ã‚’å–å¾— */
 				stateListArray = getChildListArray(stateListArray, checkTable);
 			}
 
-			// 2001.04.20 ’Ç‰Á miyamoto
-			/* ’Tõ‚·‚éƒŠƒXƒg‚ª–³‚¯‚ê‚Îˆ—‚ğ‚µ‚È‚¢ */
+			// 2001.04.20 è¿½åŠ  miyamoto
+			/* æ¢ç´¢ã™ã‚‹ãƒªã‚¹ãƒˆãŒç„¡ã‘ã‚Œã°å‡¦ç†ã‚’ã—ãªã„ */
 			if(stateListArray.length == 0) {
 				break;
 			}
@@ -927,31 +927,31 @@ private Random randomSearch = new Random(0);
 			        goalNodeID);
 		}
 
-		/* ƒeƒXƒg—p  ƒS[ƒ‹’Tõ‚ÉŠÖ‚·‚éî•ñ‚ğİ’è */
-		/* CD‚Ì’·‚³ */
+		/* ãƒ†ã‚¹ãƒˆç”¨  ã‚´ãƒ¼ãƒ«æ¢ç´¢ã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®š */
+		/* CDã®é•·ã• */
 		if(selectedObj != null) {
 			goalSearchCDLngth = (Integer)selectedObj[1];
 		}else{
 			goalSearchCDLngth = null;
 		}
-		/* ’Tõ‚Ì[‚³ */
+		/* æ¢ç´¢ã®æ·±ã• */
 		goalSearchLngth = currentLngth;
-		/* ’Tõ‚µ‚½ó‘Ô */
+		/* æ¢ç´¢ã—ãŸçŠ¶æ…‹ */
 		goalSearchNum = checkTable.size();
 
 		return selectedObj;
 	}
 
-	/* ƒS[ƒ‹’Tõ‚Ìî•ñ‚ğ•Û ’Tõó‹µ‚Ìæ“¾—p */
-	Integer goalSearchCDLngth; /* ’Tõ‚³‚ê‚½CD‚Ì’·‚³ */
-	int goalSearchLngth;       /* ’Tõ‚³‚ê‚½[‚³ */
-	int goalSearchNum;         /* ’Tõ‚µ‚½ó‘Ô” */
+	/* ã‚´ãƒ¼ãƒ«æ¢ç´¢ã®æƒ…å ±ã‚’ä¿æŒ æ¢ç´¢çŠ¶æ³ã®å–å¾—ç”¨ */
+	Integer goalSearchCDLngth; /* æ¢ç´¢ã•ã‚ŒãŸCDã®é•·ã• */
+	int goalSearchLngth;       /* æ¢ç´¢ã•ã‚ŒãŸæ·±ã• */
+	int goalSearchNum;         /* æ¢ç´¢ã—ãŸçŠ¶æ…‹æ•° */
 
 	/**
-	 * stateList‚Ì”z—ñ‚©‚çƒS[ƒ‹‚Ö‚ÌÅ’Z‹——£‚ğ‚Âó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * @param StateList[] stateListArray StateList‚Ì”z—ñ
-	 * @param Integer goalNodeID         ƒS[ƒ‹‚Ìƒm[ƒhID
-	 * @return Object[]                   Å’Z‚Ì‹——£‚ğ‚Âƒm[ƒh‚ÉŠÖ‚·‚éî•ñ
+	 * stateListã®é…åˆ—ã‹ã‚‰ã‚´ãƒ¼ãƒ«ã¸ã®æœ€çŸ­è·é›¢ã‚’æŒã¤çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param StateList[] stateListArray StateListã®é…åˆ—
+	 * @param Integer goalNodeID         ã‚´ãƒ¼ãƒ«ã®ãƒãƒ¼ãƒ‰ID
+	 * @return Object[]                   æœ€çŸ­ã®è·é›¢ã‚’æŒã¤ãƒãƒ¼ãƒ‰ã«é–¢ã™ã‚‹æƒ…å ±
 	 *                                    Object[0] nodeID
 	 *                                    Object[1] Distance
 	 *                                    Object[2] StateList
@@ -959,7 +959,7 @@ private Random randomSearch = new Random(0);
 	private Object[] getNextNodeInfoFromStateListArray(
 	        StateList[] stateListArray, Integer goalNodeID) {
 
-		/* Å’Z‚Ì‹——£‚ğ‚Âó‘Ô‚ğ’Tõ */
+		/* æœ€çŸ­ã®è·é›¢ã‚’æŒã¤çŠ¶æ…‹ã‚’æ¢ç´¢ */
 		Object[] wkObj = null;
 		StateList selectedList = null;
 		for(int i = 0; i < stateListArray.length; i++) {
@@ -975,7 +975,7 @@ private Random randomSearch = new Random(0);
 			}
 		}
 
-		/* Å’Z‹——£‚ğ‚Âó‘Ô‚Ì‚ ‚éƒŠƒXƒg‚ğ’Ç‰Á */
+		/* æœ€çŸ­è·é›¢ã‚’æŒã¤çŠ¶æ…‹ã®ã‚ã‚‹ãƒªã‚¹ãƒˆã‚’è¿½åŠ  */
 		Object[] selectedObj = null;
 		if(wkObj != null) {
 			selectedObj = new Object[3];
@@ -988,32 +988,32 @@ private Random randomSearch = new Random(0);
 
 
 	/**
-	 * stateList‚©‚çƒS[ƒ‹‚Ö‚ÌÅ’Z‹——£‚ğ‚Âó‘Ô‚ğæ“¾‚µ‚Ü‚·B
+	 * stateListã‹ã‚‰ã‚´ãƒ¼ãƒ«ã¸ã®æœ€çŸ­è·é›¢ã‚’æŒã¤çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @param StateList stateList   StateList
-	 * @param Integer goalNodeID    ƒS[ƒ‹‚Ìƒm[ƒhID
-	 * @return Object[]             Å’Z‚Ì‹——£‚ğ‚Âƒm[ƒh‚ÉŠÖ‚·‚éî•ñ
+	 * @param Integer goalNodeID    ã‚´ãƒ¼ãƒ«ã®ãƒãƒ¼ãƒ‰ID
+	 * @return Object[]             æœ€çŸ­ã®è·é›¢ã‚’æŒã¤ãƒãƒ¼ãƒ‰ã«é–¢ã™ã‚‹æƒ…å ±
 	 *                              Object[0] nodeID
 	 *                              Object[1] Distance
 	 */
 	private Object[] getNextNodeInfoFromStateList(StateList stateList,
 	        Integer goalNodeID) {
 
-		/* ‘I‘ğ‚³‚ê‚½ó‘Ô‚Ìİ’è—p */
-		Integer selectedNodeID = null;       /* Å’Z‹——£‚ğ‚à‚Âó‘Ô */
-		int shortestDistance = -1;           /* Å’Z‹——£ */
+		/* é¸æŠã•ã‚ŒãŸçŠ¶æ…‹ã®è¨­å®šç”¨ */
+		Integer selectedNodeID = null;       /* æœ€çŸ­è·é›¢ã‚’ã‚‚ã¤çŠ¶æ…‹ */
+		int shortestDistance = -1;           /* æœ€çŸ­è·é›¢ */
 		Object[] obj = null;
 
-		/* StateList‚©‚çƒS[ƒ‹‚Ö‚ÌÅ’Z‹——£‚ğ‚Âó‘Ô‚ğæ“¾ */ 
+		/* StateListã‹ã‚‰ã‚´ãƒ¼ãƒ«ã¸ã®æœ€çŸ­è·é›¢ã‚’æŒã¤çŠ¶æ…‹ã‚’å–å¾— */ 
 		ListIterator stateIterator
 		        = stateList.listIterator();
 		while(stateIterator.hasNext()) {
 			Integer directAccessNodeID
 			        = (Integer)stateIterator.next();
-			/* ƒS[ƒ‹‚Æ‚Ì‹——£‚ğæ“¾ */
+			/* ã‚´ãƒ¼ãƒ«ã¨ã®è·é›¢ã‚’å–å¾— */
 			Node directAccessNode = getNode(directAccessNodeID);
 			int distance = directAccessNode.getCognitiveDistance(
 			        goalNodeID);
-			/* ƒS[ƒ‹‚Ö‚ÌÅ’Z‹——£‚ÆA‚»‚Ìó‘Ô‚ğ•Û */
+			/* ã‚´ãƒ¼ãƒ«ã¸ã®æœ€çŸ­è·é›¢ã¨ã€ãã®çŠ¶æ…‹ã‚’ä¿æŒ */
 			if(distance != -1) {
 				if((shortestDistance==-1)||(shortestDistance>=distance)) {
 					selectedNodeID = directAccessNodeID;
@@ -1032,22 +1032,22 @@ private Random randomSearch = new Random(0);
 	}
 
 	/**
-	 * StateList‚Ì”z—ñ‚ÌŠe—v‘f‚©‚ç’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒhID‚ğStateList‚Ì”z—ñ‚Å
-	 * æ“¾‚µ‚Ü‚·B
-	 * @param StateList[] stateListArray StateList‚Ì”z—ñ
-	 * @return StateList[]   ˆø”‚ÌStateList‚Ì”z—ñ‚ÌŠe—v‘f‚©‚ç’¼ÚˆÚ“®‰Â”\‚È
-	 *                       StateList‚Ì”z—ñ
+	 * StateListã®é…åˆ—ã®å„è¦ç´ ã‹ã‚‰ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰IDã‚’StateListã®é…åˆ—ã§
+	 * å–å¾—ã—ã¾ã™ã€‚
+	 * @param StateList[] stateListArray StateListã®é…åˆ—
+	 * @return StateList[]   å¼•æ•°ã®StateListã®é…åˆ—ã®å„è¦ç´ ã‹ã‚‰ç›´æ¥ç§»å‹•å¯èƒ½ãª
+	 *                       StateListã®é…åˆ—
 	 */
 	private StateList[] getChildListArray(StateList[] stateListArray,
 	        Hashtable checkTable) {
 
-		/* Ÿ‚Ìó‘Ô‚ÌƒŠƒXƒg”‚ğƒJƒEƒ“ƒg */
+		/* æ¬¡ã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆæ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ */
 		int nextStateCount = 0;
 		for(int i = 0; i < stateListArray.length; i++) {
 			nextStateCount += stateListArray[i].size();
 		}
 
-		/* Ÿ‚Ìó‘Ô‚ÌƒŠƒXƒg‚ğæ“¾ */
+		/* æ¬¡ã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã‚’å–å¾— */
 		StateList[] nextStateList = new StateList[nextStateCount];
 		int n = 0;
 		for(int i = 0; i < stateListArray.length; i++) {
@@ -1064,29 +1064,29 @@ private Random randomSearch = new Random(0);
 	}
 
 	/**
-	 * w’è‚³‚ê‚½ó‘Ô‚©‚ç’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer parentNodeID e‚Æ‚È‚éƒm[ƒhID
-	 * @param StateList stateList  eƒm[ƒh‚Ì‚ ‚éStateList
-	 * @return StateList           ’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒhID‚ÌƒŠƒXƒg(qƒŠƒXƒg)
+	 * æŒ‡å®šã•ã‚ŒãŸçŠ¶æ…‹ã‹ã‚‰ç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer parentNodeID è¦ªã¨ãªã‚‹ãƒãƒ¼ãƒ‰ID
+	 * @param StateList stateList  è¦ªãƒãƒ¼ãƒ‰ã®ã‚ã‚‹StateList
+	 * @return StateList           ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰IDã®ãƒªã‚¹ãƒˆ(å­ãƒªã‚¹ãƒˆ)
 	 */
 	private StateList getChildList(Integer parentNodeID, StateList stateList, 
 	        Hashtable checkTable) {
 
-		/* ‡•ûŒü‚ÉˆÚ“®‰Â”\‚Èó‘Ô‚ğæ“¾ */
+		/* é †æ–¹å‘ã«ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã‚’å–å¾— */
 		LinkedList forwardNodeIDList = getForwardNodeIDList(parentNodeID);
-		/* ‚·‚Å‚Ég—pÏ‚İ‚Ìƒm[ƒhˆÈŠO‚ğg—p */
+		/* ã™ã§ã«ä½¿ç”¨æ¸ˆã¿ã®ãƒãƒ¼ãƒ‰ä»¥å¤–ã‚’ä½¿ç”¨ */
 		LinkedList checkedforwardNodeIDList = new LinkedList();
 		ListIterator li = forwardNodeIDList.listIterator();
 		while(li.hasNext()) {
 			Integer nodeID = (Integer)li.next();
-			/* ƒe[ƒuƒ‹‚É“o˜^‚³‚ê‚Ä‚¢‚È‚¢ó‘Ô‚È‚çƒŠƒXƒgAƒe[ƒuƒ‹‚É“o˜^ */
+			/* ãƒ†ãƒ¼ãƒ–ãƒ«ã«ç™»éŒ²ã•ã‚Œã¦ã„ãªã„çŠ¶æ…‹ãªã‚‰ãƒªã‚¹ãƒˆã€ãƒ†ãƒ¼ãƒ–ãƒ«ã«ç™»éŒ² */
 			if(!checkTable.contains(nodeID)) {
 				checkedforwardNodeIDList.add(nodeID);
 				checkTable.put(nodeID, nodeID);
 			}
 		}
 
-		/* V‚µ‚¢StateList‚ğì¬ */
+		/* æ–°ã—ã„StateListã‚’ä½œæˆ */
 		StateList childList = new StateList(checkedforwardNodeIDList,
 		        parentNodeID, stateList);
 
@@ -1095,9 +1095,9 @@ private Random randomSearch = new Random(0);
 
 
 	/**
-	 * ‚·‚Å‚ÉˆÚ“®Ï‚İ‚Ìó‘Ô‚Ö‚Ì˜A‘±ˆÚ“®‰ñ”‚ÌƒJƒEƒ“ƒ^‚ğ‰Šú‰»‚µ‚Ü‚·B
-	 * ãˆÊ‘w‚ÌƒJƒEƒ“ƒ^EupperNextNodeIDEnovelSubgoal‚É‚Â‚¢‚Ä‚à‰Šú‰»
-	 * ‚ğs‚È‚¢‚Ü‚·B
+	 * ã™ã§ã«ç§»å‹•æ¸ˆã¿ã®çŠ¶æ…‹ã¸ã®é€£ç¶šç§»å‹•å›æ•°ã®ã‚«ã‚¦ãƒ³ã‚¿ã‚’åˆæœŸåŒ–ã—ã¾ã™ã€‚
+	 * ä¸Šä½å±¤ã®ã‚«ã‚¦ãƒ³ã‚¿ãƒ»upperNextNodeIDãƒ»novelSubgoalã«ã¤ã„ã¦ã‚‚åˆæœŸåŒ–
+	 * ã‚’è¡Œãªã„ã¾ã™ã€‚
 	 */
 	public void resetUpperAndThisLayerFamiliarCount() {
 		resetFamiliarCount();
@@ -1109,34 +1109,34 @@ private Random randomSearch = new Random(0);
 	}
 
 	/**
-	 * ‚·‚Å‚ÉˆÚ“®Ï‚İ‚Ìó‘Ô‚Ö‚Ì˜A‘±ˆÚ“®‰ñ”‚ÌƒJƒEƒ“ƒ^‚ğ‰Šú‰»‚µ‚Ü‚·B
+	 * ã™ã§ã«ç§»å‹•æ¸ˆã¿ã®çŠ¶æ…‹ã¸ã®é€£ç¶šç§»å‹•å›æ•°ã®ã‚«ã‚¦ãƒ³ã‚¿ã‚’åˆæœŸåŒ–ã—ã¾ã™ã€‚
 	 */
 	private void resetFamiliarCount() {
 		familiarCount = 0;
 	}
 
 	/**
-	 * ˆø”‚Ìƒm[ƒh‚Ì‚b‚c“à‚Å‚à‚Á‚Æ‚àˆÚ“®‰ñ”‚Ì­‚È‚¢ó‘Ô‚ÖˆÚ“®‚µ‚Ü‚·B
-	 * @param Integer nodeID Œ»İ‚Ìƒm[ƒhID
-	 * @return Integer       Å‚àˆÚ“®‰ñ”‚Ì­‚È‚¢ƒm[ƒh‚ÌID
+	 * å¼•æ•°ã®ãƒãƒ¼ãƒ‰ã®ï¼£ï¼¤å†…ã§ã‚‚ã£ã¨ã‚‚ç§»å‹•å›æ•°ã®å°‘ãªã„çŠ¶æ…‹ã¸ç§»å‹•ã—ã¾ã™ã€‚
+	 * @param Integer nodeID ç¾åœ¨ã®ãƒãƒ¼ãƒ‰ID
+	 * @return Integer       æœ€ã‚‚ç§»å‹•å›æ•°ã®å°‘ãªã„ãƒãƒ¼ãƒ‰ã®ID
 	 */
 	private Integer getNovelNodeID(Integer nodeID) {
 
-		/* Å‚àˆÚ“®‰ñ”‚Ì­‚È‚¢ƒm[ƒhID */
+		/* æœ€ã‚‚ç§»å‹•å›æ•°ã®å°‘ãªã„ãƒãƒ¼ãƒ‰ID */
 		Integer selectedNodeID = null;
-		/* Å¬‚ÌˆÚ“®‰ñ” */
+		/* æœ€å°ã®ç§»å‹•å›æ•° */
 		int minVisitCount = 0;
 
-		/* ‚b‚c‚ÌƒL[‚Æ‚È‚Á‚Ä‚¢‚éƒm[ƒh‚Ì‚h‚c‚ğæ“¾ */
+		/* ï¼£ï¼¤ã®ã‚­ãƒ¼ã¨ãªã£ã¦ã„ã‚‹ãƒãƒ¼ãƒ‰ã®ï¼©ï¼¤ã‚’å–å¾— */
 		Node node = getNode(nodeID);
 		LinkedList ll = node.getCDKeys();
-		/* Šeƒm[ƒh‚ÌˆÚ“®‰ñ”‚ğƒ`ƒFƒbƒN */
+		/* å„ãƒãƒ¼ãƒ‰ã®ç§»å‹•å›æ•°ã‚’ãƒã‚§ãƒƒã‚¯ */
 		ListIterator li = ll.listIterator();
 		while(li.hasNext()) {
 			Integer cdNodeID = (Integer)li.next();
 			Node cdNode = getNode(cdNodeID);
 			int visitCount = cdNode.getVisitCount();
-			/* Å‚àˆÚ“®‰ñ”‚Ì­‚È‚¢ó‘Ô‚ğ•Û */
+			/* æœ€ã‚‚ç§»å‹•å›æ•°ã®å°‘ãªã„çŠ¶æ…‹ã‚’ä¿æŒ */
 			if( (selectedNodeID == null) || (minVisitCount > visitCount) ) {
 				selectedNodeID = cdNodeID;
 				minVisitCount = visitCount;
@@ -1147,35 +1147,35 @@ private Random randomSearch = new Random(0);
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// ŠwK
+	// å­¦ç¿’
 
 	/**
-	 * CognitiveDistance‚ÌŠwK‚ğs‚¢‚Ü‚·B
-	 * @param Integer nodeID ƒm[ƒhID
+	 * CognitiveDistanceã®å­¦ç¿’ã‚’è¡Œã„ã¾ã™ã€‚
+	 * @param Integer nodeID ãƒãƒ¼ãƒ‰ID
 	 */
 	private void learning(Integer nodeID) {
 
-		/* ƒm[ƒh‚Ìæ“¾ */
+		/* ãƒãƒ¼ãƒ‰ã®å–å¾— */
 		Node node = getNode(nodeID);
 
-		/* ƒoƒbƒtƒ@‚ÉŒ»İ‚Ìƒm[ƒhID‚ğ’Ç‰Á */
+		/* ãƒãƒƒãƒ•ã‚¡ã«ç¾åœ¨ã®ãƒãƒ¼ãƒ‰IDã‚’è¿½åŠ  */
 		stateBuffer.add(nodeID);
 
-		/* ˆÚ“®‰ñ”‚ÌƒJƒEƒ“ƒg */
+		/* ç§»å‹•å›æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ */
 		int sbSize = stateBuffer.size();
 		if( sbSize >= 2) {
 			/*
-			 * ˆÚ“®æ‚Ìƒm[ƒh‚É‚Â‚¢‚Ä‚Ìî•ñ‚à•K—v‚È‚½‚ßAˆê‚Â‘O‚Ìƒm[ƒh
-			 * ‚É‚Â‚¢‚Äˆ—‚ğs‚È‚¤
+			 * ç§»å‹•å…ˆã®ãƒãƒ¼ãƒ‰ã«ã¤ã„ã¦ã®æƒ…å ±ã‚‚å¿…è¦ãªãŸã‚ã€ä¸€ã¤å‰ã®ãƒãƒ¼ãƒ‰
+			 * ã«ã¤ã„ã¦å‡¦ç†ã‚’è¡Œãªã†
 			 */
 			Integer oldNodeID = (Integer)stateBuffer.get(sbSize - 2);
 			Node oldNode = getNode(oldNodeID);
-			/* ˆÚ“®‰ñ”‚ÌƒJƒEƒ“ƒg‚ÆˆÚ“®æ‚Ìİ’è */
+			/* ç§»å‹•å›æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆã¨ç§»å‹•å…ˆã®è¨­å®š */
 			oldNode.countVisitCount(nodeID);
 		}
 
 		/*
-		 * stateBuffer“à‚ÌŠeó‘Ô‚ÉAŒ»İ‚Ìó‘Ô‚ğƒL[‚É‚»‚Ì‹——£‚ğ“o˜^
+		 * stateBufferå†…ã®å„çŠ¶æ…‹ã«ã€ç¾åœ¨ã®çŠ¶æ…‹ã‚’ã‚­ãƒ¼ã«ãã®è·é›¢ã‚’ç™»éŒ²
 		 */
 		int distance = 1;
 		ListIterator stateBufferIterater
@@ -1183,15 +1183,15 @@ private Random randomSearch = new Random(0);
 		stateBufferIterater.previous();
 		while(stateBufferIterater.hasPrevious()) {
 
-			/* fromNode‚Ìæ“¾ */
+			/* fromNodeã®å–å¾— */
 			Integer fromNodeID = (Integer)stateBufferIterater.previous();
 			Node fromNode = getNode(fromNodeID);
 
-			/* ‚b‚c‚ÌŠwK */
+			/* ï¼£ï¼¤ã®å­¦ç¿’ */
 			fromNode.setCognitiveDistance(nodeID, distance);
 
 			/*
-			 * ƒm[ƒh‚©‚ç’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚É‚Â‚¢‚Ä‚àCognitiveDistance‚ğŠwK
+			 * ãƒãƒ¼ãƒ‰ã‹ã‚‰ç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã«ã¤ã„ã¦ã‚‚CognitiveDistanceã‚’å­¦ç¿’
 			 */
 			LinkedList forwardNodeIDList = getForwardNodeIDList(nodeID);
 			ListIterator forwardNodeIDListIterater
@@ -1202,11 +1202,11 @@ private Random randomSearch = new Random(0);
 				fromNode.setCognitiveDistance(forwardNodeID, distance+1);
 			}
 
-			/* ‹——£‚ª1‚Ìƒm[ƒhID‚ÍMSM‚É“o˜^ */
+			/* è·é›¢ãŒ1ã®ãƒãƒ¼ãƒ‰IDã¯MSMã«ç™»éŒ² */
 			if(distance == 1){
-				/* ‡•ûŒü‚É’¼ÚˆÚ“®‰Â”\ó‘Ô‚ğŠwK */
+				/* é †æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½çŠ¶æ…‹ã‚’å­¦ç¿’ */
 				fromNode.setForwardNode(nodeID);
-				/* ‹t•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚ğŠwK */
+				/* é€†æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã‚’å­¦ç¿’ */
 				node.setInverseNode(fromNodeID);
 			}
 
@@ -1214,11 +1214,11 @@ private Random randomSearch = new Random(0);
 
 		}
 
-		/* ƒtƒ‰ƒO‚É‚æ‚èƒ‰ƒ“ƒhƒ}[ƒN‚ÌŠwK‚ğ§ŒÀ ƒeƒXƒg—p */
+		/* ãƒ•ãƒ©ã‚°ã«ã‚ˆã‚Šãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®å­¦ç¿’ã‚’åˆ¶é™ ãƒ†ã‚¹ãƒˆç”¨ */
 		if(landmarkLearningFlag) {
-			/* ãˆÊ‘w‚ª‚ ‚ê‚Îƒ‰ƒ“ƒhƒ}[ƒN‚ÌŠwK */
+			/* ä¸Šä½å±¤ãŒã‚ã‚Œã°ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®å­¦ç¿’ */
 			if(upperLayerAgent != null) {
-				/* Landmark‚ÌŠwK */
+				/* Landmarkã®å­¦ç¿’ */
 				landmarkLearning(nodeID);
 			}
 		}
@@ -1227,52 +1227,52 @@ private Random randomSearch = new Random(0);
 
 
 	/**
-	 * Landmark‚ÌŠwK‚ğs‚¢‚Ü‚·B
-	 * @param Integer nodeID ƒm[ƒhID
+	 * Landmarkã®å­¦ç¿’ã‚’è¡Œã„ã¾ã™ã€‚
+	 * @param Integer nodeID ãƒãƒ¼ãƒ‰ID
 	 */
 	private void landmarkLearning(Integer nodeID) {
 
-		/* ‹ß‚­‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ğ’TõA‚»‚ÌID‚Æ‚»‚±‚Ü‚Å‚Ì‹——£‚ğæ“¾ */
+		/* è¿‘ãã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’æ¢ç´¢ã€ãã®IDã¨ãã“ã¾ã§ã®è·é›¢ã‚’å–å¾— */
 		Object[] nearestLandmarkAndStep = getNearestLandmark(nodeID);
 		Integer nearestLandmarkID = (Integer)nearestLandmarkAndStep[0];
 		int shortestStep = ((Integer)nearestLandmarkAndStep[1]).intValue();
 
-		/* Œ»İ‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ÌID‚Æ‚»‚±‚Ü‚Å‚ÌƒXƒeƒbƒv” */
+		/* ç¾åœ¨ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®IDã¨ãã“ã¾ã§ã®ã‚¹ãƒ†ãƒƒãƒ—æ•° */
 		Integer currentLandmarkID = getUpperLayerNodeID(nodeID);
 		int currentStep = getToLandmarkStep(nodeID);
 
 		Node node = getNode(nodeID);
 		if(nearestLandmarkID == null) {
 			if(currentStep == -1) {
-				/* ‹ß‚­‚Éƒ‰ƒ“ƒhƒ}[ƒN‚ª‚È‚­A©‚ç‚É‚àİ’è‚³‚ê‚Ä‚¢‚È‚¢ê‡ */
-				/* ©‚ç‚ğƒ‰ƒ“ƒhƒ}[ƒN‚Éİ’è */
+				/* è¿‘ãã«ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒãªãã€è‡ªã‚‰ã«ã‚‚è¨­å®šã•ã‚Œã¦ã„ãªã„å ´åˆ */
+				/* è‡ªã‚‰ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«è¨­å®š */
 				Integer newID = new Integer(segmentCount);
 				node.setUpperIDAndStep(newID, 0);
-				/* ãˆÊ‘w‚Ìƒm[ƒh‚ğì¬ */
+				/* ä¸Šä½å±¤ã®ãƒãƒ¼ãƒ‰ã‚’ä½œæˆ */
 				upperLayerAgent.newNode(nodeID);
 				segmentCount++;
 			}
 		}else{
 			if(currentStep == -1) {
-				/* ‹ß‚­‚Éƒ‰ƒ“ƒhƒ}[ƒN‚ª‚ ‚èA©‚ç‚Éİ’è‚³‚ê‚Ä‚¢‚È‚¢ê‡ */
-				/* Å’Z‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ğİ’è */
+				/* è¿‘ãã«ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒã‚ã‚Šã€è‡ªã‚‰ã«è¨­å®šã•ã‚Œã¦ã„ãªã„å ´åˆ */
+				/* æœ€çŸ­ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’è¨­å®š */
 				node.setUpperIDAndStep(nearestLandmarkID, shortestStep);
 			}else if(currentStep == 0) {
-				/* ‹ß‚­‚Éƒ‰ƒ“ƒhƒ}[ƒN‚ª‚ ‚èA©‚ç‚É‚àİ’è‚³‚ê‚Ä‚¢‚éê‡ */
-				/* ƒ‰ƒ“ƒhƒ}[ƒNíœE‹ß‚¢•û‚Ö’u‚«Š·‚¦ */
+				/* è¿‘ãã«ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒã‚ã‚Šã€è‡ªã‚‰ã«ã‚‚è¨­å®šã•ã‚Œã¦ã„ã‚‹å ´åˆ */
+				/* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯å‰Šé™¤ãƒ»è¿‘ã„æ–¹ã¸ç½®ãæ›ãˆ */
 				if(shortestStep <= minSegmentSize) {
-//					// 2000.11.30 C³ ƒ‰ƒ“ƒhƒ}[ƒNíœ‚É•Ê‚ÌƒZƒOƒƒ“ƒg‚Ö‚Ì
-//					// “‡‚ğs‚È‚í‚È‚¢
-//					/* ƒ‰ƒ“ƒhƒ}[ƒN(ãˆÊ‘w)‚Ìíœˆ— */
+//					// 2000.11.30 ä¿®æ­£ ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯å‰Šé™¤æ™‚ã«åˆ¥ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã¸ã®
+//					// çµ±åˆã‚’è¡Œãªã‚ãªã„
+//					/* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯(ä¸Šä½å±¤)ã®å‰Šé™¤å‡¦ç† */
 //					Integer upperID = getUpperLayerNodeID(nodeID);
-//					// ’u‚«Š·‚¦
+//					// ç½®ãæ›ãˆ
 //					upperLayerAgent.deleteNode(upperID, nearestLandmarkID,
 //					        shortestStep);
-//					// íœ‚Ì‚İ
+//					// å‰Šé™¤ã®ã¿
 //					boolean b = upperLayerAgent.deleteNode(upperID, null, -1);
 //					/*
-//					 * ãˆÊ‘w‚Ìíœ‚ª³í‚És‚È‚í‚ê‚½ê‡‚ÍV‚½‚ÈÅ’Z‚Ì
-//					 * ƒ‰ƒ“ƒhƒ}[ƒN‚ğİ’è
+//					 * ä¸Šä½å±¤ã®å‰Šé™¤ãŒæ­£å¸¸ã«è¡Œãªã‚ã‚ŒãŸå ´åˆã¯æ–°ãŸãªæœ€çŸ­ã®
+//					 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’è¨­å®š
 //					 */
 //					if(b == true) {
 //						node.setUpperIDAndStep(nearestLandmarkID,
@@ -1281,12 +1281,12 @@ private Random randomSearch = new Random(0);
 				}
 			}else{
 				/*
-				 * ‹ß‚­‚Éƒ‰ƒ“ƒhƒ}[ƒN‚ª‚ ‚é‚ªAŒ»İ‚Í•Ê‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ªİ’è
-				 * ‚³‚ê‚Ä‚¢‚éê‡
+				 * è¿‘ãã«ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒã‚ã‚‹ãŒã€ç¾åœ¨ã¯åˆ¥ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒè¨­å®š
+				 * ã•ã‚Œã¦ã„ã‚‹å ´åˆ
 				 */
-				/* ‹ß‚¢•û‚Ö’u‚«Š·‚¦ */
+				/* è¿‘ã„æ–¹ã¸ç½®ãæ›ãˆ */
 				if(currentStep > shortestStep) {
-					/* Å’Z‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ğİ’è */
+					/* æœ€çŸ­ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’è¨­å®š */
 					node.setUpperIDAndStep(nearestLandmarkID,
 					        shortestStep);
 				}
@@ -1294,54 +1294,54 @@ private Random randomSearch = new Random(0);
 		}
 	}
 
-	/* ƒ‰ƒ“ƒhƒ}[ƒN‚ğİ’è‚¹‚¸‚Éó‘Ô‚ğ•Û‚µ‚Ä‚¨‚­‚½‚ß‚Ìƒoƒbƒtƒ@ */
+	/* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’è¨­å®šã›ãšã«çŠ¶æ…‹ã‚’ä¿æŒã—ã¦ãŠããŸã‚ã®ãƒãƒƒãƒ•ã‚¡ */
 	LinkedList noLandmarkNodeIDBuffer = new LinkedList();
 //
 //	/**
-//	 * Landmark‚ÌŠwK‚ğs‚¢‚Ü‚·B(ForwardModelg—p)
-//	 * @param Integer nodeID ƒm[ƒhID
+//	 * Landmarkã®å­¦ç¿’ã‚’è¡Œã„ã¾ã™ã€‚(ForwardModelä½¿ç”¨)
+//	 * @param Integer nodeID ãƒãƒ¼ãƒ‰ID
 //	 */
 //	private void landmarkLearning(Integer nodeID) {
 //
-//		/* ‹ß‚­‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ğ’TõA‚»‚ÌID‚Æ‚»‚±‚Ü‚Å‚Ì‹——£‚ğæ“¾ */
+//		/* è¿‘ãã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’æ¢ç´¢ã€ãã®IDã¨ãã“ã¾ã§ã®è·é›¢ã‚’å–å¾— */
 //		Object[] nearestLandmarkAndStep = getNearestLandmark(nodeID);
 //		Integer nearestLandmarkID = (Integer)nearestLandmarkAndStep[0];
 //		int shortestStep = ((Integer)nearestLandmarkAndStep[1]).intValue();
 //
-//		/* Œ»İ‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ÌID‚Æ‚»‚±‚Ü‚Å‚ÌƒXƒeƒbƒv” */
+//		/* ç¾åœ¨ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®IDã¨ãã“ã¾ã§ã®ã‚¹ãƒ†ãƒƒãƒ—æ•° */
 //		Integer currentLandmarkID = getUpperLayerNodeID(nodeID);
 //		int currentStep = getToLandmarkStep(nodeID);
 //
-//		/* Œ»İ‚Ìó‘Ô‚ªƒ‰ƒ“ƒhƒ}[ƒN */
+//		/* ç¾åœ¨ã®çŠ¶æ…‹ãŒãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ */
 //		if(currentStep == 0) {
-//			/* ƒoƒbƒtƒ@“à‚Ìó‘Ô‚ÉŒ»İ‚Ìó‘Ô‚ğƒ‰ƒ“ƒhƒ}[ƒN‚Æ‚µ‚Äİ’è */
+//			/* ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã«ç¾åœ¨ã®çŠ¶æ…‹ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¨ã—ã¦è¨­å®š */
 //			setLandmarkToBuffer(nodeID, currentStep+1);
-//		/* Œ»İ‚Ìó‘Ô‚É‰½‚àİ’è‚³‚ê‚Ä‚È‚¢ */
+//		/* ç¾åœ¨ã®çŠ¶æ…‹ã«ä½•ã‚‚è¨­å®šã•ã‚Œã¦ãªã„ */
 //		}else if(currentStep == -1) {
-//			/* ‹ß‚­‚Éƒ‰ƒ“ƒhƒ}[ƒN—L */
+//			/* è¿‘ãã«ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯æœ‰ */
 //			if(nearestLandmarkID != null) {
-//				/* ƒoƒbƒtƒ@‚Ìó‘Ô */
+//				/* ãƒãƒƒãƒ•ã‚¡ã®çŠ¶æ…‹ */
 //				if(noLandmarkNodeIDBuffer.size() >= maxSegmentSize) {
 //					/*
-//					 * Œ»İ‚Ìó‘Ô‚ğƒ‰ƒ“ƒhƒ}[ƒN‚É‚µAƒoƒbƒtƒ@“à‚Ìó‘Ô‚Ì
-//					 * ƒ‰ƒ“ƒhƒ}[ƒN‚Æ‚µ‚Äİ’è
+//					 * ç¾åœ¨ã®çŠ¶æ…‹ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«ã—ã€ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã®
+//					 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¨ã—ã¦è¨­å®š
 //					 */
 //					makeLandmark(nodeID);
 //					setLandmarkToBuffer(nodeID, 1);
 //				}else {
-//					/* ƒoƒbƒtƒ@ƒTƒCƒY‚Æ‹——£‚Ìƒ`ƒFƒbƒN */
+//					/* ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨è·é›¢ã®ãƒã‚§ãƒƒã‚¯ */
 //					if( shortestStep + noLandmarkNodeIDBuffer.size()
 //					        > maxSegmentSize) {
 //						/*
-//						 * Œ»İ‚Ìó‘Ô‚ğƒ‰ƒ“ƒhƒ}[ƒN‚É‚µAƒoƒbƒtƒ@“à‚Ìó‘Ô‚Ì
-//						 * ƒ‰ƒ“ƒhƒ}[ƒN‚Æ‚µ‚Äİ’è
+//						 * ç¾åœ¨ã®çŠ¶æ…‹ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«ã—ã€ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã®
+//						 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¨ã—ã¦è¨­å®š
 //						 */
 //						makeLandmark(nodeID);
 //						setLandmarkToBuffer(nodeID, 1);
 //					}else {
 //						/*
-//						 * Œ»İ‚Ìó‘ÔAƒoƒbƒtƒ@“à‚Ìó‘Ô‚É’Tõ‚Å‚«‚½
-//						 * ƒ‰ƒ“ƒhƒ}[ƒN‚ğİ’è
+//						 * ç¾åœ¨ã®çŠ¶æ…‹ã€ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã«æ¢ç´¢ã§ããŸ
+//						 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’è¨­å®š
 //						 */
 //						Node node = getNode(nodeID);
 //						node.setUpperIDAndStep(nearestLandmarkID,
@@ -1350,24 +1350,24 @@ private Random randomSearch = new Random(0);
 //					}
 //				}
 //			}else {
-//				/* ƒoƒbƒtƒ@‚Ìó‘Ô */
+//				/* ãƒãƒƒãƒ•ã‚¡ã®çŠ¶æ…‹ */
 //				if(noLandmarkNodeIDBuffer.size() >= maxSegmentSize) {
 //					/*
-//					 * Œ»İ‚Ìó‘Ô‚ğƒ‰ƒ“ƒhƒ}[ƒN‚É‚µAƒoƒbƒtƒ@“à‚Ìó‘Ô‚Ì
-//					 * ƒ‰ƒ“ƒhƒ}[ƒN‚Æ‚µ‚Äİ’è
+//					 * ç¾åœ¨ã®çŠ¶æ…‹ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«ã—ã€ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã®
+//					 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¨ã—ã¦è¨­å®š
 //					 */
 //					makeLandmark(nodeID);
 //					setLandmarkToBuffer(nodeID, 1);
 //				}else {
-//					/* Œ»İ‚Ìó‘Ô‚ğƒoƒbƒtƒ@‚É’Ç‰Á */
+//					/* ç¾åœ¨ã®çŠ¶æ…‹ã‚’ãƒãƒƒãƒ•ã‚¡ã«è¿½åŠ  */
 //					noLandmarkNodeIDBuffer.add(nodeID);
 //				}
 //			}
-//		/* ‹ß‚­‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ªİ’è‚³‚ê‚Ä‚¢‚é */
+//		/* è¿‘ãã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹ */
 //		}else{
-//			/* ƒ‰ƒ“ƒhƒ}[ƒN —L */
+//			/* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ æœ‰ */
 //			if(nearestLandmarkID != null) {
-//				/* ’Z‚¢•û‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚É’uŠ·‚¦ */
+//				/* çŸ­ã„æ–¹ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«ç½®æ›ãˆ */
 //				Integer renewLandmarkID = currentLandmarkID;
 //				int renewStep = currentStep;
 //				if(currentStep > shortestStep) {
@@ -1377,32 +1377,32 @@ private Random randomSearch = new Random(0);
 //					renewLandmarkID = nearestLandmarkID;
 //					renewStep = shortestStep;
 //				}
-//				/* ƒoƒbƒtƒ@ƒTƒCƒY‚Æ‹——£‚Ìƒ`ƒFƒbƒN */
+//				/* ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨è·é›¢ã®ãƒã‚§ãƒƒã‚¯ */
 //				if( renewStep + noLandmarkNodeIDBuffer.size()
 //				        > maxSegmentSize) {
 //					/*
-//					 * Œ»İ‚Ìó‘Ô‚ğƒ‰ƒ“ƒhƒ}[ƒN‚É‚µAƒoƒbƒtƒ@“à‚Ìó‘Ô‚Ì
-//					 * ƒ‰ƒ“ƒhƒ}[ƒN‚Æ‚µ‚Äİ’è
+//					 * ç¾åœ¨ã®çŠ¶æ…‹ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«ã—ã€ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã®
+//					 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¨ã—ã¦è¨­å®š
 //					 */
 //					makeLandmark(nodeID);
 //					setLandmarkToBuffer(nodeID, 1);
 //				}else {
-//					/* XVŒã‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ğƒoƒbƒtƒ@“à‚Ìó‘Ô‚Éİ’è */
+//					/* æ›´æ–°å¾Œã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã«è¨­å®š */
 //					setLandmarkToBuffer(renewLandmarkID, renewStep);
 //				}
 //			}else {
-//				/* ƒoƒbƒtƒ@ƒTƒCƒY‚Æ‹——£‚Ìƒ`ƒFƒbƒN */
+//				/* ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã¨è·é›¢ã®ãƒã‚§ãƒƒã‚¯ */
 //				if( currentStep + noLandmarkNodeIDBuffer.size()
 //				        > maxSegmentSize) {
 //					/*
-//					 * Œ»İ‚Ìó‘Ô‚ğƒ‰ƒ“ƒhƒ}[ƒN‚É‚µAƒoƒbƒtƒ@“à‚Ìó‘Ô‚Ì
-//					 * ƒ‰ƒ“ƒhƒ}[ƒN‚Æ‚µ‚Äİ’è
+//					 * ç¾åœ¨ã®çŠ¶æ…‹ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«ã—ã€ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã®
+//					 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¨ã—ã¦è¨­å®š
 //					 */
 //					makeLandmark(nodeID);
 //					setLandmarkToBuffer(nodeID, 1);
 //				}else {
-//					/* ƒoƒbƒtƒ@“à‚Ìó‘Ô‚ÉŒ»İ‚Ìó‘Ô‚Éİ’è‚³‚ê‚Ä‚¢‚é */
-//					/* ƒ‰ƒ“ƒhƒ}[ƒN‚ğƒ‰ƒ“ƒhƒ}[ƒN‚Æ‚µ‚Äİ’è         */
+//					/* ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã«ç¾åœ¨ã®çŠ¶æ…‹ã«è¨­å®šã•ã‚Œã¦ã„ã‚‹ */
+//					/* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¨ã—ã¦è¨­å®š         */
 //					setLandmarkToBuffer(currentLandmarkID, currentStep);
 //				}
 //			}
@@ -1410,27 +1410,27 @@ private Random randomSearch = new Random(0);
 //	}
 
 	/**
-	 * ©‚ç‚Ìó‘Ô‚ğƒ‰ƒ“ƒhƒ}[ƒN‚É‚µ‚Ü‚·B
-	 * @param Integer nodeID ƒ‰ƒ“ƒhƒ}[ƒN‚É‚·‚éó‘Ô‚ÌID
+	 * è‡ªã‚‰ã®çŠ¶æ…‹ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«ã—ã¾ã™ã€‚
+	 * @param Integer nodeID ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«ã™ã‚‹çŠ¶æ…‹ã®ID
 	 */
 //	private void makeLandmark(Integer nodeID) {
-//		/* ©‚ç‚ğƒ‰ƒ“ƒhƒ}[ƒN‚Éİ’è */
+//		/* è‡ªã‚‰ã‚’ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«è¨­å®š */
 //		Integer newID = new Integer(segmentCount);
 //		Node node = getNode(nodeID);
 //		node.setUpperIDAndStep(newID, 0);
-//		/* ãˆÊ‘w‚Ìƒm[ƒh‚ğì¬ */
+//		/* ä¸Šä½å±¤ã®ãƒãƒ¼ãƒ‰ã‚’ä½œæˆ */
 //		upperLayerAgent.newNode(nodeID);
 //		segmentCount++;
 //	}
 
 	/**
-	 * ƒ‰ƒ“ƒhƒ}[ƒN‚ğ–¢İ’è‚Ìƒoƒbƒtƒ@“à‚Ìó‘Ô‚Éƒ‰ƒ“ƒhƒ}[ƒN‚ğİ’è‚µ‚Ü‚·
-	 * @param Integer landmarkID ƒ‰ƒ“ƒhƒ}[ƒN‚ÌID
-	 * @param int step           ƒoƒbƒtƒ@‚ÌÅV‚Ìó‘Ô‚©‚çƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚Ì
-	 *                           ƒXƒeƒbƒv”
+	 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’æœªè¨­å®šã®ãƒãƒƒãƒ•ã‚¡å†…ã®çŠ¶æ…‹ã«ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’è¨­å®šã—ã¾ã™
+	 * @param Integer landmarkID ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®ID
+	 * @param int step           ãƒãƒƒãƒ•ã‚¡ã®æœ€æ–°ã®çŠ¶æ…‹ã‹ã‚‰ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®
+	 *                           ã‚¹ãƒ†ãƒƒãƒ—æ•°
 	 */
 	private void setLandmarkToBuffer(Integer landmarkID, int step) {
-		/* ƒŠƒXƒg‚Ì‘Só‘Ô‚Éƒ‰ƒ“ƒhƒ}[ƒN‚ğİ’è */
+		/* ãƒªã‚¹ãƒˆã®å…¨çŠ¶æ…‹ã«ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’è¨­å®š */
 		ListIterator li = noLandmarkNodeIDBuffer.listIterator();
 		while(li.hasPrevious()) {
 			Integer nodeID = (Integer)li.previous();
@@ -1438,87 +1438,87 @@ private Random randomSearch = new Random(0);
 			node.setUpperIDAndStep(landmarkID, step);
 			step++;
 		}
-		/* ƒŠƒXƒg‚ğƒNƒŠƒA */
+		/* ãƒªã‚¹ãƒˆã‚’ã‚¯ãƒªã‚¢ */
 		noLandmarkNodeIDBuffer.clear();
 	}
 
-	// ‚±‚±‚Ü‚Å
+	// ã“ã“ã¾ã§
 	///////////////////////////
 
 
 	/**
-	 * maxSegmentSize“à‚Å‚à‚Á‚Æ‚à‹ß‚¢ˆÊ’u‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚ğ’Tõ‚µ‚Ü‚·B
-	 * @param Integer nodeID                ƒm[ƒhID
-	 * @return Object[] nearestLandmarkInfo Å‚à‹ß‚¢ƒ‰ƒ“ƒhƒ}[ƒN‚ÉŠÖ‚·‚éî•ñ
+	 * maxSegmentSizeå†…ã§ã‚‚ã£ã¨ã‚‚è¿‘ã„ä½ç½®ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’æ¢ç´¢ã—ã¾ã™ã€‚
+	 * @param Integer nodeID                ãƒãƒ¼ãƒ‰ID
+	 * @return Object[] nearestLandmarkInfo æœ€ã‚‚è¿‘ã„ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã«é–¢ã™ã‚‹æƒ…å ±
 	 *                                      Object[0] landmarkID
 	 *                                      Object[1] stepNum
 	 */
 	private Object[] getNearestLandmark(Integer nodeID) {
 
-		/* searchNodeIDList‚É“¯ˆê‚Ìó‘Ô‚ğÄ“x‘I‘ğ‚µ‚È‚¢‚½‚ß‚Ìƒe[ƒuƒ‹ */
+		/* searchNodeIDListã«åŒä¸€ã®çŠ¶æ…‹ã‚’å†åº¦é¸æŠã—ãªã„ãŸã‚ã®ãƒ†ãƒ¼ãƒ–ãƒ« */
 		Hashtable checkTable = new Hashtable();
 
-		/* ‘I‘ğ‚³‚ê‚½landmark‚Ìî•ñ‚ğİ’è */
+		/* é¸æŠã•ã‚ŒãŸlandmarkã®æƒ…å ±ã‚’è¨­å®š */
 		Integer selectedNodeID = null;
 		int selectedStep = -1;
 
-		/* ’Tõ”ÍˆÍ“à‚Ìƒm[ƒhID‚ğæ“¾ */
+		/* æ¢ç´¢ç¯„å›²å†…ã®ãƒãƒ¼ãƒ‰IDã‚’å–å¾— */
 		LinkedList[] searchNodeIDList = new LinkedList[maxSegmentSize];
 
-	// 2001.05.22 C³ miyamoto Model‚ÌØ‚èŠ·‚¦‚ğƒtƒ‰ƒO‚Ås‚È‚¤
-//// ŠK‘w‰»‚Ì«”\’²¸—p ForwardModel ‚ğg—p
+	// 2001.05.22 ä¿®æ­£ miyamoto Modelã®åˆ‡ã‚Šæ›ãˆã‚’ãƒ•ãƒ©ã‚°ã§è¡Œãªã†
+//// éšå±¤åŒ–ã®æ€§èƒ½èª¿æŸ»ç”¨ ForwardModel ã‚’ä½¿ç”¨
 //		searchNodeIDList[0] = getInverseNodeIDList(nodeID);
 ////		searchNodeIDList[0] = getForwardNodeIDList(nodeID);
 //		for(int i = 1; i < maxSegmentSize; i++) {
-//// ŠK‘w‰»‚Ì«”\’²¸—p ForwardModel ‚ğg—p
+//// éšå±¤åŒ–ã®æ€§èƒ½èª¿æŸ»ç”¨ ForwardModel ã‚’ä½¿ç”¨
 //			searchNodeIDList[i] = getMoveableNodeList(searchNodeIDList[i-1],
 //			        false, checkTable);
 ////			searchNodeIDList[i] =getMoveableNodeList(searchNodeIDList[i-1],
 ////			        true, checkTable);
 
-		/* ƒtƒ‰ƒO‚É‚æ‚èƒ‰ƒ“ƒhƒ}[ƒN’Tõ‚ÌŒü‚«‚ğØ‚è‘Ö‚¦ */
+		/* ãƒ•ãƒ©ã‚°ã«ã‚ˆã‚Šãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯æ¢ç´¢ã®å‘ãã‚’åˆ‡ã‚Šæ›¿ãˆ */
 		if(!flagLandmarkSearchDirection) {
-			/* InverseModel‚Å‚ÌƒZƒOƒƒ“ƒg‰» */
+			/* InverseModelã§ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ– */
 			searchNodeIDList[0] = getInverseNodeIDList(nodeID);
 			for(int i = 1; i < maxSegmentSize; i++) {
 				searchNodeIDList[i] = getMoveableNodeList(
 				        searchNodeIDList[i-1], false, checkTable);
 			}
 		}else {
-			/* ForwardModel‚Å‚ÌƒZƒOƒƒ“ƒg‰» */
+			/* ForwardModelã§ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ– */
 			searchNodeIDList[0] = getForwardNodeIDList(nodeID);
 			for(int i = 1; i < maxSegmentSize; i++) {
 				searchNodeIDList[i] = getMoveableNodeList(
 				        searchNodeIDList[i-1], true, checkTable);
 			}
 		}
-		// ‚±‚±‚Ü‚Å
+		// ã“ã“ã¾ã§
 
-		/* Å’Z‚Ìó‘Ô‚ğ’Tõ */
+		/* æœ€çŸ­ã®çŠ¶æ…‹ã‚’æ¢ç´¢ */
 		for(int i = 0; i < maxSegmentSize; i++) {
-			/* ƒŠƒXƒg“à‚ÌŠeó‘Ô‚É‚Â‚¢‚Äƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚Ì‹——£‚ğƒ`ƒFƒbƒN */
+			/* ãƒªã‚¹ãƒˆå†…ã®å„çŠ¶æ…‹ã«ã¤ã„ã¦ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®è·é›¢ã‚’ãƒã‚§ãƒƒã‚¯ */
 			ListIterator lIterator = searchNodeIDList[i].listIterator();
 			while(lIterator.hasNext()) {
 
-				/* ƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚Ì‹——£‚ğæ“¾ */
+				/* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®è·é›¢ã‚’å–å¾— */
 				Integer searchNodeID = (Integer)lIterator.next();
 				int toLandmarkStep = getToLandmarkStep(searchNodeID);
-				/* ƒ‰ƒ“ƒhƒ}[ƒN‚ªİ’èÏ‚İ */
+				/* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒè¨­å®šæ¸ˆã¿ */
 				if( toLandmarkStep != -1 ) {
-					/* ãˆÊ‘w‚ª“¯‚¶‚Å‚È‚¢‚© */
+					/* ä¸Šä½å±¤ãŒåŒã˜ã§ãªã„ã‹ */
 					Integer upperNodeID = getUpperLayerNodeID(nodeID);
 					Integer upperSearchNodeID
 					        = getUpperLayerNodeID(searchNodeID);
 					if( (upperNodeID == null) || (!upperNodeID.equals(
 					        upperSearchNodeID)) ) {
-						/* ’Tõ‚Ì[‚³‚Ì•ª‚ğƒXƒeƒbƒv”‚É‘«‚· */
+						/* æ¢ç´¢ã®æ·±ã•ã®åˆ†ã‚’ã‚¹ãƒ†ãƒƒãƒ—æ•°ã«è¶³ã™ */
 						toLandmarkStep = toLandmarkStep + i + 1;
-						/* ƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚ÌƒXƒeƒbƒv”‚ª’Tõ”ÍˆÍ“à */
+						/* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®ã‚¹ãƒ†ãƒƒãƒ—æ•°ãŒæ¢ç´¢ç¯„å›²å†… */
 						if( toLandmarkStep <= maxSegmentSize ) {
-							/* Å’Z‚Ì‹——£‚Æ”äŠr */
+							/* æœ€çŸ­ã®è·é›¢ã¨æ¯”è¼ƒ */
 							if( (selectedStep == -1) || 
 							        (selectedStep > toLandmarkStep) ) {
-								/* Å’Z‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚Ìî•ñ‚ğİ’è */
+								/* æœ€çŸ­ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®æƒ…å ±ã‚’è¨­å®š */
 								selectedNodeID = upperSearchNodeID;
 								selectedStep = toLandmarkStep;
 							}
@@ -1528,7 +1528,7 @@ private Random randomSearch = new Random(0);
 			}
 		}
 
-		/* Å‚à‹ß‚¢ƒ‰ƒ“ƒhƒ}[ƒN‚Ìî•ñ‚ğİ’è */
+		/* æœ€ã‚‚è¿‘ã„ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®æƒ…å ±ã‚’è¨­å®š */
 		Object[] nearestLandmarkInfo = new Object[2];
 		nearestLandmarkInfo[0] = selectedNodeID;
 		nearestLandmarkInfo[1] = new Integer(selectedStep);
@@ -1538,26 +1538,26 @@ private Random randomSearch = new Random(0);
 
 
 	/**
-	 * ƒŠƒXƒg“à‚ÌŠeó‘Ô‚©‚çˆÚ“®‰Â”\‚Èó‘Ô‚ğƒŠƒXƒg‚Åæ“¾‚µ‚Ü‚·B
-	 * @param LinkedList nodeList  ó‘Ô‚ÌƒŠƒXƒg
-	 * @param boolean direction    ˆÚ“®•ûŒü  true=forward  false=inverse
-	 * @param Hashtable checkTable “¯‚¶ó‘Ô‚ğ•¡”İ’è‚µ‚È‚¢‚½‚ß‚Ìƒe[ƒuƒ‹
-	 * @return LinkedList ˆø”‚ÌƒŠƒXƒg‚ÌŠeó‘Ô‚©‚çˆÚ“®‰Â”\‚Èó‘Ô‚ÌƒŠƒXƒg
+	 * ãƒªã‚¹ãƒˆå†…ã®å„çŠ¶æ…‹ã‹ã‚‰ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã‚’ãƒªã‚¹ãƒˆã§å–å¾—ã—ã¾ã™ã€‚
+	 * @param LinkedList nodeList  çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ
+	 * @param boolean direction    ç§»å‹•æ–¹å‘  true=forward  false=inverse
+	 * @param Hashtable checkTable åŒã˜çŠ¶æ…‹ã‚’è¤‡æ•°è¨­å®šã—ãªã„ãŸã‚ã®ãƒ†ãƒ¼ãƒ–ãƒ«
+	 * @return LinkedList å¼•æ•°ã®ãƒªã‚¹ãƒˆã®å„çŠ¶æ…‹ã‹ã‚‰ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ
 	 */
 	private LinkedList getMoveableNodeList(LinkedList nodeList,
 	        boolean direction, Hashtable checkTable){
 
-		/* Ÿ‚ÉˆÚ“®‰Â”\‚Èó‘Ô‚ÌƒŠƒXƒgİ’è—p */
+		/* æ¬¡ã«ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã®ãƒªã‚¹ãƒˆè¨­å®šç”¨ */
 		LinkedList nextNodeList = new LinkedList();
 
-		/* ˆø”‚Åæ“¾‚µ‚½ƒŠƒXƒg‚ÌŠeó‘Ô‚É‚Â‚¢‚Ä‚ÌŒJ‚è•Ô‚µ */
+		/* å¼•æ•°ã§å–å¾—ã—ãŸãƒªã‚¹ãƒˆã®å„çŠ¶æ…‹ã«ã¤ã„ã¦ã®ç¹°ã‚Šè¿”ã— */
 		ListIterator nodeIterator = nodeList.listIterator();
 		while(nodeIterator.hasNext()) {
 
-			/* Šeó‘Ô‚Ìæ“¾ */
+			/* å„çŠ¶æ…‹ã®å–å¾— */
 			Integer nodeID = (Integer)nodeIterator.next();
 
-			/* æ“¾‚µ‚½ó‘Ô‚©‚ç‚ÌMoveableStateList‚ğæ“¾ */
+			/* å–å¾—ã—ãŸçŠ¶æ…‹ã‹ã‚‰ã®MoveableStateListã‚’å–å¾— */
 			LinkedList linkedList = null;
 			if(direction) {
 				linkedList = getForwardNodeIDList(nodeID);
@@ -1567,7 +1567,7 @@ private Random randomSearch = new Random(0);
 
 			ListIterator listIterator = linkedList.listIterator();
 			while(listIterator.hasNext()) {
-				/* “¯ˆê‚Ìó‘Ô‚Í’Ç‰Á‚µ‚È‚¢ */
+				/* åŒä¸€ã®çŠ¶æ…‹ã¯è¿½åŠ ã—ãªã„ */
 				Integer nextNodeID = (Integer)listIterator.next();
 				if(!checkTable.containsKey(nextNodeID)) {
 					nextNodeList.add(nextNodeID);
@@ -1581,11 +1581,11 @@ private Random randomSearch = new Random(0);
 
 
 	/**
-	 * ƒS[ƒ‹’Tõ‚ÌŒo˜H‚É‚Â‚¢‚ÄŠwK‚µAƒS[ƒ‹‚Ö‚ÌÅ’Z‚Ìó‘Ô‚ğ‚à‚Âó‘Ô‚ğæ“¾
-	 * ‚Ü‚·B
-	 * @param Object[] stateInfo î•ñ
-	 * @param Integer goalNodeID ƒS[ƒ‹‚ÌNodeID
-	 * @return Integer           Ÿ‚ÉˆÚ“®‚·‚éƒm[ƒh‚ÌID
+	 * ã‚´ãƒ¼ãƒ«æ¢ç´¢æ™‚ã®çµŒè·¯ã«ã¤ã„ã¦å­¦ç¿’ã—ã€ã‚´ãƒ¼ãƒ«ã¸ã®æœ€çŸ­ã®çŠ¶æ…‹ã‚’ã‚‚ã¤çŠ¶æ…‹ã‚’å–å¾—
+	 * ã¾ã™ã€‚
+	 * @param Object[] stateInfo æƒ…å ±
+	 * @param Integer goalNodeID ã‚´ãƒ¼ãƒ«ã®NodeID
+	 * @return Integer           æ¬¡ã«ç§»å‹•ã™ã‚‹ãƒãƒ¼ãƒ‰ã®ID
 	 */
 	private Integer pathLearning(Object[] stateInfo, Integer goalNodeID) {
 
@@ -1593,23 +1593,23 @@ private Random randomSearch = new Random(0);
 			return null;
 		}
 
-		/* Œ»İ‚Ìó‘Ô‚ÉŠÖ‚µ‚Ä‚Ìî•ñ */
+		/* ç¾åœ¨ã®çŠ¶æ…‹ã«é–¢ã—ã¦ã®æƒ…å ± */
 		Integer nodeID = (Integer)stateInfo[0];
 		int distance = ((Integer)stateInfo[1]).intValue();
 		StateList stateList = (StateList)stateInfo[2];
 
-		/* ŠwK */
+		/* å­¦ç¿’ */
 		Node node = getNode(nodeID);
-// «”\’²¸‚Ìê‡‚É‚ÍƒS[ƒ‹’TõŠJnŒã‚ÌŠwK‚ğs‚È‚í‚È‚¢—p‚É‚·‚é‚½‚ß
-// ƒpƒX‚ÌŠwK‚às‚È‚í‚È‚¢‚æ‚¤‚É‚·‚é
+// æ€§èƒ½èª¿æŸ»ã®å ´åˆã«ã¯ã‚´ãƒ¼ãƒ«æ¢ç´¢é–‹å§‹å¾Œã®å­¦ç¿’ã‚’è¡Œãªã‚ãªã„ç”¨ã«ã™ã‚‹ãŸã‚
+// ãƒ‘ã‚¹ã®å­¦ç¿’ã‚‚è¡Œãªã‚ãªã„ã‚ˆã†ã«ã™ã‚‹
 		node.setCognitiveDistance(goalNodeID, distance);
 
-		/* e‚Ìî•ñ‚ğæ“¾ */
+		/* è¦ªã®æƒ…å ±ã‚’å–å¾— */
 		StateList parentList = stateList.getParentList();
 
 		/*
-		 * e‚Ìó‘Ô‚ª‚ ‚ê‚ÎA‚»‚Ìó‘Ô‚É‚Â‚¢‚ÄŠwKEŸ‚Ìó‘Ô‚Ìæ“¾A
-		 * ‚È‚¯‚ê‚Î©‚ç‚Ìó‘Ô‚ğ•Ô‚·B
+		 * è¦ªã®çŠ¶æ…‹ãŒã‚ã‚Œã°ã€ãã®çŠ¶æ…‹ã«ã¤ã„ã¦å­¦ç¿’ãƒ»æ¬¡ã®çŠ¶æ…‹ã®å–å¾—ã€
+		 * ãªã‘ã‚Œã°è‡ªã‚‰ã®çŠ¶æ…‹ã‚’è¿”ã™ã€‚
 		 */
 		Integer parentNodeID = null;
 		if(parentList != null) {
@@ -1626,46 +1626,46 @@ private Random randomSearch = new Random(0);
 
 
 	////////////////////////////////////////////////////////////////////
-	// ŠwKó‘Ô‚Ì“Ç‚İE•Û‘¶
+	// å­¦ç¿’çŠ¶æ…‹ã®èª­è¾¼ã¿ãƒ»ä¿å­˜
 
 	/**
-	 * ŠwKƒf[ƒ^‚ğ“Ç‚İ‚İ‚Ü‚·B
+	 * å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿ã¾ã™ã€‚
 	 * @param ObjectInputStream oInputStream
 	 */
 	public void load(ObjectInputStream oInputStream) throws IOException,
 	        ClassNotFoundException {
 		nodes = (Vector)oInputStream.readObject();
-		// 2001.06.07 ’Ç‰Á miyamoto
-		/* ƒZƒOƒƒ“ƒg”‚Ì“Ç‚İ */
+		// 2001.06.07 è¿½åŠ  miyamoto
+		/* ã‚»ã‚°ãƒ¡ãƒ³ãƒˆæ•°ã®èª­è¾¼ã¿ */
 		segmentCount = ((Integer)oInputStream.readObject()).intValue();
 	}
 
 	/**
-	 * ŠwKƒf[ƒ^‚ğ•Û‘¶‚µ‚Ü‚·B
+	 * å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã—ã¾ã™ã€‚
 	 * @param ObjectOutputStream oOutputStream
 	 */
 	public void save(ObjectOutputStream oOutputStream) throws IOException {
 		oOutputStream.writeObject(nodes);
-		// 2001.06.07 ’Ç‰Á miyamoto
-		/* ƒZƒOƒƒ“ƒg”‚Ì•Û‘¶ */
+		// 2001.06.07 è¿½åŠ  miyamoto
+		/* ã‚»ã‚°ãƒ¡ãƒ³ãƒˆæ•°ã®ä¿å­˜ */
 		oOutputStream.writeObject(new Integer(segmentCount));
 	}
 
 
 	/////////////////////////////////////////////////////////////////////
-	// ƒeƒXƒgEÀŒ±—p‚Ìƒƒ\ƒbƒh
+	// ãƒ†ã‚¹ãƒˆãƒ»å®Ÿé¨“ç”¨ã®ãƒ¡ã‚½ãƒƒãƒ‰
 
 	/**
-	 * ŠwK‚ğs‚È‚¤‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO‚ğİ’è‚µ‚Ü‚·B
-	 * @param boolean flag  true:ŠwK‚ğs‚È‚¤  false:ŠwK‚ğ‚µ‚È‚¢
+	 * å­¦ç¿’ã‚’è¡Œãªã†ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param boolean flag  true:å­¦ç¿’ã‚’è¡Œãªã†  false:å­¦ç¿’ã‚’ã—ãªã„
 	 */
 	public void setLearningFlag(boolean flag) {
 		learningFlag = flag;
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒhƒ}[ƒN‚ÌŠwK‚ğs‚È‚¤‚©‚Ç‚¤‚©ƒtƒ‰ƒO‚ğİ’è‚µ‚Ü‚·B
-	 * @param boolean flag   true:ŠwK‚·‚é  false:ŠwK‚µ‚È‚¢
+	 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®å­¦ç¿’ã‚’è¡Œãªã†ã‹ã©ã†ã‹ãƒ•ãƒ©ã‚°ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param boolean flag   true:å­¦ç¿’ã™ã‚‹  false:å­¦ç¿’ã—ãªã„
 	 */
 	public void setSegmentationFlag(boolean flag) {
 		landmarkLearningFlag = flag;
@@ -1673,18 +1673,18 @@ private Random randomSearch = new Random(0);
 
 
 	/**
-	 * ‘æˆêˆø”‚Åw’è‚³‚ê‚½ó‘Ô‚É‘Î‰‚·‚éA‘æ“ñˆø”‚Åw’è‚³‚ê‚½‘w‚Å‚Ìƒm[ƒh‚ğ
-	 * æ“¾‚µ‚Ü‚·B
-	 * ãˆÊ‘w‚Å‚Ìid‚É•ÏŠ·‚µAƒm[ƒh‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer id Œ»İ‚Ì‘w‚Å‚ÌID
-	 * @param int layer  æ“¾‚·‚éƒm[ƒh‚ªŒ»İ‚Ì‘w‚æ‚è‰½‘wã‚Ì‘w‚©
-	 * @return Node      ƒm[ƒh
+	 * ç¬¬ä¸€å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸçŠ¶æ…‹ã«å¯¾å¿œã™ã‚‹ã€ç¬¬äºŒå¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸå±¤ã§ã®ãƒãƒ¼ãƒ‰ã‚’
+	 * å–å¾—ã—ã¾ã™ã€‚
+	 * ä¸Šä½å±¤ã§ã®idã«å¤‰æ›ã—ã€ãƒãƒ¼ãƒ‰ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer id ç¾åœ¨ã®å±¤ã§ã®ID
+	 * @param int layer  å–å¾—ã™ã‚‹ãƒãƒ¼ãƒ‰ãŒç¾åœ¨ã®å±¤ã‚ˆã‚Šä½•å±¤ä¸Šã®å±¤ã‹
+	 * @return Node      ãƒãƒ¼ãƒ‰
 	 */
 	public Node getNode(Integer id, int layer) {
 		Node node = null;
-		if(layer == 0) { /* ©‚ç‚Ìƒm[ƒh‚ğæ“¾ */
+		if(layer == 0) { /* è‡ªã‚‰ã®ãƒãƒ¼ãƒ‰ã‚’å–å¾— */
 			node = getNode(id);
-		}else{           /* ãˆÊ‘w‚Ìƒm[ƒh‚ğæ“¾ */
+		}else{           /* ä¸Šä½å±¤ã®ãƒãƒ¼ãƒ‰ã‚’å–å¾— */
 			if(upperLayerAgent == null) {
 			}else{
 				Integer upperID = getUpperLayerNodeID(id);
@@ -1696,35 +1696,35 @@ private Random randomSearch = new Random(0);
 
 
 	/**
-	 * CognitiveDistance‚ğŠwK‚·‚é‚½‚ß‚ÌˆÚ“®‚µ‚½ó‘Ô‚Ì—š—ğAˆê‚Â‘O‚ÌƒTƒCƒNƒ‹
-	 * ‚Ìó‘Ô‚ğ•Û‚·‚é•Ï”‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * CognitiveDistanceã‚’å­¦ç¿’ã™ã‚‹ãŸã‚ã®ç§»å‹•ã—ãŸçŠ¶æ…‹ã®å±¥æ­´ã€ä¸€ã¤å‰ã®ã‚µã‚¤ã‚¯ãƒ«
+	 * ã®çŠ¶æ…‹ã‚’ä¿æŒã™ã‚‹å¤‰æ•°ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void reset() {
-		/* StateBuffer‚ÌƒNƒŠƒA */
+		/* StateBufferã®ã‚¯ãƒªã‚¢ */
 		stateBuffer.clear();
 
-		/* ‘O‰ñ‚Ìó‘Ô‚Ì‰Šú‰» */
+		/* å‰å›ã®çŠ¶æ…‹ã®åˆæœŸåŒ– */
 		id_Vu0 = null;
 		id_Gu0 = null;
 
-		// 2001.04.10 íœ miyamoto
-		// ƒeƒXƒg—p /* ƒS[ƒ‹’Tõî•ñ‚ğİ’è‚·‚éƒNƒ‰ƒX‚ğ‰Šú‰» */
+		// 2001.04.10 å‰Šé™¤ miyamoto
+		// ãƒ†ã‚¹ãƒˆç”¨ /* ã‚´ãƒ¼ãƒ«æ¢ç´¢æƒ…å ±ã‚’è¨­å®šã™ã‚‹ã‚¯ãƒ©ã‚¹ã‚’åˆæœŸåŒ– */
 //		goalSearchInfo = new GoalSearchInfo();
 
-		/* ãˆÊ‘w‚ª‚ ‚ê‚ÎAãˆÊ‘w‚ÌStateBuffer‚àƒNƒŠƒA */
+		/* ä¸Šä½å±¤ãŒã‚ã‚Œã°ã€ä¸Šä½å±¤ã®StateBufferã‚‚ã‚¯ãƒªã‚¢ */
 		if(upperLayerAgent != null) {
 			upperLayerAgent.reset();
 		}
 	}
 
-	// 2001.04.05 ’Ç‰Á bsc miyamoto
+	// 2001.04.05 è¿½åŠ  bsc miyamoto
 	/**
-	 * •Û‚µ‚Ä‚¢‚é‘OƒTƒCƒNƒ‹‚Ìî•ñ‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * ä¿æŒã—ã¦ã„ã‚‹å‰ã‚µã‚¤ã‚¯ãƒ«ã®æƒ…å ±ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void resetOldValue() {
 		id_Vu0 = null;
 		id_Gu0 = null;
-		/* ãˆÊ‘w‚ª‚ ‚ê‚ÎAãˆÊ‘w‚Ì’l‚àƒNƒŠƒA */
+		/* ä¸Šä½å±¤ãŒã‚ã‚Œã°ã€ä¸Šä½å±¤ã®å€¤ã‚‚ã‚¯ãƒªã‚¢ */
 		if(upperLayerAgent != null) {
 			upperLayerAgent.resetOldValue();
 		}
@@ -1732,32 +1732,32 @@ private Random randomSearch = new Random(0);
 
 
 	/**
-	 * ãˆÊ‘w‚ğíœ‚µ‚Ü‚·B
-	 * —˜—p‚·‚éÅ‘å‚ÌãˆÊ‘w‚ğ“®“I‚É•ÏX‚·‚é‚½‚ß‚Ìƒƒ\ƒbƒhB
+	 * ä¸Šä½å±¤ã‚’å‰Šé™¤ã—ã¾ã™ã€‚
+	 * åˆ©ç”¨ã™ã‚‹æœ€å¤§ã®ä¸Šä½å±¤ã‚’å‹•çš„ã«å¤‰æ›´ã™ã‚‹ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰ã€‚
 	 */
 	public void deleteUpperLayer() {
 		upperLayerAgent = null;
 	}
 
 	/**
-	 * Às‚Ìî•ñ‚É‚Â‚¢‚Äæ“¾‚µ‚Ü‚·B
-	 * @return ExecInfo Às‚Ìî•ñ
+	 * å®Ÿè¡Œæ™‚ã®æƒ…å ±ã«ã¤ã„ã¦å–å¾—ã—ã¾ã™ã€‚
+	 * @return ExecInfo å®Ÿè¡Œæ™‚ã®æƒ…å ±
 	 */
 	public ExecInfo getExecInfo() {
 		return execInfo;
 	}
 
-	// 2001.05.23 ’Ç‰Á miyamoto
+	// 2001.05.23 è¿½åŠ  miyamoto
 	/**
-	 * Às‚Ìî•ñ‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * å®Ÿè¡Œæ™‚ã®æƒ…å ±ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void resetExecInfo() {
 		execInfo.paramReset();
 	}
 
 	/**
-	 * ƒS[ƒ‹‚Ì’Tõ‚ÉŠÖ‚µ‚Ä‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @return GoalSearchInfo ƒS[ƒ‹’Tõ‚ÉŠÖ‚µ‚Ä‚Ìî•ñ‚ğİ’è‚µ‚½ƒNƒ‰ƒX
+	 * ã‚´ãƒ¼ãƒ«ã®æ¢ç´¢ã«é–¢ã—ã¦ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return GoalSearchInfo ã‚´ãƒ¼ãƒ«æ¢ç´¢ã«é–¢ã—ã¦ã®æƒ…å ±ã‚’è¨­å®šã—ãŸã‚¯ãƒ©ã‚¹
 	 */
 	public GoalSearchInfo getGoalSearchInfo() {
 		return goalSearchInfo;
@@ -1765,18 +1765,18 @@ private Random randomSearch = new Random(0);
 
 
 	/**
-	 * ŠwKó‹µ‚ÉŠÖ‚µ‚Ä‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[]   int[0]  MoveableState‚ÌƒTƒCƒY
-	 *                 int[1]  CognitiveDsitance‚ÌƒTƒCƒY
-	 *                 int[2]  ƒm[ƒh”
-	 *                 int[3]  —LŒø‚Èƒm[ƒh‚Ì”
+	 * å­¦ç¿’çŠ¶æ³ã«é–¢ã—ã¦ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[]   int[0]  MoveableStateã®ã‚µã‚¤ã‚º
+	 *                 int[1]  CognitiveDsitanceã®ã‚µã‚¤ã‚º
+	 *                 int[2]  ãƒãƒ¼ãƒ‰æ•°
+	 *                 int[3]  æœ‰åŠ¹ãªãƒãƒ¼ãƒ‰ã®æ•°
 	 */
 	public int[] getLearningInfo() {
 		int msSize = 0;
 		int cdSize = 0;
 		int validNodeNum = 0;
 		for(int i = 0; i < nodes.size(); i++) {
-			// 2001.05.24 C³ miyamoto ŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚Ìjava‚É‘Î‰
+			// 2001.05.24 ä¿®æ­£ miyamoto å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®javaã«å¯¾å¿œ
 //			Node node = (Node)nodes.get(i);
 			Node node = (Node)nodes.elementAt(i);
 
@@ -1787,10 +1787,10 @@ private Random randomSearch = new Random(0);
 			}
 		}
 		int[] learningSize = new int[4];
-		learningSize[0] = msSize;       /* MoveableState‚ÌƒTƒCƒY */
-		learningSize[1] = cdSize;       /* CognitiveDsitance‚ÌƒTƒCƒY */
-		learningSize[2] = nodes.size(); /* ƒm[ƒh” */
-		learningSize[3] = validNodeNum; /* —LŒø‚Èƒm[ƒh‚Ì” */
+		learningSize[0] = msSize;       /* MoveableStateã®ã‚µã‚¤ã‚º */
+		learningSize[1] = cdSize;       /* CognitiveDsitanceã®ã‚µã‚¤ã‚º */
+		learningSize[2] = nodes.size(); /* ãƒãƒ¼ãƒ‰æ•° */
+		learningSize[3] = validNodeNum; /* æœ‰åŠ¹ãªãƒãƒ¼ãƒ‰ã®æ•° */
 		return learningSize;
 	}
 

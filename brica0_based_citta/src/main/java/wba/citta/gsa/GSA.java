@@ -1,6 +1,6 @@
-/** 
+ï»¿/** 
  * GSA.java
- * GSA‚Ì–{‘Ì
+ * GSAã®æœ¬ä½“
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.09
  */
@@ -13,59 +13,59 @@ import brica0.NonRTSyncScheduler;
 import wba.citta.gsa.viewer.*;
 
 /**
- * GSA‚Ì–{‘Ì
+ * GSAã®æœ¬ä½“
  */
 public class GSA {
 
-	/* ƒG[ƒWƒFƒ“ƒg‚Ìİ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ŞƒNƒ‰ƒX */
+	/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€ã‚¯ãƒ©ã‚¹ */
 	private GSAProperty prop;
 
-	/* ƒG[ƒWƒFƒ“ƒg‚Ì”z—ñ */
+	/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é…åˆ— */
 	private Agent[] agents = null;
 
-	/* ÀsƒG[ƒWƒFƒ“ƒg‚Ì‘I‘ğ•û–@ 0:”z—ñ‚Ì‡ 1:ƒ‰ƒ“ƒ_ƒ€ */
+	/* å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é¸æŠæ–¹æ³• 0:é…åˆ—ã®é † 1:ãƒ©ãƒ³ãƒ€ãƒ  */
 	private int agentSelectMode = 1;
 
-	/* StateEGoal‚ğŠÇ—‚·‚é‹¤—Lƒƒ‚ƒŠ */
+	/* Stateãƒ»Goalã‚’ç®¡ç†ã™ã‚‹å…±æœ‰ãƒ¡ãƒ¢ãƒª */
 	private SharedMemory sharedMemory = null;
 
-	/* “’B‚É¸”s‚µ‚½ƒS[ƒ‹‚ğƒcƒŠ[‚ÅŠÇ—‚·‚éƒNƒ‰ƒX */
+	/* åˆ°é”ã«å¤±æ•—ã—ãŸã‚´ãƒ¼ãƒ«ã‚’ãƒ„ãƒªãƒ¼ã§ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ */
 	private FailAgentTree failAgentTree = null;
 
-	/* ƒG[ƒWƒFƒ“ƒg” */
+	/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ•° */
 	private int agentNum;
-	/* ƒm[ƒh” */
+	/* ãƒãƒ¼ãƒ‰æ•° */
 	private int nodeNum;
 
-	/* ManualAgent‚ğg—p‚·‚é‚©‚Ç‚¤‚© */
+	/* ManualAgentã‚’ä½¿ç”¨ã™ã‚‹ã‹ã©ã†ã‹ */
 	private boolean useMana = false;
 
-	/* ŠO•”‚©‚çİ’è‚³‚ê‚½ƒS[ƒ‹ */
+	/* å¤–éƒ¨ã‹ã‚‰è¨­å®šã•ã‚ŒãŸã‚´ãƒ¼ãƒ« */
 	private Vector target = null;
 
-	/* ƒG[ƒWƒFƒ“ƒg‚Ì“®ìó‹µ‚ğ•\¦‚·‚éviewer */
+	/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å‹•ä½œçŠ¶æ³ã‚’è¡¨ç¤ºã™ã‚‹viewer */
 	private AgentViewer viewer = null;
 
-	/* Àsˆ—‚ğs‚È‚¤‚½‚ß‚É‘I‘ğ‚³‚ê‚Ä‚¢‚éƒG[ƒWƒFƒ“ƒg */
+	/* å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã†ãŸã‚ã«é¸æŠã•ã‚Œã¦ã„ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ */
 	private Agent agent = null;
 
-	/* ŠO•”‚©‚çİ’è‚³‚ê‚½ƒS[ƒ‹—p‚Ì‰¼‚ÌƒG[ƒWƒFƒ“ƒgID */
+	/* å¤–éƒ¨ã‹ã‚‰è¨­å®šã•ã‚ŒãŸã‚´ãƒ¼ãƒ«ç”¨ã®ä»®ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID */
 	private final int GOAL_AGID = 0;
 
-	/* ManualAgent‚ÌƒG[ƒWƒFƒ“ƒgID */
+	/* ManualAgentã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID */
 	private final int MANUAL_AGENT_ID = 10;
 
 
 	/*
-	 * ÀsƒG[ƒWƒFƒ“ƒg‚Ì”z—ñ’†‚ÌƒCƒ“ƒfƒbƒNƒX
-	 * ÀsƒG[ƒWƒFƒ“ƒg‚ğ‡‚É‘I‘ğ‚·‚éê‡‚Ég—p
+	 * å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é…åˆ—ä¸­ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+	 * å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’é †ã«é¸æŠã™ã‚‹å ´åˆã«ä½¿ç”¨
 	 */
 	private int sequenceSelectIndex = 0;
 
-	/* ÀsƒG[ƒWƒFƒ“ƒg‚ğƒ‰ƒ“ƒ_ƒ€‚É‘I‘ğ‚·‚é‚½‚ß‚Ì—” */
+	/* å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«é¸æŠã™ã‚‹ãŸã‚ã®ä¹±æ•° */
 	private int randamSelectSeed = 1;
 	private Random random = new Random(randamSelectSeed);
-	/* ƒG[ƒWƒFƒ“ƒg‚Ì‘I‘ğó‹µ‚ğ¦‚·boolean‚Ì”z—ñ */
+	/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é¸æŠçŠ¶æ³ã‚’ç¤ºã™booleanã®é…åˆ— */
 	private boolean[] useAgentFlags = null;
 
 //	private Util util;
@@ -80,11 +80,11 @@ public class GSA {
 	final String AGENT_CONTROLLER_MODULE_ID = "agentController";
 
 	////////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^ ‰Šú‰»ƒƒ\ƒbƒh
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ åˆæœŸåŒ–ãƒ¡ã‚½ãƒƒãƒ‰
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param String propFileName GSA‚Ìİ’èƒtƒ@ƒCƒ‹–¼
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param String propFileName GSAã®è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public GSA(String propFileName) {
 
@@ -125,8 +125,8 @@ public class GSA {
 	}
 
 	/**
-	 * İ’èƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ì‰Šú‰»
-	 * @param String propFileName İ’èƒtƒ@ƒCƒ‹–¼
+	 * è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
+	 * @param String propFileName è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	private void initPropFile(String propFileName) {
 		try {
@@ -138,13 +138,13 @@ public class GSA {
 	}
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒg‚Ì‰Šú‰»
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®åˆæœŸåŒ–
 	 */
 	private void initAgent() {
 
 		/*
-		 * ƒ}ƒjƒ…ƒAƒ‹ƒG[ƒWƒFƒ“ƒg‚ğ—˜—p‚·‚éê‡‚ÍAƒG[ƒWƒFƒ“ƒg”‚ğ‚P‘‚â‚·
-		 * ’Êí‚ÌƒG[ƒWƒFƒ“ƒg¶¬‚Ì‚½‚ß‚ÌƒJƒEƒ“ƒ^‚Í•Ê“r—pˆÓ
+		 * ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’åˆ©ç”¨ã™ã‚‹å ´åˆã¯ã€ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ•°ã‚’ï¼‘å¢—ã‚„ã™
+		 * é€šå¸¸ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆç”Ÿæˆã®ãŸã‚ã®ã‚«ã‚¦ãƒ³ã‚¿ã¯åˆ¥é€”ç”¨æ„
 		 */
 		int loopNum = agentNum;
 		if(useMana) {
@@ -161,9 +161,9 @@ public class GSA {
 			int agentType = prop.getAgentType(i);
 			int agid = prop.getAgentID(i);
 			boolean[] useNode = prop.getUseNode(i);
-			// 2001.12.14 ’Ç‰Á miyamoto
+			// 2001.12.14 è¿½åŠ  miyamoto
 			String eventFileName = prop.getEventFileName(i);
-			// ‚±‚±‚Ü‚Å
+			// ã“ã“ã¾ã§
 
 			System.out.println("");
 			System.out.println(" [ agid " + agid + " ]");
@@ -183,18 +183,18 @@ public class GSA {
 				agents[i] = new LogAgent(agid, useNode, sharedMemory);
 			}
 
-			// 2001.12.14 ’Ç‰Á miyamoto
+			// 2001.12.14 è¿½åŠ  miyamoto
 			if(eventFileName != null) {
 				agents[i].learnEvent(eventFileName);
 			}
-			// ‚±‚±‚Ü‚Å
+			// ã“ã“ã¾ã§
 		}
 	}
 
-	/* “’BƒS[ƒ‹‚Ìíœ‚ğs‚È‚Á‚½ƒG[ƒWƒFƒ“ƒg‚ğİ’è‚·‚é•Ï” */
+	/* åˆ°é”ã‚´ãƒ¼ãƒ«ã®å‰Šé™¤ã‚’è¡Œãªã£ãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’è¨­å®šã™ã‚‹å¤‰æ•° */
 	private boolean[] removeReachGoalAgents = null;
 	/**
-	 * ƒG[ƒWƒFƒ“ƒg‚Ì“®ìó‹µ‚ğ•\¦‚·‚éViewer‚Ì‰Šú‰»
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å‹•ä½œçŠ¶æ³ã‚’è¡¨ç¤ºã™ã‚‹Viewerã®åˆæœŸåŒ–
 	 */
 	private void initViewer() {
 		int[] agentIDs = new int[agents.length];
@@ -206,7 +206,7 @@ public class GSA {
 	}
 
 	/**
-	 * ManualAgent‚Ì¶¬
+	 * ManualAgentã®ç”Ÿæˆ
 	 */
 	private void initManualAgent() {
 		boolean[] allNode = new boolean[prop.getNodeNum()];
@@ -222,12 +222,12 @@ public class GSA {
 	// public
 
 	/**
-	 * Àsˆ—‚ğs‚È‚¢‚Ü‚·B
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @return Vector ƒTƒuƒS[ƒ‹
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @return Vector ã‚µãƒ–ã‚´ãƒ¼ãƒ«
 	 */
 	public Vector exec(Vector state) {
-		/* ˆø”‚Åİ’è‚³‚ê‚½Œ»İ‚Ìó‘Ô‚ğƒXƒ^ƒbƒN‚Éİ’è */
+		/* å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸç¾åœ¨ã®çŠ¶æ…‹ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã«è¨­å®š */
 		sharedMemory.setState(state);
 
 		useAgentFlags = new boolean[agentNum];
@@ -236,28 +236,28 @@ public class GSA {
 //util.reset();
 
 		/*
-		 * ƒXƒ^ƒbƒNã‚ÌƒS[ƒ‹‚É“’B‚µ‚½ê‡A‚»‚ÌƒS[ƒ‹‚ğƒXƒ^ƒbƒNEƒcƒŠ[‚©‚ç
-		 * íœ
+		 * ã‚¹ã‚¿ãƒƒã‚¯ä¸Šã®ã‚´ãƒ¼ãƒ«ã«åˆ°é”ã—ãŸå ´åˆã€ãã®ã‚´ãƒ¼ãƒ«ã‚’ã‚¹ã‚¿ãƒƒã‚¯ãƒ»ãƒ„ãƒªãƒ¼ã‹ã‚‰
+		 * å‰Šé™¤
 		 */
 		removeReachGoal();
 
 		/*
-		 * ƒcƒŠ[ã‚ÌƒS[ƒ‹‚É“’B‚µ‚½ê‡AƒXƒ^ƒbƒNAƒcƒŠ[‚ğƒNƒŠƒA
+		 * ãƒ„ãƒªãƒ¼ä¸Šã®ã‚´ãƒ¼ãƒ«ã«åˆ°é”ã—ãŸå ´åˆã€ã‚¹ã‚¿ãƒƒã‚¯ã€ãƒ„ãƒªãƒ¼ã‚’ã‚¯ãƒªã‚¢
 		 */
 		if( isReachTreeGoal() ) {
 			clearGoalStackAndTree();
 			setGoal(target);
 		}
 
-		/* ƒG[ƒWƒFƒ“ƒg‚ÌŠwK */
+		/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å­¦ç¿’ */
 		double reward = 0;
-		learn(false/*ƒS[ƒ‹“’Bƒtƒ‰ƒO*/, reward);
+		learn(false/*ã‚´ãƒ¼ãƒ«åˆ°é”ãƒ•ãƒ©ã‚°*/, reward);
 
 		
-		// TODO CognitiveArchitecture‚ÌÀs
+		// TODO CognitiveArchitectureã®å®Ÿè¡Œ
 		//cognitiveArchitecture.step();
 		
-		// TODO AgentController‚ª‘I‘ğ‚µ‚½ƒG[ƒWƒFƒ“ƒg‚ÌƒTƒuƒS[ƒ‹‚ğæ“¾
+		// TODO AgentControllerãŒé¸æŠã—ãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’å–å¾—
 		//failed = cognitiveArchitecture.get_module(AGENT_CONTROLLER_MODULE_ID).get_state("all_agent_result")
 		//isSuccess = cognitiveArchitecture.get_module(AGENT_CONTROLLER_MODULE_ID).get_state("action")
 		//agent = cognitiveArchitecture.get_module(AGENT_CONTROLLER_MODULE_ID).get_state("agent")
@@ -267,32 +267,32 @@ public class GSA {
 		
 		
 		if (!failed) {
-			// Àsˆ—‚ğs‚È‚Á‚½ƒG[ƒWƒFƒ“ƒg‚ğ•\¦
+			// å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã£ãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’è¡¨ç¤º
 			if(viewer != null) {
 				viewer.setExecAgentID(agent.AGID);
 				viewer.repaint();
 			}
 						
 			if(isSuccess == Agent.AGR_SUCCESS) {
-				/* ƒS[ƒ‹‚ğƒcƒŠ[‚Éİ’è */
+				/* ã‚´ãƒ¼ãƒ«ã‚’ãƒ„ãƒªãƒ¼ã«è¨­å®š */
 				Vector agentGoalElementArray
 				        = agent.getSelfSetGoalElementArray();
 				Vector agentGoalValueArray
 				        = agent.getGoalValueArray(agentGoalElementArray);
 				failAgentTree.addTreeNode(agent.AGID, agentGoalValueArray);
 
-				/* ˆ—¬Œ÷‚ÉƒS[ƒ‹‚ğ•Ô‚· */
+				/* å‡¦ç†æˆåŠŸæ™‚ã«ã‚´ãƒ¼ãƒ«ã‚’è¿”ã™ */
 				Vector goal = sharedMemory.getGoalValueArray();
 				return goal;
 			}else {
-				/* ˆ—¸”s‚ÌƒG[ƒWƒFƒ“ƒg‚ğƒcƒŠ[‚ÅŠÇ— */
+				/* å‡¦ç†å¤±æ•—ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’ãƒ„ãƒªãƒ¼ã§ç®¡ç† */
 				failAgentTree.addTreeNode(agent.AGID, isSuccess);
-				/* ƒG[ƒWƒFƒ“ƒgØ‚è‘Ö‚¦‚É‘OƒG[ƒWƒFƒ“ƒg‚Ì•Ûî•ñ‚ğƒNƒŠƒA */
+				/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆåˆ‡ã‚Šæ›¿ãˆæ™‚ã«å‰ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ä¿æŒæƒ…å ±ã‚’ã‚¯ãƒªã‚¢ */
 				agent.suspend();
 				agent = null;
 			}
 		} else {
-			// ‚·‚×‚Ä‚ÌƒG[ƒWƒFƒ“ƒg‚ª¸”s‚¾‚Á‚½ê‡
+			// ã™ã¹ã¦ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒå¤±æ•—ã ã£ãŸå ´åˆ
 			removeUnsolvedGoal();
 		}
 
@@ -301,17 +301,17 @@ public class GSA {
 			viewer.repaint();
 		}
 
-		/* ƒS[ƒ‹‚ğ•Ô‚· */
+		/* ã‚´ãƒ¼ãƒ«ã‚’è¿”ã™ */
 		Vector goal = sharedMemory.getGoalValueArray();
 		return goal;
 	}
 
 	/**
-	 * ŠwKŒ‹‰Ê‚ğƒtƒ@ƒCƒ‹‚É•Û‘¶‚µ‚Ü‚·B<BR>
-	 * ƒG[ƒWƒFƒ“ƒg‚²‚Æ‚ÌŠwKŒ‹‰Ê•Û‘¶ˆ—‚ğŒÄ‚Ño‚µ‚Ü‚·B<BR>
-	 * ŠeƒG[ƒWƒFƒ“ƒg‚Ìƒtƒ@ƒCƒ‹–¼‚Íˆø”‚Åİ’è‚³‚ê‚½ƒtƒ@ƒCƒ‹–¼‚ÉŠeƒG[ƒWƒFƒ“ƒg‚Ì
-	 * ID‚ğ’Ç‰Á‚µ‚½‚à‚Ì‚É‚È‚è‚Ü‚·B(fileName+agid.dat)
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’çµæœã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã—ã¾ã™ã€‚<BR>
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã”ã¨ã®å­¦ç¿’çµæœä¿å­˜å‡¦ç†ã‚’å‘¼ã³å‡ºã—ã¾ã™ã€‚<BR>
+	 * å„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ãƒ•ã‚¡ã‚¤ãƒ«åã¯å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«åã«å„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®
+	 * IDã‚’è¿½åŠ ã—ãŸã‚‚ã®ã«ãªã‚Šã¾ã™ã€‚(fileName+agid.dat)
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public void save(String fileName) {
 		for(int i = 0; i < agents.length; i++) {
@@ -320,11 +320,11 @@ public class GSA {
 	}
 
 	/**
-	 * ŠwKŒ‹‰Ê‚ğƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚İ‚Ü‚·B<BR>
-	 * ƒG[ƒWƒFƒ“ƒg‚²‚Æ‚ÌŠwKŒ‹‰Ê“Ç‚İ‚İˆ—‚ğŒÄ‚Ño‚µ‚Ü‚·B<BR>
-	 * ŠeƒG[ƒWƒFƒ“ƒg‚Ìƒtƒ@ƒCƒ‹–¼‚Íˆø”‚Åİ’è‚³‚ê‚½ƒtƒ@ƒCƒ‹–¼‚ÉŠeƒG[ƒWƒFƒ“ƒg‚Ì
-	 * ID‚ğ’Ç‰Á‚µ‚½‚à‚Ì‚É‚È‚è‚Ü‚·B(fileName+agid.dat)
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’çµæœã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã¿ã¾ã™ã€‚<BR>
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã”ã¨ã®å­¦ç¿’çµæœèª­ã¿è¾¼ã¿å‡¦ç†ã‚’å‘¼ã³å‡ºã—ã¾ã™ã€‚<BR>
+	 * å„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ãƒ•ã‚¡ã‚¤ãƒ«åã¯å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«åã«å„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®
+	 * IDã‚’è¿½åŠ ã—ãŸã‚‚ã®ã«ãªã‚Šã¾ã™ã€‚(fileName+agid.dat)
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public void load(String fileName) {
 		for(int i = 0; i < agents.length; i++) {
@@ -333,27 +333,27 @@ public class GSA {
 	}
 
 	/**
-	 * ƒXƒ^ƒbƒNAƒcƒŠ[‚ğƒNƒŠƒA‚µAŠeƒG[ƒWƒFƒ“ƒg‚Ìreset()ƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µ
-	 * ‚Ü‚·B<BR>
-	 * ŠwKŒ‹‰Ê‚ÍƒŠƒZƒbƒg‚³‚ê‚Ü‚¹‚ñB<BR>
-	 * ŠwKŒ‹‰Ê‚ğc‚µ‚½‚Ü‚ÜÄƒXƒ^[ƒg‚·‚éê‡‚È‚ÇAŠwKAÀsˆ—‚Ì˜A‘±«‚ª
-	 * “rØ‚ê‚éê‡‚Ìˆ—‚ğs‚È‚¢‚Ü‚·B
+	 * ã‚¹ã‚¿ãƒƒã‚¯ã€ãƒ„ãƒªãƒ¼ã‚’ã‚¯ãƒªã‚¢ã—ã€å„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®reset()ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã—
+	 * ã¾ã™ã€‚<BR>
+	 * å­¦ç¿’çµæœã¯ãƒªã‚»ãƒƒãƒˆã•ã‚Œã¾ã›ã‚“ã€‚<BR>
+	 * å­¦ç¿’çµæœã‚’æ®‹ã—ãŸã¾ã¾å†ã‚¹ã‚¿ãƒ¼ãƒˆã™ã‚‹å ´åˆãªã©ã€å­¦ç¿’ã€å®Ÿè¡Œå‡¦ç†ã®é€£ç¶šæ€§ãŒ
+	 * é€”åˆ‡ã‚Œã‚‹å ´åˆã®å‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚
 	 */
 	public void reset() {
-		/* ŠeƒG[ƒWƒFƒ“ƒg‚Ìreset()‚ÌŒÄ‚Ño‚µ */
+		/* å„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®reset()ã®å‘¼ã³å‡ºã— */
 		for(int i = 0; i < agentNum; i++) {
 			agents[i].reset();
 		}
-		/* ƒXƒ^ƒbƒNAƒcƒŠ[‚ğƒNƒŠƒA */
+		/* ã‚¹ã‚¿ãƒƒã‚¯ã€ãƒ„ãƒªãƒ¼ã‚’ã‚¯ãƒªã‚¢ */
 		failAgentTree.clear();
 		sharedMemory.removeAllGoal();
-		/* g—p‚·‚éƒG[ƒWƒFƒ“ƒg‚ğƒNƒŠƒA */
+		/* ä½¿ç”¨ã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’ã‚¯ãƒªã‚¢ */
 		agent = null;
 	}
 
 	/**
-	 * ƒS[ƒ‹‚ğ‹¤—Lƒƒ‚ƒŠ‚Éİ’è‚µ‚Ü‚·B
-	 * @param Vector goal ƒS[ƒ‹
+	 * ã‚´ãƒ¼ãƒ«ã‚’å…±æœ‰ãƒ¡ãƒ¢ãƒªã«è¨­å®šã—ã¾ã™ã€‚
+	 * @param Vector goal ã‚´ãƒ¼ãƒ«
 	 */
 	public void setGoal(Vector goal) {
 		target = goal;
@@ -371,7 +371,7 @@ public class GSA {
 	}
 
 	/**
-	 * ‹¤—Lƒƒ‚ƒŠ‚Ìó‘Ô‚ğ•\¦‚µ‚Ü‚·B
+	 * å…±æœ‰ãƒ¡ãƒ¢ãƒªã®çŠ¶æ…‹ã‚’è¡¨ç¤ºã—ã¾ã™ã€‚
 	 */
 	public void printSharedMemory() {
 		sharedMemory.printState();
@@ -379,7 +379,7 @@ public class GSA {
 	}
 
 	/**
-	 * ƒcƒŠ[‚Ìó‘Ô‚ğ•\¦‚µ‚Ü‚·B
+	 * ãƒ„ãƒªãƒ¼ã®çŠ¶æ…‹ã‚’è¡¨ç¤ºã—ã¾ã™ã€‚
 	 */
 	public void printFailAgentTree() {
 		failAgentTree.printTree();
@@ -390,14 +390,14 @@ public class GSA {
 	// private
 
 	/**
-	 * ƒcƒŠ[‚ÌƒJƒŒƒ“ƒgƒm[ƒh‚Ìqƒm[ƒh‚ÉA‘S‚Ä‚ÌƒG[ƒWƒFƒ“ƒg‚©‚ç‚Ìƒm[ƒh‚ª
-	 * İ’è‚³‚ê‚Ä‚¢‚éê‡AƒJƒŒƒ“ƒgƒm[ƒh‚ÌƒS[ƒ‹‚ğ¸”sƒS[ƒ‹‚Æ‚µ‚ÄAƒXƒ^ƒbƒN
-	 * ‚©‚çíœ‚µ‚Ü‚·B<BR>
-	 * ƒcƒŠ[‚ÍŒ»İ‚ÌˆÊ’u‚ğˆÚ“®‚³‚¹‚éB
+	 * ãƒ„ãƒªãƒ¼ã®ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒ¼ãƒ‰ã®å­ãƒãƒ¼ãƒ‰ã«ã€å…¨ã¦ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‹ã‚‰ã®ãƒãƒ¼ãƒ‰ãŒ
+	 * è¨­å®šã•ã‚Œã¦ã„ã‚‹å ´åˆã€ã‚«ãƒ¬ãƒ³ãƒˆãƒãƒ¼ãƒ‰ã®ã‚´ãƒ¼ãƒ«ã‚’å¤±æ•—ã‚´ãƒ¼ãƒ«ã¨ã—ã¦ã€ã‚¹ã‚¿ãƒƒã‚¯
+	 * ã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã€‚<BR>
+	 * ãƒ„ãƒªãƒ¼ã¯ç¾åœ¨ã®ä½ç½®ã‚’ç§»å‹•ã•ã›ã‚‹ã€‚
 	 */
-// Œ»İ‚Í‚ ‚é“_‚Å©ŒÈİ’èƒS[ƒ‹‚ªæ“¾‚Å‚«‚éƒG[ƒWƒFƒ“ƒg‚Í‚P‚Â‚É“Á’è‚³‚ê‚é‚ª
-// •¡”‚ÌƒG[ƒWƒFƒ“ƒg‚ª©ŒÈİ’èƒS[ƒ‹‚ğæ“¾‚Å‚«‚é‚æ‚¤‚Èê‡AŒ»İ‚ÌÀ‘•‚Å‚Í
-// –â‘è‚ª”­¶‚·‚é‰Â”\«‚ª‚ ‚éB
+// ç¾åœ¨ã¯ã‚ã‚‹æ™‚ç‚¹ã§è‡ªå·±è¨­å®šã‚´ãƒ¼ãƒ«ãŒå–å¾—ã§ãã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã¯ï¼‘ã¤ã«ç‰¹å®šã•ã‚Œã‚‹ãŒ
+// è¤‡æ•°ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒè‡ªå·±è¨­å®šã‚´ãƒ¼ãƒ«ã‚’å–å¾—ã§ãã‚‹ã‚ˆã†ãªå ´åˆã€ç¾åœ¨ã®å®Ÿè£…ã§ã¯
+// å•é¡ŒãŒç™ºç”Ÿã™ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã€‚
 	private void removeUnsolvedGoal() {
 		for(int i = 0; i < agentNum; i++) {
 			boolean b = agents[i].removeSelfSetGoal();
@@ -410,7 +410,7 @@ public class GSA {
 
 
 	////////////////////////////////////////////////////////////////
-	// ÀsƒG[ƒWƒFƒ“ƒg‚Ì‘I‘ğ
+	// å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é¸æŠ
 
 //	private Agent getExecAgent() {
 //		int num = util.getRandomNum();
@@ -418,8 +418,8 @@ public class GSA {
 //	}
 
 	/**
-	 * Àsˆ—‚ğs‚È‚¤ƒG[ƒWƒFƒ“ƒg‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Agent ƒG[ƒWƒFƒ“ƒg
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Agent ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
 	 */
 	private Agent getExecAgent() {
 		Agent agent = null;
@@ -432,9 +432,9 @@ public class GSA {
 	}
 
 	/**
-	 * Àsˆ—‚ğs‚È‚¤ƒG[ƒWƒFƒ“ƒg‚ğ‡”Ô‚Éæ“¾‚µ‚Ü‚·B
-	 * agents(ƒG[ƒWƒFƒ“ƒg‚Ì”z—ñ)‚Éİ’è‚³‚ê‚½‡‚Éæ“¾B
-	 * @param Agent ƒG[ƒWƒFƒ“ƒg
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’é †ç•ªã«å–å¾—ã—ã¾ã™ã€‚
+	 * agents(ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é…åˆ—)ã«è¨­å®šã•ã‚ŒãŸé †ã«å–å¾—ã€‚
+	 * @param Agent ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
 	 */
 	private Agent getExecAgentArrayOder() {
 		Agent agent = agents[sequenceSelectIndex];
@@ -446,8 +446,8 @@ public class GSA {
 	}
 
 	/**
-	 * Àsˆ—‚ğs‚È‚¤ƒG[ƒWƒFƒ“ƒg‚ğƒ‰ƒ“ƒ_ƒ€‚Éæ“¾‚µ‚Ü‚·B
-	 * @param Agent ƒG[ƒWƒFƒ“ƒg
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«å–å¾—ã—ã¾ã™ã€‚
+	 * @param Agent ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
 	 */
 	private Agent getExecAgentRandomOder() {
 		int index = getExecAgentIndex();
@@ -456,13 +456,13 @@ public class GSA {
 	}
 
 	/**
-	 * Às‚·‚éƒG[ƒWƒFƒ“ƒg‚Ì”z—ñ’†‚ÌIndex‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int Às‚·‚éƒG[ƒWƒFƒ“ƒg‚Ì”z—ñ’†‚ÌIndex
+	 * å®Ÿè¡Œã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é…åˆ—ä¸­ã®Indexã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int å®Ÿè¡Œã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é…åˆ—ä¸­ã®Index
 	 */
 	private int getExecAgentIndex() {
-		/* –¢g—p‚ÈƒG[ƒWƒFƒ“ƒg‚Ì”‚ğæ“¾ */
+		/* æœªä½¿ç”¨ãªã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®æ•°ã‚’å–å¾— */
 		int notUseAgentNum = getNotUseAgentNum();
-		/* ‚·‚×‚Äg—p‚³‚ê‚Ä‚¢‚ê‚Î‘S‚Ä‚ğ–¢g—p‚Éİ’è‚µ‘S‚Ä‚©‚ç‘I‘ğ */
+		/* ã™ã¹ã¦ä½¿ç”¨ã•ã‚Œã¦ã„ã‚Œã°å…¨ã¦ã‚’æœªä½¿ç”¨ã«è¨­å®šã—å…¨ã¦ã‹ã‚‰é¸æŠ */
 		if(notUseAgentNum == 0) {
 			clearUseFlag();
 			notUseAgentNum = getNotUseAgentNum();
@@ -482,8 +482,8 @@ public class GSA {
 	}
 
 	/**
-	 * –¢g—p‚ÈƒG[ƒWƒFƒ“ƒg‚Ì”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int Àsˆ—‚ğs‚È‚Á‚Ä‚¢‚È‚¢ƒG[ƒWƒFƒ“ƒg”
+	 * æœªä½¿ç”¨ãªã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã£ã¦ã„ãªã„ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ•°
 	 */
 	private int getNotUseAgentNum() {
 		int num = 0;
@@ -496,7 +496,7 @@ public class GSA {
 	}
 
 	/**
-	 * g—pó‘Ô‚Éİ’è‚³‚ê‚½ƒG[ƒWƒFƒ“ƒg‚ğ–¢g—pó‘Ô‚Éİ’è‚µ‚Ü‚·B
+	 * ä½¿ç”¨çŠ¶æ…‹ã«è¨­å®šã•ã‚ŒãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’æœªä½¿ç”¨çŠ¶æ…‹ã«è¨­å®šã—ã¾ã™ã€‚
 	 */
 	private void clearUseFlag() {
 		for(int i = 0; i < useAgentFlags.length; i++) {
@@ -505,7 +505,7 @@ public class GSA {
 	}
 
 	/**
-	 * ƒXƒ^ƒbƒN‚©‚ç“’B‚µ‚½ƒS[ƒ‹‚ğíœ‚µ‚Ü‚·B
+	 * ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰åˆ°é”ã—ãŸã‚´ãƒ¼ãƒ«ã‚’å‰Šé™¤ã—ã¾ã™ã€‚
 	 */
 	private void removeReachGoal() {
 
@@ -516,16 +516,16 @@ public class GSA {
 		}
 
 		while(true) {
-			/* ‘S‚Ä‚ÌƒG[ƒWƒFƒ“ƒg‚ªíœ‚Å‚«‚È‚­‚È‚é‚Ü‚Å */
+			/* å…¨ã¦ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒå‰Šé™¤ã§ããªããªã‚‹ã¾ã§ */
 			boolean flagRemove = false;
 			for(int i = 0; i < agentNum; i++) {
 				if(agents[i].removeReachGoal()) {
-					// 2001.09.26 ’Ç‰Á 
-					/* “’BƒS[ƒ‹íœ‚ÉƒcƒŠ[‚à‘€ì */
+					// 2001.09.26 è¿½åŠ  
+					/* åˆ°é”ã‚´ãƒ¼ãƒ«å‰Šé™¤æ™‚ã«ãƒ„ãƒªãƒ¼ã‚‚æ“ä½œ */
 					failAgentTree.removeCurrent();
 					flagRemove = true;
 
-					/* íœ‚µ‚½ƒG[ƒWƒFƒ“ƒg‚ğİ’è(viewer—p) */
+					/* å‰Šé™¤ã—ãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’è¨­å®š(viewerç”¨) */
 					if(viewer != null) {
 						removeReachGoalAgents[i] = true;
 					}
@@ -539,8 +539,8 @@ public class GSA {
 	}
 
 	/**
-	 * ƒcƒŠ[ã‚Ì‚¢‚Ã‚ê‚©‚Ìó‘Ô‚É“’B‚µ‚½‚©‚Ç‚¤‚©”»’è‚µ‚Ü‚·B
-	 * @return boolean true:“’B false:–¢“’B
+	 * ãƒ„ãƒªãƒ¼ä¸Šã®ã„ã¥ã‚Œã‹ã®çŠ¶æ…‹ã«åˆ°é”ã—ãŸã‹ã©ã†ã‹åˆ¤å®šã—ã¾ã™ã€‚
+	 * @return boolean true:åˆ°é” false:æœªåˆ°é”
 	 */
 	private boolean isReachTreeGoal() {
 		for(int i = 0; i < agents.length; i++) {
@@ -554,7 +554,7 @@ public class GSA {
 	}
 
 	/**
-	 * ƒS[ƒ‹ƒXƒ^ƒbƒN‚ÆƒcƒŠ[‚Ì—v‘f‚ğ‚·‚×‚ÄƒNƒŠƒA‚µ‚Ü‚·B
+	 * ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã¨ãƒ„ãƒªãƒ¼ã®è¦ç´ ã‚’ã™ã¹ã¦ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	private void clearGoalStackAndTree() {
 		sharedMemory.removeAllGoal();
@@ -562,12 +562,12 @@ public class GSA {
 	}
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒg‚ÌŠwK‚ğs‚¢‚Ü‚·B
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å­¦ç¿’ã‚’è¡Œã„ã¾ã™ã€‚
 	 * @param boolean flagGoalReach
 	 * @param double p
 	 */
 	private void learn(boolean flagGoalReach, double p) {
-		/* ‘SƒG[ƒWƒFƒ“ƒg‚ÌŠwKˆ— */
+		/* å…¨ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å­¦ç¿’å‡¦ç† */
 		for(int i = 0; i < agents.length; i++) {
 			agents[i].learn(flagGoalReach, p);
 		}

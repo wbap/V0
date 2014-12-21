@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * CDViewer.java
- *  CognitiveDistance‚ÌŠK‘w‰»EƒZƒOƒƒ“ƒgî•ñ‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚éƒNƒ‰ƒX
+ *  CognitiveDistanceã®éšå±¤åŒ–ãƒ»ã‚»ã‚°ãƒ¡ãƒ³ãƒˆæƒ…å ±ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.11 BSC miyamoto
  */
@@ -9,24 +9,24 @@ package wba.citta.cognitivedistance.viewer;
 import java.util.*;
 
 /**
- * CognitiveDistance‚ÌŠK‘w‰»EƒZƒOƒƒ“ƒgî•ñ‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚éƒNƒ‰ƒX‚Å‚·B
+ * CognitiveDistanceã®éšå±¤åŒ–ãƒ»ã‚»ã‚°ãƒ¡ãƒ³ãƒˆæƒ…å ±ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  */
 public class CDViewer {
 
-	/* ŠK‘w‰»‚ÌƒŒƒCƒ„” */
+	/* éšå±¤åŒ–ã®ãƒ¬ã‚¤ãƒ¤æ•° */
 	private int layerNum;
-	/* Še‘w‚²‚Æ‚Ì•`‰æƒtƒŒ[ƒ€ */
+	/* å„å±¤ã”ã¨ã®æç”»ãƒ•ãƒ¬ãƒ¼ãƒ  */
 	private CDViewerFrame[] frame;
 
 
 	////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int layerNum ƒŒƒCƒ„”
-	 * @param int xNum x²•ûŒü‚Ì‚Ü‚·‚Ì”
-	 * @param int yNum y²•ûŒü‚Ì‚Ü‚·‚Ì”
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int layerNum ãƒ¬ã‚¤ãƒ¤æ•°
+	 * @param int xNum xè»¸æ–¹å‘ã®ã¾ã™ã®æ•°
+	 * @param int yNum yè»¸æ–¹å‘ã®ã¾ã™ã®æ•°
 	 */
 	public CDViewer(int layerNum, int xNum, int yNum) {
 		this(layerNum, xNum, yNum, true);
@@ -38,12 +38,12 @@ public class CDViewer {
 	}
 
 	/**
-	 * ‰Šú‰»ˆ—
-	 * @param int xNum x²•ûŒü‚Ì‚Ü‚·‚Ì”
-	 * @param int yNum y²•ûŒü‚Ì‚Ü‚·‚Ì”
+	 * åˆæœŸåŒ–å‡¦ç†
+	 * @param int xNum xè»¸æ–¹å‘ã®ã¾ã™ã®æ•°
+	 * @param int yNum yè»¸æ–¹å‘ã®ã¾ã™ã®æ•°
 	 */
 	private void initViewer(int xNum, int yNum, boolean flagSeparate) {
-		/* ƒŒƒCƒ„”•ª‚ÌƒtƒŒ[ƒ€‚Ìì¬ */
+		/* ãƒ¬ã‚¤ãƒ¤æ•°åˆ†ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®ä½œæˆ */
 		frame = new CDViewerFrame[layerNum];
 		for(int i = 0; i < layerNum; i++) {
 			frame[i] = new CDViewerFrame(i+1, xNum, yNum, flagSeparate);
@@ -55,18 +55,18 @@ public class CDViewer {
 	// public 
 
 	/**
-	 * Še‘w‚Å‚Ìstate,goal,upperSubgoal,currentSubgoal‚É‘®‚·‚éŠÂ‹«‚Ìó‘Ô‚Ì
-	 * ƒŠƒXƒg‚ğİ’è‚µ‚Ü‚·B
-	 * @param LinkedList[] currentStateList Œ»İ‚Ìó‘Ô‚É‘®‚·‚éó‘Ô
-	 * @param LinkedList[] goalStateList ƒS[ƒ‹‚Ìó‘Ô‚É‘®‚·‚éó‘Ô
-	 * @param LinkedList[] upperSubgoalList ãˆÊ‘w‚ÌƒTƒuƒS[ƒ‹‚É‘®‚·‚éó‘Ô
-	 * @param LinkedList[] currentSubgoalList Œ»İ‚Ì‘w‚ÌƒTƒuƒS[ƒ‹‚É‘®‚·‚éó‘Ô
+	 * å„å±¤ã§ã®state,goal,upperSubgoal,currentSubgoalã«å±ã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã®
+	 * ãƒªã‚¹ãƒˆã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param LinkedList[] currentStateList ç¾åœ¨ã®çŠ¶æ…‹ã«å±ã™ã‚‹çŠ¶æ…‹
+	 * @param LinkedList[] goalStateList ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã«å±ã™ã‚‹çŠ¶æ…‹
+	 * @param LinkedList[] upperSubgoalList ä¸Šä½å±¤ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã«å±ã™ã‚‹çŠ¶æ…‹
+	 * @param LinkedList[] currentSubgoalList ç¾åœ¨ã®å±¤ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã«å±ã™ã‚‹çŠ¶æ…‹
 	 * @param LinkedList[]
 	 */
 	public void setSegmentInfo(LinkedList[] currentStateList, 
 	        LinkedList[] goalStateList, LinkedList[] upperSubgoalList,
 	        LinkedList[] currentSubgoalList, LinkedList[] optionList) {
-		/* ‘Î‰‚·‚é‘w‚ÌƒtƒŒ[ƒ€‚Éó‘Ô‚ÌƒŠƒXƒg‚ğİ’è */
+		/* å¯¾å¿œã™ã‚‹å±¤ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã«çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã‚’è¨­å®š */
 		for(int i = 0; i < layerNum; i++) {
 			frame[i].setSegmentInfo(currentStateList[i], goalStateList[i],
 			        upperSubgoalList[i], currentSubgoalList[i], optionList[i]);
@@ -75,14 +75,14 @@ public class CDViewer {
 
 
 	/**
-	 * ƒŒƒCƒ„‚²‚Æ‚ÌŠeƒtƒŒ[ƒ€‚Éƒm[ƒh‚Ìî•ñ‚ğİ’è
-	 * @param int[][] nodeIdInfo int[] ƒŒƒCƒ„•ª‚Ì”z—ñ
-	 *                           int[][0] Œ»İ‚Ìó‘Ô‚ÌID
-	 *                           int[][1] ƒS[ƒ‹‚Ìó‘Ô‚ÌID
-	 *                           int[][2] ãˆÊ‘w‚©‚ç‚ÌƒTƒuƒS[ƒ‹‚ÌID
-	 *                           int[][3] Ÿ‚Ìó‘Ô‚ÌID
-	 *                           int[][5] ãˆÊ‘w‚©‚ç‚ÌƒTƒuƒS[ƒ‹‚ªXV‚³‚ê‚½‚©
-	 *                                    ¦‚·ƒtƒ‰ƒO
+	 * ãƒ¬ã‚¤ãƒ¤ã”ã¨ã®å„ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãƒãƒ¼ãƒ‰ã®æƒ…å ±ã‚’è¨­å®š
+	 * @param int[][] nodeIdInfo int[] ãƒ¬ã‚¤ãƒ¤åˆ†ã®é…åˆ—
+	 *                           int[][0] ç¾åœ¨ã®çŠ¶æ…‹ã®ID
+	 *                           int[][1] ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã®ID
+	 *                           int[][2] ä¸Šä½å±¤ã‹ã‚‰ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®ID
+	 *                           int[][3] æ¬¡ã®çŠ¶æ…‹ã®ID
+	 *                           int[][5] ä¸Šä½å±¤ã‹ã‚‰ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ãŒæ›´æ–°ã•ã‚ŒãŸã‹
+	 *                                    ç¤ºã™ãƒ•ãƒ©ã‚°
 	 */
 	public void setNodeInfo(int[][] nodeIdInfo) {
 		for(int i = 0; i < layerNum; i++) {
@@ -92,7 +92,7 @@ public class CDViewer {
 
 
 	/**
-	 * ƒŒƒCƒ„‚²‚Æ‚ÌŠeƒtƒŒ[ƒ€‚Ì•`‰æˆ—‚ğŒÄ‚Ño‚µ
+	 * ãƒ¬ã‚¤ãƒ¤ã”ã¨ã®å„ãƒ•ãƒ¬ãƒ¼ãƒ ã®æç”»å‡¦ç†ã‚’å‘¼ã³å‡ºã—
 	 */
 	public void repaint() {
 		for(int i = 0; i < layerNum; i++) {

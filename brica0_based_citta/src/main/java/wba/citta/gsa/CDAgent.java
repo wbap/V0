@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * CDAgent.java
- * CognitiveDistance‚Ìˆ—‚ğs‚È‚¤GSA‚ÌƒG[ƒWƒFƒ“ƒg
+ * CognitiveDistanceã®å‡¦ç†ã‚’è¡Œãªã†GSAã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.07
  */
@@ -11,15 +11,15 @@ import wba.citta.cognitivedistance.*;
 import java.util.*;
 
 /**
- * CognitiveDistance‚Ìˆ—‚ğs‚È‚¤GSA‚ÌƒG[ƒWƒFƒ“ƒg
+ * CognitiveDistanceã®å‡¦ç†ã‚’è¡Œãªã†GSAã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
  */
 public class CDAgent extends Agent {
 //public class CDAgent extends LogOutAgent {
 
-	/* CognitiveDistance‚É‚æ‚éˆ—‚ğs‚È‚¤ƒNƒ‰ƒX */
+	/* CognitiveDistanceã«ã‚ˆã‚‹å‡¦ç†ã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹ */
 	private wba.citta.cognitivedistance.Agent cognitiveDistance;
 
-	/* CognitiveDistance‚Ìƒpƒ‰ƒ[ƒ^ */
+	/* CognitiveDistanceã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ */
 	private int cdLayerNum = 3;
 	private int maxCDLngth = 9;
 	private int shallowSearchLngth = 1;
@@ -31,10 +31,10 @@ public class CDAgent extends Agent {
 	private boolean flagSegmentation = false;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int agid  ƒG[ƒWƒFƒ“ƒgID
-	 * @param boolean[] useNode  ƒm[ƒh‚Ìg—pA•sg—p‚ğİ’è‚µ‚½”z—ñ
-	 * @param SharedMemory sharedMemory  stateEgoal‚ğŠÇ—‚·‚é‹¤—Lƒƒ‚ƒŠ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int agid  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
+	 * @param boolean[] useNode  ãƒãƒ¼ãƒ‰ã®ä½¿ç”¨ã€ä¸ä½¿ç”¨ã‚’è¨­å®šã—ãŸé…åˆ—
+	 * @param SharedMemory sharedMemory  stateãƒ»goalã‚’ç®¡ç†ã™ã‚‹å…±æœ‰ãƒ¡ãƒ¢ãƒª
 	 */
 	public CDAgent(int agid, boolean[] useNode, SharedMemory sharedMemory) {
 		super(agid, useNode, sharedMemory);
@@ -51,11 +51,11 @@ public class CDAgent extends Agent {
 	// public
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgŒÅ—L‚ÌŠwKˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * ‘æ“ñA‘æOˆø”‚ÍACDAgent‚ÌŠwK‚Å‚Íg—p‚µ‚Ü‚¹‚ñB<BR>
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @param boolean flagGoalReach ƒS[ƒ‹‚Ö‚Ì“’B‚ğ•\‚·ƒtƒ‰ƒO
-	 * @param double profit •ñV
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆå›ºæœ‰ã®å­¦ç¿’å‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * ç¬¬äºŒã€ç¬¬ä¸‰å¼•æ•°ã¯ã€CDAgentã®å­¦ç¿’ã§ã¯ä½¿ç”¨ã—ã¾ã›ã‚“ã€‚<BR>
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param boolean flagGoalReach ã‚´ãƒ¼ãƒ«ã¸ã®åˆ°é”ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
+	 * @param double profit å ±é…¬
 	 */
 	public void learn(Vector state, boolean flagGoalReach, double profit) {
 		try {
@@ -66,22 +66,22 @@ public class CDAgent extends Agent {
 	}
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgŒÅ—L‚ÌÀsˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * ˆø”‚Åw’è‚³‚ê‚½AŒ»İ‚Ìó‘Ô‚©‚çAƒS[ƒ‹‚ÖˆÚ“®‚·‚é‚½‚ß‚ÌŸ‚Ìó‘Ô‚ğ
-	 * ƒTƒuƒS[ƒ‹‚Æ‚µ‚Äo—Í‚µ‚Ü‚·B<BR>
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @param Vector goalElementArray GoalStackElement‚ÌVector
-	 * @return Vector ƒTƒuƒS[ƒ‹
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆå›ºæœ‰ã®å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸã€ç¾åœ¨ã®çŠ¶æ…‹ã‹ã‚‰ã€ã‚´ãƒ¼ãƒ«ã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®æ¬¡ã®çŠ¶æ…‹ã‚’
+	 * ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã¨ã—ã¦å‡ºåŠ›ã—ã¾ã™ã€‚<BR>
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Vector goalElementArray GoalStackElementã®Vector
+	 * @return Vector ã‚µãƒ–ã‚´ãƒ¼ãƒ«
 	 */
 	public Vector execProcess(Vector state, Vector goalElementArray) {
 
-		/* ƒS[ƒ‹‚Ì’l‚Ì‚İ‚ğæ“¾ */
+		/* ã‚´ãƒ¼ãƒ«ã®å€¤ã®ã¿ã‚’å–å¾— */
 		Vector goalValueArray = getGoalValueArray(goalElementArray);
 
 //		System.out.println("   state:" + state);
 //		System.out.println("   goal :" + goalValueArray);
 
-		/* CognitiveDistance‚ÅŸ‚Ìó‘Ô‚ğæ“¾ */
+		/* CognitiveDistanceã§æ¬¡ã®çŠ¶æ…‹ã‚’å–å¾— */
 		Vector nextState = null;
 		try {
 			nextState = (Vector)cognitiveDistance.exec(state, goalValueArray);
@@ -96,35 +96,35 @@ public class CDAgent extends Agent {
 	}
 
 	/**
-	 * GSAƒNƒ‰ƒX‚Ìreset()ƒƒ\ƒbƒh‚©‚çŒÄ‚Ño‚³‚ê‚Ü‚·B<BR>
-	 * ”F’m‹——£‚ğŠwK‚·‚é‚½‚ß‚É•Û‚µ‚Ä‚¢‚éó‘Ô‚Ì—š—ğ‚ÆAŠe‘w‚Å•Û‚µ‚Ä‚¢‚éA
-	 * ˆÈ‘O‚Ìó‘ÔEƒS[ƒ‹‚ÉŠÖ‚·‚éî•ñ‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * GSAã‚¯ãƒ©ã‚¹ã®reset()ãƒ¡ã‚½ãƒƒãƒ‰ã‹ã‚‰å‘¼ã³å‡ºã•ã‚Œã¾ã™ã€‚<BR>
+	 * èªçŸ¥è·é›¢ã‚’å­¦ç¿’ã™ã‚‹ãŸã‚ã«ä¿æŒã—ã¦ã„ã‚‹çŠ¶æ…‹ã®å±¥æ­´ã¨ã€å„å±¤ã§ä¿æŒã—ã¦ã„ã‚‹ã€
+	 * ä»¥å‰ã®çŠ¶æ…‹ãƒ»ã‚´ãƒ¼ãƒ«ã«é–¢ã™ã‚‹æƒ…å ±ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void reset() {
 		cognitiveDistance.reset();
 	}
 
 	/**
-	 * GSAƒNƒ‰ƒX‚É‚æ‚Á‚ÄAÀsˆ—‚ğs‚È‚¤ƒG[ƒWƒFƒ“ƒg‚ª©g‚ÌƒG[ƒWƒFƒ“ƒg
-	 * ‚©‚ç‘¼‚ÌƒG[ƒWƒFƒ“ƒg‚ÉØ‚è‘Ö‚¦‚ç‚ê‚½‚Æ‚«‚ÉŒÄ‚Ño‚³‚ê‚Ü‚·B<BR>
-	 * CognitiveDistance‚ÌŠe‘w‚Å•Û‚µ‚Ä‚¢‚éAˆÈ‘O‚Ìó‘ÔEƒS[ƒ‹‚ÉŠÖ‚·‚éî•ñ‚ğ
-	 * ƒNƒŠƒA‚µ‚Ü‚·B
+	 * GSAã‚¯ãƒ©ã‚¹ã«ã‚ˆã£ã¦ã€å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒè‡ªèº«ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
+	 * ã‹ã‚‰ä»–ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã«åˆ‡ã‚Šæ›¿ãˆã‚‰ã‚ŒãŸã¨ãã«å‘¼ã³å‡ºã•ã‚Œã¾ã™ã€‚<BR>
+	 * CognitiveDistanceã®å„å±¤ã§ä¿æŒã—ã¦ã„ã‚‹ã€ä»¥å‰ã®çŠ¶æ…‹ãƒ»ã‚´ãƒ¼ãƒ«ã«é–¢ã™ã‚‹æƒ…å ±ã‚’
+	 * ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void suspend() {
 		cognitiveDistance.resetOldValue();
 	}
 
 	/**
-	 * ŠwKŒ‹‰Ê‚ğƒtƒ@ƒCƒ‹‚É•Û‘¶‚µ‚Ü‚·B
-	 * @param String fileNameƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’çµæœã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã—ã¾ã™ã€‚
+	 * @param String fileNameãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public void save(String fileName) { 
 		cognitiveDistance.save(fileName);
 	}
 
 	/**
-	 * ŠwKŒ‹‰Ê‚ğƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚İ‚Ü‚·B
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’çµæœã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã¿ã¾ã™ã€‚
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public void load(String fileName) {
 		cognitiveDistance.load(fileName);

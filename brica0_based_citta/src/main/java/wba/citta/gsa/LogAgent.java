@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * LogAgent.java
- * ƒƒO‚ğ“Ç‚İ‚İAƒƒO‚Ìî•ñ‚Å“®ì‚·‚éƒG[ƒWƒFƒ“ƒg
+ * ãƒ­ã‚°ã‚’èª­ã¿è¾¼ã¿ã€ãƒ­ã‚°ã®æƒ…å ±ã§å‹•ä½œã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.10
  */
@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * ƒƒO‚ğ“Ç‚İ‚İAƒƒO‚Ìî•ñ‚Å“®ì‚·‚éƒG[ƒWƒFƒ“ƒg
+ * ãƒ­ã‚°ã‚’èª­ã¿è¾¼ã¿ã€ãƒ­ã‚°ã®æƒ…å ±ã§å‹•ä½œã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
  */
 public class LogAgent extends Agent {
 
@@ -20,15 +20,15 @@ public class LogAgent extends Agent {
 	private ObjectInputStream objectInputStream = null;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int agid  ƒG[ƒWƒFƒ“ƒgID
-	 * @param SharedMemory sharedMemory  stateEgoal‚ğŠÇ—‚·‚é‹¤—Lƒƒ‚ƒŠ
-	 * @param boolean[] useNode  ƒm[ƒh‚Ìg—pA•sg—p‚ğİ’è‚µ‚½”z—ñ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int agid  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
+	 * @param SharedMemory sharedMemory  stateãƒ»goalã‚’ç®¡ç†ã™ã‚‹å…±æœ‰ãƒ¡ãƒ¢ãƒª
+	 * @param boolean[] useNode  ãƒãƒ¼ãƒ‰ã®ä½¿ç”¨ã€ä¸ä½¿ç”¨ã‚’è¨­å®šã—ãŸé…åˆ—
 	 */
 	public LogAgent(int agid, boolean[] useNode, SharedMemory sharedMemory) {
 		super(agid, useNode, sharedMemory);
 
-		/* ƒƒO‚Ì“Ç‚İ‚İƒXƒgƒŠ[ƒ€¶¬ */
+		/* ãƒ­ã‚°ã®èª­ã¿è¾¼ã¿ã‚¹ãƒˆãƒªãƒ¼ãƒ ç”Ÿæˆ */
 		String fileName = LOG_FILE_NAME + agid + ".log";
 		try{
 			fileInputStream = new FileInputStream(fileName);
@@ -45,25 +45,25 @@ public class LogAgent extends Agent {
 	// public
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void learn(Vector state, boolean flagGoalReach, double profit) {
 	}
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgŒÅ—L‚ÌÀsˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * ƒƒOƒtƒ@ƒCƒ‹‚©‚çî•ñ‚ğæ“¾‚µAæ“¾‚µ‚½î•ñ‚ğƒTƒuƒS[ƒ‹‚Æ‚µ‚Äo—Í‚µ‚Ü‚·B
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆå›ºæœ‰ã®å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰æƒ…å ±ã‚’å–å¾—ã—ã€å–å¾—ã—ãŸæƒ…å ±ã‚’ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã¨ã—ã¦å‡ºåŠ›ã—ã¾ã™ã€‚
 	 * <BR>
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @param Vector goalElementArray GoalStackElement‚ÌVector
-	 * @return Vector ƒTƒuƒS[ƒ‹
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Vector goalElementArray GoalStackElementã®Vector
+	 * @return Vector ã‚µãƒ–ã‚´ãƒ¼ãƒ«
 	 */
 	public Vector execProcess(Vector state, Vector goalElement) {
 
 //		System.out.println("   state:" + state);
 //		System.out.println("   goal :" + goalValue);
 
-		/* ƒƒO‚Ì“Ç‚İ‚İ o—Í */
+		/* ãƒ­ã‚°ã®èª­ã¿è¾¼ã¿ å‡ºåŠ› */
 		Vector nextState = null;
 		try{
 			nextState = (Vector)objectInputStream.readObject();
@@ -79,25 +79,25 @@ public class LogAgent extends Agent {
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void reset() {
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void suspend() {
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void save(String fileName) { 
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void load(String fileName) {
 	}

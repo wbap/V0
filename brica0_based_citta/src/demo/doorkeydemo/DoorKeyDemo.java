@@ -1,4 +1,4 @@
-/**
+﻿/**
  * DoorKeyDemo.java
  * Citta
  * COPYRIGHT FUJITSU LIMITED 2001-2002

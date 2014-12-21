@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * ResourceLoader.java
- * ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ‚ğs‚È‚¤ƒNƒ‰ƒX‚Å‚·
+ * ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿ã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹ã§ã™
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.09 BSC miyamoto
  */ 
@@ -10,7 +10,7 @@ import java.net.*;
 import java.awt.*;
 
 /**
- * ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ‚ğs‚È‚¤ƒNƒ‰ƒX‚Å‚·
+ * ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿ã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹ã§ã™
  */
 public class ResourceLoader extends ClassLoader{
 	public Image getImage(String str){

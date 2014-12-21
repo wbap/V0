@@ -1,20 +1,20 @@
-/**
+﻿/**
  * ElementNumberException.java
- * CognitiveDistance�Ŏg�p�����Ԃ͈��̃T�C�Y��Vector�łȂ��Ă͂Ȃ�܂���B
- * ����Vector�̃T�C�Y���s���ȏꍇ�ɃX���[������O�ł��B
+ * CognitiveDistanceで使用する状態は一定のサイズのVectorでなくてはなりません。
+ * このVectorのサイズが不正な場合にスローされる例外です。
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2001.07 BSC miyamoto
  */
 package wba.citta.cognitivedistance;
 
 /**
- * CognitiveDistance�Ŏg�p�����Ԃ͈��̃T�C�Y��Vector�łȂ��Ă͂Ȃ�܂���B
- * ����Vector�̃T�C�Y���s���ȏꍇ�ɃX���[������O�ł��B
+ * CognitiveDistanceで使用する状態は一定のサイズのVectorでなくてはなりません。
+ * このVectorのサイズが不正な場合にスローされる例外です。
  */
 public class ElementNumberException extends Exception {
 
 	/**
-	 * �w��̏ڍ׃��b�Z�[�W�������Ȃ� Exception ���\�z���܂��B
+	 * 指定の詳細メッセージを持たない Exception を構築します。
 	 */
 //	public ElementNumberException()
 //	{
@@ -22,8 +22,8 @@ public class ElementNumberException extends Exception {
 //	}
 
 	/**
-	 * �w��̏ڍ׃��b�Z�[�W������ Exception ���\�z���܂��B
-	 * @param msg �ڍ׃��b�Z�[�W
+	 * 指定の詳細メッセージを持つ Exception を構築します。
+	 * @param msg 詳細メッセージ
 	 */
 //	public ElementNumberException(String msg)
 //	{

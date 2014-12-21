@@ -1,30 +1,30 @@
-/**
+ï»¿/**
  * GoalStackElement.java
- * ‹¤—Lƒƒ‚ƒŠ‚Åˆµ‚¤ƒS[ƒ‹‚Ìî•ñ‚Ì’PˆÊ
+ * å…±æœ‰ãƒ¡ãƒ¢ãƒªã§æ‰±ã†ã‚´ãƒ¼ãƒ«ã®æƒ…å ±ã®å˜ä½
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.07
  */
 package wba.citta.gsa;
 
 /**
- * ‹¤—Lƒƒ‚ƒŠ‚Åˆµ‚¤ƒS[ƒ‹‚Ìî•ñ‚Ì’PˆÊ
+ * å…±æœ‰ãƒ¡ãƒ¢ãƒªã§æ‰±ã†ã‚´ãƒ¼ãƒ«ã®æƒ…å ±ã®å˜ä½
  */
 public class GoalStackElement {
 
 	/**
-	 * ƒS[ƒ‹‚Ì’l
+	 * ã‚´ãƒ¼ãƒ«ã®å€¤
 	 */
 	public final int value;
 
 	/**
-	 * ƒS[ƒ‹‚ğİ’è‚µ‚½ƒG[ƒWƒFƒ“ƒgID
+	 * ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã—ãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
 	 */
 	public final int agid;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int value ƒS[ƒ‹‚Ì’l
-	 * @param int agid  İ’è‚µ‚½ƒG[ƒWƒFƒ“ƒg‚ÌID
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int value ã‚´ãƒ¼ãƒ«ã®å€¤
+	 * @param int agid  è¨­å®šã—ãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ID
 	 */
 	public GoalStackElement(int value, int agid) {
 		this.value = value;
@@ -32,9 +32,9 @@ public class GoalStackElement {
 	}
 
 	/**
-	 * ƒS[ƒ‹‚Ìî•ñ‚ğ•\¦‚µ‚Ü‚·B
-	 * @return String ƒS[ƒ‹‚Ìî•ñ<BR>
-	 * •\¦Œ`®  val:21 id:701
+	 * ã‚´ãƒ¼ãƒ«ã®æƒ…å ±ã‚’è¡¨ç¤ºã—ã¾ã™ã€‚
+	 * @return String ã‚´ãƒ¼ãƒ«ã®æƒ…å ±<BR>
+	 * è¡¨ç¤ºå½¢å¼  val:21 id:701
 	 */
 	public String toString() {
 		String str = "val:" + value + " id:" + agid;

@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * StateBuffer.java
- * ó‘Ô‚Ì—š—ğ‚ğ•Û‚·‚éƒNƒ‰ƒX
+ * çŠ¶æ…‹ã®å±¥æ­´ã‚’ä¿æŒã™ã‚‹ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2000.10 BSC miyamoto 
  */
@@ -9,18 +9,18 @@ package wba.citta.cognitivedistance;
 import java.util.*;
 
 /**
- *	ó‘Ô‚Ì—š—ğ‚ğ•Û‚·‚éƒNƒ‰ƒX‚Å‚·B
- *	ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ìˆø”‚Åİ’è‚³‚ê‚½”‚¾‚¯Aƒm[ƒhID‚ğ•Û‚µ‚Ü‚·B
- *	Å‘å‚Ì—v‘f”‚ğ‰z‚¦‚½ê‡AŒÃ‚¢‡‚Éíœ‚³‚ê‚Ü‚·B
+ *	çŠ¶æ…‹ã®å±¥æ­´ã‚’ä¿æŒã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
+ *	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã®å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸæ•°ã ã‘ã€ãƒãƒ¼ãƒ‰IDã‚’ä¿æŒã—ã¾ã™ã€‚
+ *	æœ€å¤§ã®è¦ç´ æ•°ã‚’è¶ŠãˆãŸå ´åˆã€å¤ã„é †ã«å‰Šé™¤ã•ã‚Œã¾ã™ã€‚
  */
 public class StateBuffer extends LinkedList {
 
-	/* •Û‚·‚éÅ‘å‚Ì—v‘f” */
+	/* ä¿æŒã™ã‚‹æœ€å¤§ã®è¦ç´ æ•° */
 	private int maxCDLngth;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int maxCDLngth •Û‚·‚éÅ‘å‚Ì—v‘f”
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int maxCDLngth ä¿æŒã™ã‚‹æœ€å¤§ã®è¦ç´ æ•°
 	 */
 	public StateBuffer(int maxCDLngth) {
 		this.maxCDLngth = maxCDLngth;
@@ -28,21 +28,21 @@ public class StateBuffer extends LinkedList {
 
 
 	/**
-	 *	ƒm[ƒhID‚ğƒŠƒXƒg‚É’Ç‰Á‚µ‚Ü‚·B
-	 *	@param Integer stateID ƒm[ƒhID
+	 *	ãƒãƒ¼ãƒ‰IDã‚’ãƒªã‚¹ãƒˆã«è¿½åŠ ã—ã¾ã™ã€‚
+	 *	@param Integer stateID ãƒãƒ¼ãƒ‰ID
 	 */
 	public void add(Integer stateID){
-		/* ƒŠƒXƒg‚É’Ç‰Á */
+		/* ãƒªã‚¹ãƒˆã«è¿½åŠ  */
 		super.add(stateID);
-		/* ƒŠƒXƒg‚ÌƒTƒCƒY‚ğMAXSIZE‚É’²® */
+		/* ãƒªã‚¹ãƒˆã®ã‚µã‚¤ã‚ºã‚’MAXSIZEã«èª¿æ•´ */
 		if(size() > maxCDLngth){
 			removeFirst();
 		}
 	}
 
-	/* ƒŠƒXƒg“à‚Ì—v‘f‚ğ•\¦ */
-// 2001.05.25 íœ miyamoto ŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚Ìjava‚É‘Î‰
-// LinkedList‚ğVector‚É•ÏX‚µ‚½‚½‚ßtoString‚ğƒI[ƒo[ƒ‰ƒCƒh‚Å‚«‚È‚¢(•K—v‚È‚¢)
+	/* ãƒªã‚¹ãƒˆå†…ã®è¦ç´ ã‚’è¡¨ç¤º */
+// 2001.05.25 å‰Šé™¤ miyamoto å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®javaã«å¯¾å¿œ
+// LinkedListã‚’Vectorã«å¤‰æ›´ã—ãŸãŸã‚toStringã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã§ããªã„(å¿…è¦ãªã„)
 //	public String toString() {
 //		StringBuffer sb = new StringBuffer();
 //		ListIterator li = listIterator();

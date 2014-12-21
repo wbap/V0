@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * StateList.java
- * ƒm[ƒh‚ÌƒŠƒXƒg‚ÆeqŠÖŒW‚É‚Â‚¢‚ÄŠÇ—‚·‚éƒNƒ‰ƒX
+ * ãƒãƒ¼ãƒ‰ã®ãƒªã‚¹ãƒˆã¨è¦ªå­é–¢ä¿‚ã«ã¤ã„ã¦ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2000.10 BSC miyamoto
  */
@@ -9,18 +9,18 @@ package wba.citta.cognitivedistance;
 import java.util.*;
 
 /**
- * ƒm[ƒh‚ÌƒŠƒXƒg‚Æ‚»‚ÌeqŠÖŒW‚É‚Â‚¢‚ÄŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·B
+ * ãƒãƒ¼ãƒ‰ã®ãƒªã‚¹ãƒˆã¨ãã®è¦ªå­é–¢ä¿‚ã«ã¤ã„ã¦ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  */
 public class StateList extends LinkedList {
 
-	private Integer parentNodeID;   /* e‚Ìƒm[ƒhID */
-	private StateList parentList;   /* eƒm[ƒh‚Ì‘®‚·‚éƒŠƒXƒg */
+	private Integer parentNodeID;   /* è¦ªã®ãƒãƒ¼ãƒ‰ID */
+	private StateList parentList;   /* è¦ªãƒãƒ¼ãƒ‰ã®å±ã™ã‚‹ãƒªã‚¹ãƒˆ */
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param LinkedList stateList       ƒm[ƒhID‚ÌƒŠƒXƒg
-	 * @param Integer parentNodeID e‚Ìƒm[ƒhID
-	 * @param StateList parentList       e‚Ìƒm[ƒh‚ª‘®‚·‚éStateList
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param LinkedList stateList       ãƒãƒ¼ãƒ‰IDã®ãƒªã‚¹ãƒˆ
+	 * @param Integer parentNodeID è¦ªã®ãƒãƒ¼ãƒ‰ID
+	 * @param StateList parentList       è¦ªã®ãƒãƒ¼ãƒ‰ãŒå±ã™ã‚‹StateList
 	 */
 	public StateList(LinkedList stateList, Integer parentNodeID,
 	        StateList parentList) {
@@ -30,15 +30,15 @@ public class StateList extends LinkedList {
 	}
 
 	/**
-	 * e‚Ìƒm[ƒhID‚ğæ“¾‚µ‚Ü‚·B
-	 * @return Integer e‚Ìƒm[ƒhID
+	 * è¦ªã®ãƒãƒ¼ãƒ‰IDã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return Integer è¦ªã®ãƒãƒ¼ãƒ‰ID
 	 */
 	public Integer getParentNodeID() {
 		return parentNodeID;
 	}
 
 	/**
-	 * e‚Ìƒm[ƒh‚ª‘®‚·‚éStateList‚ğæ“¾‚µ‚Ü‚·B
+	 * è¦ªã®ãƒãƒ¼ãƒ‰ãŒå±ã™ã‚‹StateListã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @return StateList
 	 */
 	public StateList getParentList() {
@@ -46,11 +46,11 @@ public class StateList extends LinkedList {
 	}
 
 	/**
-	 * ‚±‚ÌƒŠƒXƒg‚Ì‘S—v‘f‚ğString‚Åæ“¾‚µ‚Ü‚·B
+	 * ã“ã®ãƒªã‚¹ãƒˆã®å…¨è¦ç´ ã‚’Stringã§å–å¾—ã—ã¾ã™ã€‚
 	 * @return String
 	 */
-// 2001.05.25 íœ miyamoto ŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚Ìjava‚É‘Î‰
-// LinkedList‚ğVector‚É•ÏX‚µ‚½‚½‚ßtoString‚ğƒI[ƒo[ƒ‰ƒCƒh‚Å‚«‚È‚¢(•K—v‚È‚¢)
+// 2001.05.25 å‰Šé™¤ miyamoto å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®javaã«å¯¾å¿œ
+// LinkedListã‚’Vectorã«å¤‰æ›´ã—ãŸãŸã‚toStringã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã§ããªã„(å¿…è¦ãªã„)
 //	public String toString(){
 //		StringBuffer sb = new StringBuffer();
 //		ListIterator li = listIterator();

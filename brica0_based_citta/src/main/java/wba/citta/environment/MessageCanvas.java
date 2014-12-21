@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * MessageCanvas.java
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.09 BSC miyamoto
@@ -10,18 +10,18 @@ import java.awt.event.*;
 import java.util.*;
 
 /**
- *  ŠÂ‹«ƒOƒ‰ƒtƒBƒbƒNˆ—‚ğs‚¤ƒNƒ‰ƒX‚Å‚·
+ *  ç’°å¢ƒã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹ã§ã™
  */
 public class MessageCanvas extends Canvas {
 
-	/* ƒLƒƒƒ“ƒoƒX‚ÌƒTƒCƒY */
+	/* ã‚­ãƒ£ãƒ³ãƒã‚¹ã®ã‚µã‚¤ã‚º */
 	private int height;
 	private int width;
 
-	/* ƒTƒCƒY•ÏX‚Ìƒtƒ‰ƒO */
+	/* ã‚µã‚¤ã‚ºå¤‰æ›´ã®ãƒ•ãƒ©ã‚° */
 	private boolean resized;
 
-	/* ƒ_ƒuƒ‹ƒoƒbƒtƒ@ƒŠƒ“ƒO—p ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW */
+	/* ãƒ€ãƒ–ãƒ«ãƒãƒƒãƒ•ã‚¡ãƒªãƒ³ã‚°ç”¨ ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ */
 	private Image offImage;
 	private Graphics offGraphics;
 
@@ -34,18 +34,18 @@ public class MessageCanvas extends Canvas {
 	private int imageYPos = 0;
 
 	////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^  ‰Šú‰»ˆ—
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿  åˆæœŸåŒ–å‡¦ç†
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	public MessageCanvas(String message, int x, int y) {
 		super();
-		/* ƒTƒCƒY•ÏX‚É‚Â‚¢‚Ä‚Ìˆ—‚ğs‚È‚¤ƒCƒxƒ“ƒgƒŠƒXƒi‚Ì“o˜^ */
+		/* ã‚µã‚¤ã‚ºå¤‰æ›´ã«ã¤ã„ã¦ã®å‡¦ç†ã‚’è¡Œãªã†ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠã®ç™»éŒ² */
 		addComponentListener(new CanvasComponentAdapter());
-		/* •Ï”‚Ì‰Šú‰» */
+		/* å¤‰æ•°ã®åˆæœŸåŒ– */
 		resized = false;
-		/* •\¦ˆÊ’u */
+		/* è¡¨ç¤ºä½ç½® */
 		messageXPos = x;
 		messageYPos = y;
 		this.message = message;
@@ -65,26 +65,26 @@ public class MessageCanvas extends Canvas {
 	}
 
 	/**
-	 * updateƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * updateãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 */
 	public void update(Graphics g) {
 		paint(g);
 	}
 
 	/**
-	 * paintƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * paintãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 */
 	public void paint(Graphics g) {
 
-		/* n‚ß‚ÆƒTƒCƒY•ÏX‚ÍƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚Ì‰Šú‰» */
+		/* å§‹ã‚ã¨ã‚µã‚¤ã‚ºå¤‰æ›´æ™‚ã¯ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã®åˆæœŸåŒ– */
 		if( (offGraphics == null) || (resized == true) ){
 			offImage = createImage(width, height);
 			offGraphics = offImage.getGraphics();
 			resized = false;
 		}
-		/* ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”» */
 		drawOffImage(offGraphics);
-		/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚ğ•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æç”» */
 		g.drawImage(offImage, 0, 0, this);
 	}
 
@@ -93,12 +93,12 @@ public class MessageCanvas extends Canvas {
 	// private
 
 	/**
-	 * ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ
+	 * ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”»
 	 * @param Graphics graphics
 	 */
 	private void drawOffImage(Graphics graphics) {
 
-		/* ƒCƒ[ƒW‚ÌƒNƒŠƒA */
+		/* ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢ */
 //		graphics.setColor(getBackground());
 		graphics.setColor(Color.orange);
 		graphics.fillRect(0, 0, width, height);
@@ -114,11 +114,11 @@ public class MessageCanvas extends Canvas {
 
 
 	/**
-	 * ƒTƒCƒY‚ÉŠÖ‚·‚éî•ñ‚ğİ’è‚µ‚Ü‚·B
+	 * ã‚µã‚¤ã‚ºã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®šã—ã¾ã™ã€‚
 	 */
 	private void setSizeInfo() {
 
-		/* ƒLƒƒƒ“ƒoƒX‚ÌƒTƒCƒY */
+		/* ã‚­ãƒ£ãƒ³ãƒã‚¹ã®ã‚µã‚¤ã‚º */
 		Dimension d = getSize();
 		height = d.height;
 		width = d.width;
@@ -126,21 +126,21 @@ public class MessageCanvas extends Canvas {
 
 
 	//////////////////////////////////////////////////
-	// ƒCƒxƒ“ƒgˆ—
+	// ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 
 	/**
-	 * ƒTƒCƒY•ÏX‚ÌƒCƒxƒ“ƒg‚ğˆ—‚·‚éƒCƒ“ƒi[ƒNƒ‰ƒX
+	 * ã‚µã‚¤ã‚ºå¤‰æ›´ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’å‡¦ç†ã™ã‚‹ã‚¤ãƒ³ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 	 */
 	class CanvasComponentAdapter extends ComponentAdapter {
 
 		/**
-		 * ƒTƒCƒY•ÏX‚Ìˆ—
+		 * ã‚µã‚¤ã‚ºå¤‰æ›´æ™‚ã®å‡¦ç†
 		 */
 		public void componentResized(ComponentEvent e) {
-			/* ƒTƒCƒYî•ñ‚Ìİ’è */
+			/* ã‚µã‚¤ã‚ºæƒ…å ±ã®è¨­å®š */
 			setSizeInfo();
 			resized = true;
-			/* Ä•`‰æ */
+			/* å†æç”» */
 			repaint();
 		}
 	}

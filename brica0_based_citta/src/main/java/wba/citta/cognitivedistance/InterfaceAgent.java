@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * InterfaceAgent.java
- * ŠÂ‹«‚Æ”F’m‹——£‚Ìˆ—‚ğs‚È‚¤ƒG[ƒWƒFƒ“ƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Æ‚µ‚Äó‘Ô‚Ì•ÏŠ·“™	 * ‚Ìˆ—‚ğs‚¤ƒNƒ‰ƒX
+ * ç’°å¢ƒã¨èªçŸ¥è·é›¢ã®å‡¦ç†ã‚’è¡Œãªã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã¨ã—ã¦çŠ¶æ…‹ã®å¤‰æ›ç­‰	 * ã®å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2000.10 BSC miyamoto
  */
@@ -11,31 +11,31 @@ import java.io.*;
 
 
 /**
- * ŠÂ‹«‚Æ”F’m‹——£‚Ìˆ—‚ğs‚È‚¤ƒG[ƒWƒFƒ“ƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Æ‚µ‚Äó‘Ô‚Ì•ÏŠ·“™
- * ‚Ìˆ—‚ğs‚¤ƒNƒ‰ƒX‚Å‚·B
+ * ç’°å¢ƒã¨èªçŸ¥è·é›¢ã®å‡¦ç†ã‚’è¡Œãªã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã¨ã—ã¦çŠ¶æ…‹ã®å¤‰æ›ç­‰
+ * ã®å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  */
 public class InterfaceAgent {
 
-	/* Å‰º‘w‚ÌLayeredAgent */
+	/* æœ€ä¸‹å±¤ã®LayeredAgent */
 	private LayeredAgent bottomLayeredAgent;
-	/* ó‘Ô‚©‚çID‚Ö•ÏŠ·‚ğs‚È‚¤ƒe[ƒuƒ‹ */
+	/* çŠ¶æ…‹ã‹ã‚‰IDã¸å¤‰æ›ã‚’è¡Œãªã†ãƒ†ãƒ¼ãƒ–ãƒ« */
 	private Hashtable stateToId;
-	/* ID‚©‚çó‘Ô‚Ö‹t•ÏŠ·‚ğs‚È‚¤ƒe[ƒuƒ‹ */
+	/* IDã‹ã‚‰çŠ¶æ…‹ã¸é€†å¤‰æ›ã‚’è¡Œãªã†ãƒ†ãƒ¼ãƒ–ãƒ« */
 	private Vector idToState;
 
-	/* ó‘Ô(Vector)‚Ì—v‘f”‚ğŒÅ’è‚É‚·‚é‚½‚ß‚Ì•Ï” */
+	/* çŠ¶æ…‹(Vector)ã®è¦ç´ æ•°ã‚’å›ºå®šã«ã™ã‚‹ãŸã‚ã®å¤‰æ•° */
 	private int elementNum = -1;
 
 	//////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param LayeredAgnet bottomLayeredAgent  Å‰º‘w‚ÌLayeredAgent
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param LayeredAgnet bottomLayeredAgent  æœ€ä¸‹å±¤ã®LayeredAgent
 	 */
 	public InterfaceAgent(LayeredAgent bottomLayeredAgent) {
 		this.bottomLayeredAgent = bottomLayeredAgent;
-		/* •ÏŠ·ƒe[ƒuƒ‹‚Ì¶¬ */
+		/* å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ«ã®ç”Ÿæˆ */
 //		stateToId = new Hashtable();
 //		idToState = new Vector();
 		stateToId = new Hashtable(10000);
@@ -47,10 +47,10 @@ public class InterfaceAgent {
 	// private
 
 	/**
-	 * ó‘Ô‚Ì•ÏŠ·‚ğs‚È‚¢‚Ü‚·B
-	 * ŠÂ‹«‚©‚ç‚Ìó‘Ô‚É‘Î‰‚·‚éƒm[ƒh‚ÌID‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Object state ŠÂ‹«‚©‚ç‚Ìó‘Ô
-	 * @return Integer     ‘Î‰‚·‚éƒm[ƒh‚ÌID
+	 * çŠ¶æ…‹ã®å¤‰æ›ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * ç’°å¢ƒã‹ã‚‰ã®çŠ¶æ…‹ã«å¯¾å¿œã™ã‚‹ãƒãƒ¼ãƒ‰ã®IDã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Object state ç’°å¢ƒã‹ã‚‰ã®çŠ¶æ…‹
+	 * @return Integer     å¯¾å¿œã™ã‚‹ãƒãƒ¼ãƒ‰ã®ID
 	 */
 	private Integer getID(Vector state) {
 
@@ -58,7 +58,7 @@ public class InterfaceAgent {
 			return null;
 		}
 
-		/* ó‘Ô‚É‘Î‰‚·‚éID‚ğæ“¾ */
+		/* çŠ¶æ…‹ã«å¯¾å¿œã™ã‚‹IDã‚’å–å¾— */
 		Integer id = (Integer)stateToId.get(state);
 
 		return id;
@@ -66,10 +66,10 @@ public class InterfaceAgent {
 
 
 	/**
-	 * ó‘Ô‚Ì‹t•ÏŠ·‚ğs‚È‚¢‚Ü‚·B
-	 * ƒm[ƒh‚ÌID‚É‘Î‰‚·‚éŠÂ‹«‚Ìó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer id  ƒm[ƒh‚ÌID
-	 * @return Object     ‘Î‰‚·‚éŠÂ‹«‚Ìó‘Ô
+	 * çŠ¶æ…‹ã®é€†å¤‰æ›ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * ãƒãƒ¼ãƒ‰ã®IDã«å¯¾å¿œã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer id  ãƒãƒ¼ãƒ‰ã®ID
+	 * @return Object     å¯¾å¿œã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹
 	 */
 	private Vector getState(Integer id) {
 
@@ -77,10 +77,10 @@ public class InterfaceAgent {
 			return null;
 		}
 
-		/* int‚É•ÏŠ· */
+		/* intã«å¤‰æ› */
 		int intID = id.intValue();
 
-		/* ‘¶İ‚µ‚È‚¢ID‚Ìw’è */
+		/* å­˜åœ¨ã—ãªã„IDã®æŒ‡å®š */
 		if( (idToState.size()) <= (intID) ) {
 			return null;
 		}
@@ -89,30 +89,30 @@ public class InterfaceAgent {
 	}
 
 	/**
-	 * V‚µ‚¢ó‘Ô‚ğƒe[ƒuƒ‹‚Éİ’è‚µA‘Î‰‚·‚éƒm[ƒh‚ğbottomLayeredAgent‚Éİ’è
-	 * ‚µ‚Ü‚·B
-	 * @param Object state V‚µ‚¢ó‘Ô
-	 * @return Integer     ‘Î‰‚·‚éV‚µ‚¢ID
-	 * @exception NullPointerException ó‘Ô‚ªnull‚Ìê‡
-	 * @exception ElementNumberException ó‘Ô‚Ì—v‘f”‚ª•s³‚Èê‡
+	 * æ–°ã—ã„çŠ¶æ…‹ã‚’ãƒ†ãƒ¼ãƒ–ãƒ«ã«è¨­å®šã—ã€å¯¾å¿œã™ã‚‹ãƒãƒ¼ãƒ‰ã‚’bottomLayeredAgentã«è¨­å®š
+	 * ã—ã¾ã™ã€‚
+	 * @param Object state æ–°ã—ã„çŠ¶æ…‹
+	 * @return Integer     å¯¾å¿œã™ã‚‹æ–°ã—ã„ID
+	 * @exception NullPointerException çŠ¶æ…‹ãŒnullã®å ´åˆ
+	 * @exception ElementNumberException çŠ¶æ…‹ã®è¦ç´ æ•°ãŒä¸æ­£ãªå ´åˆ
 	 */
 	private  Integer newNode(Vector state) throws NullPointerException,
 	        ElementNumberException{
 
-		/* Œ»İ‚Ìó‘Ô‚ªnull */
+		/* ç¾åœ¨ã®çŠ¶æ…‹ãŒnull */
 		if(state == null) {
 			throw new NullPointerException();
 		}
 
-		/* V‚µ‚¢ó‘Ô‚ğ•ÏŠ·—p‚Ìƒe[ƒuƒ‹‚Éİ’è */
+		/* æ–°ã—ã„çŠ¶æ…‹ã‚’å¤‰æ›ç”¨ã®ãƒ†ãƒ¼ãƒ–ãƒ«ã«è¨­å®š */
 		int newId = idToState.size();
 
-		/* Å‰‚É“ü—Í‚³‚ê‚½ó‘Ô‚Ì—v‘f”‚ğ—LŒø‚È—v‘f”‚Éİ’è */ 
+		/* æœ€åˆã«å…¥åŠ›ã•ã‚ŒãŸçŠ¶æ…‹ã®è¦ç´ æ•°ã‚’æœ‰åŠ¹ãªè¦ç´ æ•°ã«è¨­å®š */ 
 		if(newId == 0) {
 			elementNum = state.size();
 		}
 
-		/* —v‘f”‚ª•s³‚Å‚È‚¢‚©ƒ`ƒFƒbƒN */
+		/* è¦ç´ æ•°ãŒä¸æ­£ã§ãªã„ã‹ãƒã‚§ãƒƒã‚¯ */
 		if( !isSameSize(state) ) {
 			throw new ElementNumberException();
 		}
@@ -122,7 +122,7 @@ public class InterfaceAgent {
 		Integer id = new Integer(newId);
 		stateToId.put(state, id);
 
-		/* LayeredAgent‚Ì‚P‘w–Ú‚Éó‘Ô‚ğì¬ */
+		/* LayeredAgentã®ï¼‘å±¤ç›®ã«çŠ¶æ…‹ã‚’ä½œæˆ */
 		bottomLayeredAgent.newNode(null);
 
 		return id;
@@ -132,11 +132,11 @@ public class InterfaceAgent {
 	// public
 
 	/**
-	 * ”F’m‹——£‚ÌŠwK‚ğs‚È‚¢‚Ü‚·B
-	 * @param Vector currentState Œ»İ‚Ìó‘Ô
-	 * @exception NullPointerException ˆø”‚Åİ’è‚³‚ê‚½Vector‚ªnull‚Ìê‡
-	 * @exception ElementNumberException ˆø”‚Åİ’è‚³‚ê‚½Vector‚ÌƒTƒCƒY‚ª•s³
-	 *                                   ‚Èê‡B
+	 * èªçŸ¥è·é›¢ã®å­¦ç¿’ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * @param Vector currentState ç¾åœ¨ã®çŠ¶æ…‹
+	 * @exception NullPointerException å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸVectorãŒnullã®å ´åˆ
+	 * @exception ElementNumberException å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸVectorã®ã‚µã‚¤ã‚ºãŒä¸æ­£
+	 *                                   ãªå ´åˆã€‚
 	 */
 	public void learn(Vector currentState) throws NullPointerException,
 	        ElementNumberException {
@@ -145,26 +145,26 @@ public class InterfaceAgent {
 //		System.out.println("[Interface Agent] learn");
 //		System.out.println("  currentState " + currentState);
 
-		/* ó‘Ô‚Ì•ÏŠ· */
+		/* çŠ¶æ…‹ã®å¤‰æ› */
 		Integer currentNodeID = getID(currentState);
-		/* “o˜^‚³‚ê‚Ä‚¢‚È‚¢ó‘Ô‚È‚çV‚µ‚¢ID‚ğİ’è */
+		/* ç™»éŒ²ã•ã‚Œã¦ã„ãªã„çŠ¶æ…‹ãªã‚‰æ–°ã—ã„IDã‚’è¨­å®š */
 		if(currentNodeID == null) {
 			currentNodeID = newNode(currentState);
 		}
 
-		/* 1‘w–Ú‚ÌŠwK */
+		/* 1å±¤ç›®ã®å­¦ç¿’ */
 		bottomLayeredAgent.learn(currentNodeID);
 	}
 
 	/**
-	 * Àsˆ—‚ğs‚¢Aˆø”‚Åw’è‚³‚ê‚½Œ»İ‚Ìó‘Ô‚©‚çAƒS[ƒ‹‚Ìó‘Ô‚Ö‘JˆÚ‚·‚é
-	 * ‚½‚ßŸ‚Ìó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Vector currentState Œ»İ‚Ìó‘Ô
-	 * @param Vector goalState    ƒS[ƒ‹‚Ìó‘Ô
-	 * @return Vector             Ÿ‚Ìó‘Ô
-	 * @exception NullPointerException ˆø”‚Åİ’è‚³‚ê‚½Œ»İ‚Ìó‘Ô‚ªnull‚Ìê‡
-	 * @exception ElementNumberException ˆø”‚Åİ’è‚³‚ê‚½Œ»İ‚Ìó‘Ô‚ÌƒTƒCƒY‚ª
-	 *                                   •s³‚Èê‡B
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œã„ã€å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸç¾åœ¨ã®çŠ¶æ…‹ã‹ã‚‰ã€ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã¸é·ç§»ã™ã‚‹
+	 * ãŸã‚æ¬¡ã®çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Vector currentState ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Vector goalState    ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹
+	 * @return Vector             æ¬¡ã®çŠ¶æ…‹
+	 * @exception NullPointerException å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸç¾åœ¨ã®çŠ¶æ…‹ãŒnullã®å ´åˆ
+	 * @exception ElementNumberException å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸç¾åœ¨ã®çŠ¶æ…‹ã®ã‚µã‚¤ã‚ºãŒ
+	 *                                   ä¸æ­£ãªå ´åˆã€‚
 	 */
 	public Vector exec(Vector currentState, Vector goalState) throws
 	        NullPointerException, ElementNumberException {
@@ -174,35 +174,35 @@ public class InterfaceAgent {
 //		System.out.println("  currentState " + currentState);
 //		System.out.println("  goalState    " + goalState);
 
-		/* Œ»İ‚Ìó‘Ô‚ªnull‚Å‚È‚¢‚©ƒ`ƒFƒbƒN */
+		/* ç¾åœ¨ã®çŠ¶æ…‹ãŒnullã§ãªã„ã‹ãƒã‚§ãƒƒã‚¯ */
 		if( currentState == null ) {
 			throw new NullPointerException();
 		}
 
-		/* —v‘f”‚ª•s³‚Å‚È‚¢‚©ƒ`ƒFƒbƒN */
+		/* è¦ç´ æ•°ãŒä¸æ­£ã§ãªã„ã‹ãƒã‚§ãƒƒã‚¯ */
 		if( !isSameSize(currentState) ) {
 			throw new ElementNumberException();
 		}
 
-		/* ƒS[ƒ‹‚ª‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢ */
+		/* ã‚´ãƒ¼ãƒ«ãŒãªã‘ã‚Œã°å‡¦ç†ã—ãªã„ */
 		if(goalState == null) {
-			// 2001.04.05 ’Ç‰Á bsc miyamoto
-			/* •Û‚µ‚Ä‚¢‚é‘OƒTƒCƒNƒ‹‚Ìî•ñ‚ğƒNƒŠƒA */
+			// 2001.04.05 è¿½åŠ  bsc miyamoto
+			/* ä¿æŒã—ã¦ã„ã‚‹å‰ã‚µã‚¤ã‚¯ãƒ«ã®æƒ…å ±ã‚’ã‚¯ãƒªã‚¢ */
 			bottomLayeredAgent.resetOldValue();
 			return null;
 		}
 
-		/* ó‘Ô‚Ì•ÏŠ· */
+		/* çŠ¶æ…‹ã®å¤‰æ› */
 		Integer currentNodeID = getID(currentState);
 
-		// 2001.06.07 C³ ƒS[ƒ‹‚Énull‚Ì—v‘f‚ª‚ ‚éê‡‚Ì‚İ•âŠ®ˆ—
-		// 2001.03.29 ’Ç‰Á
-		/* æ“¾‚µ‚½ƒS[ƒ‹‚©‚ç”²‚¯‚Ä‚¢‚é•”•ª‚ğ•âŠ® */
+		// 2001.06.07 ä¿®æ­£ ã‚´ãƒ¼ãƒ«ã«nullã®è¦ç´ ãŒã‚ã‚‹å ´åˆã®ã¿è£œå®Œå‡¦ç†
+		// 2001.03.29 è¿½åŠ 
+		/* å–å¾—ã—ãŸã‚´ãƒ¼ãƒ«ã‹ã‚‰æŠœã‘ã¦ã„ã‚‹éƒ¨åˆ†ã‚’è£œå®Œ */
 		Vector newGoalState = null;
 		if( checkNullElement(goalState) ) {
 			newGoalState = goalState;
 		}else {
-			// 2001.08.14 C³ miyamoto “’B‰Â”\‚ÈƒS[ƒ‹‚ğ‘I‘ğB
+			// 2001.08.14 ä¿®æ­£ miyamoto åˆ°é”å¯èƒ½ãªã‚´ãƒ¼ãƒ«ã‚’é¸æŠã€‚
 //			newGoalState = getSameStates(goalState);
 			newGoalState = getSameStates(currentState, goalState);
 		}
@@ -211,10 +211,10 @@ public class InterfaceAgent {
 
 		Integer goalNodeID = getID(newGoalState);
 
-		/* ˆÚ“®æ‚Ìó‘Ô‚Ìæ“¾ */
+		/* ç§»å‹•å…ˆã®çŠ¶æ…‹ã®å–å¾— */
 		Integer nextNodeID = bottomLayeredAgent.exec(currentNodeID,
 		        goalNodeID);
-		/* æ“¾‚µ‚½ˆÚ“®æ‚Ìó‘Ô‚ğ‹t•ÏŠ· */
+		/* å–å¾—ã—ãŸç§»å‹•å…ˆã®çŠ¶æ…‹ã‚’é€†å¤‰æ› */
 		Vector nextState = getState(nextNodeID);
 
 //		System.out.println();
@@ -226,24 +226,24 @@ public class InterfaceAgent {
 
 
 	/**
-	 * ‚æ‚è’m‚ç‚È‚¢ó‘Ô‚ÖˆÚ“®‚·‚é‚½‚ß‚Ì’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Vector currentState Œ»İ‚Ìó‘Ô
-	 * @return Vector             Ÿ‚Ìó‘Ô
+	 * ã‚ˆã‚ŠçŸ¥ã‚‰ãªã„çŠ¶æ…‹ã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®ç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Vector currentState ç¾åœ¨ã®çŠ¶æ…‹
+	 * @return Vector             æ¬¡ã®çŠ¶æ…‹
 	 */ 
 	public Vector novelSearch(Vector currentState) {
 
-		/* ‰æ–Ê•\¦ */
+		/* ç”»é¢è¡¨ç¤º */
 //		System.out.println();
 //		System.out.println("[Interface Agent] novelSearch");
 //		System.out.println("  currentState " + currentState);
 
-		/* ó‘Ô‚Ì•ÏŠ· */
+		/* çŠ¶æ…‹ã®å¤‰æ› */
 		Integer currentNodeID = getID(currentState);
 
-		/* ˆÚ“®æ‚Ìó‘Ô‚Ìæ“¾ */
+		/* ç§»å‹•å…ˆã®çŠ¶æ…‹ã®å–å¾— */
 		Integer nextNodeID = bottomLayeredAgent.novelSearch(currentNodeID);
 
-		/* æ“¾‚µ‚½ˆÚ“®æ‚Ìó‘Ô‚ğ‹t•ÏŠ· */
+		/* å–å¾—ã—ãŸç§»å‹•å…ˆã®çŠ¶æ…‹ã‚’é€†å¤‰æ› */
 		Vector nextState = getState(nextNodeID);
 
 //		System.out.println();
@@ -255,7 +255,7 @@ public class InterfaceAgent {
 
 
 	/**
-	 * V‹K’Tõ‚ğs‚È‚¤‚½‚ß‚ÌƒJƒEƒ“ƒ^‚ğƒŠƒZƒbƒg‚µ‚Ü‚·B
+	 * æ–°è¦æ¢ç´¢ã‚’è¡Œãªã†ãŸã‚ã®ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒªã‚»ãƒƒãƒˆã—ã¾ã™ã€‚
 	 */
 	public void counterReset() {
 		bottomLayeredAgent.resetUpperAndThisLayerFamiliarCount();
@@ -263,53 +263,53 @@ public class InterfaceAgent {
 
 
 	/**
-	 * ŠwKƒf[ƒ^‚ğ“Ç‚İ‚İ‚Ü‚·B
-	 * ŠÂ‹«‚Ìó‘Ô‚©‚çCognitiveDistance—p‚Ìó‘Ô‚Ö•ÏŠ·—pA‹t•ÏŠ·—p‚ğs‚È‚¤
-	 * ƒe[ƒuƒ‹‚ğ“Ç‚İ‚İ‚Ü‚·B
+	 * å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿ã¾ã™ã€‚
+	 * ç’°å¢ƒã®çŠ¶æ…‹ã‹ã‚‰CognitiveDistanceç”¨ã®çŠ¶æ…‹ã¸å¤‰æ›ç”¨ã€é€†å¤‰æ›ç”¨ã‚’è¡Œãªã†
+	 * ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’èª­ã¿è¾¼ã¿ã¾ã™ã€‚
 	 * @param ObjectInputStream oInputStream
 	 */
 	public void load(ObjectInputStream oInputStream) throws IOException,
 	        ClassNotFoundException {
-		/* ó‘Ô‚©‚çID‚Ö‚Ì•ÏŠ·‚ğs‚È‚¤ƒe[ƒuƒ‹‚ğ“Ç‚İ‚İ */
+		/* çŠ¶æ…‹ã‹ã‚‰IDã¸ã®å¤‰æ›ã‚’è¡Œãªã†ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’èª­ã¿è¾¼ã¿ */
 		stateToId = (Hashtable)oInputStream.readObject();
-		/* ID‚©‚çó‘Ô‚Ö‚Ì•ÏŠ·‚ğs‚È‚¤ƒe[ƒuƒ‹‚ğ“Ç‚İ */
+		/* IDã‹ã‚‰çŠ¶æ…‹ã¸ã®å¤‰æ›ã‚’è¡Œãªã†ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’èª­è¾¼ã¿ */
 		idToState = (Vector)oInputStream.readObject();
-		/* —LŒø‚Èó‘Ô‚Ì—v‘f”‚ğ“Ç‚İ */
+		/* æœ‰åŠ¹ãªçŠ¶æ…‹ã®è¦ç´ æ•°ã‚’èª­è¾¼ã¿ */
 		elementNum = ((Integer)oInputStream.readObject()).intValue();
 	}
 
 
 	/**
-	 * ŠwKƒf[ƒ^‚ğ•Û‘¶‚µ‚Ü‚·B
-	 * ŠÂ‹«‚Ìó‘Ô‚©‚çCognitiveDistance—p‚Ìó‘Ô‚Ö•ÏŠ·—pA‹t•ÏŠ·—p‚ğs‚È‚¤
-	 * ƒe[ƒuƒ‹‚ğ•Û‘¶‚µ‚Ü‚·B
+	 * å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã—ã¾ã™ã€‚
+	 * ç’°å¢ƒã®çŠ¶æ…‹ã‹ã‚‰CognitiveDistanceç”¨ã®çŠ¶æ…‹ã¸å¤‰æ›ç”¨ã€é€†å¤‰æ›ç”¨ã‚’è¡Œãªã†
+	 * ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä¿å­˜ã—ã¾ã™ã€‚
 	 * @param ObjectOutputStream oOutputStream
 	 */
 	public void save(ObjectOutputStream oOutputStream) throws IOException  {
-		/* ó‘Ô‚©‚çID‚Ö‚Ì•ÏŠ·‚ğs‚È‚¤ƒe[ƒuƒ‹‚ğ•Û‘¶ */
+		/* çŠ¶æ…‹ã‹ã‚‰IDã¸ã®å¤‰æ›ã‚’è¡Œãªã†ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä¿å­˜ */
 		oOutputStream.writeObject(stateToId);
-		/* ID‚©‚çó‘Ô‚Ö‚Ì•ÏŠ·‚ğs‚È‚¤ƒe[ƒuƒ‹‚ğ•Û‘¶ */
+		/* IDã‹ã‚‰çŠ¶æ…‹ã¸ã®å¤‰æ›ã‚’è¡Œãªã†ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä¿å­˜ */
 		oOutputStream.writeObject(idToState);
-		/* —LŒø‚Èó‘Ô‚Ì—v‘f”‚ğ•Û‘¶ */
+		/* æœ‰åŠ¹ãªçŠ¶æ…‹ã®è¦ç´ æ•°ã‚’ä¿å­˜ */
 		oOutputStream.writeObject(new Integer(elementNum));
 	}
 
 	///////////////////////////////////////////////////////////////////
-	// ƒfƒoƒbƒN—p‚Ìî•ñ‚Ìæ“¾A“®ì‚Ì§Œä‚Ég—p‚·‚éƒƒ\ƒbƒh
+	// ãƒ‡ãƒãƒƒã‚¯ç”¨ã®æƒ…å ±ã®å–å¾—ã€å‹•ä½œã®åˆ¶å¾¡ã«ä½¿ç”¨ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 
 	/**
-	 * Še‘w‚ÌStateBuffer‚Éİ’è‚³‚ê‚Ä‚¢‚é—š—ğ‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * å„å±¤ã®StateBufferã«è¨­å®šã•ã‚Œã¦ã„ã‚‹å±¥æ­´ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void reset() {
 		bottomLayeredAgent.reset();
 	}
 
 	/**
-	 * ‘æˆêˆø”‚Åw’è‚³‚ê‚½ó‘Ô‚É‘Î‰‚·‚éA‘æ“ñˆø”‚Åw’è‚³‚ê‚½‘w‚Å‚Ìƒm[ƒh‚ğ
-	 * æ“¾‚µ‚Ü‚·B
-	 * @param Vector state ŠÂ‹«‚Å‚Ìó‘Ô
-	 * @param int layer    ƒm[ƒh‚ğæ“¾‚·‚éƒŒƒCƒ„
-	 * @return Node        ƒm[ƒh
+	 * ç¬¬ä¸€å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸçŠ¶æ…‹ã«å¯¾å¿œã™ã‚‹ã€ç¬¬äºŒå¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸå±¤ã§ã®ãƒãƒ¼ãƒ‰ã‚’
+	 * å–å¾—ã—ã¾ã™ã€‚
+	 * @param Vector state ç’°å¢ƒã§ã®çŠ¶æ…‹
+	 * @param int layer    ãƒãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹ãƒ¬ã‚¤ãƒ¤
+	 * @return Node        ãƒãƒ¼ãƒ‰
 	 */
 	public Node getNode(Vector state, int layer) {
 		Integer id = getID(state);
@@ -317,27 +317,27 @@ public class InterfaceAgent {
 	}
 
 	/**
-	 * ID‚©‚çó‘Ô‚Ö‹t•ÏŠ·‚ğs‚È‚¤Vector‚Ìƒe[ƒuƒ‹‚ğæ“¾‚µ‚Ü‚·B
-	 * @return Vector ID‚©‚çó‘Ô‚Ö‹t•ÏŠ·‚ğs‚È‚¤ƒe[ƒuƒ‹
+	 * IDã‹ã‚‰çŠ¶æ…‹ã¸é€†å¤‰æ›ã‚’è¡Œãªã†Vectorã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return Vector IDã‹ã‚‰çŠ¶æ…‹ã¸é€†å¤‰æ›ã‚’è¡Œãªã†ãƒ†ãƒ¼ãƒ–ãƒ«
 	 */
 	public Vector getIdToState() {
 		return idToState;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// 2001.03 ’Ç‰Á‹@”\ 
+	// 2001.03 è¿½åŠ æ©Ÿèƒ½ 
 
 	/**
-	 * ƒe[ƒuƒ‹‚É“o˜^Ï‚İ‚Ìó‘Ô‚©‚çAˆø”‚Åİ’è‚³‚ê‚½ó‘Ô‚Ì—LŒø‚È—v‘f‚ª“¯‚¶
-	 * ó‘Ô‚ğæ“¾‚µ‚Ü‚·B 
+	 * ãƒ†ãƒ¼ãƒ–ãƒ«ã«ç™»éŒ²æ¸ˆã¿ã®çŠ¶æ…‹ã‹ã‚‰ã€å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸçŠ¶æ…‹ã®æœ‰åŠ¹ãªè¦ç´ ãŒåŒã˜
+	 * çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚ 
 	 * @param Vector a    
-	 * @return Vector   —LŒø‚È—v‘f‚ÌˆÊ’u‚Ì’l‚ª“¯‚¶ó‘Ô
+	 * @return Vector   æœ‰åŠ¹ãªè¦ç´ ã®ä½ç½®ã®å€¤ãŒåŒã˜çŠ¶æ…‹
 	 */
 	private Vector getSameStates(Vector a) {
-		/* ƒe[ƒuƒ‹“à‚Ì‘S‚Ä‚Ìó‘Ô‚É‚Â‚¢‚Äƒ`ƒFƒbƒN */
+		/* ãƒ†ãƒ¼ãƒ–ãƒ«å†…ã®å…¨ã¦ã®çŠ¶æ…‹ã«ã¤ã„ã¦ãƒã‚§ãƒƒã‚¯ */
 		for(int i = 0; i < idToState.size(); i++) {
-			/* —LŒø‚È—v‘f‚Ì’l‚ª“¯‚¶‚È‚ç‚ÎAƒŠƒXƒg‚É’Ç‰Á */
-			// 2001.05.24 C³ miyamoto ŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚ÌJava‚É‘Î‰
+			/* æœ‰åŠ¹ãªè¦ç´ ã®å€¤ãŒåŒã˜ãªã‚‰ã°ã€ãƒªã‚¹ãƒˆã«è¿½åŠ  */
+			// 2001.05.24 ä¿®æ­£ miyamoto å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®Javaã«å¯¾å¿œ
 //			if( checkValidElement(a, (Vector)idToState.get(i)) ) {
 //				return (Vector)idToState.get(i);
 			if( checkValidElement(a, (Vector)idToState.elementAt(i)) ) {
@@ -348,24 +348,24 @@ public class InterfaceAgent {
 	}
 
 	/**
-	 * ˆê”Ô–Ú‚Ìˆø”‚Ì—LŒø‚È—v‘f‚ªA“ñ”Ô–Ú‚Ìˆø”‚Ì“¯‚¶ˆÊ’u‚Ì—v‘f‚Æ“¯‚¶‚©
-	 * ‚Ç‚¤‚©ƒ`ƒFƒbƒN‚µ‚Ü‚·B
+	 * ä¸€ç•ªç›®ã®å¼•æ•°ã®æœ‰åŠ¹ãªè¦ç´ ãŒã€äºŒç•ªç›®ã®å¼•æ•°ã®åŒã˜ä½ç½®ã®è¦ç´ ã¨åŒã˜ã‹
+	 * ã©ã†ã‹ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
 	 * @param Vector a
 	 * @param Vector b
-	 * @return boolean  —LŒø‚È—v‘f‚Ì’l‚ª“¯‚¶ê‡‚Ítrue
-	 *                  ˆÙ‚È‚é—v‘f‚ª‚ ‚éê‡‚Ífalse
+	 * @return boolean  æœ‰åŠ¹ãªè¦ç´ ã®å€¤ãŒåŒã˜å ´åˆã¯true
+	 *                  ç•°ãªã‚‹è¦ç´ ãŒã‚ã‚‹å ´åˆã¯false
 	 */
 	private boolean checkValidElement(Vector a, Vector b) {
-		// 2001.05.29 ’Ç‰Á “¯‚¶‚Æ‚·‚éğŒ‚ÉƒTƒCƒY‚ª“¯‚¶‚±‚Æ‚ğ’Ç‰Á
+		// 2001.05.29 è¿½åŠ  åŒã˜ã¨ã™ã‚‹æ¡ä»¶ã«ã‚µã‚¤ã‚ºãŒåŒã˜ã“ã¨ã‚’è¿½åŠ 
 		if( a.size() != b.size() ) {
 			return false;
 		}
-		// ‚±‚±‚Ü‚Å
+		// ã“ã“ã¾ã§
 
-		/* ‘S—v‘f‚ğƒ`ƒFƒbƒN */
+		/* å…¨è¦ç´ ã‚’ãƒã‚§ãƒƒã‚¯ */
 		for(int i = 0; i < a.size(); i++) {
-			/* —v‘f‚ª—LŒø‚Èê‡‚ÍA‚»‚ÌˆÊ’u‚Ì—v‘f‚ª“¯‚¶‚©ƒ`ƒFƒbƒN */
-			// 2001.05.24 C³ miyamoto ŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚ÌJava‚É‘Î‰
+			/* è¦ç´ ãŒæœ‰åŠ¹ãªå ´åˆã¯ã€ãã®ä½ç½®ã®è¦ç´ ãŒåŒã˜ã‹ãƒã‚§ãƒƒã‚¯ */
+			// 2001.05.24 ä¿®æ­£ miyamoto å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®Javaã«å¯¾å¿œ
 //			if(a.get(i) != null) {
 //				if(!a.get(i).equals(b.get(i))) {
 			if(a.elementAt(i) != null) {
@@ -378,9 +378,9 @@ public class InterfaceAgent {
 	}
 
 
-	// 2001.05.29 ’Ç‰Á miyamoto
+	// 2001.05.29 è¿½åŠ  miyamoto
 	/**
-	 * ˆø”‚ÌVector‚Ì—v‘f”‚ª—LŒø‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN‚µ‚Ü‚·B
+	 * å¼•æ•°ã®Vectorã®è¦ç´ æ•°ãŒæœ‰åŠ¹ã‹ã©ã†ã‹ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
 	 * @Vector v
 	 */
 	private boolean isSameSize(Vector v) {
@@ -391,9 +391,9 @@ public class InterfaceAgent {
 	}
 
 	/**
-	 * ˆø”‚ÌVector‚Ì—v‘f‚Énull‚Ì—v‘f‚ª‚È‚¢‚©ƒ`ƒFƒbƒN‚µ‚Ü‚·B
+	 * å¼•æ•°ã®Vectorã®è¦ç´ ã«nullã®è¦ç´ ãŒãªã„ã‹ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
 	 * @param Vector v 
-	 * @return boolean  true:null‚Ì—v‘f‚È‚µ   false:null‚Ì—v‘f‚ ‚è
+	 * @return boolean  true:nullã®è¦ç´ ãªã—   false:nullã®è¦ç´ ã‚ã‚Š
 	 */
 	private boolean checkNullElement(Vector v) {
 		for(int i = 0; i < v.size(); i++) {
@@ -404,15 +404,15 @@ public class InterfaceAgent {
 		return true;
 	}
 
-	// 2001.08.14 ’Ç‰Á miyamoto
+	// 2001.08.14 è¿½åŠ  miyamoto
 	/**
-	 * ƒe[ƒuƒ‹‚É“o˜^Ï‚İ‚Ìó‘Ô‚©‚çAˆø”‚Åİ’è‚³‚ê‚½ó‘Ô‚Ì—LŒø‚È—v‘f‚ª“¯‚¶
-	 * ó‘Ô‚ğæ“¾‚µ‚Ü‚·B 
+	 * ãƒ†ãƒ¼ãƒ–ãƒ«ã«ç™»éŒ²æ¸ˆã¿ã®çŠ¶æ…‹ã‹ã‚‰ã€å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸçŠ¶æ…‹ã®æœ‰åŠ¹ãªè¦ç´ ãŒåŒã˜
+	 * çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚ 
 	 * @param Vector a    
-	 * @return Vector   —LŒø‚È—v‘f‚ÌˆÊ’u‚Ì’l‚ª“¯‚¶ó‘Ô
+	 * @return Vector   æœ‰åŠ¹ãªè¦ç´ ã®ä½ç½®ã®å€¤ãŒåŒã˜çŠ¶æ…‹
 	 */
 	private Vector getSameStates(Vector a, Vector b) {
-		/* ƒe[ƒuƒ‹“à‚Ì‘S‚Ä‚Ìó‘Ô‚É‚Â‚¢‚Äƒ`ƒFƒbƒN */
+		/* ãƒ†ãƒ¼ãƒ–ãƒ«å†…ã®å…¨ã¦ã®çŠ¶æ…‹ã«ã¤ã„ã¦ãƒã‚§ãƒƒã‚¯ */
 //		for(int i = 0; i < idToState.size(); i++) {
 //			Vector element = (Vector)idToState.elementAt(i);
 //			if( checkValidElement(b, element) ) {
@@ -421,7 +421,7 @@ public class InterfaceAgent {
 //				}
 //			}
 //		}
-		// 2001.09.04 C³ miyamoto
+		// 2001.09.04 ä¿®æ­£ miyamoto
 		ListIterator li = idToState.listIterator();
 		while(li.hasNext()) {
 			Vector element = (Vector)li.next();
@@ -439,13 +439,13 @@ public class InterfaceAgent {
 	}
 
 	/**
-	 * ‘æˆêˆø”‚Ìó‘Ô‚©‚ç‘æ“ñˆø”‚Ìó‘Ô‚Ö‚Ì“’B‰Â”\«‚ğ’²‚×‚Ü‚·B
+	 * ç¬¬ä¸€å¼•æ•°ã®çŠ¶æ…‹ã‹ã‚‰ç¬¬äºŒå¼•æ•°ã®çŠ¶æ…‹ã¸ã®åˆ°é”å¯èƒ½æ€§ã‚’èª¿ã¹ã¾ã™ã€‚
 	 * @param Vector a
 	 * @param Vector b
-	 * @return boolean true “’B‰Â”\ false “’B•s‰Â”\
+	 * @return boolean true åˆ°é”å¯èƒ½ false åˆ°é”ä¸å¯èƒ½
 	 */
 	public boolean isReach(Vector a, Vector b) {
-		/* ó‘Ô‚Ì•ÏŠ· */
+		/* çŠ¶æ…‹ã®å¤‰æ› */
 		Integer aID = getID(a);
 		Integer bID = getID(b);
 		boolean isReach = bottomLayeredAgent.isReach(aID,bID);
@@ -453,7 +453,7 @@ public class InterfaceAgent {
 	} 
 
 	/**
-	 * Še‘w‚²‚Æ‚É•Û‚µ‚Ä‚¢‚éˆÈ‘O‚ÌƒTƒCƒNƒ‹‚Ìî•ñ‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * å„å±¤ã”ã¨ã«ä¿æŒã—ã¦ã„ã‚‹ä»¥å‰ã®ã‚µã‚¤ã‚¯ãƒ«ã®æƒ…å ±ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void resetOldValue() {
 		bottomLayeredAgent.resetOldValue();

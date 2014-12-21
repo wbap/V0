@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * FailAgentTreeElement.java
- * FailAgentTree‚Åˆµ‚¤î•ñ‚Ì’PˆÊ
+ * FailAgentTreeã§æ‰±ã†æƒ…å ±ã®å˜ä½
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.08
  */
@@ -9,42 +9,42 @@ package wba.citta.gsa;
 import java.util.*;
 
 /**
- * FailAgentTree‚Åˆµ‚¤î•ñ‚Ì’PˆÊ<BR>
- * ƒcƒŠ[‚Ìƒm[ƒh<BR>
+ * FailAgentTreeã§æ‰±ã†æƒ…å ±ã®å˜ä½<BR>
+ * ãƒ„ãƒªãƒ¼ã®ãƒãƒ¼ãƒ‰<BR>
  */
 public class FailAgentTreeElement {
 
 	/**
-	 * e‚Ìƒm[ƒh(FailAgentTreeElement)
+	 * è¦ªã®ãƒãƒ¼ãƒ‰(FailAgentTreeElement)
 	 */
 	public final FailAgentTreeElement parentElement;
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgID
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
 	 */
 	public final int agid;
 
 	/**
-	 * ƒS[ƒ‹‚Ì’l
+	 * ã‚´ãƒ¼ãƒ«ã®å€¤
 	 */
 	public final Vector goal;
 
 	/**
-	 * Àsˆ—‚ÌŒ‹‰Ê
+	 * å®Ÿè¡Œå‡¦ç†ã®çµæœ
 	 */
 	public final int agr;
 
 	/**
-	 * q‚Ìƒm[ƒh(FailAgentTreeElement)‚ÌƒŠƒXƒg
+	 * å­ã®ãƒãƒ¼ãƒ‰(FailAgentTreeElement)ã®ãƒªã‚¹ãƒˆ
 	 */
 	public final LinkedList next;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param FailAgentTreeElement parentElement eƒm[ƒh‚Ö‚ÌQÆ
-	 * @param int agid ƒG[ƒWƒFƒ“ƒgID
-	 * @param Vector goal ƒS[ƒ‹
-	 * @param int agr Àsˆ—‚ÌŒ‹‰Ê‚ğ•\‚·ID
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param FailAgentTreeElement parentElement è¦ªãƒãƒ¼ãƒ‰ã¸ã®å‚ç…§
+	 * @param int agid ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
+	 * @param Vector goal ã‚´ãƒ¼ãƒ«
+	 * @param int agr å®Ÿè¡Œå‡¦ç†ã®çµæœã‚’è¡¨ã™ID
 	 */
 	public FailAgentTreeElement(FailAgentTreeElement parentElement, int agid,
 	        Vector goal, int agr) {
@@ -56,34 +56,34 @@ public class FailAgentTreeElement {
 	}
 
 	/**
-	 * ˆø”‚ÌFailAgentTreeElement‚ğqƒm[ƒh‚ÌƒŠƒXƒg‚É’Ç‰Á‚µ‚Ü‚·B
-	 * @param FailAgentTreeElement nextElement q‚Æ‚È‚éƒm[ƒh
+	 * å¼•æ•°ã®FailAgentTreeElementã‚’å­ãƒãƒ¼ãƒ‰ã®ãƒªã‚¹ãƒˆã«è¿½åŠ ã—ã¾ã™ã€‚
+	 * @param FailAgentTreeElement nextElement å­ã¨ãªã‚‹ãƒãƒ¼ãƒ‰
 	 */
 	public void addNext(FailAgentTreeElement nextElement) {
 		next.add(nextElement);
 	}
 
 	/**
-	 * qƒm[ƒh‚ÌƒŠƒXƒg‚©‚çˆø”‚ÌFailAgentTreeElement‚ğíœ‚µ‚Ü‚·B
-	 * @param FailAgentTreeElement nextElement íœ‚·‚éƒm[ƒh
+	 * å­ãƒãƒ¼ãƒ‰ã®ãƒªã‚¹ãƒˆã‹ã‚‰å¼•æ•°ã®FailAgentTreeElementã‚’å‰Šé™¤ã—ã¾ã™ã€‚
+	 * @param FailAgentTreeElement nextElement å‰Šé™¤ã™ã‚‹ãƒãƒ¼ãƒ‰
 	 */
 	public void removeNext(FailAgentTreeElement nextElement) {
 		next.remove(nextElement);
 	}
 
 	/**
-	 * q‚ğ‘S‚Äíœ‚µ‚Ü‚·B
+	 * å­ã‚’å…¨ã¦å‰Šé™¤ã—ã¾ã™ã€‚
 	 */
 	public void removeNextAll() {
 		next.clear();
 	}
 
 	/**
-	 * qƒm[ƒh‚ÌƒŠƒXƒg‚©‚çAˆø”‚Åw’è‚³‚ê‚½ƒG[ƒWƒFƒ“ƒgID‚ğ‚à‚Âƒm[ƒh‚Ì
-	 * agr‚ğæ“¾‚µ‚Ü‚·B<BR>
-	 * ˆø”‚Åw’è‚³‚ê‚½ƒG[ƒWƒFƒ“ƒg‚Ìİ’è‚µ‚½ƒm[ƒh‚ª‚È‚¯‚ê‚Î-1‚ğ•Ô‚µ‚Ü‚·B<BR>
-	 * @param int agid ƒG[ƒWƒFƒ“ƒg‚ÌID
-	 * @return int Àsˆ—Œ‹‰Ê‚ğ•\‚·ID
+	 * å­ãƒãƒ¼ãƒ‰ã®ãƒªã‚¹ãƒˆã‹ã‚‰ã€å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã‚’ã‚‚ã¤ãƒãƒ¼ãƒ‰ã®
+	 * agrã‚’å–å¾—ã—ã¾ã™ã€‚<BR>
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®è¨­å®šã—ãŸãƒãƒ¼ãƒ‰ãŒãªã‘ã‚Œã°-1ã‚’è¿”ã—ã¾ã™ã€‚<BR>
+	 * @param int agid ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ID
+	 * @return int å®Ÿè¡Œå‡¦ç†çµæœã‚’è¡¨ã™ID
 	 */
 	public int getChildAgr(int agid) {
 		ListIterator li = next.listIterator();
@@ -98,7 +98,7 @@ public class FailAgentTreeElement {
 
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚Ì•¶š—ñî•ñ‚ğæ“¾‚µ‚Ü‚·B
+	 * ã“ã®ãƒãƒ¼ãƒ‰ã®æ–‡å­—åˆ—æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @return String 
 	 */
 	public String toString() {

@@ -1,7 +1,7 @@
-/**
+ï»¿/**
  * LogOutAgent.java
- * ƒG[ƒWƒFƒ“ƒg‚ÌÀsˆ—‚Åo—Í‚³‚ê‚éƒTƒuƒS[ƒ‹‚ğAƒƒO‚Æ‚µ‚Äƒtƒ@ƒCƒ‹‚É•Û‘¶‚·‚é
- * ˆ—‚ğ’Ç‰Á‚µ‚½Agent
+ * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å®Ÿè¡Œå‡¦ç†ã§å‡ºåŠ›ã•ã‚Œã‚‹ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’ã€ãƒ­ã‚°ã¨ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã™ã‚‹
+ * å‡¦ç†ã‚’è¿½åŠ ã—ãŸAgent
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.10
  */
@@ -11,8 +11,8 @@ import java.io.*;
 import java.util.*;
 
 /**
- * ƒG[ƒWƒFƒ“ƒg‚ÌÀsˆ—‚Åo—Í‚³‚ê‚éƒTƒuƒS[ƒ‹‚ğAƒƒO‚Æ‚µ‚Äƒtƒ@ƒCƒ‹‚É•Û‘¶‚·‚é
- * ˆ—‚ğ’Ç‰Á‚µ‚½Agent
+ * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å®Ÿè¡Œå‡¦ç†ã§å‡ºåŠ›ã•ã‚Œã‚‹ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’ã€ãƒ­ã‚°ã¨ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã™ã‚‹
+ * å‡¦ç†ã‚’è¿½åŠ ã—ãŸAgent
  */
 public abstract class LogOutAgent extends Agent {
 
@@ -23,10 +23,10 @@ public abstract class LogOutAgent extends Agent {
 
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int agid  ƒG[ƒWƒFƒ“ƒgID
-	 * @param boolean[] useNode  ƒm[ƒh‚Ìg—pA•sg—p‚ğİ’è‚µ‚½”z—ñ
-	 * @param SharedMemory sharedMemory  stateEgoal‚ğŠÇ—‚·‚é‹¤—Lƒƒ‚ƒŠ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int agid  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
+	 * @param boolean[] useNode  ãƒãƒ¼ãƒ‰ã®ä½¿ç”¨ã€ä¸ä½¿ç”¨ã‚’è¨­å®šã—ãŸé…åˆ—
+	 * @param SharedMemory sharedMemory  stateãƒ»goalã‚’ç®¡ç†ã™ã‚‹å…±æœ‰ãƒ¡ãƒ¢ãƒª
 	 */
 	public LogOutAgent(int agid, boolean[] useNode,
 	         SharedMemory sharedMemory) {
@@ -35,16 +35,16 @@ public abstract class LogOutAgent extends Agent {
 	}
 
 	/**
-	 * ƒƒOƒtƒ@ƒCƒ‹‚Ì‰Šú‰»
-	 * ˆø”‚Åw’è‚³‚ê‚½ƒtƒ@ƒCƒ‹–¼‚ÅAƒƒOƒtƒ@ƒCƒ‹‚ğ¶¬‚µ‚Ü‚·B
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã®åˆæœŸåŒ–
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«åã§ã€ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç”Ÿæˆã—ã¾ã™ã€‚
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	private void initLogFile(String fileName) {
 
 		String logFileName = LOG_FILE_NAME + fileName;
 
 		try {
-			/* ƒXƒgƒŠ[ƒ€‚Ìì¬ */
+			/* ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®ä½œæˆ */
 			fileOutputStream = new FileOutputStream(logFileName, false);
 			objectOutputStream = new ObjectOutputStream(fileOutputStream);
 		}catch(Exception e) {
@@ -60,8 +60,8 @@ public abstract class LogOutAgent extends Agent {
 	// public
 
 	/**
-	 * AgentƒNƒ‰ƒX‚Ìexec‚ğƒI[ƒo[ƒ‰ƒCƒh‚µAƒTƒuƒS[ƒ‹‚ğƒƒO‚Æ‚µ‚Äƒtƒ@ƒCƒ‹o—Í
-	 * ‚·‚éˆ—‚ğ’Ç‰ÁB<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã®execã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã€ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’ãƒ­ã‚°ã¨ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«å‡ºåŠ›
+	 * ã™ã‚‹å‡¦ç†ã‚’è¿½åŠ ã€‚<BR>
 	 * @param Vector state
 	 * @param Vector goalElementArray
 	 * @return subgoal

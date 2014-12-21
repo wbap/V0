@@ -1,5 +1,5 @@
-/**
- * ŠÂ‹«‚Ì•`‰æA‘€ì‚ğs‚È‚¤ƒNƒ‰ƒX
+ï»¿/**
+ * ç’°å¢ƒã®æç”»ã€æ“ä½œã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹
  * EnvironmentPanel.java
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2001.05 BSC miyamoto
@@ -10,30 +10,30 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * ŠÂ‹«‚Ì•`‰æA‘€ì‚ğs‚È‚¤ƒNƒ‰ƒX‚Å‚·B
+ * ç’°å¢ƒã®æç”»ã€æ“ä½œã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  */
 public class EnvironmentPanel extends Panel {
 
-	/* ŠÂ‹«‚Ì•`‰æ‚ğs‚È‚¤ƒNƒ‰ƒX */
+	/* ç’°å¢ƒã®æç”»ã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹ */
 	private EnvironmentCanvas canvas;
 
-	/* ’n}î•ñ‚©‚çs“®‚ğŠÇ—‚·‚éƒNƒ‰ƒX */
+	/* åœ°å›³æƒ…å ±ã‹ã‚‰è¡Œå‹•ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ */
 	private ActionController actionController;
 
-	/* ’n}î•ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX */
+	/* åœ°å›³æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ */
 	private MapController mapController;
 
-	/* ƒƒ{ƒbƒg‚ÌˆÊ’u */
+	/* ãƒ­ãƒœãƒƒãƒˆã®ä½ç½® */
 	private int[] robotState;
 
-	/* ’n}‚É‘Î‰‚µ‚½•ñV‚Ìƒe[ƒuƒ‹ */
+	/* åœ°å›³ã«å¯¾å¿œã—ãŸå ±é…¬ã®ãƒ†ãƒ¼ãƒ–ãƒ« */
 	private String[][] rewardMap;
 
 	String[][] colorMap = null;
 
-	/* ƒJƒM‚ğ•Û‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚© */
+	/* ã‚«ã‚®ã‚’ä¿æŒã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ */
 //	private boolean key = false;
-	/* ‚¿•¨ */
+	/* æŒã¡ç‰© */
 	public final int NOTHING = 0;
 	public final int KEY = 1;
 	public final int TELEPHON = 2;
@@ -43,108 +43,108 @@ public final int a = 5;
 public final int b = 6;
 
 
-	/* ŠÂ‹«‚Ì•`‰æ‚ğs‚È‚¤ƒtƒ‰ƒO */
+	/* ç’°å¢ƒã®æç”»ã‚’è¡Œãªã†ãƒ•ãƒ©ã‚° */
 	private boolean isShow = true;
 
-	/* ƒNƒŠƒbƒN‚Éİ’è‚·‚éó‹µ ""=‹ó”’ "W"=•Ç "O"=•ñV "n"=İ’è‚µ‚È‚¢ */
+	/* ã‚¯ãƒªãƒƒã‚¯æ™‚ã«è¨­å®šã™ã‚‹çŠ¶æ³ ""=ç©ºç™½ "W"=å£ "O"=å ±é…¬ "n"=è¨­å®šã—ãªã„ */
 	private String renewValue = "n";
 
-	/* ƒS[ƒ‹‚ğ•¡”İ’è‰Â”\‚É‚·‚é‚© */
+	/* ã‚´ãƒ¼ãƒ«ã‚’è¤‡æ•°è¨­å®šå¯èƒ½ã«ã™ã‚‹ã‹ */
 	private boolean flagGoals;
 
 	///////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param String fileName Mapƒtƒ@ƒCƒ‹–¼
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param String fileName Mapãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public EnvironmentPanel(String fileName) {
-		/* •ñV‚Ì•\¦‚ ‚èAƒS[ƒ‹‚Í1‚Â‚Ì‚İ */
+		/* å ±é…¬ã®è¡¨ç¤ºã‚ã‚Šã€ã‚´ãƒ¼ãƒ«ã¯1ã¤ã®ã¿ */
 		this(fileName, true, false);
 	}
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^ •ñV‚Ì•\¦‚É‚Â‚¢‚Ä‚Ìİ’è‰Â
-	 * @param String fileName Mapƒtƒ@ƒCƒ‹–¼
-	 * @param boolean isShowReward •ñV‚ğ•\¦‚·‚é‚©‚Ç‚¤‚©
-	 * @param boolean flagGoals    ƒS[ƒ‹‚ğ•¡”İ’è‰Â”\‚É‚·‚é‚©
-	 *                             true:•¡”‰Â”\  false:•¡”•s‰Â ˆÈ‘O‚Ì‚ğíœ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ å ±é…¬ã®è¡¨ç¤ºã«ã¤ã„ã¦ã®è¨­å®šå¯
+	 * @param String fileName Mapãƒ•ã‚¡ã‚¤ãƒ«å
+	 * @param boolean isShowReward å ±é…¬ã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹
+	 * @param boolean flagGoals    ã‚´ãƒ¼ãƒ«ã‚’è¤‡æ•°è¨­å®šå¯èƒ½ã«ã™ã‚‹ã‹
+	 *                             true:è¤‡æ•°å¯èƒ½  false:è¤‡æ•°ä¸å¯ ä»¥å‰ã®ã‚’å‰Šé™¤
 	 */
 	public EnvironmentPanel(String fileName, boolean isShowReward,
 	        boolean flagGoals) {
-		/* ’n}‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ì¶¬ */
+		/* åœ°å›³ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã®ç”Ÿæˆ */
 		mapController = new MapController(fileName);
 
-		/* ’n}î•ñ‚©‚çs“®‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ì¶¬ */
+		/* åœ°å›³æƒ…å ±ã‹ã‚‰è¡Œå‹•ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã®ç”Ÿæˆ */
 		actionController = new ActionController(mapController.getMap());
 
 //		robotState = new int[2];
 		robotState = new int[3];
 		this.flagGoals = flagGoals;
 
-		/* ƒƒ{ƒbƒg‚ÌˆÊ’u‰Šú‰» */
+		/* ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®åˆæœŸåŒ– */
 		initRobotPos();
 
-		/* •`‰æ•”•ª‚Ì‰Šú‰» */
+		/* æç”»éƒ¨åˆ†ã®åˆæœŸåŒ– */
 		initCanvas(isShowReward);
 
 	}
 
 	public EnvironmentPanel(String mapFileName, String colorMapFileName,
 	        boolean isShowReward, boolean flagGoals) {
-		/* ’n}‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ì¶¬ */
+		/* åœ°å›³ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã®ç”Ÿæˆ */
 		mapController = new MapController(mapFileName);
 
 		MapFileToArray mapFileToArray = new MapFileToArray(colorMapFileName);
 		colorMap = mapFileToArray.getFileArray();
 
-		/* ’n}î•ñ‚©‚çs“®‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ì¶¬ */
+		/* åœ°å›³æƒ…å ±ã‹ã‚‰è¡Œå‹•ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã®ç”Ÿæˆ */
 		actionController = new ActionController(mapController.getMap());
 
 //		robotState = new int[2];
 		robotState = new int[3];
 		this.flagGoals = flagGoals;
 
-		/* ƒƒ{ƒbƒg‚ÌˆÊ’u‰Šú‰» */
+		/* ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®åˆæœŸåŒ– */
 		initRobotPos();
 
-		/* •`‰æ•”•ª‚Ì‰Šú‰» */
+		/* æç”»éƒ¨åˆ†ã®åˆæœŸåŒ– */
 		initCanvas(isShowReward);
 	}
 
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^ •ñV‚Ì•\¦‚É‚Â‚¢‚Ä‚Ìİ’è‰Â
-	 * @param String[][] String‚Ì”z—ñ‚Å‚Ì’n}î•ñ
-	 * @param boolean isShowReward •ñV‚ğ•\¦‚·‚é‚©‚Ç‚¤‚©
-	 * @param boolean flagGoals    ƒS[ƒ‹‚ğ•¡”İ’è‰Â”\‚É‚·‚é‚©
-	 *                             true:•¡”‰Â”\  false:•¡”•s‰Â ˆÈ‘O‚Ì‚ğíœ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ å ±é…¬ã®è¡¨ç¤ºã«ã¤ã„ã¦ã®è¨­å®šå¯
+	 * @param String[][] Stringã®é…åˆ—ã§ã®åœ°å›³æƒ…å ±
+	 * @param boolean isShowReward å ±é…¬ã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹
+	 * @param boolean flagGoals    ã‚´ãƒ¼ãƒ«ã‚’è¤‡æ•°è¨­å®šå¯èƒ½ã«ã™ã‚‹ã‹
+	 *                             true:è¤‡æ•°å¯èƒ½  false:è¤‡æ•°ä¸å¯ ä»¥å‰ã®ã‚’å‰Šé™¤
 	 */
 	public EnvironmentPanel(String[][] map, boolean isShowReward,
 	        boolean flagGoals) {
-		/* ’n}‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ì¶¬ */
+		/* åœ°å›³ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã®ç”Ÿæˆ */
 		mapController = new MapController(map);
 
-		/* ’n}î•ñ‚©‚çs“®‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ì¶¬ */
+		/* åœ°å›³æƒ…å ±ã‹ã‚‰è¡Œå‹•ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã®ç”Ÿæˆ */
 		actionController = new ActionController(mapController.getMap());
 
 //		robotState = new int[2];
 		robotState = new int[3];
 		this.flagGoals = flagGoals;
 
-		/* ƒƒ{ƒbƒg‚ÌˆÊ’u‰Šú‰» */
+		/* ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®åˆæœŸåŒ– */
 		initRobotPos();
 
-		/* •`‰æ•”•ª‚Ì‰Šú‰» */
+		/* æç”»éƒ¨åˆ†ã®åˆæœŸåŒ– */
 		initCanvas(isShowReward);
 	}
 
 	////////////////////////////////////////////////////////////
-	// ‰Šú‰»ˆ—
+	// åˆæœŸåŒ–å‡¦ç†
 
 	/**
-	 * ƒƒ{ƒbƒg‚ÌˆÊ’u‚Ì‰Šú‰»
+	 * ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®ã®åˆæœŸåŒ–
 	 */
 	public void initRobotPos() {
 		int[] pos = mapController.getPos("S");
@@ -153,17 +153,17 @@ public final int b = 6;
 	}
 
 	/**
-	 * •`‰æˆ—•”•ª‚Ì‰Šú‰»
-	 * @param boolean •ñV‚Ì•\¦‚ğs‚È‚¤‚©‚Ç‚¤‚©
+	 * æç”»å‡¦ç†éƒ¨åˆ†ã®åˆæœŸåŒ–
+	 * @param boolean å ±é…¬ã®è¡¨ç¤ºã‚’è¡Œãªã†ã‹ã©ã†ã‹
 	 */
 	private void initCanvas(boolean b) {
 		canvas = new EnvironmentCanvas();
 		canvas.addMouseListener(new CanvasMouseAdapter());
-		/* •ñV‚Ì•\¦‚ğs‚È‚¤ê‡‚Í•ñV—p‚Ìƒe[ƒuƒ‹‚ğ‰Šú‰» */
+		/* å ±é…¬ã®è¡¨ç¤ºã‚’è¡Œãªã†å ´åˆã¯å ±é…¬ç”¨ã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’åˆæœŸåŒ– */
 		if(b) {
 			int[] size = mapController.getSize();
 			rewardMap = new String[size[0]][size[1]];
-			/* •ñV‚ÌXV */
+			/* å ±é…¬ã®æ›´æ–° */
 			renewReward();
 		}
 //		canvas.initCanvas(mapController.getMap(), robotState, rewardMap);
@@ -177,28 +177,28 @@ public final int b = 6;
 	// public
 
 	/**
-	 * ƒƒ{ƒbƒg‚ğw’è‚³‚ê‚½•ûŒü‚ÖˆÚ“®‚µ‚Ü‚·B
-	 * @param int action  ˆÚ“®•ûŒü ‚O`‚V‚Åİ’è
-	 * @return boolean    true=ˆÚ“®¬Œ÷ false=ˆÚ“®¸”s
+	 * ãƒ­ãƒœãƒƒãƒˆã‚’æŒ‡å®šã•ã‚ŒãŸæ–¹å‘ã¸ç§»å‹•ã—ã¾ã™ã€‚
+	 * @param int action  ç§»å‹•æ–¹å‘ ï¼ã€œï¼—ã§è¨­å®š
+	 * @return boolean    true=ç§»å‹•æˆåŠŸ false=ç§»å‹•å¤±æ•—
 	 */
 	public boolean run(int action) {
 
 		int[] newState = actionController.move(robotState[0], robotState[1],
 		        action);
 
-		/* ÀÛ‚ÉˆÚ“®‚Å‚«‚½‚©ƒ`ƒFƒbƒN‚µ ˆÚ“®‚µ‚Ä‚¢‚ê‚Îó‘Ô‚ğ•Ï‰» */
+		/* å®Ÿéš›ã«ç§»å‹•ã§ããŸã‹ãƒã‚§ãƒƒã‚¯ã— ç§»å‹•ã—ã¦ã„ã‚Œã°çŠ¶æ…‹ã‚’å¤‰åŒ– */
 		boolean isMove = true;
 		if( (robotState[0] == newState[0]) && (robotState[1]==newState[1]) ) {
 			isMove = false;
 		}else{
 			robotState[0] = newState[0];
 			robotState[1] = newState[1];
-			/* ƒJƒM‚ÌˆÊ’u‚©ƒ`ƒFƒbƒN */
+			/* ã‚«ã‚®ã®ä½ç½®ã‹ãƒã‚§ãƒƒã‚¯ */
 //			checkKey(robotState[0], robotState[1]);
-			// 2001.08.08 C³ miyamoto
+			// 2001.08.08 ä¿®æ­£ miyamoto
 			checkItem(robotState[0], robotState[1]);
 
-			/* ƒtƒ‰ƒO‚É‚æ‚è•`‰æˆ—‚ğs‚È‚¤ */
+			/* ãƒ•ãƒ©ã‚°ã«ã‚ˆã‚Šæç”»å‡¦ç†ã‚’è¡Œãªã† */
 			if(isShow) {
 				canvas.repaint();
 			}
@@ -208,13 +208,13 @@ public final int b = 6;
 
 
 	/**
-	 * ƒƒ{ƒbƒg‚ğw’è‚³‚ê‚½•ûŒü‚ÖˆÚ“®‚µ‚Ü‚·B
-	 * @param int[] xy    ˆÚ“®æ‚ÌÀ•W
-	 * @param int action  ˆÚ“®•ûŒü ‚O`‚V‚Åİ’è
-	 * @return boolean    true=ˆø”‚Åİ’è‚³‚ê‚½À•W‚ÉAˆø”‚Åİ’è‚³‚ê‚½Action
-	 *                         ‚ÅˆÚ“®¬Œ÷
-	 *                    false=ˆø”‚Åİ’è‚³‚ê‚½À•W‚ÉAˆø”‚Åİ’è‚³‚ê‚½Action
-	 *                         ‚ÅˆÚ“®¸”s
+	 * ãƒ­ãƒœãƒƒãƒˆã‚’æŒ‡å®šã•ã‚ŒãŸæ–¹å‘ã¸ç§»å‹•ã—ã¾ã™ã€‚
+	 * @param int[] xy    ç§»å‹•å…ˆã®åº§æ¨™
+	 * @param int action  ç§»å‹•æ–¹å‘ ï¼ã€œï¼—ã§è¨­å®š
+	 * @return boolean    true=å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸåº§æ¨™ã«ã€å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸAction
+	 *                         ã§ç§»å‹•æˆåŠŸ
+	 *                    false=å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸåº§æ¨™ã«ã€å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸAction
+	 *                         ã§ç§»å‹•å¤±æ•—
 	 */
 	public boolean run(int[] xy, int action) {
 
@@ -222,20 +222,20 @@ public final int b = 6;
 		        action);
 
 		/*
-		 * ˆø”‚Åw’è‚³‚ê‚½ˆÊ’u‚ÉÀÛ‚ÉˆÚ“®‚Å‚«‚é‚Ì‚©ƒ`ƒFƒbƒN‚µˆÚ“®‚Å‚«‚ê‚Î
-		 * ó‘Ô‚ğ•Ï‰»
+		 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸä½ç½®ã«å®Ÿéš›ã«ç§»å‹•ã§ãã‚‹ã®ã‹ãƒã‚§ãƒƒã‚¯ã—ç§»å‹•ã§ãã‚Œã°
+		 * çŠ¶æ…‹ã‚’å¤‰åŒ–
 		 */
 		boolean isMove = false;
 
 		if( (xy[0] == newState[0]) && (xy[1]==newState[1]) ) {
 			robotState[0] = newState[0];
 			robotState[1] = newState[1];
-			/* ƒJƒM‚ÌˆÊ’u‚©ƒ`ƒFƒbƒN */
+			/* ã‚«ã‚®ã®ä½ç½®ã‹ãƒã‚§ãƒƒã‚¯ */
 //			checkKey(robotState[0], robotState[1]);
-			// 2001.08.08 C³ miyamoto
+			// 2001.08.08 ä¿®æ­£ miyamoto
 			checkItem(robotState[0], robotState[1]);
 
-			/* ƒtƒ‰ƒO‚É‚æ‚è•`‰æˆ—‚ğs‚È‚¤ */
+			/* ãƒ•ãƒ©ã‚°ã«ã‚ˆã‚Šæç”»å‡¦ç†ã‚’è¡Œãªã† */
 			if(isShow) {
 				canvas.repaint();
 			}
@@ -247,32 +247,32 @@ public final int b = 6;
 
 
 	/**
-	 * w’è‚³‚ê‚½À•W‚ğƒXƒ^[ƒgˆÊ’u‚É‚µ‚Ü‚·B
-	 * @param int x XÀ•W
-	 * @param int y YÀ•W
+	 * æŒ‡å®šã•ã‚ŒãŸåº§æ¨™ã‚’ã‚¹ã‚¿ãƒ¼ãƒˆä½ç½®ã«ã—ã¾ã™ã€‚
+	 * @param int x Xåº§æ¨™
+	 * @param int y Yåº§æ¨™
 	 */
 	public void setStart(int x, int y) {
-		/* ‘O‚ÌƒXƒ^[ƒg‚ğÁ‚· */
+		/* å‰ã®ã‚¹ã‚¿ãƒ¼ãƒˆã‚’æ¶ˆã™ */
 		int[] pos = mapController.getPos("S");
 		mapController.set(pos[0], pos[1], "");
-		/* V‚µ‚¢ƒXƒ^[ƒg‚ğİ’è */
+		/* æ–°ã—ã„ã‚¹ã‚¿ãƒ¼ãƒˆã‚’è¨­å®š */
 		mapController.set(x, y, "S");
 	}
 
-	// 2001.09.05 ’Ç‰Á miyamoto
+	// 2001.09.05 è¿½åŠ  miyamoto
 	public void setItem(int newItem) {
 		robotState[2] = newItem;
 		controlDoor(newItem);
 	}
 
 	/**
-	 * w’è‚³‚ê‚½À•W‚ÉƒS[ƒ‹‚ğİ’è‚µ‚Ü‚·B
-	 * @param int x XÀ•W
-	 * @param int y YÀ•W
+	 * æŒ‡å®šã•ã‚ŒãŸåº§æ¨™ã«ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int x Xåº§æ¨™
+	 * @param int y Yåº§æ¨™
 	 */
 	public void setGoal(int x, int y) {
 
-		/* ƒS[ƒ‹‚ª•¡”İ’è•s‰Â‚È‚çˆÈ‘O‚ÌƒS[ƒ‹‚ğíœ */
+		/* ã‚´ãƒ¼ãƒ«ãŒè¤‡æ•°è¨­å®šä¸å¯ãªã‚‰ä»¥å‰ã®ã‚´ãƒ¼ãƒ«ã‚’å‰Šé™¤ */
 		if(!flagGoals) {
 			int[] goalState = getXYGoalState();
 			if(goalState != null) {
@@ -281,12 +281,12 @@ public final int b = 6;
 		}
 		mapController.set(x, y, "O(1)");
 
-		/* •ñV‚ÌXV */
+		/* å ±é…¬ã®æ›´æ–° */
 		renewReward();
 	}
 
 	/**
-	 * ƒS[ƒ‹‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * ã‚´ãƒ¼ãƒ«ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void clearGoal() {
 		int[] goalState = getXYGoalState();
@@ -296,17 +296,17 @@ public final int b = 6;
 	}
 
 	/**
-	 * ŠÂ‹«‚Ì•`‰æ—Ìˆæ‚ğƒNƒŠƒbƒN‚µ‚ÄŠÂ‹«‚ğ•ÏX‚·‚é‚Æ‚«‚ÌA•ÏX‚·‚éî•ñ‚ğ
-	 * İ’è‚µ‚Ü‚·
-	 * @param String str  ŠÂ‹«‚Éİ’è‚·‚é•¶š—ñ
+	 * ç’°å¢ƒã®æç”»é ˜åŸŸã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ç’°å¢ƒã‚’å¤‰æ›´ã™ã‚‹ã¨ãã®ã€å¤‰æ›´ã™ã‚‹æƒ…å ±ã‚’
+	 * è¨­å®šã—ã¾ã™
+	 * @param String str  ç’°å¢ƒã«è¨­å®šã™ã‚‹æ–‡å­—åˆ—
 	 */
 	public void setRenewValue(String str) {
 		renewValue = str;
 	}
 
 	/**
-	 * •`‰æ‚ğs‚È‚¤‚©‚Ìƒtƒ‰ƒO‚ğİ’è‚µ‚Ü‚·B
-	 * @param boolean b  true:•`‰æ  false:•`‰æ‚È‚µ
+	 * æç”»ã‚’è¡Œãªã†ã‹ã®ãƒ•ãƒ©ã‚°ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param boolean b  true:æç”»  false:æç”»ãªã—
 	 */
 	public void setFlagShow(boolean b) {
 		isShow = b;
@@ -314,7 +314,7 @@ public final int b = 6;
 
 
 	/**
-	 * ƒƒ{ƒbƒg‚ÌˆÊ’u‚ğƒZƒ“ƒTî•ñ‚Åæ“¾‚µ‚Ü‚·B
+	 * ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®ã‚’ã‚»ãƒ³ã‚µæƒ…å ±ã§å–å¾—ã—ã¾ã™ã€‚
 	 * @return int[8] 
 	 */
 	public int[] getSenserState() {
@@ -324,10 +324,10 @@ public final int b = 6;
 
 	private int[] robotPos = new int[2];
 	/**
-	 * ƒƒ{ƒbƒg‚ÌˆÊ’u‚ğ‚w‚xÀ•W‚Åæ“¾‚µ‚Ü‚·B
-	 * @return int[] Œ»İ‚ÌÀ•W
-	 *               int[0] xÀ•W
-	 *               int[1] yÀ•W
+	 * ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®ã‚’ï¼¸ï¼¹åº§æ¨™ã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ç¾åœ¨ã®åº§æ¨™
+	 *               int[0] xåº§æ¨™
+	 *               int[1] yåº§æ¨™
 	 */
 	public int[] getXYState() {
 //		return robotState;
@@ -337,8 +337,8 @@ public final int b = 6;
 	}
 
 	/**
-	 * ƒS[ƒ‹‚ÌˆÊ’u‚ğƒZƒ“ƒTî•ñ‚Åæ“¾‚µ‚Ü‚·B
-	 * @return int[] ƒS[ƒ‹‚ÌˆÊ’u
+	 * ã‚´ãƒ¼ãƒ«ã®ä½ç½®ã‚’ã‚»ãƒ³ã‚µæƒ…å ±ã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ã‚´ãƒ¼ãƒ«ã®ä½ç½®
 	 */
 	public int[] getSensorGoalState() {
 		int[] goalState = getXYGoalState();
@@ -349,10 +349,10 @@ public final int b = 6;
 	}
 
 	/**
-	 * ƒS[ƒ‹‚ÌˆÊ’u‚ğ‚w‚xÀ•W‚Åæ“¾‚µ‚Ü‚·B
-	 * @return int[] ƒS[ƒ‹‚ÌÀ•W
-	 *               int[0] xÀ•W
-	 *               int[1] yÀ•W
+	 * ã‚´ãƒ¼ãƒ«ã®ä½ç½®ã‚’ï¼¸ï¼¹åº§æ¨™ã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ã‚´ãƒ¼ãƒ«ã®åº§æ¨™
+	 *               int[0] xåº§æ¨™
+	 *               int[1] yåº§æ¨™
 	 */
 	public int[] getXYGoalState() {
 		int[] goalState = mapController.getPos("O");
@@ -360,10 +360,10 @@ public final int b = 6;
 	}
 
 	/**
-	 * ƒL[‚ÌˆÊ’u‚ğ‚w‚xÀ•W‚Åæ“¾‚µ‚Ü‚·B
-	 * @return int[] ƒL[‚ÌˆÊ’u
-	 *               int[0] xÀ•W
-	 *               int[1] yÀ•W
+	 * ã‚­ãƒ¼ã®ä½ç½®ã‚’ï¼¸ï¼¹åº§æ¨™ã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ã‚­ãƒ¼ã®ä½ç½®
+	 *               int[0] xåº§æ¨™
+	 *               int[1] yåº§æ¨™
 	 */
 	public int[] getXYKeyState() {
 		int[] keyState = mapController.getPos("K");
@@ -371,10 +371,10 @@ public final int b = 6;
 	}
 
 	/**
-	 * ƒXƒ^[ƒg‚ÌˆÊ’u‚ğ‚w‚xÀ•W‚Åæ“¾‚µ‚Ü‚·B
-	 * @return int[] ƒXƒ^[ƒg‚ÌˆÊ’u
-	 *               int[0] xÀ•W
-	 *               int[1] yÀ•W
+	 * ã‚¹ã‚¿ãƒ¼ãƒˆã®ä½ç½®ã‚’ï¼¸ï¼¹åº§æ¨™ã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ã‚¹ã‚¿ãƒ¼ãƒˆã®ä½ç½®
+	 *               int[0] xåº§æ¨™
+	 *               int[1] yåº§æ¨™
 	 */
 	public int[] getXYStartState() {
 		int[] startState = mapController.getPos("S");
@@ -382,8 +382,8 @@ public final int b = 6;
 	}
 
 	/**
-	 * •ñV‚ğæ“¾‚µ‚Ü‚·B
-	 * @return double •ñV
+	 * å ±é…¬ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return double å ±é…¬
 	 */
 	public double getReward() {
 		String rewardStr = mapController.getReward(robotState[0],
@@ -396,15 +396,15 @@ public final int b = 6;
 	}
 
 	/**
-	 * ƒJƒM‚ğæ“¾‚µ‚Ä‚¢‚é‚©Šm”F‚µ‚Ü‚·B
-	 * @param boolean  true:ƒJƒM‚ğ‚Á‚Ä‚¢‚é false:ƒJƒM‚ğ‚Á‚Ä‚¢‚È‚¢
+	 * ã‚«ã‚®ã‚’å–å¾—ã—ã¦ã„ã‚‹ã‹ç¢ºèªã—ã¾ã™ã€‚
+	 * @param boolean  true:ã‚«ã‚®ã‚’æŒã£ã¦ã„ã‚‹ false:ã‚«ã‚®ã‚’æŒã£ã¦ã„ãªã„
 	 */
 //	public boolean hasKey() {
 //		return key;
 //	}
-	// 2001.08.08 ’Ç‰Á miyamoto
+	// 2001.08.08 è¿½åŠ  miyamoto
 	/**
-	 * •Û‚µ‚Ä‚¢‚é‚à‚Ì‚ğæ“¾
+	 * ä¿æŒã—ã¦ã„ã‚‹ã‚‚ã®ã‚’å–å¾—
 	 * @return 
 	 */
 	public int getItem() {
@@ -413,7 +413,7 @@ public final int b = 6;
 	}
 
 	/**
-	 * ƒJƒM‚ğ‚È‚­‚µ‚Ü‚·B
+	 * ã‚«ã‚®ã‚’ãªãã—ã¾ã™ã€‚
 	 */
 //	public void clearKey() {
 //		key = false;
@@ -424,11 +424,11 @@ public final int b = 6;
 	}
 
 	/**
-	 * ƒhƒA‚ªŠJ‚¢‚Ä‚¢‚é‚©Šm”F‚µ‚Ü‚·B
-	 * @param boolean  true:ƒhƒA‚ªŠJ‚¢‚Ä‚¢‚é false:ƒhƒA‚ª•Â‚¶‚Ä‚¢‚é
+	 * ãƒ‰ã‚¢ãŒé–‹ã„ã¦ã„ã‚‹ã‹ç¢ºèªã—ã¾ã™ã€‚
+	 * @param boolean  true:ãƒ‰ã‚¢ãŒé–‹ã„ã¦ã„ã‚‹ false:ãƒ‰ã‚¢ãŒé–‰ã˜ã¦ã„ã‚‹
 	 */
 	public boolean isDoorOpen() {
-		// 2001.08.08 C³ miyamoto
+		// 2001.08.08 ä¿®æ­£ miyamoto
 //		return key;
 //		if(item == KEY ) {
 		if(robotState[2] == KEY ) {
@@ -437,15 +437,15 @@ public final int b = 6;
 		return false;
 	}
 
-	// 2001.08.03 ’Ç‰Á miyamoto
+	// 2001.08.03 è¿½åŠ  miyamoto
 	/**
-	 * ŠJ‚¢‚Ä‚¢‚éƒhƒA‚ğ•Â‚¶‚é
+	 * é–‹ã„ã¦ã„ã‚‹ãƒ‰ã‚¢ã‚’é–‰ã˜ã‚‹
 	 */
 	public void closeDoor() {
 //	private void closeDoor() {
 		/*
-		 * ’n}ã‚Ì‘SˆÊ’u‚ğƒ`ƒFƒbƒN
-		 * •Â‚¶‚Ä‚¢‚éƒhƒA("D")‚ª‚ ‚ê‚ÎŠJ‚¢‚Ä‚¢‚éƒhƒA("d")‚ÉŠ·‚¦‚é
+		 * åœ°å›³ä¸Šã®å…¨ä½ç½®ã‚’ãƒã‚§ãƒƒã‚¯
+		 * é–‰ã˜ã¦ã„ã‚‹ãƒ‰ã‚¢("D")ãŒã‚ã‚Œã°é–‹ã„ã¦ã„ã‚‹ãƒ‰ã‚¢("d")ã«æ›ãˆã‚‹
 		 */
 		int[] size = mapController.getSize();
 		for(int x = 0; x < size[0]; x++) {
@@ -458,9 +458,9 @@ public final int b = 6;
 	}
 
 	/**
-	 * ’n}ã‚Ìw’è‚³‚ê‚½ˆÊ’u‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int x  xÀ•W
-	 * @param int y  yÀ•W
+	 * åœ°å›³ä¸Šã®æŒ‡å®šã•ã‚ŒãŸä½ç½®ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x  xåº§æ¨™
+	 * @param int y  yåº§æ¨™
 	 */
 	public String getMapInfo(int x, int y) {
 		return mapController.getString(x, y);
@@ -474,9 +474,9 @@ public final int b = 6;
 	}
 
 	/**
-	 * ’n}‚ÌƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] int[0] x²•ûŒü‚ÌƒTƒCƒY
-	 *               int[0] y²•ûŒü‚ÌƒTƒCƒY
+	 * åœ°å›³ã®ã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] int[0] xè»¸æ–¹å‘ã®ã‚µã‚¤ã‚º
+	 *               int[0] yè»¸æ–¹å‘ã®ã‚µã‚¤ã‚º
 	 */
 	public int[] getMapSize() {
 		return mapController.getSize();
@@ -487,7 +487,7 @@ public final int b = 6;
 	}
 
 	/**
-	 * updateƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * updateãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 */
 	public void update(Graphics g) {
 		canvas.repaint();
@@ -495,7 +495,7 @@ public final int b = 6;
 	}
 
 	/**
-	 * •ñV‚Ìƒe[ƒuƒ‹‚ğŒ»İ‚Ì’n}‚É‡‚í‚¹‚ÄXV‚µ‚Ü‚·B
+	 * å ±é…¬ã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç¾åœ¨ã®åœ°å›³ã«åˆã‚ã›ã¦æ›´æ–°ã—ã¾ã™ã€‚
 	 */
 	public void renewReward() {
 		if( rewardMap != null) {
@@ -510,7 +510,7 @@ public final int b = 6;
 	}
 
 	/**
-	 * “_–Å‚³‚¹‚Ü‚·B
+	 * ç‚¹æ»…ã•ã›ã¾ã™ã€‚
 	 */
 	public void flash() {
 		canvas.flash();
@@ -520,17 +520,17 @@ public final int b = 6;
 	// private
 
 	/**
-	 * ˆø”‚Åİ’è‚³‚ê‚½ˆÊ’u‚ÉƒJƒM‚ª‚ ‚é‚©ƒ`ƒFƒbƒN‚µA
-	 * ƒJƒM‚ª‚ ‚ê‚Î•Â‚¶‚Ä‚¢‚éƒhƒA‚ğŠJ‚«‚Ü‚·B
-	 * @param int x xÀ•W
-	 * @param int y yÀ•W
+	 * å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸä½ç½®ã«ã‚«ã‚®ãŒã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã—ã€
+	 * ã‚«ã‚®ãŒã‚ã‚Œã°é–‰ã˜ã¦ã„ã‚‹ãƒ‰ã‚¢ã‚’é–‹ãã¾ã™ã€‚
+	 * @param int x xåº§æ¨™
+	 * @param int y yåº§æ¨™
 	 */
 	private void checkItem(int x, int y) {
-		/* ƒJƒM‚ÌêŠ */
+		/* ã‚«ã‚®ã®å ´æ‰€ */
 		if( (mapController.getString(x, y)).equals("K") ) {
 			/*
-			 * ƒJƒM‚ª‚È‚¯‚ê‚ÎAƒJƒMæ“¾EƒhƒAŠJ‚­
-			 * ƒJƒM‚ª‚ ‚ê‚ÎAƒJƒM‚ğ‚È‚­‚µEƒhƒA‚ğ•Â‚¶‚é
+			 * ã‚«ã‚®ãŒãªã‘ã‚Œã°ã€ã‚«ã‚®å–å¾—ãƒ»ãƒ‰ã‚¢é–‹ã
+			 * ã‚«ã‚®ãŒã‚ã‚Œã°ã€ã‚«ã‚®ã‚’ãªãã—ãƒ»ãƒ‰ã‚¢ã‚’é–‰ã˜ã‚‹
 			 */
 			if(robotState[2] != KEY ) {
 				robotState[2] = KEY;
@@ -541,11 +541,11 @@ public final int b = 6;
 			}
 //			controlDoor(robotState[2]);
 		}
-		/* “d˜b‚ÌêŠ */
+		/* é›»è©±ã®å ´æ‰€ */
 		if( (mapController.getString(x, y)).equals("T") ) {
 			/*
-			 * “d˜b‚ª‚È‚¯‚ê‚ÎA“d˜bæ“¾EƒhƒA•Â‚¶‚é
-			 * “d˜b‚ª‚ ‚ê‚ÎA“d˜b‚ğ‚È‚­‚·
+			 * é›»è©±ãŒãªã‘ã‚Œã°ã€é›»è©±å–å¾—ãƒ»ãƒ‰ã‚¢é–‰ã˜ã‚‹
+			 * é›»è©±ãŒã‚ã‚Œã°ã€é›»è©±ã‚’ãªãã™
 			 */
 			if(robotState[2] != TELEPHON ) {
 				robotState[2] = TELEPHON;
@@ -554,7 +554,7 @@ public final int b = 6;
 				robotState[2] = NOTHING;
 			}
 		}
-// ƒAƒCƒeƒ€‚ğ‘‚â‚µ‚½ê‡—p
+// ã‚¢ã‚¤ãƒ†ãƒ ã‚’å¢—ã‚„ã—ãŸå ´åˆç”¨
 if((mapController.getString(x, y)).equals("A")) {
 	if(robotState[2] != A ) {
 		robotState[2] = A;
@@ -583,14 +583,14 @@ if((mapController.getString(x, y)).equals("b")) {
 		robotState[2] = NOTHING;
 	}
 }
-// ‚±‚±‚Ü‚Å
+// ã“ã“ã¾ã§
 		controlDoor(robotState[2]);
 	}
 
-	/* ƒhƒA‚ğŠJ‚¯‚éƒAƒCƒeƒ€ */
+	/* ãƒ‰ã‚¢ã‚’é–‹ã‘ã‚‹ã‚¢ã‚¤ãƒ†ãƒ  */
 	private int doorOpenItem = NOTHING;
 	/**
-	 * ƒhƒA‚ğŠJ‚¯‚éƒAƒCƒeƒ€‚ğ•ÏX‚µ‚Ü‚·B
+	 * ãƒ‰ã‚¢ã‚’é–‹ã‘ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã‚’å¤‰æ›´ã—ã¾ã™ã€‚
 	 * NOTHING = 0;
 	 * KEY = 1;
 	 * TELEPHON = 2;
@@ -600,7 +600,7 @@ if((mapController.getString(x, y)).equals("b")) {
 	}
 
 	/**
-	 * ƒAƒCƒeƒ€‚É‚æ‚Á‚ÄƒhƒA‚Ì§Œä‚ğs‚¢‚Ü‚·B
+	 * ã‚¢ã‚¤ãƒ†ãƒ ã«ã‚ˆã£ã¦ãƒ‰ã‚¢ã®åˆ¶å¾¡ã‚’è¡Œã„ã¾ã™ã€‚
 	 */
 	private void controlDoor(int item) {
 		if(item == doorOpenItem) {
@@ -612,12 +612,12 @@ if((mapController.getString(x, y)).equals("b")) {
 
 
 	/**
-	 * •Â‚¶‚Ä‚¢‚éƒhƒA‚ğŠJ‚¯‚é
+	 * é–‰ã˜ã¦ã„ã‚‹ãƒ‰ã‚¢ã‚’é–‹ã‘ã‚‹
 	 */
 	private void openDoor() {
 		/*
-		 * ’n}ã‚Ì‘SˆÊ’u‚ğƒ`ƒFƒbƒN
-		 * •Â‚¶‚Ä‚¢‚éƒhƒA("D")‚ª‚ ‚ê‚ÎŠJ‚¢‚Ä‚¢‚éƒhƒA("d")‚ÉŠ·‚¦‚é
+		 * åœ°å›³ä¸Šã®å…¨ä½ç½®ã‚’ãƒã‚§ãƒƒã‚¯
+		 * é–‰ã˜ã¦ã„ã‚‹ãƒ‰ã‚¢("D")ãŒã‚ã‚Œã°é–‹ã„ã¦ã„ã‚‹ãƒ‰ã‚¢("d")ã«æ›ãˆã‚‹
 		 */
 		int[] size = mapController.getSize();
 		for(int x = 0; x < size[0]; x++) {
@@ -630,39 +630,39 @@ if((mapController.getString(x, y)).equals("b")) {
 	}
 
 	//////////////////////////////////////////////////
-	// ƒCƒxƒ“ƒgˆ—
+	// ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 
 	/**
-	 * ƒ}ƒEƒXƒNƒŠƒbƒN‚ÌƒCƒxƒ“ƒgˆ—‚ğs‚¤ƒCƒ“ƒi[ƒNƒ‰ƒX
+	 * ãƒã‚¦ã‚¹ã‚¯ãƒªãƒƒã‚¯ã®ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¡Œã†ã‚¤ãƒ³ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 	 */
 	class CanvasMouseAdapter extends MouseAdapter {
 
 		/**
-		 * ƒ}ƒEƒX‚ªƒNƒŠƒbƒN‚³‚ê‚½‚Ìˆ—
+		 * ãƒã‚¦ã‚¹ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸæ™‚ã®å‡¦ç†
 		 */
 		public void mouseClicked(MouseEvent e) {
-			/* ƒNƒŠƒbƒN‚³‚ê‚½ˆÊ’u‚Ìæ“¾ */
+			/* ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸä½ç½®ã®å–å¾— */
 			int xPos = e.getX();
 			int yPos = e.getY();
 
-			/* ŠÔŠu‚ğæ“¾ */
+			/* é–“éš”ã‚’å–å¾— */
 			int xSpace = canvas.getXSpace();
 			int ySpace = canvas.getYSpace();
 
 			int[] size = mapController.getSize();
 
-			/* ’n}‚Ì”ÍˆÍ“à‚Å‚ ‚ê‚Îˆ—‚ğs‚¤ */
+			/* åœ°å›³ã®ç¯„å›²å†…ã§ã‚ã‚Œã°å‡¦ç†ã‚’è¡Œã† */
 			if( ((xPos>xSpace)&&(yPos>ySpace)) &&
 			        ((xPos<(xSpace*(size[0]+1))) &&
 			        (yPos<(ySpace*(size[1]+1)))) ) {
 
-				/* ƒNƒŠƒbƒN‚³‚ê‚½ˆÊ’u‚ğ’n}ã‚ÌÀ•W‚É•ÏŠ· */
+				/* ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸä½ç½®ã‚’åœ°å›³ä¸Šã®åº§æ¨™ã«å¤‰æ› */
 				int x = xPos / xSpace;
 				int y = yPos / ySpace;
 
 				if(!renewValue.equals("n")) {
 
-					/* •¡”‚ÌƒS[ƒ‹‚ğİ’è‚µ‚È‚¢ê‡‚ÍˆÈ‘O‚Ì’l‚ğíœ */
+					/* è¤‡æ•°ã®ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã—ãªã„å ´åˆã¯ä»¥å‰ã®å€¤ã‚’å‰Šé™¤ */
 					if(!flagGoals) {
 						if(renewValue.equals("O(1)")) {
 							int[] pos = mapController.getPos("O");
@@ -672,13 +672,13 @@ if((mapController.getString(x, y)).equals("b")) {
 						}
 					}
 
-					/* ’n}î•ñ‚ÌXV */
+					/* åœ°å›³æƒ…å ±ã®æ›´æ–° */
 					mapController.set(x-1, y-1, renewValue);
 
-					/* Ä•`‰æ */
+					/* å†æç”» */
 					canvas.repaint();
 				}
-				/* •ñV‚ÌXV */
+				/* å ±é…¬ã®æ›´æ–° */
 				renewReward();
 			}
 		}

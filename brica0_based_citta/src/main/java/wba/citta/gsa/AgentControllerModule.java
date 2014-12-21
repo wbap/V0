@@ -1,4 +1,4 @@
-package wba.citta.gsa;
+ï»¿package wba.citta.gsa;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +11,7 @@ public class AgentControllerModule extends Module {
 
 	@Override
 	public void fire() {
-		// GSA.getExecAgentRandomOder()‚Æ“¯‚¶•ûj‚Ìˆ—
+		// GSA.getExecAgentRandomOder()ã¨åŒã˜æ–¹é‡ã®å‡¦ç†
 		
 		// TODO erase
 		final int AGENT_COUNT = 8;

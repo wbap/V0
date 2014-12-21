@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * EnvironmentAgentSample.java
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2001.12 BSC miyamoto
@@ -11,21 +11,21 @@ public class EnvironmentAgentSample {
 
 	private Environment environment = null;
 
-	/* ƒ‰ƒ“ƒ_ƒ€‚Ès“®‚ğs‚È‚¤‚½‚ß‚Ì—” */
+	/* ãƒ©ãƒ³ãƒ€ãƒ ãªè¡Œå‹•ã‚’è¡Œãªã†ãŸã‚ã®ä¹±æ•° */
 	private Random randomAction = new Random(0);
 
-	/* s“®‚ğİ’è‚·‚é•Ï” */
+	/* è¡Œå‹•ã‚’è¨­å®šã™ã‚‹å¤‰æ•° */
 	private int action = -1;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	public EnvironmentAgentSample(String fileName) {
 		environment = new Environment(fileName);
 	}
 
 	/**
-	 * Œ»İ‚Ìó‘Ô‚ğæ“¾‚µ‚Ü‚·B
+	 * ç¾åœ¨ã®çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
 	 */
 	public Vector getState() {
 		Vector state = new Vector();
@@ -37,7 +37,7 @@ public class EnvironmentAgentSample {
 	}
 
 	/**
-	 * ŠÂ‹«‚ğ“®ì‚³‚¹‚Ü‚·B
+	 * ç’°å¢ƒã‚’å‹•ä½œã•ã›ã¾ã™ã€‚
 	 */
 	public void run(Vector nextState) {
 		if(nextState != null) {

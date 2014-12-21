@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * AgentViewerCanvas.java
- *  ƒG[ƒWƒFƒ“ƒg‚Ì“®ìó‹µ‚ğ•`‰æ‚·‚éƒNƒ‰ƒX
+ *  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å‹•ä½œçŠ¶æ³ã‚’æç”»ã™ã‚‹ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2001.10 BSC miyamoto
  */
@@ -11,40 +11,40 @@ import java.util.*;
 import wba.citta.gsa.*;
 
 /**
- *  ƒG[ƒWƒFƒ“ƒg‚Ì“®ìó‹µ‚ğ•`‰æ‚·‚éƒNƒ‰ƒX
+ *  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å‹•ä½œçŠ¶æ³ã‚’æç”»ã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class AgentViewerCanvas extends Canvas {
 
-	/* ƒG[ƒWƒFƒ“ƒgID‚Ì”z—ñ */
+	/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã®é…åˆ— */
 	private int[] agents;
-	/* ‘I‘ğƒG[ƒWƒFƒ“ƒg‚Ìî•ñ */
+	/* é¸æŠã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®æƒ…å ± */
 	private int execAgentID;
-	/* íœˆ—ƒG[ƒWƒFƒ“ƒg‚Ìî•ñ */
+	/* å‰Šé™¤å‡¦ç†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®æƒ…å ± */
 	private boolean[] removeAgents;
 
-	/* —v‘fŠÔ‚ÌŠÔŠu */
+	/* è¦ç´ é–“ã®é–“éš” */
 	private final int X_SPACE = 20;
 	private final int Y_SPACE = 20;
-	/* —v‘f‚ÌƒTƒCƒY */
+	/* è¦ç´ ã®ã‚µã‚¤ã‚º */
 	private final int X_ELEMENT_SIZE = 30;
 	private final int Y_ELEMENT_SIZE = 30;
 
-	/* •\¦‚³‚ê‚Ä‚¢‚é—Ìˆæ‚ÌƒTƒCƒY */
+	/* è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹é ˜åŸŸã®ã‚µã‚¤ã‚º */
 	private int height;
 	private int width;
 
-	/* ƒ_ƒuƒ‹ƒoƒbƒtƒ@ƒŠƒ“ƒO—p ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW */
+	/* ãƒ€ãƒ–ãƒ«ãƒãƒƒãƒ•ã‚¡ãƒªãƒ³ã‚°ç”¨ ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ */
 	private Image offImage;
 	private Graphics offGraphics;
 
 	////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^  ‰Šú‰»ˆ—
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿  åˆæœŸåŒ–å‡¦ç†
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int[] agents ƒG[ƒWƒFƒ“ƒgID‚Ì”z—ñ
-	 * @param boolean[] removeAgents “’BƒS[ƒ‹íœˆ—‚ğs‚È‚Á‚½ƒG[ƒWƒFƒ“ƒg
-	 * ‚Ìî•ñ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int[] agents ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã®é…åˆ—
+	 * @param boolean[] removeAgents åˆ°é”ã‚´ãƒ¼ãƒ«å‰Šé™¤å‡¦ç†ã‚’è¡Œãªã£ãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
+	 * ã®æƒ…å ±
 	 */
 	public AgentViewerCanvas(int[] agents, boolean[] removeAgents) {
 		super();
@@ -57,15 +57,15 @@ public class AgentViewerCanvas extends Canvas {
 	// public 
 
 	/**
-	 * ÀsƒG[ƒWƒFƒ“ƒg‚ÌID‚ğİ’è‚µ‚Ü‚·B
-	 * @param int execAgentID ÀsƒG[ƒWƒFƒ“ƒg‚ÌID
+	 * å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®IDã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int execAgentID å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ID
 	 */
 	public void setExecAgentID(int execAgentID) {
 		this.execAgentID = execAgentID;
 	}
 
 	/**
-	 * updateƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * updateãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 * @param Graphics g
 	 */
 	public void update(Graphics g) {
@@ -76,17 +76,17 @@ private int xSizeOld = 0;
 private int ySizeOld = 0;
 
 	/**
-	 * paintƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * paintãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 * @param Graphics g
 	 */
 	public void paint(Graphics g) {
 
-		/* •`‰æ‚·‚éƒGƒŠƒA‚ÌƒTƒCƒY‚ğæ“¾ */
+		/* æç”»ã™ã‚‹ã‚¨ãƒªã‚¢ã®ã‚µã‚¤ã‚ºã‚’å–å¾— */
 		int[] size = getUseCanvasSize();
 
 		if(xSizeOld != size[0] || ySizeOld != size[1]) {
 			setSize(size[0], size[1]);
-			/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚Ìì¬ */
+			/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ä½œæˆ */
 			offImage = createImage(size[0], size[1]);
 			offGraphics = offImage.getGraphics();
 		}
@@ -94,16 +94,16 @@ private int ySizeOld = 0;
 		xSizeOld = size[0];
 		ySizeOld = size[1];
 
-		/* ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”» */
 		drawOffImage(offGraphics);
-		/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚ğ•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æç”» */
 		g.drawImage(offImage, 0, 0, this);
 	}
 
 	/**
-	 * Canvas’†‚Ì•\¦‚³‚ê‚Ä‚¢‚é—Ìˆæ‚ÌƒTƒCƒY‚ğİ’è‚µ‚Ü‚·B
-	 * @param int width  •
-	 * @param int height ‚‚³
+	 * Canvasä¸­ã®è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹é ˜åŸŸã®ã‚µã‚¤ã‚ºã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int width  å¹…
+	 * @param int height é«˜ã•
 	 */
 	public void setViewportSize(int width, int height) {
 		this.width = width;
@@ -114,20 +114,20 @@ private int ySizeOld = 0;
 	// private
 
 	/**
-	 * ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ
+	 * ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”»
 	 * @param Graphics graphics
 	 */
 	private void drawOffImage(Graphics graphics) {
 
-		/* ƒCƒ[ƒW‚ÌƒNƒŠƒA */
+		/* ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢ */
 		clearOffImage(graphics);
 
-		/* ‘SƒG[ƒWƒFƒ“ƒg‚Ì•`‰æ */
+		/* å…¨ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®æç”» */
 		drawAgents(graphics);
 	}
 
 	/**
-	 * ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚ÌƒNƒŠƒA
+	 * ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢
 	 * @param Graphics graphics
 	 */
 	private void clearOffImage(Graphics graphics) {
@@ -136,7 +136,7 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒg‚Ì“®ìó‹µ‚Ì•`‰æ‚ğs‚È‚¢‚Ü‚·B
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å‹•ä½œçŠ¶æ³ã®æç”»ã‚’è¡Œãªã„ã¾ã™ã€‚
 	 * @param Graphics g
 	 */
 	private void drawAgents(Graphics graphics) {
@@ -146,28 +146,28 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * w’è‚³‚ê‚½ƒG[ƒWƒFƒ“ƒg‚ğ•`‰æ‚µ‚Ü‚·B
+	 * æŒ‡å®šã•ã‚ŒãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’æç”»ã—ã¾ã™ã€‚
 	 * @param Graphics g
-	 * @param int index •`‰æ‚·‚éƒG[ƒWƒFƒ“ƒg‚Ì”z—ñã‚ÌˆÊ’u
+	 * @param int index æç”»ã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®é…åˆ—ä¸Šã®ä½ç½®
 	 */
 	private void drawAgent(Graphics graphics, int index) {
 
-		/* •`‰æ‚·‚éî•ñ‚Ìæ“¾ */
+		/* æç”»ã™ã‚‹æƒ…å ±ã®å–å¾— */
 		int rectInfo[] = getAgentRectSize(index);
 		String agid = " " + agents[index];
 
-		/* ƒG[ƒWƒFƒ“ƒg‚²‚Æ‚ÌF‚ğƒe[ƒuƒ‹‚©‚çæ“¾ */
+		/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã”ã¨ã®è‰²ã‚’ãƒ†ãƒ¼ãƒ–ãƒ«ã‹ã‚‰å–å¾— */
 		Color color = (Color)(ViewerProperty.colorTable).get(
 		        new Integer(agents[index]));
 
-		/* •`‰æˆ— */
+		/* æç”»å‡¦ç† */
 		if(color != null) {
 			graphics.setColor(color);
 			graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
 			        rectInfo[3]);
 		}
 
-		/* ÀsƒG[ƒWƒFƒ“‚Ìê‡Â˜g‚ÅˆÍ‚Ş */
+		/* å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ã®å ´åˆé’æ ã§å›²ã‚€ */
 		if(agents[index] == execAgentID) {
 			graphics.setColor(Color.blue);
 			for(int i = 0; i < 5; i++) {
@@ -176,7 +176,7 @@ private int ySizeOld = 0;
 			}
 		}
 
-		/* “’BƒS[ƒ‹íœƒG[ƒWƒFƒ“ƒg‚Ìê‡‚ÌŠD˜g‚ÅˆÍ‚Ş */
+		/* åˆ°é”ã‚´ãƒ¼ãƒ«å‰Šé™¤ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å ´åˆã®ç°æ ã§å›²ã‚€ */
 		if(removeAgents[index] == true) {
 			graphics.setColor(Color.gray);
 			for(int i = 0; i < 5; i++) {
@@ -195,9 +195,9 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * w’è‚³‚ê‚½ˆÊ’u‚É•`‰æ‚·‚é‹éŒ`‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int index ”z—ñã‚ÌˆÊ’u
-	 * @return int[] int[4]‚Ì”z—ñ ‡‚ÉƒLƒƒƒ“ƒoƒXã‚Ì XÀ•WEYÀ•WE•E‚‚³
+	 * æŒ‡å®šã•ã‚ŒãŸä½ç½®ã«æç”»ã™ã‚‹çŸ©å½¢ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int index é…åˆ—ä¸Šã®ä½ç½®
+	 * @return int[] int[4]ã®é…åˆ— é †ã«ã‚­ãƒ£ãƒ³ãƒã‚¹ä¸Šã® Xåº§æ¨™ãƒ»Yåº§æ¨™ãƒ»å¹…ãƒ»é«˜ã•
 	 */
 	private int[] getAgentRectSize(int index) {
 		int[] rectInfo = new int[4];
@@ -209,10 +209,10 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * ƒLƒƒƒ“ƒoƒX‚É•K—v‚ÈƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
-	 * ƒLƒƒƒ“ƒoƒX‚É•K—v‚ÈƒTƒCƒY‚ÍA•`‰æƒGƒŠƒA‚ÆƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚Ì‚¤‚¿
-	 * ‚Ç‚¿‚ç‚©‘å‚«‚¢•û‚ğ—˜—p‚µ‚Ü‚·B
-	 * @return int[] [0]•  [1]‚‚³
+	 * ã‚­ãƒ£ãƒ³ãƒã‚¹ã«å¿…è¦ãªã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * ã‚­ãƒ£ãƒ³ãƒã‚¹ã«å¿…è¦ãªã‚µã‚¤ã‚ºã¯ã€æç”»ã‚¨ãƒªã‚¢ã¨ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºã®ã†ã¡
+	 * ã©ã¡ã‚‰ã‹å¤§ãã„æ–¹ã‚’åˆ©ç”¨ã—ã¾ã™ã€‚
+	 * @return int[] [0]å¹…  [1]é«˜ã•
 	 */
 	private int[] getUseCanvasSize() {
 
@@ -227,8 +227,8 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * •`‰æ‚É•K—v‚ÈƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] [0]•  [1]‚‚³
+	 * æç”»ã«å¿…è¦ãªã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] [0]å¹…  [1]é«˜ã•
 	 */
 	private int[] getDrawAreaSize() {
 		int drawNum = getDrawNum();
@@ -239,8 +239,8 @@ private int ySizeOld = 0;
 	}
 
 	/**
-	 * •`‰æ‚·‚é—v‘f”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int •`‰æ‚·‚é—v‘f”
+	 * æç”»ã™ã‚‹è¦ç´ æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int æç”»ã™ã‚‹è¦ç´ æ•°
 	 */
 	private int getDrawNum() {
 		return agents.length;

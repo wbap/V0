@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * ActionController.java
- * ’n}î•ñ‚ð‰ðÍ‚µ‚Äs“®‚É‚Â‚¢‚ÄŠÇ—‚·‚éƒNƒ‰ƒX
+ * åœ°å›³æƒ…å ±ã‚’è§£æžã—ã¦è¡Œå‹•ã«ã¤ã„ã¦ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  *    BSC miyamoto 2001.05
  */
@@ -9,15 +9,15 @@ package wba.citta.environment;
 import java.util.*;
 
 /**
- * ’n}î•ñ‚ð‰ðÍ‚µ‚Äs“®‚É‚Â‚¢‚ÄŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·B
+ * åœ°å›³æƒ…å ±ã‚’è§£æžã—ã¦è¡Œå‹•ã«ã¤ã„ã¦ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  */
 public class ActionController {
 
-	/* ƒtƒ@ƒCƒ‹‚Ìî•ñ‚Ì”z—ñ */
+	/* ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã®é…åˆ— */
 	private String[][] mapArray;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 * @return String[][] mapArray
 	 */
 	public ActionController(String[][] mapArray) {
@@ -29,57 +29,57 @@ public class ActionController {
 	// public
 
 	/**
-	 * Žw’è‚³‚ê‚½ˆÊ’uEAction‚©‚ç‚ÌˆÚ“®æ‚ÌˆÊ’u‚ðŽæ“¾‚µ‚Ü‚·B
-	 * @param int x xÀ•W
-	 * @param int y yÀ•W
-	 * @param int action ˆÚ“®•ûŒü
-	 * @return int[] ˆÚ“®æ‚ÌÀ•W
+	 * æŒ‡å®šã•ã‚ŒãŸä½ç½®ãƒ»Actionã‹ã‚‰ã®ç§»å‹•å…ˆã®ä½ç½®ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x xåº§æ¨™
+	 * @param int y yåº§æ¨™
+	 * @param int action ç§»å‹•æ–¹å‘
+	 * @return int[] ç§»å‹•å…ˆã®åº§æ¨™
 	 */
 	public int[] move(int x, int y, int action) {
 
-		/* ƒtƒ@ƒCƒ‹‚©‚ç‘Î‰ž‚·‚éˆÊ’u‚Ìî•ñ‚ðŽæ“¾ */
+		/* ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰å¯¾å¿œã™ã‚‹ä½ç½®ã®æƒ…å ±ã‚’å–å¾— */
 		String mapData = mapArray[x][y];
 
 		int[] elem = null;
 
-		if(mapData.length() != 0) { /* î•ñ‚ªÝ’è‚³‚ê‚Ä‚¢‚é */
+		if(mapData.length() != 0) { /* æƒ…å ±ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹ */
 			String mapID = mapData.substring(0, 1);
 			if( mapID.equals("S") ) {
-				/* ƒXƒ^[ƒg */
+				/* ã‚¹ã‚¿ãƒ¼ãƒˆ */
 				elem = nomalMove(x, y, action);
 			}else if( mapID.equals("O") ) {
-				/* •‰‚Ì•ñV */
+				/* è² ã®å ±é…¬ */
 				elem = nomalMove(x, y, action);
 			}else if( mapID.equals("d") ) {
-				/* ŠJ‚¢‚Ä‚¢‚éƒhƒA */
+				/* é–‹ã„ã¦ã„ã‚‹ãƒ‰ã‚¢ */
 				elem = nomalMove(x, y, action);
 			}else if( mapID.equals("K") ) {
-				/* ƒJƒM */
-				// 2001.03.26 ’Ç‰Á miyamoto
+				/* ã‚«ã‚® */
+				// 2001.03.26 è¿½åŠ  miyamoto
 //				key = true;
 				elem = nomalMove(x, y, action);
 			}else if( mapID.equals("T") ) {
 				elem = nomalMove(x, y, action);
 			}else if( mapID.equals("J") ) {
-				/* ƒWƒƒƒ“ƒv */
+				/* ã‚¸ãƒ£ãƒ³ãƒ— */
 				elem = jampMove(x, y, action, mapData);
 			}else if( mapID.equals("F") ) {
-				/* —¬‚ê */
+				/* æµã‚Œ */
 				elem = flowMove(x, y, action, mapData);
 			}else if( mapID.equals("C") ) {
-				/* ŠR */
+				/* å´– */
 				elem = cliffMove(x, y, action, mapData);
 			}else if( mapID.equals("R") ) {
 				elem = randomMove(x, y, action, mapData);
 			}else {
-				// 2001.07.13 ‚»‚Ì‘¼‚Í’Êí‚Ì“®ì
+				// 2001.07.13 ãã®ä»–ã¯é€šå¸¸ã®å‹•ä½œ
 				elem = nomalMove(x, y, action);
 			}
-		}else {                                 /* ‹ó”’ */
+		}else {                                 /* ç©ºç™½ */
 			elem = nomalMove(x, y, action);
 		}
 
-		/* •Ç‚Ìƒ`ƒFƒbƒN */
+		/* å£ã®ãƒã‚§ãƒƒã‚¯ */
 		if(!checkState(elem[0], elem[1])) {
 			elem[0] = x;
 			elem[1] = y;
@@ -92,33 +92,33 @@ public class ActionController {
 	// private
 
 	/**
-	 * ’Êí‚Ì“®ì‚ðÝ’è‚µ‚Ü‚·B
-	 * @param int x      ‚˜À•W
-	 * @param int y      ‚™À•W
-	 * @param int action s“®
-	 * @return int[]     ˆÚ“®æ‚ÌÀ•W
+	 * é€šå¸¸ã®å‹•ä½œã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int x      ï½˜åº§æ¨™
+	 * @param int y      ï½™åº§æ¨™
+	 * @param int action è¡Œå‹•
+	 * @return int[]     ç§»å‹•å…ˆã®åº§æ¨™
 	 */
 	private int[] nomalMove(int x, int y, int action) {
-		/* —v‘f‚ÌŽæ“¾ */
+		/* è¦ç´ ã®å–å¾— */
 		int[] elem = getNextState(x, y, action);
 		return elem;
 	}
 
 
 	/**
-	 * ƒWƒƒƒ“ƒv‚Ìs“®‚ð‚µ‚Ü‚·B
-	 * @param int x           ‚˜À•W
-	 * @param int y           ‚™À•W
-	 * @param int action      s“®
-	 * @param String mapDate  ’n}î•ñ
-	 * @return int[]          ˆÚ“®æ‚ÌÀ•W
+	 * ã‚¸ãƒ£ãƒ³ãƒ—ã®è¡Œå‹•ã‚’ã—ã¾ã™ã€‚
+	 * @param int x           ï½˜åº§æ¨™
+	 * @param int y           ï½™åº§æ¨™
+	 * @param int action      è¡Œå‹•
+	 * @param String mapDate  åœ°å›³æƒ…å ±
+	 * @return int[]          ç§»å‹•å…ˆã®åº§æ¨™
 	 */
 	private int[] jampMove(int x, int y, int action, String mapData) {
 
-		/* ƒWƒƒƒ“ƒv‚·‚éæ‚Ìî•ñ‚ðŽæ“¾ */
+		/* ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹å…ˆã®æƒ…å ±ã‚’å–å¾— */
 		int startIndex = mapData.indexOf( "(" );
 		int endIndex = mapData.indexOf( ")" );
-		/* ()‚Ì’†‚ðŽæ“¾ */
+		/* ()ã®ä¸­ã‚’å–å¾— */
 		String subStr = mapData.substring(startIndex+1, endIndex);
 		StringTokenizer st = new StringTokenizer(subStr, ":");
 
@@ -127,10 +127,10 @@ public class ActionController {
 		int jampAction = Integer.parseInt(st.nextToken());
 
 		int[] elem = new int[2];
-		if(action == jampAction) { /* ƒWƒƒƒ“ƒv‚ÌƒAƒNƒVƒ‡ƒ“ */
+		if(action == jampAction) { /* ã‚¸ãƒ£ãƒ³ãƒ—ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
 			elem[0] = toStateX;
 			elem[1] = toStateY;
-		}else {                    /* ’Êí‚Ìs“®‚ð‚·‚éƒAƒNƒVƒ‡ƒ“ */
+		}else {                    /* é€šå¸¸ã®è¡Œå‹•ã‚’ã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ */
 			elem = getNextState(x, y, action);
 		}
 
@@ -140,25 +140,25 @@ public class ActionController {
 
 
 	/**
-	 * —¬‚ê‚Ì‚ ‚éêŠ‚ÌˆÚ“®æ‚ðÝ’è‚µ‚Ü‚·B
-	 * @param int x           ‚˜À•W
-	 * @param int y           ‚™À•W
-	 * @param int action      s“®
-	 * @param String fileDate ƒtƒ@ƒCƒ‹‚©‚ç‚Ìî•ñ
-	 * @return int[]          ˆÚ“®æ‚ÌÀ•W
+	 * æµã‚Œã®ã‚ã‚‹å ´æ‰€ã®ç§»å‹•å…ˆã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int x           ï½˜åº§æ¨™
+	 * @param int y           ï½™åº§æ¨™
+	 * @param int action      è¡Œå‹•
+	 * @param String fileDate ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã®æƒ…å ±
+	 * @return int[]          ç§»å‹•å…ˆã®åº§æ¨™
 	 */
 	private int[] flowMove(int x, int y, int action, String mapData) {
 
-		/* —¬‚ê‚Ì•ûŒü‚É‚Â‚¢‚Ä‚Ìî•ñ‚ðŽæ“¾ */
+		/* æµã‚Œã®æ–¹å‘ã«ã¤ã„ã¦ã®æƒ…å ±ã‚’å–å¾— */
 		int startIndex = mapData.indexOf( "(" );
 		int endIndex = mapData.indexOf( ")" );
 		String flow = mapData.substring(startIndex + 1, endIndex);
 
-		/* ’Êí‚ÌˆÚ“®æ‚ðŽæ“¾ */
+		/* é€šå¸¸ã®ç§»å‹•å…ˆã‚’å–å¾— */
 		int[] elem = getNextState(x, y, action);
 
 		if(checkState(elem[0], elem[1])) {
-			/* —¬‚ê‚ðˆÚ“®æ‚Ìó‘Ô‚É’Ç‰Á */
+			/* æµã‚Œã‚’ç§»å‹•å…ˆã®çŠ¶æ…‹ã«è¿½åŠ  */
 			if(flow.equals("U")) {
 				elem[1] --; 
 			}
@@ -181,12 +181,12 @@ public class ActionController {
 
 
 	/**
-	 * ŠR‚É‚È‚Á‚Ä‚¢‚éêŠ‚ÌˆÚ“®æ‚ðÝ’è‚µ‚Ü‚·B
-	 * @param int x           ‚˜À•W
-	 * @param int y           ‚™À•W
-	 * @param int action      s“®
-	 * @param String fileDate ƒtƒ@ƒCƒ‹‚©‚ç‚Ìî•ñ
-	 * @return int[]          ˆÚ“®æ‚ÌÀ•W
+	 * å´–ã«ãªã£ã¦ã„ã‚‹å ´æ‰€ã®ç§»å‹•å…ˆã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int x           ï½˜åº§æ¨™
+	 * @param int y           ï½™åº§æ¨™
+	 * @param int action      è¡Œå‹•
+	 * @param String fileDate ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã®æƒ…å ±
+	 * @return int[]          ç§»å‹•å…ˆã®åº§æ¨™
 	 */
 	private int[] cliffMove(int x, int y, int action, String mapData) {
 
@@ -209,78 +209,78 @@ public class ActionController {
 			saveAction = 6; 
 		}
 
-		if(action == saveAction) { /* ˆÚ“®•s‰Â‚Ì•ûŒü‚Ö‚ÌˆÚ“® */
+		if(action == saveAction) { /* ç§»å‹•ä¸å¯ã®æ–¹å‘ã¸ã®ç§»å‹• */
 			elem[0] = x;
 			elem[1] = y;
-		}else {                   /* ‚»‚Ì‘¼‚Ì•ûŒü‚Ö‚ÌˆÚ“® */
+		}else {                   /* ãã®ä»–ã®æ–¹å‘ã¸ã®ç§»å‹• */
 			elem = getNextState(x, y, action);
 		}
 
 		return elem;
 	}
 
-	// 2001.07.06 ’Ç‰Á miyamoto
+	// 2001.07.06 è¿½åŠ  miyamoto
 	private Random randomMove = new Random(0);
 	private int[] randomMove(int x, int y, int action, String mapData) {
-		// ‰¼‚É‚S•ûŒü‚ÉŒÀ’è
+		// ä»®ã«ï¼”æ–¹å‘ã«é™å®š
 		int randomAction = randomMove.nextInt(4)*2;
-		/* —v‘f‚ÌŽæ“¾ */
+		/* è¦ç´ ã®å–å¾— */
 		int[] elem = getNextState(x, y, randomAction);
 		return elem;
 	}
-	// ‚±‚±‚Ü‚Å
+	// ã“ã“ã¾ã§
 
 	/**
-	 * ‚˜,‚™À•W‚Ìó‘Ô‚©‚çaction‚ðs‚È‚Á‚½ê‡‚Ìó‘Ô‚ðŽæ“¾‚µ‚Ü‚·B
-	 * @param int x      xÀ•W
-	 * @param int y      yÀ•W
-	 * @param int action s“®
-	 * @return int[]     ˆÚ“®æ‚Ìó‘Ô
+	 * ï½˜,ï½™åº§æ¨™ã®çŠ¶æ…‹ã‹ã‚‰actionã‚’è¡Œãªã£ãŸå ´åˆã®çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x      xåº§æ¨™
+	 * @param int y      yåº§æ¨™
+	 * @param int action è¡Œå‹•
+	 * @return int[]     ç§»å‹•å…ˆã®çŠ¶æ…‹
 	 */
 	private int[] getNextState(int x, int y, int action) {
 		int[] elem = new int[2];
 
-		/* ’âŽ~ */
+		/* åœæ­¢ */
 		if(action == -1) {
 			elem[0] = x;
 			elem[1] = y;
 		}
-		/* ã */
+		/* ä¸Š */
 		if(action == 0) {
 			elem[0] = x;
 			elem[1] = y-1;
 		}
-		/* ¶ã */
+		/* å·¦ä¸Š */
 		if(action == 1) {
 			elem[0] = x-1;
 			elem[1] = y-1;
 		}
-		/* ¶ */
+		/* å·¦ */
 		if(action == 2) {
 			elem[0] = x-1;
 			elem[1] = y;
 		}
-		/* ¶‰º */
+		/* å·¦ä¸‹ */
 		if(action == 3) {
 			elem[0] = x-1;
 			elem[1] = y+1;
 		}
-		/* ‰º */
+		/* ä¸‹ */
 		if(action == 4) {
 			elem[0] = x;
 			elem[1] = y+1;
 		}
-		/* ‰E‰º */
+		/* å³ä¸‹ */
 		if(action == 5) {
 			elem[0] = x+1;
 			elem[1] = y+1;
 		}
-		/* ‰E */
+		/* å³ */
 		if(action == 6) {
 			elem[0] = x+1;
 			elem[1] = y;
 		}
-		/* ‰Eã */
+		/* å³ä¸Š */
 		if(action == 7) {
 			elem[0] = x+1;
 			elem[1] = y-1;
@@ -295,20 +295,20 @@ public class ActionController {
 	}
 
 	/**
-	 * Žw’è‚³‚ê‚½ˆÊ’u‚ªˆÚ“®‰Â”\‚©ƒ`ƒFƒbƒN‚µ‚Ü‚·B
-	 * @param int x ‚˜À•W
-	 * @param int y ‚™À•W
-	 * @param boolean  true ˆÚ“®‰Â”\  false ˆÚ“®•s‰Â”\
+	 * æŒ‡å®šã•ã‚ŒãŸä½ç½®ãŒç§»å‹•å¯èƒ½ã‹ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
+	 * @param int x ï½˜åº§æ¨™
+	 * @param int y ï½™åº§æ¨™
+	 * @param boolean  true ç§»å‹•å¯èƒ½  false ç§»å‹•ä¸å¯èƒ½
 	 */
 	private boolean checkState(int x, int y) {
 
 		collisionDoor = false;
 
-		/* ’n}‚Ì”ÍˆÍ“à */
+		/* åœ°å›³ã®ç¯„å›²å†… */
 		if( (x >= 0) && (x < mapArray.length) && (y >= 0) &&
 		        (y < mapArray[0].length) ) {
 
-			/*  •Ç ‚Ü‚½‚Í •Â‚¶‚Ä‚¢‚éƒhƒA ‚Å‚È‚¢ */ 
+			/*  å£ ã¾ãŸã¯ é–‰ã˜ã¦ã„ã‚‹ãƒ‰ã‚¢ ã§ãªã„ */ 
 			if(!mapArray[x][y].equals("W") && !mapArray[x][y].equals("D")) {
 				return true;
 			}

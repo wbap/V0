@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * EnvironmentCanvas.java
- *  ŠÂ‹«ƒOƒ‰ƒtƒBƒbƒNˆ—‚ğs‚¤ƒNƒ‰ƒX
+ *  ç’°å¢ƒã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.09 BSC miyamoto
  */
@@ -12,33 +12,33 @@ import java.util.*;
 import java.net.*;
 
 /**
- *  ŠÂ‹«ƒOƒ‰ƒtƒBƒbƒNˆ—‚ğs‚¤ƒNƒ‰ƒX‚Å‚·
+ *  ç’°å¢ƒã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹ã§ã™
  */
 public class EnvironmentCanvas extends Canvas {
 
-	/* ’n}î•ñ */
+	/* åœ°å›³æƒ…å ± */
 	private String[][] map;
 
-	/* ƒƒ{ƒbƒg‚ÌˆÊ’uî•ñ */
+	/* ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®æƒ…å ± */
 	private int[] robotState;
 
-	/* •ñV‚Ìî•ñ */
+	/* å ±é…¬ã®æƒ…å ± */
 	private String[][] rewardMap;
 
-	/* °‚ÌFî•ñ */
+	/* åºŠã®è‰²æƒ…å ± */
 	private String[][] colorMap;
 
-	/* Œrü‚ÌŠÔŠu */
+	/* ç½«ç·šã®é–“éš” */
 	private int xSpace;
 	private int ySpace;
-	/* ƒLƒƒƒ“ƒoƒX‚ÌƒTƒCƒY */
+	/* ã‚­ãƒ£ãƒ³ãƒã‚¹ã®ã‚µã‚¤ã‚º */
 	private int height;
 	private int width;
 
-	/* ƒTƒCƒY•ÏX‚Ìƒtƒ‰ƒO */
+	/* ã‚µã‚¤ã‚ºå¤‰æ›´ã®ãƒ•ãƒ©ã‚° */
 	private boolean resized;
 
-	/* ƒ_ƒuƒ‹ƒoƒbƒtƒ@ƒŠƒ“ƒO—p ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW */
+	/* ãƒ€ãƒ–ãƒ«ãƒãƒƒãƒ•ã‚¡ãƒªãƒ³ã‚°ç”¨ ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ */
 	private Image offImage;
 	private Graphics offGraphics;
 
@@ -47,41 +47,41 @@ public class EnvironmentCanvas extends Canvas {
 	private Color blueFloor = new Color(200, 200, 255);
 
 	////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^  ‰Šú‰»ˆ—
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿  åˆæœŸåŒ–å‡¦ç†
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 */
 	public EnvironmentCanvas() {
 		super();
-		/* ƒTƒCƒY•ÏX‚É‚Â‚¢‚Ä‚Ìˆ—‚ğs‚È‚¤ƒCƒxƒ“ƒgƒŠƒXƒi‚Ì“o˜^ */
+		/* ã‚µã‚¤ã‚ºå¤‰æ›´ã«ã¤ã„ã¦ã®å‡¦ç†ã‚’è¡Œãªã†ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠã®ç™»éŒ² */
 		addComponentListener(new CanvasComponentAdapter());
-		/* •Ï”‚Ì‰Šú‰» */
+		/* å¤‰æ•°ã®åˆæœŸåŒ– */
 		resized = false;
 		/*  */
 		initImage();
 	}
 
 	/**
-	 * ‰Šú‰»ˆ—
-	 * @param String[][] map    ŠÂ‹«‚Ì’n}î•ñ
-	 * @param int[] robotState  ƒƒ{ƒbƒg‚ÌˆÊ’u  int[0]=xÀ•W  int[1]=yÀ•W
+	 * åˆæœŸåŒ–å‡¦ç†
+	 * @param String[][] map    ç’°å¢ƒã®åœ°å›³æƒ…å ±
+	 * @param int[] robotState  ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®  int[0]=xåº§æ¨™  int[1]=yåº§æ¨™
 	 */
 	public void initCanvas(String[][] map, int[] robotState) {
 		this.map = map;
 		this.robotState = robotState;
 
-		/* ƒTƒCƒYî•ñ‚Ìİ’è */
+		/* ã‚µã‚¤ã‚ºæƒ…å ±ã®è¨­å®š */
 		setSizeInfo();
 	} 
 
 	/**
-	 * ‰Šú‰»ˆ—
-	 * @param String[][] map       ŠÂ‹«‚Ì’n}î•ñ
-	 * @param int[] robotState     ƒƒ{ƒbƒg‚ÌˆÊ’u  int[0]=xÀ•W  int[1]=yÀ•W
-	 * @param String[][] rewardMap •ñV‚Ìƒe[ƒuƒ‹
-	 *                             ’n}î•ñ‚Æ“¯‚¶ƒTƒCƒY‚Ìƒe[ƒuƒ‹‚Å‘Î‰‚·‚é
-	 *                             ˆÊ’u‚É•ñV‚ªİ’è‚³‚ê‚½‚à‚Ì
+	 * åˆæœŸåŒ–å‡¦ç†
+	 * @param String[][] map       ç’°å¢ƒã®åœ°å›³æƒ…å ±
+	 * @param int[] robotState     ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®  int[0]=xåº§æ¨™  int[1]=yåº§æ¨™
+	 * @param String[][] rewardMap å ±é…¬ã®ãƒ†ãƒ¼ãƒ–ãƒ«
+	 *                             åœ°å›³æƒ…å ±ã¨åŒã˜ã‚µã‚¤ã‚ºã®ãƒ†ãƒ¼ãƒ–ãƒ«ã§å¯¾å¿œã™ã‚‹
+	 *                             ä½ç½®ã«å ±é…¬ãŒè¨­å®šã•ã‚ŒãŸã‚‚ã®
 	 */
 	public void initCanvas(String[][] map, int[] robotState,
 	        String[][] rewardMap) {
@@ -90,15 +90,15 @@ public class EnvironmentCanvas extends Canvas {
 	}
 
 	/**
-	 * ‰Šú‰»ˆ—
-	 * @param String[][] map       ŠÂ‹«‚Ì’n}î•ñ
-	 * @param int[] robotState     ƒƒ{ƒbƒg‚ÌˆÊ’u  int[0]=xÀ•W  int[1]=yÀ•W
-	 * @param String[][] rewardMap •ñV‚Ìƒe[ƒuƒ‹
-	 *                             ’n}î•ñ‚Æ“¯‚¶ƒTƒCƒY‚Ìƒe[ƒuƒ‹‚Å‘Î‰‚·‚é
-	 *                             ˆÊ’u‚É•ñV‚ªİ’è‚³‚ê‚½‚à‚Ì
-	 * @param String[][] colorMap  ƒtƒƒA‚ÌF‚ğİ’è‚µ‚½ƒe[ƒuƒ‹
-	 *                             ’n}î•ñ‚Æ“¯‚¶ƒTƒCƒY‚Ìƒe[ƒuƒ‹‚Å‘Î‰‚·‚é
-	 *                             ˆÊ’u‚ÉF‚ªİ’è‚³‚ê‚½‚à‚Ì
+	 * åˆæœŸåŒ–å‡¦ç†
+	 * @param String[][] map       ç’°å¢ƒã®åœ°å›³æƒ…å ±
+	 * @param int[] robotState     ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®  int[0]=xåº§æ¨™  int[1]=yåº§æ¨™
+	 * @param String[][] rewardMap å ±é…¬ã®ãƒ†ãƒ¼ãƒ–ãƒ«
+	 *                             åœ°å›³æƒ…å ±ã¨åŒã˜ã‚µã‚¤ã‚ºã®ãƒ†ãƒ¼ãƒ–ãƒ«ã§å¯¾å¿œã™ã‚‹
+	 *                             ä½ç½®ã«å ±é…¬ãŒè¨­å®šã•ã‚ŒãŸã‚‚ã®
+	 * @param String[][] colorMap  ãƒ•ãƒ­ã‚¢ã®è‰²ã‚’è¨­å®šã—ãŸãƒ†ãƒ¼ãƒ–ãƒ«
+	 *                             åœ°å›³æƒ…å ±ã¨åŒã˜ã‚µã‚¤ã‚ºã®ãƒ†ãƒ¼ãƒ–ãƒ«ã§å¯¾å¿œã™ã‚‹
+	 *                             ä½ç½®ã«è‰²ãŒè¨­å®šã•ã‚ŒãŸã‚‚ã®
 	 */
 	public void initCanvas(String[][] map, int[] robotState,
 	        String[][] rewardMap, String[][] colorMap) {
@@ -122,31 +122,31 @@ public class EnvironmentCanvas extends Canvas {
 	// public 
 
 	/**
-	 * updateƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * updateãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 */
 	public void update(Graphics g) {
 		paint(g);
 	}
 
 	/**
-	 * paintƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * paintãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 */
 	public void paint(Graphics g) {
 
-		/* n‚ß‚ÆƒTƒCƒY•ÏX‚ÍƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚Ì‰Šú‰» */
+		/* å§‹ã‚ã¨ã‚µã‚¤ã‚ºå¤‰æ›´æ™‚ã¯ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã®åˆæœŸåŒ– */
 		if( (offGraphics == null) || (resized == true) ){
 			offImage = createImage(width, height);
 			offGraphics = offImage.getGraphics();
 			resized = false;
 		}
-		/* ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”» */
 		drawOffImage(offGraphics);
-		/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚ğ•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æç”» */
 		g.drawImage(offImage, 0, 0, this);
 	}
 
 	/**
-	 * Šeƒ}ƒX‚Ìx²•ûŒü‚ÌƒTƒCƒY
+	 * å„ãƒã‚¹ã®xè»¸æ–¹å‘ã®ã‚µã‚¤ã‚º
 	 * @return int
 	 */
 	public int getXSpace() {
@@ -154,7 +154,7 @@ public class EnvironmentCanvas extends Canvas {
 	}
 
 	/**
-	 * Šeƒ}ƒX‚Ìy²•ûŒü‚ÌƒTƒCƒY
+	 * å„ãƒã‚¹ã®yè»¸æ–¹å‘ã®ã‚µã‚¤ã‚º
 	 * @return int
 	 */
 	public int getYSpace() {
@@ -163,7 +163,7 @@ public class EnvironmentCanvas extends Canvas {
 
 	private boolean flagFlash = false;
 	/**
-	 * ‰æ–Ê‚ğ“_–Å‚³‚¹‚Ü‚·B
+	 * ç”»é¢ã‚’ç‚¹æ»…ã•ã›ã¾ã™ã€‚
 	 */
 	public void flash() {
 		flagFlash = true;
@@ -173,15 +173,15 @@ public class EnvironmentCanvas extends Canvas {
 	// private
 
 	/**
-	 * ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ
+	 * ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”»
 	 * @param Graphics graphics
 	 */
 	private void drawOffImage(Graphics graphics) {
 
-		/* ƒCƒ[ƒW‚ÌƒNƒŠƒA */
+		/* ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢ */
 		graphics.setColor(getBackground());
 
-		/* “_–Å‚³‚¹‚éê‡ */
+		/* ç‚¹æ»…ã•ã›ã‚‹å ´åˆ */
 		if(flagFlash) {
 			graphics.setColor(Color.red);
 			flagFlash = false;
@@ -189,29 +189,29 @@ public class EnvironmentCanvas extends Canvas {
 
 		graphics.fillRect(0, 0, width, height);
 
-		/* Œrü‚Ì•`‰æ */
+		/* ç½«ç·šã®æç”» */
 		graphics.setColor(Color.black);
 
-		int xNum = map.length+1;    /* x²•ûŒü‚Ì‚Ü‚·” */
-		int yNum = map[0].length+1; /* y²•ûŒü‚Ì‚Ü‚·” */
+		int xNum = map.length+1;    /* xè»¸æ–¹å‘ã®ã¾ã™æ•° */
+		int yNum = map[0].length+1; /* yè»¸æ–¹å‘ã®ã¾ã™æ•° */
 
-		/* ‚˜²•ûŒü‚ÌŒrü */
+		/* ï½˜è»¸æ–¹å‘ã®ç½«ç·š */
 		for(int i = ySpace; i <= ySpace * yNum; i = i+ySpace) {
 			graphics.drawLine(xSpace, i, xSpace * xNum, i);
 		}
-		/* ‚™²•ûŒü‚ÌŒrü */
+		/* ï½™è»¸æ–¹å‘ã®ç½«ç·š */
 		for(int i = xSpace; i <= xSpace * xNum; i = i+xSpace) {
 			graphics.drawLine(i, ySpace, i, ySpace * yNum);
 		}
 
-		/* ’n}‚Ì•`‰æ */
+		/* åœ°å›³ã®æç”» */
 		for(int x = 0; x < map.length; x++) {
 			for(int y = 0; y < map[0].length; y++) {
 
-				/* ’n}ã‚Ìˆêƒ}ƒX‚ÌƒTƒCƒY‚ÉŠÖ‚·‚éî•ñ‚ğæ“¾ */
+				/* åœ°å›³ä¸Šã®ä¸€ãƒã‚¹ã®ã‚µã‚¤ã‚ºã«é–¢ã™ã‚‹æƒ…å ±ã‚’å–å¾— */
 				int[] rectInfo = getMapRectInfo(x, y);
 
-				/* °‚Ì•`‰æ */
+				/* åºŠã®æç”» */
 				if(colorMap != null) {
 					drawFloor(graphics, x, y, rectInfo);
 				}
@@ -221,7 +221,7 @@ public class EnvironmentCanvas extends Canvas {
 					mapID = map[x][y].substring(0, 1);
 				}
 
-				/* •ñV */
+				/* å ±é…¬ */
 				if( mapID.equals("O") ) {
 					graphics.setColor(Color.green);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
@@ -231,9 +231,9 @@ public class EnvironmentCanvas extends Canvas {
 					graphics.drawString("O", rectInfo[0],
 					        rectInfo[1]+rectInfo[3]);
 				}
-				// 2001.03.22 ’Ç‰Á miyamoto
-				// ƒhƒA‚ÆƒJƒM‚Ì•\¦‚ğ’Ç‰Á
-				/* ƒhƒA ƒNƒ[ƒY */
+				// 2001.03.22 è¿½åŠ  miyamoto
+				// ãƒ‰ã‚¢ã¨ã‚«ã‚®ã®è¡¨ç¤ºã‚’è¿½åŠ 
+				/* ãƒ‰ã‚¢ ã‚¯ãƒ­ãƒ¼ã‚º */
 				if( mapID.equals("D") ) {
 					graphics.setColor(Color.darkGray);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
@@ -243,7 +243,7 @@ public class EnvironmentCanvas extends Canvas {
 					graphics.drawString("D", rectInfo[0],
 					        rectInfo[1]+rectInfo[3]);
 				}
-				/* ƒhƒA ƒI[ƒvƒ“*/
+				/* ãƒ‰ã‚¢ ã‚ªãƒ¼ãƒ—ãƒ³*/
 				if( mapID.equals("d") ) {
 					graphics.setColor(Color.lightGray);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
@@ -253,13 +253,13 @@ public class EnvironmentCanvas extends Canvas {
 					graphics.drawString("d", rectInfo[0],
 					        rectInfo[1]+rectInfo[3]);
 				}
-				/* ƒJƒM */
+				/* ã‚«ã‚® */
 				if( mapID.equals("K") ) {
 					graphics.setColor(Color.yellow);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
 					        rectInfo[3]);
 //					graphics.setColor(Color.black);
-// ‰æ‘œ‚Å•\¦
+// ç”»åƒã§è¡¨ç¤º
 					if(keyImage != null) {
 						graphics.drawImage(keyImage, rectInfo[0], 
 						        rectInfo[1], this);
@@ -269,7 +269,7 @@ public class EnvironmentCanvas extends Canvas {
 //					graphics.drawString("K", rectInfo[0],
 //					        rectInfo[1]+rectInfo[3]);
 				}
-				// 2001.08.08 ’Ç‰Á “d˜b‚ÌˆÊ’u
+				// 2001.08.08 è¿½åŠ  é›»è©±ã®ä½ç½®
 				if( mapID.equals("T") ) {
 //System.out.println("rectInfo");
 //System.out.println("x:" + rectInfo[0] + " y:" + rectInfo[1]);
@@ -278,7 +278,7 @@ public class EnvironmentCanvas extends Canvas {
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
 					        rectInfo[3]);
 //					graphics.setColor(Color.black);
-// ‰æ‘œ‚Å•\¦
+// ç”»åƒã§è¡¨ç¤º
 					if(telephoneImage != null) {
 						graphics.drawImage(telephoneImage, rectInfo[0],
 						        rectInfo[1], this);
@@ -289,7 +289,7 @@ public class EnvironmentCanvas extends Canvas {
 //					        rectInfo[1]+rectInfo[3]);
 				}
 
-// ƒAƒCƒeƒ€‚ğ‘‚â‚·
+// ã‚¢ã‚¤ãƒ†ãƒ ã‚’å¢—ã‚„ã™
 if( mapID.equals("A") ) {
 	graphics.setColor(Color.yellow);
 	graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
@@ -323,49 +323,49 @@ if( mapID.equals("b") ) {
 	        rectInfo[1]+rectInfo[3]);
 }
 
-				/* ƒXƒ^[ƒg */
+				/* ã‚¹ã‚¿ãƒ¼ãƒˆ */
 				if( mapID.equals("S") ) {
 					graphics.setColor(Color.pink);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
 					        rectInfo[3]);
 				}
-				/* 2001.07.06 ’Ç‰Á ƒ‰ƒ“ƒ_ƒ€‚É“®ì */
+				/* 2001.07.06 è¿½åŠ  ãƒ©ãƒ³ãƒ€ãƒ ã«å‹•ä½œ */
 				if( mapID.equals("R") ) {
 					graphics.setColor(Color.magenta);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
 					        rectInfo[3]);
 				}
-				/* ƒWƒƒƒ“ƒv */
+				/* ã‚¸ãƒ£ãƒ³ãƒ— */
 				if( mapID.equals("J") ) {
 					graphics.setColor(Color.gray);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
 					        rectInfo[3]);
 				}
-				/* —¬‚ê */
+				/* æµã‚Œ */
 				if( mapID.equals("F") ) {
 					graphics.setColor(Color.cyan);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
 					        rectInfo[3]);
-					/* •ûŒü‚Ìæ“¾ */
+					/* æ–¹å‘ã®å–å¾— */
 					int startIndex = map[x][y].indexOf("(");
 					int endIndex = map[x][y].indexOf(")");
 					String dir = map[x][y].substring(startIndex+1, endIndex);
-					/* •ûŒü‚ğ•`‰æ */
+					/* æ–¹å‘ã‚’æç”» */
 					drawDirection(graphics, rectInfo, dir);
 				}
-				/* ŠR */
+				/* å´– */
 				if( mapID.equals("C") ) {
 					graphics.setColor(Color.orange);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
 					        rectInfo[3]);
-					/* •ûŒü‚Ìæ“¾ */
+					/* æ–¹å‘ã®å–å¾— */
 					int startIndex = map[x][y].indexOf("(");
 					int endIndex = map[x][y].indexOf(")");
 					String dir = map[x][y].substring(startIndex+1, endIndex);
-					/* •ûŒü‚ğ•`‰æ */
+					/* æ–¹å‘ã‚’æç”» */
 					drawDirection(graphics, rectInfo, dir);
 				}
-				/* •Ç */
+				/* å£ */
 				if( mapID.equals("W") ) {
 					graphics.setColor(Color.black);
 					graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
@@ -375,12 +375,12 @@ if( mapID.equals("b") ) {
 			}
 		}
 
-		/* ƒƒ{ƒbƒg‚Ì•`‰æ */
+		/* ãƒ­ãƒœãƒƒãƒˆã®æç”» */
 		int[] rectInfo = getMapRectInfo(robotState[0], robotState[1]);
 		graphics.setColor(Color.blue);
 		graphics.fillOval(rectInfo[0], rectInfo[1], rectInfo[2], rectInfo[3]);
-		/* ƒƒ{ƒbƒgˆÊ’u‚ÉƒAƒCƒeƒ€‚ğ•\¦ */
-// •¶š‚Å•\¦
+		/* ãƒ­ãƒœãƒƒãƒˆä½ç½®ã«ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¡¨ç¤º */
+// æ–‡å­—ã§è¡¨ç¤º
 		graphics.setColor(Color.white);
 		String item = null;
 		if(robotState[2] == 3) {
@@ -392,7 +392,7 @@ if( mapID.equals("b") ) {
 		}
 		graphics.drawString(item, rectInfo[0], rectInfo[1]+rectInfo[3]);
 
-// ‰æ‘œ‚Å•\¦
+// ç”»åƒã§è¡¨ç¤º
 //		if(robotState[2] == 2) {
 //			if(telephoneImage != null) {
 //				graphics.drawImage(telephoneImage2, rectInfo[0],
@@ -404,9 +404,9 @@ if( mapID.equals("b") ) {
 //				        rectInfo[1], this);
 //			}
 //		}
-// ‚±‚±‚Ü‚Å
+// ã“ã“ã¾ã§
 
-		/* •ñV‚Ìƒe[ƒuƒ‹‚ª–³‚¯‚ê‚Î(==null)‚È‚ç•\¦‚ğ‚µ‚È‚¢ */
+		/* å ±é…¬ã®ãƒ†ãƒ¼ãƒ–ãƒ«ãŒç„¡ã‘ã‚Œã°(==null)ãªã‚‰è¡¨ç¤ºã‚’ã—ãªã„ */
 		if(rewardMap != null) {
 			drawRewardValue(graphics);
 		}
@@ -414,21 +414,21 @@ if( mapID.equals("b") ) {
 
 
 	/**
-	 * FlowECliff‚Ì–îˆó‚Ì•`‰æ
+	 * Flowãƒ»Cliffã®çŸ¢å°ã®æç”»
 	 * @param Graphics graphics 
-	 * @param int[] rectInfo ‹éŒ`‚Ìî•ñ
-	 * @param Stirng dir     •ûŒü
+	 * @param int[] rectInfo çŸ©å½¢ã®æƒ…å ±
+	 * @param Stirng dir     æ–¹å‘
 	 */
 	private void drawDirection(Graphics graphics, int[] rectInfo, String dir) {
 		graphics.setColor(Color.black);
-		/* ã•ûŒü‚Ì–îˆó */
+		/* ä¸Šæ–¹å‘ã®çŸ¢å° */
 		if( dir.equals("U") ) {
 			graphics.drawLine(rectInfo[0]+rectInfo[2]/2, rectInfo[1],
 			        rectInfo[0], rectInfo[1]+rectInfo[3]);
 			graphics.drawLine(rectInfo[0]+rectInfo[2]/2, rectInfo[1],
 			        rectInfo[0]+rectInfo[2], rectInfo[1]+rectInfo[3]);
 		}
-		/* ‰º•ûŒü‚Ì–îˆó */
+		/* ä¸‹æ–¹å‘ã®çŸ¢å° */
 		if( dir.equals("D") ) {
 			graphics.drawLine(rectInfo[0]+rectInfo[2]/2,
 			        rectInfo[1]+rectInfo[3], rectInfo[0], rectInfo[1]);
@@ -436,14 +436,14 @@ if( mapID.equals("b") ) {
 			        rectInfo[1]+rectInfo[3], rectInfo[0]+rectInfo[2],
 			        rectInfo[1]);
 		}
-		/* ¶•ûŒü‚Ì–îˆó */
+		/* å·¦æ–¹å‘ã®çŸ¢å° */
 		if( dir.equals("L") ) {
 			graphics.drawLine(rectInfo[0], rectInfo[1]+rectInfo[3]/2,
 			        rectInfo[0]+rectInfo[2], rectInfo[1]);
 			graphics.drawLine(rectInfo[0], rectInfo[1]+rectInfo[3]/2,
 			        rectInfo[0]+rectInfo[2], rectInfo[1]+rectInfo[3]);
 		}
-		/* ‰E•ûŒü‚Ì–îˆó */
+		/* å³æ–¹å‘ã®çŸ¢å° */
 		if( dir.equals("R") ) {
 			graphics.drawLine(rectInfo[0]+rectInfo[2],
 			        rectInfo[1]+rectInfo[3]/2, rectInfo[0], rectInfo[1]);
@@ -455,15 +455,15 @@ if( mapID.equals("b") ) {
 
 
 	/**
-	 * •ñV‚Ì’l‚ğ•`‰æ‚µ‚Ü‚·B
+	 * å ±é…¬ã®å€¤ã‚’æç”»ã—ã¾ã™ã€‚
 	 */
 	private void drawRewardValue(Graphics graphics) {
-		/* x²•ûŒü‚Ö‚ÌŒJ‚è•Ô‚µ */
+		/* xè»¸æ–¹å‘ã¸ã®ç¹°ã‚Šè¿”ã— */
 		for(int x = 0; x < map.length; x++) {
-			/* y²•ûŒü‚Ö‚ÌŒJ‚è•Ô‚µ */
+			/* yè»¸æ–¹å‘ã¸ã®ç¹°ã‚Šè¿”ã— */
 			for(int y = 0; y < map[0].length; y++) {
 				int[] rectInfo = getMapRectInfo(x, y);
-				/* •ñV‚ğæ“¾ */
+				/* å ±é…¬ã‚’å–å¾— */
 				String reward = rewardMap[x][y];
 				graphics.setColor(Color.black);
 				graphics.drawString(reward, rectInfo[0],
@@ -503,8 +503,8 @@ if( mapID.equals("b") ) {
 			color = colorMap[x][y].substring(0, 1);
 		}
 
-		// 2001.08.08 ’Ç‰Á miyamoto
-		/* °‚ÉF‚ğİ’è */
+		// 2001.08.08 è¿½åŠ  miyamoto
+		/* åºŠã«è‰²ã‚’è¨­å®š */
 		if( color.equals("w") ) {
 //			graphics.setColor(Color.black);
 //			graphics.fillRect(rectInfo[0], rectInfo[1],
@@ -529,16 +529,16 @@ if( mapID.equals("b") ) {
 
 
 	/**
-	 * ƒTƒCƒY‚ÉŠÖ‚·‚éî•ñ‚ğİ’è‚µ‚Ü‚·B
+	 * ã‚µã‚¤ã‚ºã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®šã—ã¾ã™ã€‚
 	 */
 	private void setSizeInfo() {
 
-		/* ƒLƒƒƒ“ƒoƒX‚ÌƒTƒCƒY */
+		/* ã‚­ãƒ£ãƒ³ãƒã‚¹ã®ã‚µã‚¤ã‚º */
 		Dimension d = getSize();
 		height = d.height;
 		width = d.width;
 
-		/* Œrü‚ÌŠÔŠu */
+		/* ç½«ç·šã®é–“éš” */
 		xSpace = d.width / (map.length+2);
 		ySpace = d.height / (map[0].length+2);
 //System.out.println("EnvironmentCanvas");
@@ -549,14 +549,14 @@ if( mapID.equals("b") ) {
 
 
 	/**
-	 * w’è‚³‚ê‚½’n}ã‚Ì‚w‚xÀ•W‚É‘Î‰‚·‚é‹éŒ`‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int x ’n}ã‚Ì‚wÀ•W
-	 * @param int y ’n}ã‚Ì‚xÀ•W
-	 * @return int[] int[4]‚Ì”z—ñ ‡‚ÉƒLƒƒƒ“ƒoƒXã‚Ì XÀ•WEYÀ•WE•E‚‚³
+	 * æŒ‡å®šã•ã‚ŒãŸåœ°å›³ä¸Šã®ï¼¸ï¼¹åº§æ¨™ã«å¯¾å¿œã™ã‚‹çŸ©å½¢ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x åœ°å›³ä¸Šã®ï¼¸åº§æ¨™
+	 * @param int y åœ°å›³ä¸Šã®ï¼¹åº§æ¨™
+	 * @return int[] int[4]ã®é…åˆ— é †ã«ã‚­ãƒ£ãƒ³ãƒã‚¹ä¸Šã® Xåº§æ¨™ãƒ»Yåº§æ¨™ãƒ»å¹…ãƒ»é«˜ã•
 	 */
 	private int[] getMapRectInfo(int x, int y) {
 		int[] rectInfo = null;
-		/* ”ÍˆÍ“à‚©ƒ`ƒFƒbƒN */
+		/* ç¯„å›²å†…ã‹ãƒã‚§ãƒƒã‚¯ */
 		if( (x >= 0)&&(y >= 0) && (x < map.length)&&(y < map[0].length) ) {
 			rectInfo = new int[4];
 			rectInfo[0] = ((x+1)*xSpace) + 1;
@@ -569,21 +569,21 @@ if( mapID.equals("b") ) {
 
 
 	//////////////////////////////////////////////////
-	// ƒCƒxƒ“ƒgˆ—
+	// ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 
 	/**
-	 * ƒTƒCƒY•ÏX‚ÌƒCƒxƒ“ƒg‚ğˆ—‚·‚éƒCƒ“ƒi[ƒNƒ‰ƒX
+	 * ã‚µã‚¤ã‚ºå¤‰æ›´ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’å‡¦ç†ã™ã‚‹ã‚¤ãƒ³ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 	 */
 	class CanvasComponentAdapter extends ComponentAdapter {
 
 		/**
-		 * ƒTƒCƒY•ÏX‚Ìˆ—
+		 * ã‚µã‚¤ã‚ºå¤‰æ›´æ™‚ã®å‡¦ç†
 		 */
 		public void componentResized(ComponentEvent e) {
-			/* ƒTƒCƒYî•ñ‚Ìİ’è */
+			/* ã‚µã‚¤ã‚ºæƒ…å ±ã®è¨­å®š */
 			setSizeInfo();
 			resized = true;
-			/* Ä•`‰æ */
+			/* å†æç”» */
 			repaint();
 		}
 	}

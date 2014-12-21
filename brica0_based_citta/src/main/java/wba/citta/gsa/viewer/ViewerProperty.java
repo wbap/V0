@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * ViewerProperty.java
- * Viewer‚Ìî•ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+ * Viewerã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.11
  */
@@ -11,11 +11,11 @@ import java.util.*;
 import java.awt.*;
 
 /**
- * Viewer‚Ìî•ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+ * Viewerã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class ViewerProperty {
 
-	/* İ’èƒtƒ@ƒCƒ‹–¼ */
+	/* è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«å */
 	private static final String PROP_FILE_NAME = "viewer.prop";
 
 	public static int[] agentViewerInitSize = null;
@@ -23,7 +23,7 @@ public class ViewerProperty {
 	public static int[] treeViwerInitSize = null;
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgID‚ÆƒG[ƒWƒFƒ“ƒg‚Ì•\¦F‚Ìƒe[ƒuƒ‹
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã¨ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®è¡¨ç¤ºè‰²ã®ãƒ†ãƒ¼ãƒ–ãƒ«
 	 */
 	public static Hashtable colorTable = null; 
 
@@ -33,14 +33,14 @@ public class ViewerProperty {
 	}
 
 	/**
-	 * ƒtƒ@ƒCƒ‹‚©‚çî•ñ‚Ì“Ç‚İ‚İ
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰æƒ…å ±ã®èª­ã¿è¾¼ã¿
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	private static void loadProperty(String fileName) {
 
 		Properties prop = new Properties();
 
-		/* ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ */
+		/* ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ */
 		try {
 			FileInputStream fin = new FileInputStream(fileName);
 			prop.load(fin);
@@ -90,14 +90,14 @@ public class ViewerProperty {
 		}
 
 
-		/* ƒG[ƒWƒFƒ“ƒg–ˆ‚Ìİ’è‚Ì“Ç‚İ */
+		/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ¯ã®è¨­å®šã®èª­è¾¼ã¿ */
 		for ( Enumeration e = prop.propertyNames(); e.hasMoreElements();) {
 			try{
-				/* ƒG[ƒWƒFƒ“ƒgIDæ“¾ */
+				/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDå–å¾— */
 				String key = (String)e.nextElement();
 				Integer agid = new Integer(key.trim());
 
-				/* ƒG[ƒWƒFƒ“ƒg‚ÌF‚Ìİ’èæ“¾ */
+				/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®è‰²ã®è¨­å®šå–å¾— */
 				StringTokenizer stringTokenizer
 				        = new StringTokenizer(prop.getProperty(key), ",");
 				int[] rgb = new int[3];
@@ -108,7 +108,7 @@ public class ViewerProperty {
 				}
 				Color color = new Color(rgb[0], rgb[1], rgb[2]);
 
-				/* ƒG[ƒWƒFƒ“ƒgID–ˆ‚Ì•\¦F‚ğƒe[ƒuƒ‹‚Éİ’è */
+				/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDæ¯ã®è¡¨ç¤ºè‰²ã‚’ãƒ†ãƒ¼ãƒ–ãƒ«ã«è¨­å®š */
 				colorTable.put(agid, color); 
 
 			} catch (NumberFormatException nfe) {

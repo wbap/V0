@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * CDViewerCanvas.java
- *  CognitiveDistance‚ÌŠeƒŒƒCƒ„‚ÌƒZƒOƒƒ“ƒgî•ñ‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚éƒNƒ‰ƒX
+ *  CognitiveDistanceã®å„ãƒ¬ã‚¤ãƒ¤ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆæƒ…å ±ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.11 BSC miyamoto
  */
@@ -11,40 +11,40 @@ import java.awt.event.*;
 import java.util.*;
 
 /**
- * CognitiveDistance‚ÌŠeƒŒƒCƒ„‚ÌƒZƒOƒƒ“ƒgî•ñ‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚éƒNƒ‰ƒX
- * ‚Å‚·B
+ * CognitiveDistanceã®å„ãƒ¬ã‚¤ãƒ¤ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆæƒ…å ±ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
+ * ã§ã™ã€‚
  */
 public class CDViewerCanvas extends Canvas {
 
-	/* ‚Ü‚·‚Ì” */
+	/* ã¾ã™ã®æ•° */
 	private int xNum;
 	private int yNum;
-	/* Œrü‚ÌŠÔŠu */
+	/* ç½«ç·šã®é–“éš” */
 	private int xSpace;
 	private int ySpace;
-	/* ƒLƒƒƒ“ƒoƒX‚ÌƒTƒCƒY */
+	/* ã‚­ãƒ£ãƒ³ãƒã‚¹ã®ã‚µã‚¤ã‚º */
 	private int height;
 	private int width;
 
-	/* ƒTƒCƒY•ÏX‚Ìƒtƒ‰ƒO */
+	/* ã‚µã‚¤ã‚ºå¤‰æ›´ã®ãƒ•ãƒ©ã‚° */
 	private boolean resized;
 
-	/* ƒ_ƒuƒ‹ƒoƒbƒtƒ@ƒŠƒ“ƒO—p ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW */
+	/* ãƒ€ãƒ–ãƒ«ãƒãƒƒãƒ•ã‚¡ãƒªãƒ³ã‚°ç”¨ ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ */
 	private Image offImage;
 	private Graphics offGraphics;
 
-	/* Œ»İ‚Ìó‘Ô‚É‘®‚·‚éŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg */
+	/* ç¾åœ¨ã®çŠ¶æ…‹ã«å±ã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ */
 	private LinkedList currentStateList;
-	/* ƒS[ƒ‹‚Ìó‘Ô‚É‘®‚·‚éŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg */
+	/* ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã«å±ã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ */
 	private LinkedList goalStateList;
-	/* ãˆÊ‘w‚©‚ç‚ÌƒTƒuƒS[ƒ‹‚Ìó‘Ô‚É‘®‚·‚éŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg */
+	/* ä¸Šä½å±¤ã‹ã‚‰ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã«å±ã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ */
 	private LinkedList upperSubgoalList;
-	/* Œ»İ‘w‚Å‚ÌƒTƒuƒS[ƒ‹‚Ìó‘Ô‚É‘®‚·‚éŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg */
+	/* ç¾åœ¨å±¤ã§ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã«å±ã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ */
 	private LinkedList currentSubgoalList;
-	/* ƒIƒvƒVƒ‡ƒ“î•ñ‚ğİ’è‚·‚éƒŠƒXƒg */
+	/* ã‚ªãƒ—ã‚·ãƒ§ãƒ³æƒ…å ±ã‚’è¨­å®šã™ã‚‹ãƒªã‚¹ãƒˆ */
 	private LinkedList optionList;
 
-	/* ‹éŒ`‚ğ•`‰æ‚·‚é‚½‚ß‚Ì’l‚ğİ’è‚·‚é”z—ñ */
+	/* çŸ©å½¢ã‚’æç”»ã™ã‚‹ãŸã‚ã®å€¤ã‚’è¨­å®šã™ã‚‹é…åˆ— */
 	private int[] rectInfo;
 	private int[] innerRectInfo;
 	private int[] center;
@@ -54,22 +54,22 @@ public class CDViewerCanvas extends Canvas {
 
 	private boolean renewFlg;
 
-	/* Šeƒ}ƒX‚Ì•ªŠ„‚É‚Â‚¢‚Ä‚Ìİ’è  true:5‚Â fasle:4‚Â */
+	/* å„ãƒã‚¹ã®åˆ†å‰²ã«ã¤ã„ã¦ã®è¨­å®š  true:5ã¤ fasle:4ã¤ */
 	private boolean flagSeparate = true;
 
 	////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int xNum x²•ûŒü‚Ì‚Ü‚·‚Ì”
-	 * @param int yNum y²•ûŒü‚Ì‚Ü‚·‚Ì”
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int xNum xè»¸æ–¹å‘ã®ã¾ã™ã®æ•°
+	 * @param int yNum yè»¸æ–¹å‘ã®ã¾ã™ã®æ•°
 	 */
 	public CDViewerCanvas(int xNum, int yNum) {
 		super();
-		/* ƒCƒxƒ“ƒgƒŠƒXƒi‚Ì“o˜^ */
+		/* ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠã®ç™»éŒ² */
 		addComponentListener(new CanvasComponentAdapter());
-		/* ‰Šú‰» */
+		/* åˆæœŸåŒ– */
 		resized = false;
 		initCanvas(xNum, yNum);
 
@@ -82,11 +82,11 @@ public class CDViewerCanvas extends Canvas {
 	}
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * Šeƒ}ƒX‚Ì•ªŠ„‚É‚Â‚¢‚Äw’è‰Â”\
-	 * @param int xNum x²•ûŒü‚Ì‚Ü‚·‚Ì”
-	 * @param int yNum y²•ûŒü‚Ì‚Ü‚·‚Ì”
-	 * @param boolean flagSeparate Šeƒ}ƒX‚Ì•ªŠ„ true:5‚Â‚É•ªŠ„ false:4‚Â‚É•ªŠ„
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * å„ãƒã‚¹ã®åˆ†å‰²ã«ã¤ã„ã¦æŒ‡å®šå¯èƒ½
+	 * @param int xNum xè»¸æ–¹å‘ã®ã¾ã™ã®æ•°
+	 * @param int yNum yè»¸æ–¹å‘ã®ã¾ã™ã®æ•°
+	 * @param boolean flagSeparate å„ãƒã‚¹ã®åˆ†å‰² true:5ã¤ã«åˆ†å‰² false:4ã¤ã«åˆ†å‰²
 	 */
 	public CDViewerCanvas(int xNum, int yNum, boolean flagSeparate) {
 		this(xNum, yNum);
@@ -97,64 +97,64 @@ public class CDViewerCanvas extends Canvas {
 	// public 
 
 	/**
-	 * updateƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * updateãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 */
 	public void update(Graphics g) {
 		paint(g);
 	}
 
 	/**
-	 * paintƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * paintãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 */
 	public void paint(Graphics g) {
 
-		/* n‚ß‚ÆƒTƒCƒY•ÏX‚ÍƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚Ì‰Šú‰» */
+		/* å§‹ã‚ã¨ã‚µã‚¤ã‚ºå¤‰æ›´æ™‚ã¯ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã®åˆæœŸåŒ– */
 		if( (offGraphics == null) || (resized == true) ){
 			offImage = createImage(width, height);
 			offGraphics = offImage.getGraphics();
 			resized = false;
 		}
-		/* ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”» */
 		drawOffImage(offGraphics);
-		/* ƒIƒtƒXƒNƒŠ[ƒ“ƒCƒ[ƒW‚ğ•`‰æ */
+		/* ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æç”» */
 		g.drawImage(offImage, 0, 0, this);
 	}
 
 	/**
-	 * ‚±‚Ì‘w‚Å‚ÌŒ»İ‚Ìó‘Ô‚É‘®‚·‚éŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg‚ğİ’è‚µ‚Ü‚·B
-	 * @param LinkedList currentStateList  ŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg
+	 * ã“ã®å±¤ã§ã®ç¾åœ¨ã®çŠ¶æ…‹ã«å±ã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param LinkedList currentStateList  ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ
 	 */
 	public void setCurrentStateList(LinkedList currentStateList) {
 		this.currentStateList = currentStateList;
 	}
 
 	/**
-	 * ‚±‚Ì‘w‚Å‚ÌƒS[ƒ‹‚Ìó‘Ô‚É‘®‚·‚éŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg‚ğİ’è‚µ‚Ü‚·B
-	 * @param LinkedList goalStateList  ŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg
+	 * ã“ã®å±¤ã§ã®ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã«å±ã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param LinkedList goalStateList  ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ
 	 */
 	public void setGoalStateList(LinkedList goalStateList) {
 		this.goalStateList = goalStateList;
 	}
 
 	/**
-	 * ‚±‚Ì‘w‚ÌãˆÊ‘w‚ªİ’è‚µ‚½ƒTƒuƒS[ƒ‹‚Ìó‘Ô‚É‘®‚·‚éŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg‚ğ
-	 * İ’è‚µ‚Ü‚·B
-	 * @param LinkedList goalStateList  ŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg
+	 * ã“ã®å±¤ã®ä¸Šä½å±¤ãŒè¨­å®šã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã«å±ã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã‚’
+	 * è¨­å®šã—ã¾ã™ã€‚
+	 * @param LinkedList goalStateList  ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ
 	 */
 	public void setUpperSubgoalList(LinkedList upperSubgoalList) {
 		this.upperSubgoalList = upperSubgoalList;
 	}
 
 	/**
-	 * ‚±‚Ì‘w‚Åİ’è‚µ‚½ƒTƒuƒS[ƒ‹‚Ìó‘Ô‚É‘®‚·‚éŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg‚ğİ’è‚µ‚Ü‚·B
-	 * @param LinkedList goalStateList  ŠÂ‹«‚Ìó‘Ô‚ÌƒŠƒXƒg
+	 * ã“ã®å±¤ã§è¨­å®šã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã«å±ã™ã‚‹ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param LinkedList goalStateList  ç’°å¢ƒã®çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ
 	 */
 	public void setCurrentSubgoalList(LinkedList currentSubgoalList) {
 		this.currentSubgoalList = currentSubgoalList;
 	}
 
 	/**
-	 * ƒIƒvƒVƒ‡ƒ“î•ñ‚ÌƒŠƒXƒg‚ğİ’è‚µ‚Ü‚·B
+	 * ã‚ªãƒ—ã‚·ãƒ§ãƒ³æƒ…å ±ã®ãƒªã‚¹ãƒˆã‚’è¨­å®šã—ã¾ã™ã€‚
 	 * @param LinkedList optionList
 	 */
 	public void setOptionList(LinkedList optionList) {
@@ -162,8 +162,8 @@ public class CDViewerCanvas extends Canvas {
 	}
 
 	/**
-	 * ƒTƒuƒS[ƒ‹‚ªV‚µ‚­‚È‚Á‚½‚±‚Æ‚ğ¦‚·ƒtƒ‰ƒO‚ğİ’è‚µ‚Ü‚·
-	 * @param boolean  true V‚µ‚¢ƒTƒuƒS[ƒ‹
+	 * ã‚µãƒ–ã‚´ãƒ¼ãƒ«ãŒæ–°ã—ããªã£ãŸã“ã¨ã‚’ç¤ºã™ãƒ•ãƒ©ã‚°ã‚’è¨­å®šã—ã¾ã™
+	 * @param boolean  true æ–°ã—ã„ã‚µãƒ–ã‚´ãƒ¼ãƒ«
 	 */
 	public void setRenewFlg(boolean b) {
 		renewFlg = b;
@@ -173,41 +173,41 @@ public class CDViewerCanvas extends Canvas {
 	// private
 
 	/**
-	 * ‰Šú‰»ˆ—
-	 * @param int xNum ‚˜•ûŒü‚Ì‚Ü‚·‚Ì”
-	 * @param int yNum ‚™•ûŒü‚Ì‚Ü‚·‚Ì”
+	 * åˆæœŸåŒ–å‡¦ç†
+	 * @param int xNum ï½˜æ–¹å‘ã®ã¾ã™ã®æ•°
+	 * @param int yNum ï½™æ–¹å‘ã®ã¾ã™ã®æ•°
 	 */
 	private void initCanvas(int xNum, int yNum) {
 
 		this.xNum = xNum;
 		this.yNum = yNum;
 
-		/* ƒTƒCƒYî•ñ‚Ìİ’è */
+		/* ã‚µã‚¤ã‚ºæƒ…å ±ã®è¨­å®š */
 		setSizeInfo();
 	} 
 
 
 	/**
-	 * ƒTƒCƒY‚ÉŠÖ‚·‚éî•ñ‚ğİ’è‚µ‚Ü‚·B
+	 * ã‚µã‚¤ã‚ºã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®šã—ã¾ã™ã€‚
 	 */
 	private void setSizeInfo() {
-		/* ƒLƒƒƒ“ƒoƒX‚ÌƒTƒCƒY */
+		/* ã‚­ãƒ£ãƒ³ãƒã‚¹ã®ã‚µã‚¤ã‚º */
 		Dimension d = getSize();
 		height = d.height;
 		width = d.width;
-		/* Œrü‚ÌŠÔŠu */
+		/* ç½«ç·šã®é–“éš” */
 		xSpace = d.width / (xNum+2);
 		ySpace = d.height / (yNum+2);
 	}
 
 
 	/**
-	 * ƒIƒtƒXƒNƒŠ[ƒ“‚Ö‚Ì•`‰æ
+	 * ã‚ªãƒ•ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã¸ã®æç”»
 	 * @param Graphics graphics
 	 */
 	private void drawOffImage(Graphics graphics) {
 
-		/* ƒCƒ[ƒW‚ÌƒNƒŠƒA */
+		/* ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢ */
 		graphics.setColor(getBackground());
 		graphics.fillRect(0, 0, width, height);
 
@@ -233,22 +233,22 @@ public class CDViewerCanvas extends Canvas {
 		graphics.setColor(Color.red);
 		fillStateListPolygon(graphics, currentSubgoalList);
 
-		/* ƒŠƒXƒg“à‚Ìó‘Ô‚Ì‚Ü‚·‚ğ“h‚è‚Â‚Ô‚· */
+		/* ãƒªã‚¹ãƒˆå†…ã®çŠ¶æ…‹ã®ã¾ã™ã‚’å¡—ã‚Šã¤ã¶ã™ */
 		/* currentState */
 		graphics.setColor(Color.blue);
 		fillStateListPolygon(graphics, currentStateList);
 
-		/* Še‚Ü‚·•ªŠ„‚·‚éü‚ğ•`‰æ */
+		/* å„ã¾ã™åˆ†å‰²ã™ã‚‹ç·šã‚’æç”» */
 		graphics.setColor(Color.gray);
 		if(flagSeparate == true) {
-			/* ’â~ó‘Ô‚ ‚è 5‚Â‚É•ªŠ„ */
+			/* åœæ­¢çŠ¶æ…‹ã‚ã‚Š 5ã¤ã«åˆ†å‰² */
 			for(int x = 0; x < xNum; x++) {
 				for(int y = 0; y < yNum; y++) {
 					drawSeparateLine(graphics, x, y);
 				}
 			}
 		}else {
-			/* ’â~ó‘Ô‚È‚µ 4‚Â‚É•ªŠ„ */
+			/* åœæ­¢çŠ¶æ…‹ãªã— 4ã¤ã«åˆ†å‰² */
 			for(int x = 0; x < xNum; x++) {
 				for(int y = 0; y < yNum; y++) {
 					drawSeparateLine2(graphics, x, y);
@@ -256,13 +256,13 @@ public class CDViewerCanvas extends Canvas {
 			}
 		}
 
-		/* Œrü‚Ì•`‰æ */
+		/* ç½«ç·šã®æç”» */
 		graphics.setColor(Color.gray/*black*/);
-		/* ‚˜²•ûŒü‚ÌŒrü */
+		/* ï½˜è»¸æ–¹å‘ã®ç½«ç·š */
 		for(int i = ySpace; i <= ySpace * (yNum+1); i = i+ySpace) {
 			graphics.drawLine(xSpace, i, xSpace * (xNum+1), i);
 		}
-		/* ‚™²•ûŒü‚ÌŒrü */
+		/* ï½™è»¸æ–¹å‘ã®ç½«ç·š */
 		for(int i = xSpace; i <= xSpace * (xNum+1); i = i+xSpace) {
 			graphics.drawLine(i, ySpace, i, ySpace * (yNum+1));
 		}
@@ -271,10 +271,10 @@ public class CDViewerCanvas extends Canvas {
 
 
 	/**
-	 * ‹éŒ`‚ğ•ªŠ„‚·‚éü‚ğˆø‚«‚Ü‚·B(’â~ó‘Ô—L‚è 5‚Â‚É•ªŠ„)
+	 * çŸ©å½¢ã‚’åˆ†å‰²ã™ã‚‹ç·šã‚’å¼•ãã¾ã™ã€‚(åœæ­¢çŠ¶æ…‹æœ‰ã‚Š 5ã¤ã«åˆ†å‰²)
 	 * @param Graphics graphics 
-	 * @param int x xÀ•W
-	 * @param int y yÀ•W
+	 * @param int x xåº§æ¨™
+	 * @param int y yåº§æ¨™
 	 */
 	private void drawSeparateLine(Graphics graphics, int x, int y) {
 
@@ -291,7 +291,7 @@ public class CDViewerCanvas extends Canvas {
 		        innerRectInfo[0]+innerRectInfo[2],
 		        innerRectInfo[1]+innerRectInfo[3]);
 
-		/* ’†S‚Ì‹éŒ`‚Ì•`‰æ */
+		/* ä¸­å¿ƒã®çŸ©å½¢ã®æç”» */
 		graphics.drawLine(innerRectInfo[0], innerRectInfo[1],
 		        innerRectInfo[0]+innerRectInfo[2], innerRectInfo[1]);
 		graphics.drawLine(innerRectInfo[0]+innerRectInfo[2], innerRectInfo[1],
@@ -306,10 +306,10 @@ public class CDViewerCanvas extends Canvas {
 
 
 	/**
-	 * ‹éŒ`‚ğ•ªŠ„‚·‚éü‚ğˆø‚«‚Ü‚·B(’â~ó‘Ô‚È‚µ 4‚Â‚É•ªŠ„)
+	 * çŸ©å½¢ã‚’åˆ†å‰²ã™ã‚‹ç·šã‚’å¼•ãã¾ã™ã€‚(åœæ­¢çŠ¶æ…‹ãªã— 4ã¤ã«åˆ†å‰²)
 	 * @param Graphics graphics 
-	 * @param int x xÀ•W
-	 * @param int y yÀ•W
+	 * @param int x xåº§æ¨™
+	 * @param int y yåº§æ¨™
 	 */
 	private void drawSeparateLine2(Graphics graphics, int x, int y) {
 
@@ -322,23 +322,23 @@ public class CDViewerCanvas extends Canvas {
 
 
 	/**
-	 * ˆø”‚Åİ’è‚³‚ê‚½ó‘Ô‚ÌƒŠƒXƒg‚É‘Î‰‚·‚é‘½ŠpŒ`‚ğ“h‚è‚Â‚Ô‚µ‚Ü‚·B
+	 * å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸçŠ¶æ…‹ã®ãƒªã‚¹ãƒˆã«å¯¾å¿œã™ã‚‹å¤šè§’å½¢ã‚’å¡—ã‚Šã¤ã¶ã—ã¾ã™ã€‚
 	 * @param Graphics g
-	 * @param LinkedList stateList ó‘Ô‚ÌƒŠƒXƒg
+	 * @param LinkedList stateList çŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ
 	 */
 	private void fillStateListPolygon(Graphics g, LinkedList stateList) {
 
-		/* ƒŠƒXƒg‚ª‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢ */
+		/* ãƒªã‚¹ãƒˆãŒãªã‘ã‚Œã°å‡¦ç†ã—ãªã„ */
 		if(stateList == null) {
 			return;
 		}
 
-		/* ƒŠƒXƒg‚ÌŠe—v‘f‚ğ“h‚è‚Â‚Ô‚· */
+		/* ãƒªã‚¹ãƒˆã®å„è¦ç´ ã‚’å¡—ã‚Šã¤ã¶ã™ */
 		try{
 			ListIterator stateListIterator = stateList.listIterator();
 			while(stateListIterator.hasNext()) {
 				Vector state = (Vector)stateListIterator.next();
-				// 2001.05.24 C³ miyamoto ŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚Ìjava‚É‘Î‰
+				// 2001.05.24 ä¿®æ­£ miyamoto å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®javaã«å¯¾å¿œ
 //				fillStatePolygon(g, ((Integer)state.get(0)).intValue(),
 //				        ((Integer)state.get(1)).intValue(),
 //				        ((Integer)state.get(2)).intValue() );
@@ -352,17 +352,17 @@ public class CDViewerCanvas extends Canvas {
 
 
 	/**
-	 * w’è‚³‚ê‚½ˆÊ’uEƒAƒNƒVƒ‡ƒ“‚É‘Î‰‚·‚é—Ìˆæ‚ğ“h‚è‚Â‚Ô‚µ‚Ü‚·B
-	 * @param int x ‚˜²•ûŒü‚ÌˆÊ’u
-	 * @param int y y²•ûŒü‚ÌˆÊ’u
-	 * @param int action s“®
+	 * æŒ‡å®šã•ã‚ŒãŸä½ç½®ãƒ»ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã«å¯¾å¿œã™ã‚‹é ˜åŸŸã‚’å¡—ã‚Šã¤ã¶ã—ã¾ã™ã€‚
+	 * @param int x ï½˜è»¸æ–¹å‘ã®ä½ç½®
+	 * @param int y yè»¸æ–¹å‘ã®ä½ç½®
+	 * @param int action è¡Œå‹•
 	 */
 	private void fillStatePolygon(Graphics g, int x, int y, int action) {
 
 		int[] rectInfo = getRectInfo(x, y);
 		int[] innerRectInfo = getInnerRectInfo(rectInfo);
 
-		/* ’â~ */
+		/* åœæ­¢ */
 		if(action == -1) {
 			xPoints[0] = innerRectInfo[0];
 			yPoints[0] = innerRectInfo[1];
@@ -377,7 +377,7 @@ public class CDViewerCanvas extends Canvas {
 			yPoints[3] = innerRectInfo[1] + innerRectInfo[3];
 		}
 
-		/* ã */
+		/* ä¸Š */
 		if(action == 0) {
 			xPoints[0] = rectInfo[0];
 			yPoints[0] = rectInfo[1] + rectInfo[3];
@@ -392,7 +392,7 @@ public class CDViewerCanvas extends Canvas {
 			yPoints[3] = rectInfo[1] + rectInfo[3];
 		}
 
-		/* ¶ */
+		/* å·¦ */
 		if(action == 2) {
 			xPoints[0] = rectInfo[0] + rectInfo[2];
 			yPoints[0] = rectInfo[1];
@@ -407,7 +407,7 @@ public class CDViewerCanvas extends Canvas {
 			yPoints[3] = rectInfo[1] + rectInfo[3];
 		}
 
-		/* ‰º */
+		/* ä¸‹ */
 		if(action == 4) {
 			xPoints[0] = rectInfo[0];
 			yPoints[0] = rectInfo[1];
@@ -422,7 +422,7 @@ public class CDViewerCanvas extends Canvas {
 			yPoints[3] = rectInfo[1];
 		}
 
-		/* ‰E */
+		/* å³ */
 		if(action == 6) {
 			xPoints[0] = rectInfo[0];
 			yPoints[0] = rectInfo[1];
@@ -442,13 +442,13 @@ public class CDViewerCanvas extends Canvas {
 
 
 	/**
-	 * w’è‚³‚ê‚½’n}ã‚Ì‚w‚xÀ•W‚É‘Î‰‚·‚é‹éŒ`‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int x ’n}ã‚Ì‚wÀ•W
-	 * @param int y ’n}ã‚Ì‚xÀ•W
-	 * @return int[] int[4]‚Ì”z—ñ ‡‚ÉƒLƒƒƒ“ƒoƒXã‚Ì XÀ•WEYÀ•WE•E‚‚³
+	 * æŒ‡å®šã•ã‚ŒãŸåœ°å›³ä¸Šã®ï¼¸ï¼¹åº§æ¨™ã«å¯¾å¿œã™ã‚‹çŸ©å½¢ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x åœ°å›³ä¸Šã®ï¼¸åº§æ¨™
+	 * @param int y åœ°å›³ä¸Šã®ï¼¹åº§æ¨™
+	 * @return int[] int[4]ã®é…åˆ— é †ã«ã‚­ãƒ£ãƒ³ãƒã‚¹ä¸Šã® Xåº§æ¨™ãƒ»Yåº§æ¨™ãƒ»å¹…ãƒ»é«˜ã•
 	 */
 	private int[] getRectInfo(int x, int y) {
-		/* ”ÍˆÍ“à‚©ƒ`ƒFƒbƒN */
+		/* ç¯„å›²å†…ã‹ãƒã‚§ãƒƒã‚¯ */
 		if( (x >= 0)&&(y >= 0) && (x < xNum)&&(y < yNum) ) {
 			rectInfo[0] = ((x+1)*xSpace) + 1;
 			rectInfo[1] = ((y+1)*ySpace) + 1;
@@ -465,9 +465,9 @@ public class CDViewerCanvas extends Canvas {
 
 
 	/**
-	 * ’â~ó‘Ô‚ğ•\‚í‚·‹éŒ`“à‚Ì‹éŒ`‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int[] rectInfo ‹éŒ`‚Ìî•ñ
-	 * @return int[] “à‘¤‚Ì‹éŒ`‚Ìî•ñ
+	 * åœæ­¢çŠ¶æ…‹ã‚’è¡¨ã‚ã™çŸ©å½¢å†…ã®çŸ©å½¢ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int[] rectInfo çŸ©å½¢ã®æƒ…å ±
+	 * @return int[] å†…å´ã®çŸ©å½¢ã®æƒ…å ±
 	 */
 	private int[] getInnerRectInfo(int[] rectInfo) {
 		int[] center = getCenter(rectInfo);
@@ -485,9 +485,9 @@ public class CDViewerCanvas extends Canvas {
 
 
 	/**
-	 * ‹éŒ`‚Ì’†SˆÊ’u‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int[] rectInfo ‹éŒ`‚Ìî•ñ
-	 * @return int[] ’†SˆÊ’u‚ÌxAyÀ•W
+	 * çŸ©å½¢ã®ä¸­å¿ƒä½ç½®ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int[] rectInfo çŸ©å½¢ã®æƒ…å ±
+	 * @return int[] ä¸­å¿ƒä½ç½®ã®xã€yåº§æ¨™
 	 */
 	private int[] getCenter(int[] rectInfo) {
 		center[0] = rectInfo[0] + (rectInfo[2]/2);
@@ -496,21 +496,21 @@ public class CDViewerCanvas extends Canvas {
 	}
 
 	//////////////////////////////////////////////////
-	// ƒCƒxƒ“ƒgˆ—
+	// ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 
 	/**
-	 * ƒTƒCƒY•ÏX‚ÌƒCƒxƒ“ƒg‚ğˆ—‚·‚éƒCƒ“ƒi[ƒNƒ‰ƒX
+	 * ã‚µã‚¤ã‚ºå¤‰æ›´ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’å‡¦ç†ã™ã‚‹ã‚¤ãƒ³ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 	 */
 	class CanvasComponentAdapter extends ComponentAdapter {
 
 		/**
-		 * ƒTƒCƒY•ÏX‚Ìˆ—
+		 * ã‚µã‚¤ã‚ºå¤‰æ›´æ™‚ã®å‡¦ç†
 		 */
 		public void componentResized(ComponentEvent e) {
-			/* ƒTƒCƒYî•ñ‚Ìİ’è */
+			/* ã‚µã‚¤ã‚ºæƒ…å ±ã®è¨­å®š */
 			setSizeInfo();
 			resized = true;
-			/* Ä•`‰æ */
+			/* å†æç”» */
 			repaint();
 		}
 	}

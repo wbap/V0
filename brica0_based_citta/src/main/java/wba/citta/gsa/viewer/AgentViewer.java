@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * AgentViewer.java
- *  ƒG[ƒWƒFƒ“ƒg‚Ì“®ìó‹µ‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚éƒNƒ‰ƒX
+ *  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å‹•ä½œçŠ¶æ³ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.10 BSC miyamoto
  */
@@ -10,25 +10,25 @@ import java.awt.*;
 import wba.citta.gsa.*;
 
 /**
- *  ƒG[ƒWƒFƒ“ƒg‚Ì“®ìó‹µ‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚éƒNƒ‰ƒX
+ *  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å‹•ä½œçŠ¶æ³ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class AgentViewer extends Frame {
 
 	private ScrollPane scrollPane = null;
 	private AgentViewerCanvas canvas = null;
 
-	/* ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹ */
+	/* ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ« */
 	private static final String TITLE = "Agent Viewer";
 
-	/* ƒEƒBƒ“ƒhƒE‚Ì‰ŠúƒTƒCƒY */
+	/* ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®åˆæœŸã‚µã‚¤ã‚º */
 	private int initXSize = 460;
 	private int initYSize = 120;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int[] agnets ‘SƒG[ƒWƒFƒ“ƒg‚ÌID‚Ì”z—ñ
-	 * @param boolean[] removeAgents “’BƒS[ƒ‹íœˆ—‚ğs‚È‚Á‚½ƒG[ƒWƒFƒ“ƒg
-	 * ‚Ìî•ñ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int[] agnets å…¨ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®IDã®é…åˆ—
+	 * @param boolean[] removeAgents åˆ°é”ã‚´ãƒ¼ãƒ«å‰Šé™¤å‡¦ç†ã‚’è¡Œãªã£ãŸã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
+	 * ã®æƒ…å ±
 	 */
 	public AgentViewer(int[] agents, boolean[] removeAgents) {
 		super(TITLE);
@@ -46,15 +46,15 @@ public class AgentViewer extends Frame {
 	}
 
 	/**
-	 * ÀsƒG[ƒWƒFƒ“ƒg‚ÌID‚ğİ’è‚µ‚Ü‚·B
-	 * @param int execAgentID ÀsƒG[ƒWƒFƒ“ƒg‚ÌID
+	 * å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®IDã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int execAgentID å®Ÿè¡Œã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ID
 	 */
 	public void setExecAgentID(int execAgentID) {
 		canvas.setExecAgentID(execAgentID);
 	}
 
 	/**
-	 * •`‰æ‚ğXV‚µ‚Ü‚·B
+	 * æç”»ã‚’æ›´æ–°ã—ã¾ã™ã€‚
 	 */
 	private void renew() {
 		Dimension d = scrollPane.getViewportSize();
@@ -64,7 +64,7 @@ public class AgentViewer extends Frame {
 	}
 
 	/**
-	 * paintƒƒ\ƒbƒh‚ÌƒI[ƒo[ƒ‰ƒCƒh
+	 * paintãƒ¡ã‚½ãƒƒãƒ‰ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 	 * @param Graphics g
 	 */
 	public void paint(Graphics graphics) {

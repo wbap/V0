@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * Node.java
- * ƒm[ƒh‚Ìî•ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+ * ãƒãƒ¼ãƒ‰ã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2000.10 BSC miyamoto
  */
@@ -10,55 +10,55 @@ import java.util.*;
 import java.io.*;
 
 /**
- * ƒm[ƒh‚Ìî•ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·B
+ * ãƒãƒ¼ãƒ‰ã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  */
 public class Node implements Serializable{
 
-	private Integer ID;            /* ©‚ç‚ÌID */
-	private Integer upperID;       /* ãˆÊ‘w‚Å‚Ìó‘Ô */
-	private Integer lowerID;       /* ‰ºˆÊ‘w‚Å‚Ìó‘Ô */
-	private int toLandmarkLngth;   /* ƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚ÌƒXƒeƒbƒv” */
+	private Integer ID;            /* è‡ªã‚‰ã®ID */
+	private Integer upperID;       /* ä¸Šä½å±¤ã§ã®çŠ¶æ…‹ */
+	private Integer lowerID;       /* ä¸‹ä½å±¤ã§ã®çŠ¶æ…‹ */
+	private int toLandmarkLngth;   /* ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®ã‚¹ãƒ†ãƒƒãƒ—æ•° */
 
-	private boolean valid;               /* ‚±‚Ìó‘Ô‚Ì—LŒø« */
-	private Integer referenceNodeID;     /* ‚±‚Ìƒm[ƒh‚ª–³Œø‚Èê‡‚ÌQÆæ */
-	/* QÆæ‚Ì‰º‚Ì‘w‚Å‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚Ì‹——£ */
+	private boolean valid;               /* ã“ã®çŠ¶æ…‹ã®æœ‰åŠ¹æ€§ */
+	private Integer referenceNodeID;     /* ã“ã®ãƒãƒ¼ãƒ‰ãŒç„¡åŠ¹ãªå ´åˆã®å‚ç…§å…ˆ */
+	/* å‚ç…§å…ˆã®ä¸‹ã®å±¤ã§ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®è·é›¢ */
 	private int referenceLowerToLandmarkLngth;
 
-	/* ‚ ‚éó‘Ô‚Ü‚Å‚Ì‹——£‚ğ•Û‚·‚éƒe[ƒuƒ‹ Key=nodeID Element=‹——£ */
+	/* ã‚ã‚‹çŠ¶æ…‹ã¾ã§ã®è·é›¢ã‚’ä¿æŒã™ã‚‹ãƒ†ãƒ¼ãƒ–ãƒ« Key=nodeID Element=è·é›¢ */
 	private Hashtable cognitiveDistance;
 
-	/* ’¼ÚˆÚ“®‰Â”\‚Èó‘Ô‚ÌƒŠƒXƒg ˆÚ“®‰Â”\‚ÈnodeID‚ÌƒŠƒXƒg*/
-	private LinkedList forwardNodeIDList;  /* ‡•ûŒü */
-	private LinkedList inverseNodeIDList;  /* ‹t•ûŒü */
+	/* ç›´æ¥ç§»å‹•å¯èƒ½ãªçŠ¶æ…‹ã®ãƒªã‚¹ãƒˆ ç§»å‹•å¯èƒ½ãªnodeIDã®ãƒªã‚¹ãƒˆ*/
+	private LinkedList forwardNodeIDList;  /* é †æ–¹å‘ */
+	private LinkedList inverseNodeIDList;  /* é€†æ–¹å‘ */
 
-	private int visitCount;              /* ‚±‚Ìó‘Ô‚Ö‚ÌˆÚ“®‰ñ” */
-	/* ó‘Ô‘JˆÚ‚ÉŠÖ‚·‚éî•ñ‚ÌƒŠƒXƒg */
+	private int visitCount;              /* ã“ã®çŠ¶æ…‹ã¸ã®ç§»å‹•å›æ•° */
+	/* çŠ¶æ…‹é·ç§»ã«é–¢ã™ã‚‹æƒ…å ±ã®ãƒªã‚¹ãƒˆ */
 	private Hashtable transitionCounterTable;
 
 	/**
-	 * ŠwK‰Â”\‚ÈÅ‘å‚Ì‹——£
-	 * ‚±‚Ì’·‚³{‚P‚ªStateBuffer‚ÌƒTƒCƒY
+	 * å­¦ç¿’å¯èƒ½ãªæœ€å¤§ã®è·é›¢
+	 * ã“ã®é•·ã•ï¼‹ï¼‘ãŒStateBufferã®ã‚µã‚¤ã‚º
 	 */
 	public static int maxCDLngth = 10;
 
 	///////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param Integer ID      ‚±‚Ìƒm[ƒh‚ÌID
-	 * @param Integer lowerID ‰ºˆÊ‘w‚Å‚ÌID
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param Integer ID      ã“ã®ãƒãƒ¼ãƒ‰ã®ID
+	 * @param Integer lowerID ä¸‹ä½å±¤ã§ã®ID
 	 */
 	public Node(Integer ID, Integer lowerID) {
 
-		/* ’l‚Ì‰Šú‰» */
+		/* å€¤ã®åˆæœŸåŒ– */
 		this.ID = ID;
 		this.lowerID = lowerID;
 		valid = true;
 		toLandmarkLngth = -1;
 
 //		cognitiveDistance = new Hashtable();
-		cognitiveDistance = new Hashtable(1000); // ¸”s
+		cognitiveDistance = new Hashtable(1000); // å¤±æ•—
 		forwardNodeIDList = new LinkedList();
 		inverseNodeIDList = new LinkedList();
 		transitionCounterTable = new Hashtable();
@@ -66,34 +66,34 @@ public class Node implements Serializable{
 
 
 	///////////////////////////////////////////////////////////
-	// î•ñ‚Ìæ“¾
+	// æƒ…å ±ã®å–å¾—
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ÌID‚ğæ“¾‚µ‚Ü‚·B
+	 * ã“ã®ãƒãƒ¼ãƒ‰ã®IDã‚’å–å¾—ã—ã¾ã™ã€‚
 	 */
 	public Integer getID() {
 		return ID;
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ÌãˆÊ‘w‚Å‚ÌID‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer   ãˆÊ‘w‚Å‚ÌID
+	 * ã“ã®ãƒãƒ¼ãƒ‰ã®ä¸Šä½å±¤ã§ã®IDã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer   ä¸Šä½å±¤ã§ã®ID
 	 */
 	public Integer getUpperID() {
 		return upperID;
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚Ì‰ºˆÊ‘w‚Å‚ÌID‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Integer   ‰ºˆÊ‘w‚Å‚ÌID
+	 * ã“ã®ãƒãƒ¼ãƒ‰ã®ä¸‹ä½å±¤ã§ã®IDã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Integer   ä¸‹ä½å±¤ã§ã®ID
 	 */
 	public Integer getLowerID() {
 		return lowerID;
 	}
 
 	/**
-	 * ƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚ÌƒXƒeƒbƒv”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int ƒXƒeƒbƒv”
+	 * ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®ã‚¹ãƒ†ãƒƒãƒ—æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int ã‚¹ãƒ†ãƒƒãƒ—æ•°
 	 */
 	public int getToLandmarkStep() {
 		return toLandmarkLngth;
@@ -101,21 +101,21 @@ public class Node implements Serializable{
 
 
 	/**
-	 * ˆø”‚Åİ’è‚³‚ê‚½ƒm[ƒh‚Ü‚Å‚Ì‹——£‚ğæ“¾‚µ‚Ü‚·B
-	 *	@param Integer nodeID ‹——£‚ğæ“¾‚·‚éƒm[ƒh‚ÌID
-	 *	@return int           ƒm[ƒh‚Ü‚Å‚Ì‹——£(ƒXƒeƒbƒv”)
-	 *                        ˆø”‚Åİ’è‚³‚ê‚½ƒm[ƒh‚Ö‚Ì‹——£‚ªŠwK‚³‚ê‚Ä‚¢‚È‚¢
-	 *                        ê‡‚Í-1
-	 *                        ‚±‚Ìƒm[ƒh‚Æ“¯‚¶‚È‚ç0‚ğ•Ô‚·B
+	 * å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸãƒãƒ¼ãƒ‰ã¾ã§ã®è·é›¢ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 *	@param Integer nodeID è·é›¢ã‚’å–å¾—ã™ã‚‹ãƒãƒ¼ãƒ‰ã®ID
+	 *	@return int           ãƒãƒ¼ãƒ‰ã¾ã§ã®è·é›¢(ã‚¹ãƒ†ãƒƒãƒ—æ•°)
+	 *                        å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸãƒãƒ¼ãƒ‰ã¸ã®è·é›¢ãŒå­¦ç¿’ã•ã‚Œã¦ã„ãªã„
+	 *                        å ´åˆã¯-1
+	 *                        ã“ã®ãƒãƒ¼ãƒ‰ã¨åŒã˜ãªã‚‰0ã‚’è¿”ã™ã€‚
 	 */
 	public int getCognitiveDistance(Integer nodeID) {
 
-		/* ‚Q‚Â‚Ìó‘Ô‚ª“¯‚¶‚È‚ç‹——£‚ğ0‚É‚·‚é */
+		/* ï¼’ã¤ã®çŠ¶æ…‹ãŒåŒã˜ãªã‚‰è·é›¢ã‚’0ã«ã™ã‚‹ */
 		if(getID().equals(nodeID)) {
 			return 0;
 		}
 
-		/* ‘Î‰‚·‚é’l‚ª‚ ‚ê‚Î‚»‚Ì’l‚ğA‚È‚¯‚ê‚Î-1‚ğ•Ô‚· */
+		/* å¯¾å¿œã™ã‚‹å€¤ãŒã‚ã‚Œã°ãã®å€¤ã‚’ã€ãªã‘ã‚Œã°-1ã‚’è¿”ã™ */
 		Integer distanceObj = (Integer)cognitiveDistance.get(nodeID);
 		int distance = -1;
 		if(distanceObj != null){
@@ -123,10 +123,10 @@ public class Node implements Serializable{
 		}
 
 		/*
-		 * maxCDLngth‚ğ“®“I‚É•Ï‰»‚³‚¹‚½ê‡‚ÉA‚·‚Å‚ÉŠwKÏ‚İ‚ÌCD‚Ì‚©‚ç
-		 * •Ï‰»‚³‚¹‚½Œã‚ÌmaxCDLngth‚æ‚è’·‚¢CD‚Íg—p‚µ‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß‚Ìˆ—
+		 * maxCDLngthã‚’å‹•çš„ã«å¤‰åŒ–ã•ã›ãŸå ´åˆã«ã€ã™ã§ã«å­¦ç¿’æ¸ˆã¿ã®CDã®ã‹ã‚‰
+		 * å¤‰åŒ–ã•ã›ãŸå¾Œã®maxCDLngthã‚ˆã‚Šé•·ã„CDã¯ä½¿ç”¨ã—ãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã®å‡¦ç†
 		 */
-// 2001.09.07 ƒhƒAƒL[‚Ìƒfƒ‚—p‚É‰¼‚ÉƒRƒƒ“ƒgƒAƒEƒg
+// 2001.09.07 ãƒ‰ã‚¢ã‚­ãƒ¼ã®ãƒ‡ãƒ¢ç”¨ã«ä»®ã«ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆ
 //		if(distance > maxCDLngth) {
 //			distance = -1;
 //		}
@@ -135,40 +135,40 @@ public class Node implements Serializable{
 	}
 
 	/**
-	 * ‡•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚·B
-	 * @return LinkedList ’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌID‚ÌƒŠƒXƒg
+	 * é †æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return LinkedList ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®IDã®ãƒªã‚¹ãƒˆ
 	 */
 	public LinkedList getForwardNodeIDList() {
 		return forwardNodeIDList;
 	}
 
 	/**
-	 * ‹t•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌID‚ÌƒŠƒXƒg‚ğæ“¾‚µ‚Ü‚·B
-	 * @return LinkedList ’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌID‚ÌƒŠƒXƒg
+	 * é€†æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®IDã®ãƒªã‚¹ãƒˆã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return LinkedList ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®IDã®ãƒªã‚¹ãƒˆ
 	 */
 	public LinkedList getInverseNodeIDList() {
 		return inverseNodeIDList;
 	}
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ª—LŒø‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN‚µ‚Ü‚·B
-	 * @param boolean  true —LŒø  false –³Œø
+	 * ã“ã®ãƒãƒ¼ãƒ‰ãŒæœ‰åŠ¹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
+	 * @param boolean  true æœ‰åŠ¹  false ç„¡åŠ¹
 	 */
 	public boolean isValid() {
 		return valid;
 	}
 
 	/**
-	 * QÆæ‚Ìƒm[ƒhID‚ğæ“¾‚µ‚Ü‚·B
-	 * @return Integer QÆæ‚Ìƒm[ƒhID
+	 * å‚ç…§å…ˆã®ãƒãƒ¼ãƒ‰IDã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return Integer å‚ç…§å…ˆã®ãƒãƒ¼ãƒ‰ID
 	 */
 	public Integer getReferenceNodeID() {
 		return referenceNodeID;
 	}
 
 	/**
-	 * QÆæ‚Ìƒm[ƒh‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚ÌƒXƒeƒbƒv”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int QÆæ‚Ìƒm[ƒh‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚ÌƒXƒeƒbƒv”
+	 * å‚ç…§å…ˆã®ãƒãƒ¼ãƒ‰ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®ã‚¹ãƒ†ãƒƒãƒ—æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int å‚ç…§å…ˆã®ãƒãƒ¼ãƒ‰ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®ã‚¹ãƒ†ãƒƒãƒ—æ•°
 	 */
 	public int getRefarenceStep() {
 		return referenceLowerToLandmarkLngth;
@@ -176,13 +176,13 @@ public class Node implements Serializable{
 
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚©‚ç‹——£‚Ì•ª‚©‚é(ŠwK‚µ‚Ä‚ ‚é)ƒm[ƒh‚ÌID‚ğƒŠƒXƒg‚Åæ“¾‚µ‚Ü‚·B
-	 * @return LinkedList ‹——£‚Ì•ª‚©‚éƒm[ƒh‚ÌID‚ÌƒŠƒXƒg
+	 * ã“ã®ãƒãƒ¼ãƒ‰ã‹ã‚‰è·é›¢ã®åˆ†ã‹ã‚‹(å­¦ç¿’ã—ã¦ã‚ã‚‹)ãƒãƒ¼ãƒ‰ã®IDã‚’ãƒªã‚¹ãƒˆã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return LinkedList è·é›¢ã®åˆ†ã‹ã‚‹ãƒãƒ¼ãƒ‰ã®IDã®ãƒªã‚¹ãƒˆ
 	 */
 	public LinkedList getCDKeys() {
-// •Ê‚ÅLinkedList‚ğ‚Á‚Ä‚¢‚½•û‚ª‚æ‚¢‚©
+// åˆ¥ã§LinkedListã‚’æŒã£ã¦ã„ãŸæ–¹ãŒã‚ˆã„ã‹
 		LinkedList ll = new LinkedList();
-		/* ƒnƒbƒVƒ…‚©‚ç‘SƒL[‚ğæ“¾ */
+		/* ãƒãƒƒã‚·ãƒ¥ã‹ã‚‰å…¨ã‚­ãƒ¼ã‚’å–å¾— */
 		Enumeration e = cognitiveDistance.keys();
 		while(e.hasMoreElements()) {
 			ll.add(e.nextElement());
@@ -191,20 +191,20 @@ public class Node implements Serializable{
 	} 
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚Ö‚ÌˆÚ“®‰ñ”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int  ˆÚ“®‰ñ”
+	 * ã“ã®ãƒãƒ¼ãƒ‰ã¸ã®ç§»å‹•å›æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int  ç§»å‹•å›æ•°
 	 */
 	public int getVisitCount() {
 		return visitCount;
 	}
 
 	///////////////////////////////////////////////////////////
-	// î•ñ‚Ìİ’è
+	// æƒ…å ±ã®è¨­å®š
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ÌãˆÊ‘w‚Å‚Ìó‘Ô‚ÉŠÖ‚·‚éî•ñ‚ğİ’è‚µ‚Ü‚·B
-	 * @param Integer upperID ãˆÊ‘w‚Å‚ÌID
-	 * @param int toUpperStep ƒ‰ƒ“ƒhƒ}[ƒN‚Ü‚Å‚ÌƒXƒeƒbƒv”
+	 * ã“ã®ãƒãƒ¼ãƒ‰ã®ä¸Šä½å±¤ã§ã®çŠ¶æ…‹ã«é–¢ã™ã‚‹æƒ…å ±ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param Integer upperID ä¸Šä½å±¤ã§ã®ID
+	 * @param int toUpperStep ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã¾ã§ã®ã‚¹ãƒ†ãƒƒãƒ—æ•°
 	 */
 	public void setUpperIDAndStep(Integer upperID, int toLandmarkLngth) {
 		this.upperID = upperID;
@@ -213,25 +213,25 @@ public class Node implements Serializable{
 
 
 	/**
-	 * ˆø”‚Åİ’è‚³‚ê‚½ƒm[ƒh‚Ü‚Å‚Ì‹——£‚ğŠwK‚µ‚Ü‚·B
-	 * @param Integer nodeID ‹——£‚ğŠwK‚·‚éƒm[ƒh‚ÌID
-	 * @param int distance   ƒm[ƒh‚Ü‚Å‚Ì‹——£
+	 * å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸãƒãƒ¼ãƒ‰ã¾ã§ã®è·é›¢ã‚’å­¦ç¿’ã—ã¾ã™ã€‚
+	 * @param Integer nodeID è·é›¢ã‚’å­¦ç¿’ã™ã‚‹ãƒãƒ¼ãƒ‰ã®ID
+	 * @param int distance   ãƒãƒ¼ãƒ‰ã¾ã§ã®è·é›¢
 	 */
 	public void setCognitiveDistance(Integer nodeID, int distance) {
 
-// ’Tõ‚Ì’·‚¢‹——£‚àŠwK?
-// 2001.09.07 ƒhƒAƒL[‚Ìƒfƒ‚—p‚É‰¼‚ÉƒRƒƒ“ƒgƒAƒEƒg
-//		/* ŠwK‚·‚éCognitiveDistance‚ÌÅ‘å‹——£ */
+// æ¢ç´¢æ™‚ã®é•·ã„è·é›¢ã‚‚å­¦ç¿’?
+// 2001.09.07 ãƒ‰ã‚¢ã‚­ãƒ¼ã®ãƒ‡ãƒ¢ç”¨ã«ä»®ã«ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆ
+//		/* å­¦ç¿’ã™ã‚‹CognitiveDistanceã®æœ€å¤§è·é›¢ */
 //		if(distance > maxCDLngth) {
 //			return;
 //		}
 
-		/* “¯‚¶ó‘Ô‚È‚ç‹——£‚ğ‚O‚Éİ’è */ 
-// “¯‚¶ó‘Ô‚Å‚à‹——£‚ğ‚»‚Ì‚Ü‚ÜŠwK‚³‚¹‚éB“¯‚¶ó‘Ô‚È‚ç‹——£‚Ìæ“¾‚É‚O‚ğ•Ô‚·B
+		/* åŒã˜çŠ¶æ…‹ãªã‚‰è·é›¢ã‚’ï¼ã«è¨­å®š */ 
+// åŒã˜çŠ¶æ…‹ã§ã‚‚è·é›¢ã‚’ãã®ã¾ã¾å­¦ç¿’ã•ã›ã‚‹ã€‚åŒã˜çŠ¶æ…‹ãªã‚‰è·é›¢ã®å–å¾—æ™‚ã«ï¼ã‚’è¿”ã™ã€‚
 //		if(getID().equals(nodeID)) {
 //			cognitiveDistance.put(nodeID, new Integer(0));
 //		}else{
-			/* ƒL[‚É‘Î‰‚·‚é’l‚ª‚È‚¢‚©A’l‚ª¬‚³‚¢ê‡V‚µ‚¢‹——£‚ğİ’è */
+			/* ã‚­ãƒ¼ã«å¯¾å¿œã™ã‚‹å€¤ãŒãªã„ã‹ã€å€¤ãŒå°ã•ã„å ´åˆæ–°ã—ã„è·é›¢ã‚’è¨­å®š */
 			Integer distanceObj = (Integer)cognitiveDistance.get(nodeID);
 			if((distanceObj==null) || (distanceObj.intValue()>distance)) {
 				cognitiveDistance.put(nodeID, new Integer(distance));
@@ -241,12 +241,12 @@ public class Node implements Serializable{
 
 
 	/**
-	 * ‡•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ğŠwK‚µ‚Ü‚·B
-	 * @param Integer nodeID ’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌID
+	 * é †æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã‚’å­¦ç¿’ã—ã¾ã™ã€‚
+	 * @param Integer nodeID ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®ID
 	 */
 	public void setForwardNode(Integer nodeID) {
 
-		/* ƒŠƒXƒg‚ğ’Tõ‚µA‚·‚Å‚É“o˜^Ï‚İ‚È‚çƒŠƒXƒg‚É’Ç‰Á‚µ‚È‚¢ */
+		/* ãƒªã‚¹ãƒˆã‚’æ¢ç´¢ã—ã€ã™ã§ã«ç™»éŒ²æ¸ˆã¿ãªã‚‰ãƒªã‚¹ãƒˆã«è¿½åŠ ã—ãªã„ */
 		ListIterator lIterater = forwardNodeIDList.listIterator(0);
 		while(lIterater.hasNext()) {
 			if(((Integer)lIterater.next()).equals(nodeID)) {
@@ -254,19 +254,19 @@ public class Node implements Serializable{
 			}
 		}
 
-		/* ’l‚ğƒŠƒXƒg‚É’Ç‰Á */
+		/* å€¤ã‚’ãƒªã‚¹ãƒˆã«è¿½åŠ  */
 		forwardNodeIDList.add(nodeID);
 
 	}
 
 
 	/**
-	 * ‹t•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ğŠwK‚µ‚Ü‚·B
-	 * @param Integer nodeID ’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌID
+	 * é€†æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã‚’å­¦ç¿’ã—ã¾ã™ã€‚
+	 * @param Integer nodeID ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®ID
 	 */
 	public void setInverseNode(Integer nodeID) {
 
-		/* ƒŠƒXƒg‚ğŒŸõ‚µA‚·‚Å‚É“o˜^Ï‚İ‚È‚çƒŠƒXƒg‚É’Ç‰Á‚µ‚È‚¢ */
+		/* ãƒªã‚¹ãƒˆã‚’æ¤œç´¢ã—ã€ã™ã§ã«ç™»éŒ²æ¸ˆã¿ãªã‚‰ãƒªã‚¹ãƒˆã«è¿½åŠ ã—ãªã„ */
 		ListIterator lIterater = inverseNodeIDList.listIterator(0);
 		while(lIterater.hasNext()) {
 			if(((Integer)lIterater.next()).equals(nodeID)) {
@@ -274,48 +274,48 @@ public class Node implements Serializable{
 			}
 		}
 
-		/* ’l‚ğƒŠƒXƒg‚É’Ç‰Á */
+		/* å€¤ã‚’ãƒªã‚¹ãƒˆã«è¿½åŠ  */
 		inverseNodeIDList.add(nodeID);
 
 	}
 
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚Ö‚ÌˆÚ“®‰ñ”‚ğƒJƒEƒ“ƒg‚µ‚Ü‚·B
-	 * @param Integer nextNodeID ‚±‚Ìƒm[ƒh‚©‚çˆÚ“®‚µ‚½æ‚Ìƒm[ƒh‚ÌID
+	 * ã“ã®ãƒãƒ¼ãƒ‰ã¸ã®ç§»å‹•å›æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆã—ã¾ã™ã€‚
+	 * @param Integer nextNodeID ã“ã®ãƒãƒ¼ãƒ‰ã‹ã‚‰ç§»å‹•ã—ãŸå…ˆã®ãƒãƒ¼ãƒ‰ã®ID
 	 */
 	public void countVisitCount(Integer nextNodeID) {
 
 		visitCount++;
-		/* ‚±‚Ìƒm[ƒh‚©‚çˆÚ“®‚µ‚½æ‚Ìó‘Ô‚ÌŠÇ— */
+		/* ã“ã®ãƒãƒ¼ãƒ‰ã‹ã‚‰ç§»å‹•ã—ãŸå…ˆã®çŠ¶æ…‹ã®ç®¡ç† */
 		TransitionCounter tc
 		        = (TransitionCounter)transitionCounterTable.get(nextNodeID);
 		if(tc == null) {
 			tc = new TransitionCounter(nextNodeID);
 			transitionCounterTable.put(nextNodeID, tc);
 		}else {
-			/* ‰ñ”‚ÌƒJƒEƒ“ƒg */
+			/* å›æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ */
 			tc.count();
 		}
 	}
 
 
 	/**
-	 * ‚±‚Ìƒm[ƒh‚ğ–³Œø‚É‚µ‚Ü‚·B
-	 * ‚±‚Ìƒm[ƒh‚ªãˆÊ‘w‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚Ìê‡‚Í–³Œø‚É‚µ‚Ü‚¹‚ñB
-	 * @param Integer refID ¡Œã‚ÌQÆæ‚ÌID
-	 * @param int refStep   QÆæ‚Ìƒm[ƒh‚Ü‚Å‚Ì‹——£
-	 * @return boolean      true –³Œø‚É‚µ‚½ê‡ false –³Œø‚É‚Å‚«‚È‚©‚Á‚½ê‡
+	 * ã“ã®ãƒãƒ¼ãƒ‰ã‚’ç„¡åŠ¹ã«ã—ã¾ã™ã€‚
+	 * ã“ã®ãƒãƒ¼ãƒ‰ãŒä¸Šä½å±¤ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®å ´åˆã¯ç„¡åŠ¹ã«ã—ã¾ã›ã‚“ã€‚
+	 * @param Integer refID ä»Šå¾Œã®å‚ç…§å…ˆã®ID
+	 * @param int refStep   å‚ç…§å…ˆã®ãƒãƒ¼ãƒ‰ã¾ã§ã®è·é›¢
+	 * @return boolean      true ç„¡åŠ¹ã«ã—ãŸå ´åˆ false ç„¡åŠ¹ã«ã§ããªã‹ã£ãŸå ´åˆ
 	 */
 	public boolean delete(Integer referenceNodeID,
 	         int referenceLowerToLandmarkLngth) {
-		/* ©‚ç‚ªãˆÊ‘w‚Ö‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚Ìê‡‚Ííœ‚µ‚È‚¢ */
+		/* è‡ªã‚‰ãŒä¸Šä½å±¤ã¸ã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®å ´åˆã¯å‰Šé™¤ã—ãªã„ */
 		if(toLandmarkLngth == 0) {
 			return false;
 		}
 
 		valid = false;
-		/* QÆæ‚Ìİ’è */
+		/* å‚ç…§å…ˆã®è¨­å®š */
 		this.referenceNodeID = referenceNodeID;
 		this.referenceLowerToLandmarkLngth = referenceLowerToLandmarkLngth;
 		return true;
@@ -323,8 +323,8 @@ public class Node implements Serializable{
 
 
 	/**
-	 * ‡•ûŒü‚ÉˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌƒŠƒXƒg“à‚É‚±‚Ìƒm[ƒh‚Æ“¯‚¶ƒm[ƒh‚ª‚ ‚éê‡‚É
-	 * ‚»‚Ìƒm[ƒh‚ğƒŠƒXƒg‚©‚çíœ‚µ‚Ü‚·B
+	 * é †æ–¹å‘ã«ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®ãƒªã‚¹ãƒˆå†…ã«ã“ã®ãƒãƒ¼ãƒ‰ã¨åŒã˜ãƒãƒ¼ãƒ‰ãŒã‚ã‚‹å ´åˆã«
+	 * ãã®ãƒãƒ¼ãƒ‰ã‚’ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã€‚
 	 */
 	public void removeSameForwardNodeID() {
 		ListIterator li = forwardNodeIDList.listIterator();
@@ -337,8 +337,8 @@ public class Node implements Serializable{
 	}
 
 	/**
-	 * ‹t•ûŒü‚ÉˆÚ“®‰Â”\‚Èƒm[ƒh‚ÌƒŠƒXƒg“à‚É‚±‚Ìƒm[ƒh‚Æ“¯‚¶ƒm[ƒh‚ª‚ ‚éê‡‚É
-	 * ‚»‚Ìƒm[ƒh‚ğƒŠƒXƒg‚©‚çíœ‚µ‚Ü‚·B
+	 * é€†æ–¹å‘ã«ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰ã®ãƒªã‚¹ãƒˆå†…ã«ã“ã®ãƒãƒ¼ãƒ‰ã¨åŒã˜ãƒãƒ¼ãƒ‰ãŒã‚ã‚‹å ´åˆã«
+	 * ãã®ãƒãƒ¼ãƒ‰ã‚’ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã€‚
 	 */
 	public void removeSameInverseNodeID() {
 		ListIterator li = inverseNodeIDList.listIterator();
@@ -352,19 +352,19 @@ public class Node implements Serializable{
 
 
 	/////////////////////////
-	// ƒeƒXƒg—p‚Ìî•ñæ“¾
+	// ãƒ†ã‚¹ãƒˆç”¨ã®æƒ…å ±å–å¾—
 
 	/**
-	 * ‹——£‚ğŠwK‚µ‚Ä‚ ‚éƒm[ƒh”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int ‹——£‚ğŠwK‚µ‚Ä‚ ‚éƒm[ƒh”
+	 * è·é›¢ã‚’å­¦ç¿’ã—ã¦ã‚ã‚‹ãƒãƒ¼ãƒ‰æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int è·é›¢ã‚’å­¦ç¿’ã—ã¦ã‚ã‚‹ãƒãƒ¼ãƒ‰æ•°
 	 */
 	public int getCDSize() {
 
 //		return cognitiveDistance.size();
 
 		/*
-		 * maxCDLngth‚ğ“®“I‚É•Ï‰»‚³‚¹‚½ê‡‚ÉA•Ï‰»‚³‚¹‚½Œã‚ÌmaxCDLngth
-		 * ‚Åg—p‰Â”\‚ÈCognitiveDistance‚ÌƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
+		 * maxCDLngthã‚’å‹•çš„ã«å¤‰åŒ–ã•ã›ãŸå ´åˆã«ã€å¤‰åŒ–ã•ã›ãŸå¾Œã®maxCDLngth
+		 * ã§ä½¿ç”¨å¯èƒ½ãªCognitiveDistanceã®ã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
 		 */
 		int validCDSize = 0;
 		Enumeration e = cognitiveDistance.elements();
@@ -379,8 +379,8 @@ public class Node implements Serializable{
 	}
 
 	/**
-	 * ‡•ûŒü‚É’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int ’¼ÚˆÚ“®‰Â”\‚Èƒm[ƒh”
+	 * é †æ–¹å‘ã«ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int ç›´æ¥ç§»å‹•å¯èƒ½ãªãƒãƒ¼ãƒ‰æ•°
 	 */
 	public int getForwardNodeIDListSize() {
 		return forwardNodeIDList.size();

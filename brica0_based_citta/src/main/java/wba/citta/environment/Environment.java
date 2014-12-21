@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * Environment.java
- *  ŠÂ‹«‚Ìˆ—‚ğs‚¤ƒNƒ‰ƒX
+ *  ç’°å¢ƒã®å‡¦ç†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.09 BSC miyamoto
  */
@@ -12,46 +12,46 @@ import java.io.*;
 //import java.util.*;
 
 /**
- * ŠÂ‹«‚Ìˆ—‚ğs‚¢‚Ü‚·B
+ * ç’°å¢ƒã®å‡¦ç†ã‚’è¡Œã„ã¾ã™ã€‚
  */
 public class Environment {
 
-	/* ƒƒjƒ…[ƒo[ */
-	private MenuBar menuBar;       /* ƒƒjƒ…[ƒo[ */
-	private Menu fileMenu;         /* ƒtƒ@ƒCƒ‹ƒƒjƒ…[ */
-	private MenuItem loadMenuItem; /* ƒ[ƒhƒƒjƒ…[ */
+	/* ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼ */
+	private MenuBar menuBar;       /* ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼ */
+	private Menu fileMenu;         /* ãƒ•ã‚¡ã‚¤ãƒ«ãƒ¡ãƒ‹ãƒ¥ãƒ¼ */
+	private MenuItem loadMenuItem; /* ãƒ­ãƒ¼ãƒ‰ãƒ¡ãƒ‹ãƒ¥ãƒ¼ */
 
-	/* ƒOƒ‰ƒtƒBƒbƒN•\¦•” */
+	/* ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºéƒ¨ */
 	private Frame frame;
 	private EnvironmentPanel envPanel;
 
-	/* ƒ{ƒ^ƒ“ƒpƒlƒ‹ */
+	/* ãƒœã‚¿ãƒ³ãƒ‘ãƒãƒ« */
 	private Panel buttonPanel;
-	private CheckboxGroup  cbg;   /* ƒ`ƒFƒbƒNƒ{ƒbƒNƒX‚ÌƒOƒ‹[ƒv‰» */
-	private Checkbox wallCB;      /* •Ç */
-	private Checkbox rewardCB;    /* •ñV */
-	private Checkbox clearCB;     /* ƒNƒŠƒA */
-	private Button clearButton;   /* ƒI[ƒ‹ƒNƒŠƒAƒ{ƒ^ƒ“ */
-	private Button repaintButton; /* Ä•`‰æƒ{ƒ^ƒ“ */
+	private CheckboxGroup  cbg;   /* ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ã®ã‚°ãƒ«ãƒ¼ãƒ—åŒ– */
+	private Checkbox wallCB;      /* å£ */
+	private Checkbox rewardCB;    /* å ±é…¬ */
+	private Checkbox clearCB;     /* ã‚¯ãƒªã‚¢ */
+	private Button clearButton;   /* ã‚ªãƒ¼ãƒ«ã‚¯ãƒªã‚¢ãƒœã‚¿ãƒ³ */
+	private Button repaintButton; /* å†æç”»ãƒœã‚¿ãƒ³ */
 
-	/* •¶š—ñ‚Ìİ’è */
+	/* æ–‡å­—åˆ—ã®è¨­å®š */
 //	private MessageCanvas titleCanvas;
 	private MessageCanvas itemCanvas;
 
 	private String TITLE;
 
 	////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param String fileName Mapƒtƒ@ƒCƒ‹–¼
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param String fileName Mapãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public Environment(String fileName) {
 
 		envPanel = new EnvironmentPanel(fileName, false/*true*/, false);
 
-		/* ƒtƒŒ[ƒ€‚Ì‰Šú‰» */
+		/* ãƒ•ãƒ¬ãƒ¼ãƒ ã®åˆæœŸåŒ– */
 		initFrame();
 
 	}
@@ -59,7 +59,7 @@ public class Environment {
 	public Environment(String fileName, String title) {
 		TITLE = title;
 		envPanel = new EnvironmentPanel(fileName, false/*true*/, false);
-		/* ƒtƒŒ[ƒ€‚Ì‰Šú‰» */
+		/* ãƒ•ãƒ¬ãƒ¼ãƒ ã®åˆæœŸåŒ– */
 		initFrame();
 	}
 
@@ -67,55 +67,55 @@ public class Environment {
 //		envPanel = new EnvironmentPanel(mapFileName, colorMapFileName,
 //		       false, false);
 //
-//		/* ƒtƒŒ[ƒ€‚Ì‰Šú‰» */
+//		/* ãƒ•ãƒ¬ãƒ¼ãƒ ã®åˆæœŸåŒ– */
 //		initFrame();
 //
 //	}
 
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param String fileName Mapƒtƒ@ƒCƒ‹–¼
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param String fileName Mapãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public Environment(String[][] fileArray) {
 
 		envPanel = new EnvironmentPanel(fileArray, false, false);
 
-		/* ƒtƒŒ[ƒ€‚Ì‰Šú‰» */
+		/* ãƒ•ãƒ¬ãƒ¼ãƒ ã®åˆæœŸåŒ– */
 		initFrame();
 
 	}
 
 
 	////////////////////////////////////////////////////////////
-	// ‰Šú‰»ˆ—
+	// åˆæœŸåŒ–å‡¦ç†
 
 	public void initRobotPos() {
 		envPanel.initRobotPos();
 	}
 
 	public void initMap() {
-		/* ƒJƒM‚ğ–³‚­‚· */
+		/* ã‚«ã‚®ã‚’ç„¡ãã™ */
 //		envPanel.clearKey();
 		envPanel.clearItem();
-		/* ƒhƒA‚ğ•Â‚¶‚é */
+		/* ãƒ‰ã‚¢ã‚’é–‰ã˜ã‚‹ */
 		envPanel.closeDoor();
 	}
 
 	/**
-	 * ƒtƒŒ[ƒ€‚Ì‰Šú‰»
+	 * ãƒ•ãƒ¬ãƒ¼ãƒ ã®åˆæœŸåŒ–
 	 */
 	private void initFrame() {
 
-		/* ƒƒjƒ…[ƒo[ */
+		/* ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼ */
 //		menuBar = new MenuBar();
-//		fileMenu = new Menu("ƒtƒ@ƒCƒ‹");
-//		loadMenuItem = new MenuItem("“Ç‚İ");
+//		fileMenu = new Menu("ãƒ•ã‚¡ã‚¤ãƒ«");
+//		loadMenuItem = new MenuItem("èª­è¾¼ã¿");
 //		loadMenuItem.addActionListener(new ButtonActionListener());
 //		fileMenu.add(loadMenuItem);
 //		menuBar.add(fileMenu);
 
-		/* ƒ{ƒ^ƒ“ƒpƒlƒ‹ */
+		/* ãƒœã‚¿ãƒ³ãƒ‘ãƒãƒ« */
 //		buttonPanel = new Panel();
 //		cbg = new CheckboxGroup();
 //		wallCB = new Checkbox("Wall ", cbg, false);
@@ -146,11 +146,11 @@ public class Environment {
 //			titleCanvas.setSize(700, 50);
 //		}
 		itemCanvas = new MessageCanvas(
-		        "‚¿•¨                            "
-		        + "ƒS[ƒ‹“’B‰ñ” 0" , 45, 25);
+		        "æŒã¡ç‰©                            "
+		        + "ã‚´ãƒ¼ãƒ«åˆ°é”å›æ•° 0" , 45, 25);
 		itemCanvas.setSize(524, 40);
 
-		/* ƒtƒŒ[ƒ€‚Ìì¬ */
+		/* ãƒ•ãƒ¬ãƒ¼ãƒ ã®ä½œæˆ */
 		frame = new Frame("environment");
 		frame.setLayout(new BorderLayout(5, 5));
 //		frame.setMenuBar(menuBar);
@@ -170,18 +170,18 @@ public class Environment {
 
 	private int goalReachCount = 0;
 
-	/* ƒAƒCƒeƒ€‚Ì•\¦ */
+	/* ã‚¢ã‚¤ãƒ†ãƒ ã®è¡¨ç¤º */
 	private void showItemMessage() {
 		int itemID = getItem();
 		String item;
 		if(itemID == 2) {
-			item = "‚¿•¨                            ƒS[ƒ‹“’B‰ñ” "
+			item = "æŒã¡ç‰©                            ã‚´ãƒ¼ãƒ«åˆ°é”å›æ•° "
 			         + goalReachCount;
 		}else if(itemID == 1) {
-			item = "‚¿•¨                            ƒS[ƒ‹“’B‰ñ” "
+			item = "æŒã¡ç‰©                            ã‚´ãƒ¼ãƒ«åˆ°é”å›æ•° "
 			         + goalReachCount;
 		}else {
-			item = "‚¿•¨                            ƒS[ƒ‹“’B‰ñ” "
+			item = "æŒã¡ç‰©                            ã‚´ãƒ¼ãƒ«åˆ°é”å›æ•° "
 			         + goalReachCount;
 		}
 		itemCanvas.setMessage(item);
@@ -216,9 +216,9 @@ public class Environment {
 	// public
 
 	/**
-	 * ƒƒ{ƒbƒg‚ğw’è‚³‚ê‚½•ûŒü‚ÖˆÚ“®‚µ‚Ü‚·B
-	 * @param int action  ˆÚ“®•ûŒü ‚O`‚V‚Åİ’è
-	 * @return boolean    true=ˆÚ“®¬Œ÷ false=ˆÚ“®¸”s
+	 * ãƒ­ãƒœãƒƒãƒˆã‚’æŒ‡å®šã•ã‚ŒãŸæ–¹å‘ã¸ç§»å‹•ã—ã¾ã™ã€‚
+	 * @param int action  ç§»å‹•æ–¹å‘ ï¼ã€œï¼—ã§è¨­å®š
+	 * @return boolean    true=ç§»å‹•æˆåŠŸ false=ç§»å‹•å¤±æ•—
 	 */
 	public boolean run(int action) {
 //		return envPanel.run(action);
@@ -232,30 +232,30 @@ public class Environment {
 	}
 
 	/**
-	 * w’è‚³‚ê‚½À•W‚ÉƒS[ƒ‹‚ğİ’è‚µ‚Ü‚·B
-	 * @param int x XÀ•W
-	 * @param int y YÀ•W
+	 * æŒ‡å®šã•ã‚ŒãŸåº§æ¨™ã«ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int x Xåº§æ¨™
+	 * @param int y Yåº§æ¨™
 	 */
 	public void setGoal(int x, int y) {
 		envPanel.setGoal(x, y);
 	}
 
 	/**
-	 * w’è‚³‚ê‚½À•W‚ğƒXƒ^[ƒgˆÊ’u‚É‚µ‚Ü‚·B
-	 * @param int x XÀ•W
-	 * @param int y YÀ•W
+	 * æŒ‡å®šã•ã‚ŒãŸåº§æ¨™ã‚’ã‚¹ã‚¿ãƒ¼ãƒˆä½ç½®ã«ã—ã¾ã™ã€‚
+	 * @param int x Xåº§æ¨™
+	 * @param int y Yåº§æ¨™
 	 */
 	public void setStart(int x, int y) {
 		envPanel.setStart(x, y);
 	}
 
-	// 2001.09.05 ’Ç‰Á miyamoto
+	// 2001.09.05 è¿½åŠ  miyamoto
 	public void setItem(int newItem) {
 		envPanel.setItem(newItem);
 	}
 
 	/**
-	 * ƒƒ{ƒbƒg‚ÌˆÊ’u‚ğƒZƒ“ƒTî•ñ‚Åæ“¾‚µ‚Ü‚·B
+	 * ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®ã‚’ã‚»ãƒ³ã‚µæƒ…å ±ã§å–å¾—ã—ã¾ã™ã€‚
 	 * @return int[8] 
 	 */
 	public int[] getSenserState() {
@@ -264,38 +264,38 @@ public class Environment {
 
 
 	/**
-	 * ƒƒ{ƒbƒg‚ÌˆÊ’u‚ğ‚w‚xÀ•W‚Åæ“¾‚µ‚Ü‚·B
-	 * @return int[] Œ»İ‚ÌÀ•W
-	 *               int[0] xÀ•W
-	 *               int[1] yÀ•W
+	 * ãƒ­ãƒœãƒƒãƒˆã®ä½ç½®ã‚’ï¼¸ï¼¹åº§æ¨™ã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ç¾åœ¨ã®åº§æ¨™
+	 *               int[0] xåº§æ¨™
+	 *               int[1] yåº§æ¨™
 	 */
 	public int[] getXYState() {
 		return envPanel.getXYState();
 	}
 
 	/**
-	 * ƒS[ƒ‹‚ÌˆÊ’u‚ğƒZƒ“ƒTî•ñ‚Åæ“¾‚µ‚Ü‚·B
-	 * @return int[] ƒS[ƒ‹‚ÌˆÊ’u
+	 * ã‚´ãƒ¼ãƒ«ã®ä½ç½®ã‚’ã‚»ãƒ³ã‚µæƒ…å ±ã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ã‚´ãƒ¼ãƒ«ã®ä½ç½®
 	 */
 	public int[] getSensorGoalState() {
 		return envPanel.getSensorGoalState();
 	}
 
 	/**
-	 * ƒS[ƒ‹‚ÌˆÊ’u‚ğ‚w‚xÀ•W‚Åæ“¾‚µ‚Ü‚·B
-	 * @return int[] ƒS[ƒ‹‚ÌÀ•W
-	 *               int[0] xÀ•W
-	 *               int[1] yÀ•W
+	 * ã‚´ãƒ¼ãƒ«ã®ä½ç½®ã‚’ï¼¸ï¼¹åº§æ¨™ã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ã‚´ãƒ¼ãƒ«ã®åº§æ¨™
+	 *               int[0] xåº§æ¨™
+	 *               int[1] yåº§æ¨™
 	 */
 	public int[] getXYGoalState() {
 		return envPanel.getXYGoalState();
 	}
 
 	/**
-	 * ƒL[‚ÌˆÊ’u‚ğ‚w‚xÀ•W‚Åæ“¾‚µ‚Ü‚·B
-	 * @return int[] ƒL[‚ÌˆÊ’u
-	 *               int[0] xÀ•W
-	 *               int[1] yÀ•W
+	 * ã‚­ãƒ¼ã®ä½ç½®ã‚’ï¼¸ï¼¹åº§æ¨™ã§å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] ã‚­ãƒ¼ã®ä½ç½®
+	 *               int[0] xåº§æ¨™
+	 *               int[1] yåº§æ¨™
 	 */
 	public int[] getXYKeyState() {
 		return envPanel.getXYKeyState();
@@ -306,23 +306,23 @@ public class Environment {
 	}
 
 	/**
-	 * •ñV‚ğæ“¾‚µ‚Ü‚·B
-	 * @return double •ñV
+	 * å ±é…¬ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return double å ±é…¬
 	 */
 	public double getReward() {
 		return envPanel.getReward();
 	}
 
 	/**
-	 * ƒJƒM‚ğæ“¾‚µ‚Ä‚¢‚é‚©Šm”F‚µ‚Ü‚·B
-	 * @param boolean  true:ƒJƒM‚ğ‚Á‚Ä‚¢‚é false:ƒJƒM‚ğ‚Á‚Ä‚¢‚È‚¢
+	 * ã‚«ã‚®ã‚’å–å¾—ã—ã¦ã„ã‚‹ã‹ç¢ºèªã—ã¾ã™ã€‚
+	 * @param boolean  true:ã‚«ã‚®ã‚’æŒã£ã¦ã„ã‚‹ false:ã‚«ã‚®ã‚’æŒã£ã¦ã„ãªã„
 	 */
 //	public boolean hasKey() {
 //		return envPanel.hasKey();
 //	}
-	// 2001.08.08 ’Ç‰Á miyamoto
+	// 2001.08.08 è¿½åŠ  miyamoto
 	/**
-	 * •Û‚µ‚Ä‚¢‚é‚à‚Ì‚ğæ“¾‚µ‚Ü‚·B
+	 * ä¿æŒã—ã¦ã„ã‚‹ã‚‚ã®ã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @return 
 	 */
 	public int getItem() {
@@ -330,27 +330,27 @@ public class Environment {
 	}
 
 	/**
-	 * ƒhƒA‚ªŠJ‚¢‚Ä‚¢‚é‚©Šm”F‚µ‚Ü‚·B
-	 * @param boolean  true:ƒhƒA‚ªŠJ‚¢‚Ä‚¢‚é false:ƒhƒA‚ª•Â‚¶‚Ä‚¢‚é
+	 * ãƒ‰ã‚¢ãŒé–‹ã„ã¦ã„ã‚‹ã‹ç¢ºèªã—ã¾ã™ã€‚
+	 * @param boolean  true:ãƒ‰ã‚¢ãŒé–‹ã„ã¦ã„ã‚‹ false:ãƒ‰ã‚¢ãŒé–‰ã˜ã¦ã„ã‚‹
 	 */
 	public boolean isDoorOpen() {
 		return envPanel.isDoorOpen();
 	}
 
 	/**
-	 * ’n}ã‚Ìw’è‚³‚ê‚½ˆÊ’u‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int x  xÀ•W
-	 * @param int y  yÀ•W
+	 * åœ°å›³ä¸Šã®æŒ‡å®šã•ã‚ŒãŸä½ç½®ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x  xåº§æ¨™
+	 * @param int y  yåº§æ¨™
 	 */
 	public String getMapInfo(int x, int y) {
 		return envPanel.getMapInfo(x, y);
 	}
 
 	/**
-	 * ’n}ã‚Ìw’è‚³‚ê‚½ˆÊ’u‚Ì‘®«‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int x  xÀ•W
-	 * @param int y  yÀ•W
-	 * @return String ˆÊ’u‚Ì‘®« 
+	 * åœ°å›³ä¸Šã®æŒ‡å®šã•ã‚ŒãŸä½ç½®ã®å±æ€§ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int x  xåº§æ¨™
+	 * @param int y  yåº§æ¨™
+	 * @return String ä½ç½®ã®å±æ€§ 
 	 */
 	public String getAttribute(int x, int y) {
 		String str = envPanel.getMapInfo(x, y);
@@ -361,11 +361,11 @@ public class Environment {
 			attr = "d";
 		}else if(str.equals("O(1)")) {
 			attr = "O";
-	// 2001.08.08 ’Ç‰Á miyamoto
+	// 2001.08.08 è¿½åŠ  miyamoto
 		}else if(str.equals("T")) {
 			attr = "T";
 		}else {
-// 2001.07.13 C³ ‹ó”’‚Í‚m‚ğo—Í
+// 2001.07.13 ä¿®æ­£ ç©ºç™½ã¯ï¼®ã‚’å‡ºåŠ›
 			attr = "N";
 //			attr = "";
 		}
@@ -390,9 +390,9 @@ public class Environment {
 
 
 	/**
-	 * ’n}‚ÌƒTƒCƒY‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int[] int[0] x²•ûŒü‚ÌƒTƒCƒY
-	 *               int[0] y²•ûŒü‚ÌƒTƒCƒY
+	 * åœ°å›³ã®ã‚µã‚¤ã‚ºã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int[] int[0] xè»¸æ–¹å‘ã®ã‚µã‚¤ã‚º
+	 *               int[0] yè»¸æ–¹å‘ã®ã‚µã‚¤ã‚º
 	 */
 	public int[] getMapSize() {
 		return envPanel.getMapSize();
@@ -403,8 +403,8 @@ public class Environment {
 	}
 
 	/*
-	 * ŠÂ‹«‚Ì•`‰æ‚ğs‚È‚¤‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO‚ğİ’è‚µ‚Ü‚·B
-	 * @param boolean b   trueF•`‰æ‚ğs‚È‚¤  falseF•`‰æ‚ğs‚È‚í‚È‚¢
+	 * ç’°å¢ƒã®æç”»ã‚’è¡Œãªã†ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param boolean b   trueï¼šæç”»ã‚’è¡Œãªã†  falseï¼šæç”»ã‚’è¡Œãªã‚ãªã„
 	 */
 	public void setFlagShow(boolean b) {
 		envPanel.setFlagShow(b);
@@ -429,22 +429,22 @@ public class Environment {
 	}
 
 	///////////////////////////////////////////////////////////
-	// ƒCƒxƒ“ƒgˆ—‚ÌƒCƒ“ƒi[ƒNƒ‰ƒX
+	// ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã®ã‚¤ãƒ³ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 
 	/**
-	 * ƒ`ƒFƒbƒNƒ{ƒbƒNƒX‚ÌƒCƒxƒ“ƒgˆ—‚ğs‚¤ƒCƒ“ƒi[ƒNƒ‰ƒX
+	 * ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ã®ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¡Œã†ã‚¤ãƒ³ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 	 */
 	class CBItemAdapter implements ItemListener {
 
 		/**
-		 * ƒAƒCƒeƒ€‚ª‘I‘ğ‚³‚ê‚½‚Ìˆ—
+		 * ã‚¢ã‚¤ãƒ†ãƒ ãŒé¸æŠã•ã‚ŒãŸæ™‚ã®å‡¦ç†
 		 */
 		public void itemStateChanged(ItemEvent e) {
-			if(e.getSource() == wallCB) {        /* •Ç */
+			if(e.getSource() == wallCB) {        /* å£ */
 				envPanel.setRenewValue("W");
-			}else if(e.getSource() == rewardCB) {  /* •ñV */
+			}else if(e.getSource() == rewardCB) {  /* å ±é…¬ */
 				envPanel.setRenewValue("O(1)");
-			}else if(e.getSource() == clearCB) { /* ƒNƒŠƒA */
+			}else if(e.getSource() == clearCB) { /* ã‚¯ãƒªã‚¢ */
 				envPanel.setRenewValue("");
 			}
 		}
@@ -452,18 +452,18 @@ public class Environment {
 
 
 	/**
-	 * ƒ{ƒ^ƒ“‚ÌƒCƒxƒ“ƒgˆ—‚ğs‚È‚¤ƒCƒ“ƒi[ƒNƒ‰ƒX
+	 * ãƒœã‚¿ãƒ³ã®ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¡Œãªã†ã‚¤ãƒ³ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 	 */
 	class ButtonActionListener implements ActionListener {
 
 		/**
-		 * ƒ{ƒ^ƒ“‚ªƒNƒŠƒbƒN‚³‚ê‚½‚Ìˆ—
+		 * ãƒœã‚¿ãƒ³ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸæ™‚ã®å‡¦ç†
 		 */
 		public void actionPerformed(ActionEvent e) {
-//			/* Ä•`‰æ */
+//			/* å†æç”» */
 //			if(e.getSource() == repaintButton) {
 //				canvas.repaint();
-//			/* ƒNƒŠƒA */
+//			/* ã‚¯ãƒªã‚¢ */
 //			}else if(e.getSource() == clearButton) {
 //				for(int x = 0; x < map.length; x ++) {
 //					for(int y = 0; y < map[0].length; y++) {
@@ -471,18 +471,18 @@ public class Environment {
 //					}
 //				}
 //				canvas.repaint();
-//			/* ƒƒjƒ…[ ƒtƒ@ƒCƒ‹“Ç‚İ */
+//			/* ãƒ¡ãƒ‹ãƒ¥ãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«èª­è¾¼ã¿ */
 //			}else if(e.getSource() == loadMenuItem) {
-//				/* ƒtƒ@ƒCƒ‹–¼‚Ìæ“¾ */
-//				FileDialog fDialog = new FileDialog(frame, "ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ");
+//				/* ãƒ•ã‚¡ã‚¤ãƒ«åã®å–å¾— */
+//				FileDialog fDialog = new FileDialog(frame, "ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­è¾¼ã¿");
 //				fDialog.setVisible(true);
 //				String dirName = fDialog.getDirectory();
 //				String fileName = fDialog.getFile();
 //
-//				/* ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğæ“¾ */
+//				/* ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’å–å¾— */
 //				initMapInfo(dirName + fileName);
 //
-//				/* ƒLƒƒƒ“ƒoƒX‚Ì‰Šú‰» */
+//				/* ã‚­ãƒ£ãƒ³ãƒã‚¹ã®åˆæœŸåŒ– */
 //				canvas.initCanvas(map, robotState);
 //				canvas.repaint();
 //			}
@@ -491,16 +491,16 @@ public class Environment {
 	}
 
 	//////////////////////////////////////////
-	// ƒeƒXƒg—p
+	// ãƒ†ã‚¹ãƒˆç”¨
 
-	// ƒeƒXƒg—p‚ÌƒƒCƒ“ƒƒ\ƒbƒh
+	// ãƒ†ã‚¹ãƒˆç”¨ã®ãƒ¡ã‚¤ãƒ³ãƒ¡ã‚½ãƒƒãƒ‰
 	/**
-	 * @param String[] args args[0]:ŠÂ‹«‚Ìƒtƒ@ƒCƒ‹–¼ 
-	 *                      args[1]:ŠÂ‹«‚Ì‚h‚c
-	 *                      args[2]:ƒhƒA‚ªŠJ‚­ğŒ(‚»‚Ì‚h‚c)
-	 *                      args[3]:ƒƒO‚Ìo—Íæ
-	 *                      args[4]:•\¦‚Ì—L–³
-	 *                      args[5]:ŒJ‚è•Ô‚µ‰ñ”‚ÌãŒÀ
+	 * @param String[] args args[0]:ç’°å¢ƒã®ãƒ•ã‚¡ã‚¤ãƒ«å 
+	 *                      args[1]:ç’°å¢ƒã®ï¼©ï¼¤
+	 *                      args[2]:ãƒ‰ã‚¢ãŒé–‹ãæ¡ä»¶(ãã®ï¼©ï¼¤)
+	 *                      args[3]:ãƒ­ã‚°ã®å‡ºåŠ›å…ˆ
+	 *                      args[4]:è¡¨ç¤ºã®æœ‰ç„¡
+	 *                      args[5]:ç¹°ã‚Šè¿”ã—å›æ•°ã®ä¸Šé™
 	 */ 
 	public static void main(String args[]) {
 		try {
@@ -508,20 +508,20 @@ public class Environment {
 			env.changeDoorOpenItem((new Integer(args[2])).intValue());
 			java.util.Random random = new java.util.Random(0);
 
-			/* ƒƒO‚Ìo—Íæ */
+			/* ãƒ­ã‚°ã®å‡ºåŠ›å…ˆ */
 			String fileName = args[3];
 			FileOutputStream fileOutputStream = new FileOutputStream(fileName);
 			PrintStream printStream = new PrintStream(fileOutputStream);
 //			PrintStream printStream = System.out;
 
-			/* •\¦‚Ì—L–³‚ÌØ‚èŠ·‚¦ */
+			/* è¡¨ç¤ºã®æœ‰ç„¡ã®åˆ‡ã‚Šæ›ãˆ */
 			Boolean bl = new Boolean(args[4]);
 			env.setFlagShow(bl.booleanValue());
 
-			int maxIter = -1; // BABA ãŒÀ‰ñ”‚ğİ’è
-			if(args.length > 4) maxIter = Integer.parseInt(args[5]); // BABA ãŒÀ‰ñ”‚ğİ’è
-			int iter = 0; // BABA ãŒÀ‰ñ”‚ğİ’è
-			while((maxIter == -1) || (iter < maxIter)) { // BABA ãŒÀ‰ñ”‚ğİ’è
+			int maxIter = -1; // BABA ä¸Šé™å›æ•°ã‚’è¨­å®š
+			if(args.length > 4) maxIter = Integer.parseInt(args[5]); // BABA ä¸Šé™å›æ•°ã‚’è¨­å®š
+			int iter = 0; // BABA ä¸Šé™å›æ•°ã‚’è¨­å®š
+			while((maxIter == -1) || (iter < maxIter)) { // BABA ä¸Šé™å›æ•°ã‚’è¨­å®š
 				int action = random.nextInt(4);
 				env.run(action*2);
 				int[] state = env.getXYState();
@@ -529,16 +529,16 @@ public class Environment {
 				        + env.getAttribute(state[0], state[1]) + ","
 				        + env.getItem() + "," + args[1] + "," + args[2];
 				printStream.println(str);
-				iter++; // BABA ãŒÀ‰ñ”‚ğİ’è
+				iter++; // BABA ä¸Šé™å›æ•°ã‚’è¨­å®š
 			}
-			// 2001.08.10 ’Ç‰Á miyamoto
+			// 2001.08.10 è¿½åŠ  miyamoto
 			printStream.close();
 			fileOutputStream.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		// 2001.08.10 ’Ç‰Á miyamoto
+		// 2001.08.10 è¿½åŠ  miyamoto
 		System.exit(0);
 	}
 

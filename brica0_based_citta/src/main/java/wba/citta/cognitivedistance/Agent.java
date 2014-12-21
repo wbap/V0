@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * Agent.java
- * ”F’m‹——£‚É‚æ‚é–â‘è‰ğŒˆ‚ğs‚È‚¤ƒNƒ‰ƒX
+ * èªçŸ¥è·é›¢ã«ã‚ˆã‚‹å•é¡Œè§£æ±ºã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2000.10 BSC miyamoto
  */
@@ -11,40 +11,40 @@ import java.io.*;
 import wba.citta.cognitivedistance.viewer.*;
 
 /**
- * ”F’m‹——£‚É‚æ‚é–â‘è‰ğŒˆ‚ğs‚È‚¤ƒNƒ‰ƒX‚Å‚·B<BR><BR>
- * ƒƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Åİ’è‰Â”\‚Èƒpƒ‰ƒ[ƒ^‚ÌƒfƒtƒHƒ‹ƒg’l„<BR>
+ * èªçŸ¥è·é›¢ã«ã‚ˆã‚‹å•é¡Œè§£æ±ºã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹ã§ã™ã€‚<BR><BR>
+ * ï¼œã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§è¨­å®šå¯èƒ½ãªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ï¼<BR>
  *  maxCDLngth                 10<BR>
  *  shallowSearchLngth          3<BR>
  *  deepSearchLngth           200<BR>
  *  minSearchLngth              2<BR>
  *  maxSegmentSize              5<BR>
- *  minSegmentSize              3(Œ»İ‚Í‹@”\‚µ‚Ü‚¹‚ñ)<BR>
+ *  minSegmentSize              3(ç¾åœ¨ã¯æ©Ÿèƒ½ã—ã¾ã›ã‚“)<BR>
  *  maxFamiliarCount           10<BR>
  *  flagNovelSearch          true<BR>
  *  flagLandmarkSearchDirection false<BR>
  */
 public class Agent {
 
-	/* ŠÂ‹«‚Æ‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Ì•ÏŠ·‚ğs‚È‚¤ƒNƒ‰ƒX */
+	/* ç’°å¢ƒã¨ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®å¤‰æ›ã‚’è¡Œãªã†ã‚¯ãƒ©ã‚¹ */
 //	private InterfaceAgent interfaceAgent;
 	InterfaceAgent interfaceAgent;
 
-	/* LayeredAgent‚Ì”z—ñ */
+	/* LayeredAgentã®é…åˆ— */
 	private LayeredAgent[] layeredAgentArray;
 
-	/* g—p‚·‚éLayeredAgent” */
+	/* ä½¿ç”¨ã™ã‚‹LayeredAgentæ•° */
 	private int layerNum;
 
-	/* V‹K’Tõ‚Ì—L–³‚ÌØ‚èŠ·‚¦—pƒtƒ‰ƒO */
+	/* æ–°è¦æ¢ç´¢ã®æœ‰ç„¡ã®åˆ‡ã‚Šæ›ãˆç”¨ãƒ•ãƒ©ã‚° */
 	private boolean flagNovelSearch = true;
 
 	//////////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^A‰Šú‰»ˆ—
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€åˆæœŸåŒ–å‡¦ç†
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int layerNum ”F’m‹——£ƒ‚ƒWƒ…[ƒ‹‚ğŠK‘w‰»‚µ‚Äg—p‚·‚éê‡‚Ì
-	 * ƒŒƒCƒ„”B’P‘w‚Å‚Ìg—p‚·‚éê‡‚Í‚P‚ğw’èB
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int layerNum èªçŸ¥è·é›¢ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’éšå±¤åŒ–ã—ã¦ä½¿ç”¨ã™ã‚‹å ´åˆã®
+	 * ãƒ¬ã‚¤ãƒ¤æ•°ã€‚å˜å±¤ã§ã®ä½¿ç”¨ã™ã‚‹å ´åˆã¯ï¼‘ã‚’æŒ‡å®šã€‚
 	 */
 	public Agent(int layerNum) {
 		this.layerNum = layerNum;
@@ -53,19 +53,19 @@ public class Agent {
 
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int layerNum  ”F’m‹——£ƒ‚ƒWƒ…[ƒ‹‚ğŠK‘w‰»‚µ‚Äg—p‚·‚éê‡‚Ì
-	 * ƒŒƒCƒ„”B’P‘w‚Å‚Ìg—p‚·‚éê‡‚Í‚P‚ğw’èB
-	 * @param int maxCDLngth  ŠwK‚·‚éÅ‘å‚Ì”F’m‹——£
-	 * @param int shallowSearchLngth  ƒS[ƒ‹‚ğó‚­’Tõ‚·‚éê‡‚ÌÅ‘å‚Ì[‚³
-	 * @param int deepSearchLngth  ƒS[ƒ‹‚ğ[‚­’Tõ‚·‚éê‡‚ÌÅ‘å‚Ì[‚³
-	 * @param int minSearchLngth  ƒS[ƒ‹‚ğ’Tõ‚·‚éÅ¬‚Ì[‚³B-1‚ªw’è‚³‚ê‚½
-	 * ê‡‚ÍŠm—¦“I‚É’TõÅ¬‚Ì[‚³‚ğ•Ï‰»‚³‚¹‚éB[‚³‚Í1E2E3E4‚Ì‚¢‚Ã‚ê‚©‚ÅA
-	 * ‡‚É8:4:2:1‚ÌŠ„‡‚Å‘I‘ğ‚³‚ê‚éB
-	 * @param int maxSegmentSize  ƒ‰ƒ“ƒhƒ}[ƒNŠÔ‚ÌÅ‘å‹——£B‚±‚±‚Åw’è‚³‚ê‚½
-	 * ‹——£‚Ì”ÍˆÍ‚Åƒ‰ƒ“ƒhƒ}[ƒN‚ğ’Tõ‚µAƒ‰ƒ“ƒhƒ}[ƒN‚ª–³‚¯‚ê‚ÎV‚½‚Èƒ‰ƒ“ƒh
-	 * ƒ}[ƒN‚ğ¶¬‚µ‚Ü‚·B
-	 * @param int minSegmentSize  ƒ‰ƒ“ƒhƒ}[ƒNŠÔ‚ÌÅ¬‹——£(Œ»İ‚Í‹@”\‚µ‚Ü‚¹‚ñ)
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int layerNum  èªçŸ¥è·é›¢ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’éšå±¤åŒ–ã—ã¦ä½¿ç”¨ã™ã‚‹å ´åˆã®
+	 * ãƒ¬ã‚¤ãƒ¤æ•°ã€‚å˜å±¤ã§ã®ä½¿ç”¨ã™ã‚‹å ´åˆã¯ï¼‘ã‚’æŒ‡å®šã€‚
+	 * @param int maxCDLngth  å­¦ç¿’ã™ã‚‹æœ€å¤§ã®èªçŸ¥è·é›¢
+	 * @param int shallowSearchLngth  ã‚´ãƒ¼ãƒ«ã‚’æµ…ãæ¢ç´¢ã™ã‚‹å ´åˆã®æœ€å¤§ã®æ·±ã•
+	 * @param int deepSearchLngth  ã‚´ãƒ¼ãƒ«ã‚’æ·±ãæ¢ç´¢ã™ã‚‹å ´åˆã®æœ€å¤§ã®æ·±ã•
+	 * @param int minSearchLngth  ã‚´ãƒ¼ãƒ«ã‚’æ¢ç´¢ã™ã‚‹æœ€å°ã®æ·±ã•ã€‚-1ãŒæŒ‡å®šã•ã‚ŒãŸ
+	 * å ´åˆã¯ç¢ºç‡çš„ã«æ¢ç´¢æœ€å°ã®æ·±ã•ã‚’å¤‰åŒ–ã•ã›ã‚‹ã€‚æ·±ã•ã¯1ãƒ»2ãƒ»3ãƒ»4ã®ã„ã¥ã‚Œã‹ã§ã€
+	 * é †ã«8:4:2:1ã®å‰²åˆã§é¸æŠã•ã‚Œã‚‹ã€‚
+	 * @param int maxSegmentSize  ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯é–“ã®æœ€å¤§è·é›¢ã€‚ã“ã“ã§æŒ‡å®šã•ã‚ŒãŸ
+	 * è·é›¢ã®ç¯„å›²ã§ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’æ¢ç´¢ã—ã€ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒç„¡ã‘ã‚Œã°æ–°ãŸãªãƒ©ãƒ³ãƒ‰
+	 * ãƒãƒ¼ã‚¯ã‚’ç”Ÿæˆã—ã¾ã™ã€‚
+	 * @param int minSegmentSize  ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯é–“ã®æœ€å°è·é›¢(ç¾åœ¨ã¯æ©Ÿèƒ½ã—ã¾ã›ã‚“)
 	 */
 	public Agent(int layerNum, int maxCDLngth, int shallowSearchLngth,
 	        int deepSearchLngth, int minSearchLngth, int maxSegmentSize,
@@ -81,25 +81,25 @@ public class Agent {
 	}
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int layerNum  ”F’m‹——£ƒ‚ƒWƒ…[ƒ‹‚ğŠK‘w‰»‚µ‚Äg—p‚·‚éê‡‚Ì
-	 * ƒŒƒCƒ„”B’P‘w‚Å‚Ìg—p‚·‚éê‡‚Í‚P‚ğw’èB
-	 * @param int maxCDLngth  ŠwK‚·‚éÅ‘å‚Ì”F’m‹——£
-	 * @param int shallowSearchLngth  ƒS[ƒ‹‚ğó‚­’Tõ‚·‚éê‡‚ÌÅ‘å‚Ì[‚³
-	 * @param int deepSearchLngth  ƒS[ƒ‹‚ğ[‚­’Tõ‚·‚éê‡‚ÌÅ‘å‚Ì[‚³
-	 * @param int minSearchLngth  ƒS[ƒ‹‚ğ’Tõ‚·‚éÅ¬‚Ì[‚³B-1‚ªw’è‚³‚ê‚½
-	 * ê‡‚ÍŠm—¦“I‚É’TõÅ¬‚Ì[‚³‚ğ•Ï‰»‚³‚¹‚éB[‚³‚Í1E2E3E4‚Ì‚¢‚Ã‚ê‚©‚ÅA
-	 * ‡‚É8:4:2:1‚ÌŠ„‡‚Å‘I‘ğ‚³‚ê‚éB
-	 * @param int maxSegmentSize  ƒ‰ƒ“ƒhƒ}[ƒNŠÔ‚ÌÅ‘å‹——£B‚±‚±‚Åw’è‚³‚ê‚½
-	 * ‹——£‚Ì”ÍˆÍ‚Åƒ‰ƒ“ƒhƒ}[ƒN‚ğ’Tõ‚µAƒ‰ƒ“ƒhƒ}[ƒN‚ª–³‚¯‚ê‚ÎV‚½‚Èƒ‰ƒ“ƒh
-	 * ƒ}[ƒN‚ğ¶¬‚µ‚Ü‚·B
-	 * @param int minSegmentSize  ƒ‰ƒ“ƒhƒ}[ƒNŠÔ‚ÌÅ¬‹——£(Œ»İ‚Í‹@”\‚µ‚Ü‚¹‚ñ)
-	 * @param boolean flagNovelSearch  V‹K’Tõˆ—‚ğs‚È‚¤‚©‚Ç‚¤‚©B
-	 * true:s‚È‚¤ false:s‚È‚í‚È‚¢
-	 * @param int maxFamiliarCount ‚±‚±‚Åw’è‚³‚ê‚½‰ñ”˜A‘±‚µ‚ÄA‚·‚Å‚ÉˆÚ“®
-	 * Ï‚İ‚Ìó‘Ô‚ÖˆÚ“®‚·‚é‚ÆAV‹K’Tõˆ—‚ªs‚í‚ê‚Ü‚·B
-	 * @param boolean flagLandmarkSearchDirection  ƒZƒOƒƒ“ƒg‰»‚ğs‚È‚¤‚½‚ß‚É
-	 * s‚È‚¤ƒ‰ƒ“ƒhƒ}[ƒN‚Ì’Tõ‚ÌŒü‚«B true:‡•ûŒü false:‹t•ûŒü
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int layerNum  èªçŸ¥è·é›¢ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’éšå±¤åŒ–ã—ã¦ä½¿ç”¨ã™ã‚‹å ´åˆã®
+	 * ãƒ¬ã‚¤ãƒ¤æ•°ã€‚å˜å±¤ã§ã®ä½¿ç”¨ã™ã‚‹å ´åˆã¯ï¼‘ã‚’æŒ‡å®šã€‚
+	 * @param int maxCDLngth  å­¦ç¿’ã™ã‚‹æœ€å¤§ã®èªçŸ¥è·é›¢
+	 * @param int shallowSearchLngth  ã‚´ãƒ¼ãƒ«ã‚’æµ…ãæ¢ç´¢ã™ã‚‹å ´åˆã®æœ€å¤§ã®æ·±ã•
+	 * @param int deepSearchLngth  ã‚´ãƒ¼ãƒ«ã‚’æ·±ãæ¢ç´¢ã™ã‚‹å ´åˆã®æœ€å¤§ã®æ·±ã•
+	 * @param int minSearchLngth  ã‚´ãƒ¼ãƒ«ã‚’æ¢ç´¢ã™ã‚‹æœ€å°ã®æ·±ã•ã€‚-1ãŒæŒ‡å®šã•ã‚ŒãŸ
+	 * å ´åˆã¯ç¢ºç‡çš„ã«æ¢ç´¢æœ€å°ã®æ·±ã•ã‚’å¤‰åŒ–ã•ã›ã‚‹ã€‚æ·±ã•ã¯1ãƒ»2ãƒ»3ãƒ»4ã®ã„ã¥ã‚Œã‹ã§ã€
+	 * é †ã«8:4:2:1ã®å‰²åˆã§é¸æŠã•ã‚Œã‚‹ã€‚
+	 * @param int maxSegmentSize  ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯é–“ã®æœ€å¤§è·é›¢ã€‚ã“ã“ã§æŒ‡å®šã•ã‚ŒãŸ
+	 * è·é›¢ã®ç¯„å›²ã§ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã‚’æ¢ç´¢ã—ã€ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ãŒç„¡ã‘ã‚Œã°æ–°ãŸãªãƒ©ãƒ³ãƒ‰
+	 * ãƒãƒ¼ã‚¯ã‚’ç”Ÿæˆã—ã¾ã™ã€‚
+	 * @param int minSegmentSize  ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯é–“ã®æœ€å°è·é›¢(ç¾åœ¨ã¯æ©Ÿèƒ½ã—ã¾ã›ã‚“)
+	 * @param boolean flagNovelSearch  æ–°è¦æ¢ç´¢å‡¦ç†ã‚’è¡Œãªã†ã‹ã©ã†ã‹ã€‚
+	 * true:è¡Œãªã† false:è¡Œãªã‚ãªã„
+	 * @param int maxFamiliarCount ã“ã“ã§æŒ‡å®šã•ã‚ŒãŸå›æ•°é€£ç¶šã—ã¦ã€ã™ã§ã«ç§»å‹•
+	 * æ¸ˆã¿ã®çŠ¶æ…‹ã¸ç§»å‹•ã™ã‚‹ã¨ã€æ–°è¦æ¢ç´¢å‡¦ç†ãŒè¡Œã‚ã‚Œã¾ã™ã€‚
+	 * @param boolean flagLandmarkSearchDirection  ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ–ã‚’è¡Œãªã†ãŸã‚ã«
+	 * è¡Œãªã†ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®æ¢ç´¢ã®å‘ãã€‚ true:é †æ–¹å‘ false:é€†æ–¹å‘
 	 */
 	public Agent(int layerNum, int maxCDLngth, int shallowSearchLngth,
 	        int deepSearchLngth, int minSearchLngth, int maxSegmentSize,
@@ -113,27 +113,27 @@ public class Agent {
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚Ì‰Šú‰»ˆ—B
-	 * LayeredAgent,InterfaceAgent‚ğ¶¬‚µ‚Ü‚·B
+	 * Agentã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–å‡¦ç†ã€‚
+	 * LayeredAgent,InterfaceAgentã‚’ç”Ÿæˆã—ã¾ã™ã€‚
 	 */
 	private void initAgent() {
 
 		/*
-		 * LayeredAgent‚Ì¶¬ ãˆÊ‘w‚Ö‚ÌQÆ‚ğ‰ºˆÊ‘w‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Éİ’è
+		 * LayeredAgentã®ç”Ÿæˆ ä¸Šä½å±¤ã¸ã®å‚ç…§ã‚’ä¸‹ä½å±¤ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã«è¨­å®š
 		 */
 		layeredAgentArray = new LayeredAgent[layerNum];
 		for(int i = layerNum-1; i >= 0; i--) {
 			if(i == layerNum-1) {
-				/* ÅãˆÊ‚Ì‘w‚É‚ÍãˆÊ‘w‚Ö‚ÌQÆ‚ğİ’è‚µ‚È‚¢ */
+				/* æœ€ä¸Šä½ã®å±¤ã«ã¯ä¸Šä½å±¤ã¸ã®å‚ç…§ã‚’è¨­å®šã—ãªã„ */
 				layeredAgentArray[i] = new LayeredAgent(null, i);
 			}else{
-				/* ‚»‚êˆÈŠO‚Ì‘w‚É‚ÍãˆÊ‘w‚Ö‚ÌQÆ‚ğİ’è */
+				/* ãã‚Œä»¥å¤–ã®å±¤ã«ã¯ä¸Šä½å±¤ã¸ã®å‚ç…§ã‚’è¨­å®š */
 				layeredAgentArray[i] = new LayeredAgent(layeredAgentArray[i+1],
 				        i);
 			}
 		}
 
-		/* ƒCƒ“ƒ^[ƒtƒF[ƒXƒG[ƒWƒFƒ“ƒg‚É‚ÍÅ‰º‘w‚ÌlayeredAgentArray‚ğİ’è */
+		/* ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã«ã¯æœ€ä¸‹å±¤ã®layeredAgentArrayã‚’è¨­å®š */
 		interfaceAgent = new InterfaceAgent(layeredAgentArray[0]);
 	}
 
@@ -142,29 +142,29 @@ public class Agent {
 	// public
 
 	/**
-	 * Œ»İ‚Ìó‘Ô‚©‚çƒS[ƒ‹‚Ì‚ÖŒo˜H’Tõ‚ğs‚È‚¢AƒS[ƒ‹‚ÖˆÚ“®‚·‚é‚½‚ß‚Ì
-	 * Ÿ‚Ìó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * ƒS[ƒ‹‚Ö‚ÌŒo˜H‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡‚Ínull‚ğ•Ô‚µ‚Ü‚·B
-	 * ‚Ü‚½ˆø”‚Åİ’è‚³‚ê‚½Œ»İ‚Ìó‘Ô‚É‚Â‚¢‚Ä‚Ì”F’m‹——£EForwardModelE
-	 * InverseMovel‚ÌŠwK‚ğs‚È‚¢AŠK‘w‰»‚³‚ê‚Ä‚¢‚ê‚ÎƒZƒOƒƒ“ƒg‰»‚às‚È‚¢‚Ü‚·B
-	 * @param Vector currentState Œ»İ‚Ìó‘Ô
-	 * @param Vector goalState    ƒS[ƒ‹‚Ìó‘Ô
-	 * @return Vector             Ÿ‚Ìó‘Ô
-	 * @exception NullPointerException ˆø”‚Åİ’è‚³‚ê‚½Œ»İ‚Ìó‘Ô‚ªnull‚Ìê‡
-	 * @exception ElementNumberException Œ»İ‚Ìó‘Ô‚Ì—v‘f”(Vector‚ÌƒTƒCƒY)‚ª
-	 * •s³‚Èê‡Bó‘Ô‚Ì—v‘f”‚Ín‚ß‚É“ü—Í‚³‚ê‚½ó‘Ô‚Ì—v‘f”‚ªŠî€‚Æ‚È‚èA
-	 * ˆÈ~‚É“ü—Í‚³‚ê‚éó‘Ô‚Ì—v‘f”‚ÍŠî€‚Æ‚È‚é—v‘f”‚Æ“¯‚¶‚Å‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñ
+	 * ç¾åœ¨ã®çŠ¶æ…‹ã‹ã‚‰ã‚´ãƒ¼ãƒ«ã®ã¸çµŒè·¯æ¢ç´¢ã‚’è¡Œãªã„ã€ã‚´ãƒ¼ãƒ«ã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®
+	 * æ¬¡ã®çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * ã‚´ãƒ¼ãƒ«ã¸ã®çµŒè·¯ãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã¯nullã‚’è¿”ã—ã¾ã™ã€‚
+	 * ã¾ãŸå¼•æ•°ã§è¨­å®šã•ã‚ŒãŸç¾åœ¨ã®çŠ¶æ…‹ã«ã¤ã„ã¦ã®èªçŸ¥è·é›¢ãƒ»ForwardModelãƒ»
+	 * InverseMovelã®å­¦ç¿’ã‚’è¡Œãªã„ã€éšå±¤åŒ–ã•ã‚Œã¦ã„ã‚Œã°ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ–ã‚‚è¡Œãªã„ã¾ã™ã€‚
+	 * @param Vector currentState ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Vector goalState    ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹
+	 * @return Vector             æ¬¡ã®çŠ¶æ…‹
+	 * @exception NullPointerException å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸç¾åœ¨ã®çŠ¶æ…‹ãŒnullã®å ´åˆ
+	 * @exception ElementNumberException ç¾åœ¨ã®çŠ¶æ…‹ã®è¦ç´ æ•°(Vectorã®ã‚µã‚¤ã‚º)ãŒ
+	 * ä¸æ­£ãªå ´åˆã€‚çŠ¶æ…‹ã®è¦ç´ æ•°ã¯å§‹ã‚ã«å…¥åŠ›ã•ã‚ŒãŸçŠ¶æ…‹ã®è¦ç´ æ•°ãŒåŸºæº–ã¨ãªã‚Šã€
+	 * ä»¥é™ã«å…¥åŠ›ã•ã‚Œã‚‹çŠ¶æ…‹ã®è¦ç´ æ•°ã¯åŸºæº–ã¨ãªã‚‹è¦ç´ æ•°ã¨åŒã˜ã§ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“
 	 */
 	public Vector getNextState(Vector currentState, Vector goalState) 
 	        throws ElementNumberException {
 
-		/* ŠwKˆ— */
+		/* å­¦ç¿’å‡¦ç† */
 		interfaceAgent.learn(currentState);
 
-		/* Ÿ‚Ìó‘Ô‚ğæ“¾ */
+		/* æ¬¡ã®çŠ¶æ…‹ã‚’å–å¾— */
 		Vector nextState = interfaceAgent.exec(currentState,goalState);
 
-		/* V‹K’Tõˆ— ƒtƒ‰ƒO‚É‚æ‚èV‹K’Tõ‚Ì—L–³‚ÌØ‚èŠ·‚¦ */
+		/* æ–°è¦æ¢ç´¢å‡¦ç† ãƒ•ãƒ©ã‚°ã«ã‚ˆã‚Šæ–°è¦æ¢ç´¢ã®æœ‰ç„¡ã®åˆ‡ã‚Šæ›ãˆ */
 		if(flagNovelSearch) {
 			if(nextState == null) {
 				nextState = interfaceAgent.novelSearch(currentState);
@@ -176,34 +176,34 @@ public class Agent {
 		return nextState;
 	}
 
-	// 2001.04.19 ’Ç‰Á miyamoto
+	// 2001.04.19 è¿½åŠ  miyamoto
 	/**
-	 * ”F’m‹——£‚ÌŠwK‚ğs‚È‚¢‚Ü‚·B
-	 * @param Vector currentState Œ»İ‚Ìó‘Ô
-	 * @param Exception NullPointerException Œ»İ‚Ìó‘Ô‚ªnull‚Ìê‡
-	 * @param Exception ElementNumberException Œ»İ‚Ìó‘Ô‚Ì—v‘f”‚ª•s³‚Èê‡
+	 * èªçŸ¥è·é›¢ã®å­¦ç¿’ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * @param Vector currentState ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Exception NullPointerException ç¾åœ¨ã®çŠ¶æ…‹ãŒnullã®å ´åˆ
+	 * @param Exception ElementNumberException ç¾åœ¨ã®çŠ¶æ…‹ã®è¦ç´ æ•°ãŒä¸æ­£ãªå ´åˆ
 	 */
 	public void learn(Vector currentState) throws ElementNumberException {
 		interfaceAgent.learn(currentState);
 	}
 
 	/**
-	 * Àsˆ—‚ğs‚È‚¢AƒS[ƒ‹‚ÖˆÚ“®‚·‚é‚½‚ß‚ÌŸ‚Ìó‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Vector currentState Œ»İ‚Ìó‘Ô
-	 * @param Vector goalState    ƒS[ƒ‹‚Ìó‘Ô
-	 * @return Vector             Ÿ‚Ìó‘Ô
-	 * @param Exception NullPointerException Œ»İ‚Ìó‘Ô‚ªnull‚Ìê‡
-	 * @param Exception ElementNumberException Œ»İ‚Ìó‘Ô‚Ì—v‘f”‚ª•s³‚Èê‡
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã€ã‚´ãƒ¼ãƒ«ã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®æ¬¡ã®çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Vector currentState ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Vector goalState    ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹
+	 * @return Vector             æ¬¡ã®çŠ¶æ…‹
+	 * @param Exception NullPointerException ç¾åœ¨ã®çŠ¶æ…‹ãŒnullã®å ´åˆ
+	 * @param Exception ElementNumberException ç¾åœ¨ã®çŠ¶æ…‹ã®è¦ç´ æ•°ãŒä¸æ­£ãªå ´åˆ
 	 */
 	public Vector exec(Vector currentState, Vector goalState)
 	        throws ElementNumberException {
 		return interfaceAgent.exec(currentState, goalState);
 	}
-	// ‚±‚±‚Ü‚Å
+	// ã“ã“ã¾ã§
 
 	/**
-	 * ŠwKƒf[ƒ^‚ğƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚Ü‚·B
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­è¾¼ã¿ã¾ã™ã€‚
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public void load(String fileName) {
 		System.out.println("Loading learning data....");
@@ -211,7 +211,7 @@ public class Agent {
 			FileInputStream istream = new FileInputStream(fileName);
 			ObjectInputStream oInputStream = new ObjectInputStream(istream);
 
-			/* ƒIƒuƒWƒFƒNƒg‚Ì“Ç‚İ */
+			/* ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®èª­è¾¼ã¿ */
 			interfaceAgent.load(oInputStream);
 			for(int i = 0; i < layerNum; i++) {
 				layeredAgentArray[i].load(oInputStream);
@@ -228,17 +228,17 @@ public class Agent {
 
 
 	/**
-	 * ŠwKƒf[ƒ^‚ğƒtƒ@ƒCƒ‹‚É•Û‘¶‚µ‚Ü‚·B
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã—ã¾ã™ã€‚
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public void save(String fileName) {
 		System.out.println("Saving learning data....");
 		try{
-			/* ƒXƒgƒŠ[ƒ€‚Ìì¬ */
+			/* ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®ä½œæˆ */
 			FileOutputStream ostream = new FileOutputStream(fileName, false);
 			ObjectOutputStream oOutputStream = new ObjectOutputStream(ostream);
 
-			/* ƒIƒuƒWƒFƒNƒg‚Ì“Ç‚İ */
+			/* ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®èª­è¾¼ã¿ */
 			interfaceAgent.save(oOutputStream);
 			for(int i = 0; i < layerNum; i++) {
 				layeredAgentArray[i].save(oOutputStream);
@@ -257,10 +257,10 @@ public class Agent {
 
 
 	///////////////////////////////////////////////////////////////////
-	// ƒfƒoƒbƒN—p‚Ìî•ñ‚Ìæ“¾A“®ì‚Ì§Œä‚Ég—p‚·‚éƒƒ\ƒbƒh
+	// ãƒ‡ãƒãƒƒã‚¯ç”¨ã®æƒ…å ±ã®å–å¾—ã€å‹•ä½œã®åˆ¶å¾¡ã«ä½¿ç”¨ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 
 	/**
-	 * ”F’m‹——£‚ğŠwK‚·‚é‚½‚ß‚É•Û‚µ‚Ä‚¢‚éó‘Ô‚Ì—š—ğ‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * èªçŸ¥è·é›¢ã‚’å­¦ç¿’ã™ã‚‹ãŸã‚ã«ä¿æŒã—ã¦ã„ã‚‹çŠ¶æ…‹ã®å±¥æ­´ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void reset() {
 		interfaceAgent.reset();
@@ -268,10 +268,10 @@ public class Agent {
 
 
 	/**
-	 * ”F’m‹——£EForwardModelEInverseMovel‚ÌŠwK‚ğs‚È‚¤‚©As‚È‚í‚È‚¢‚©
-	 * İ’è‚µ‚Ü‚·BƒfƒtƒHƒ‹ƒg‚Å‚Í‘S‚Ä‚Ì‘w‚ÌŠwK‚ğs‚È‚¢‚Ü‚·B
-	 * @param int layerID İ’è‚·‚éƒŒƒCƒ„ (0`)
-	 * @param boolean flag  trueFŠwK‚ğs‚È‚¤  falseFŠwK‚ğs‚È‚í‚È‚¢
+	 * èªçŸ¥è·é›¢ãƒ»ForwardModelãƒ»InverseMovelã®å­¦ç¿’ã‚’è¡Œãªã†ã‹ã€è¡Œãªã‚ãªã„ã‹
+	 * è¨­å®šã—ã¾ã™ã€‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã¯å…¨ã¦ã®å±¤ã®å­¦ç¿’ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * @param int layerID è¨­å®šã™ã‚‹ãƒ¬ã‚¤ãƒ¤ (0ã€œ)
+	 * @param boolean flag  trueï¼šå­¦ç¿’ã‚’è¡Œãªã†  falseï¼šå­¦ç¿’ã‚’è¡Œãªã‚ãªã„
 	 */
 	public void setLearningFlag(int layerID, boolean flag) {
 		layeredAgentArray[layerID].setLearningFlag(flag);
@@ -279,11 +279,11 @@ public class Agent {
 
 
 	/**
-	 * ƒZƒOƒƒ“ƒg‰»(ƒZƒOƒƒ“ƒg•ªŠ„AƒZƒOƒƒ“ƒg‚Ìƒ‰ƒ“ƒhƒ}[ƒN‚Ìİ’è)‚ğs‚È‚¤‚©
-	 * As‚È‚í‚È‚¢‚©İ’è‚µ‚Ü‚·BƒfƒtƒHƒ‹ƒg‚Å‚Í‘S‚Ä‚Ì‘w‚ÌƒZƒOƒƒ“ƒg‰»‚ğs‚È‚¢
-	 * ‚Ü‚·B
-	 * @param int layerID İ’è‚·‚éƒŒƒCƒ„ (0`)
-	 * @param boolean flag  trueFŠwK‚ğs‚È‚¤  falseFŠwK‚ğs‚È‚í‚È‚¢
+	 * ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ–(ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåˆ†å‰²ã€ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã®ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®è¨­å®š)ã‚’è¡Œãªã†ã‹
+	 * ã€è¡Œãªã‚ãªã„ã‹è¨­å®šã—ã¾ã™ã€‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã¯å…¨ã¦ã®å±¤ã®ã‚»ã‚°ãƒ¡ãƒ³ãƒˆåŒ–ã‚’è¡Œãªã„
+	 * ã¾ã™ã€‚
+	 * @param int layerID è¨­å®šã™ã‚‹ãƒ¬ã‚¤ãƒ¤ (0ã€œ)
+	 * @param boolean flag  trueï¼šå­¦ç¿’ã‚’è¡Œãªã†  falseï¼šå­¦ç¿’ã‚’è¡Œãªã‚ãªã„
 	 */
 	public void setSegmentationFlag(int layerID, boolean flag) {
 		layeredAgentArray[layerID].setSegmentationFlag(flag);
@@ -291,9 +291,9 @@ public class Agent {
 
 
 	/**
-	 * g—p‚·‚é‚b‚c‚ÌÅ‘åƒTƒCƒY‚ğ•ÏX‚µ‚Ü‚·B
-	 * (ƒeƒXƒg—p‚Ìƒƒ\ƒbƒh‚ÅstateBuffer‚Ö‚Ì‰e‹¿‚Íl—¶‚µ‚Ä‚¢‚È‚¢j
-	 * @param int lngth V‚µ‚¢’·‚³
+	 * ä½¿ç”¨ã™ã‚‹ï¼£ï¼¤ã®æœ€å¤§ã‚µã‚¤ã‚ºã‚’å¤‰æ›´ã—ã¾ã™ã€‚
+	 * (ãƒ†ã‚¹ãƒˆç”¨ã®ãƒ¡ã‚½ãƒƒãƒ‰ã§stateBufferã¸ã®å½±éŸ¿ã¯è€ƒæ…®ã—ã¦ã„ãªã„ï¼‰
+	 * @param int lngth æ–°ã—ã„é•·ã•
 	 */
 //	public void changeMaxCDLngth(int lngth) {
 //		Node.maxCDLngth = lngth;
@@ -301,19 +301,19 @@ public class Agent {
 
 
 	/**
-	 * g—p‚·‚éƒŒƒCƒ„”‚ğ•ÏX‚µ‚Ü‚·B(ƒŒƒCƒ„”‚ğŒ¸‚ç‚·–‚Ì‚İ‰Â”\j
-	 * @param int newLayerNum  V‚µ‚¢ƒŒƒCƒ„”
+	 * ä½¿ç”¨ã™ã‚‹ãƒ¬ã‚¤ãƒ¤æ•°ã‚’å¤‰æ›´ã—ã¾ã™ã€‚(ãƒ¬ã‚¤ãƒ¤æ•°ã‚’æ¸›ã‚‰ã™äº‹ã®ã¿å¯èƒ½ï¼‰
+	 * @param int newLayerNum  æ–°ã—ã„ãƒ¬ã‚¤ãƒ¤æ•°
 	 */
 //	public void changeLayerNum(int newLayerNum) {
 //		if(newLayerNum < layerNum) {
-//			/* LayeredAgent‚Ì”z—ñ‚Ì“àg—p‚µ‚È‚¢‚à‚Ì‚àíœ */
+//			/* LayeredAgentã®é…åˆ—ã®å†…ä½¿ç”¨ã—ãªã„ã‚‚ã®ã‚‚å‰Šé™¤ */
 //			for(int i = 0; i < layerNum; layerNum++) {
 //				if(i < newLayerNum) {
 //				}else {
 //					layeredAgentArray[i] = null;
 //				}
 //			}
-//			/* V‚µ‚¢ÅãˆÊ‘w‚ÌãˆÊ‘w‚ğíœ */
+//			/* æ–°ã—ã„æœ€ä¸Šä½å±¤ã®ä¸Šä½å±¤ã‚’å‰Šé™¤ */
 //			layeredAgentArray[newLayerNum-1].deleteUpperLayer();
 //			layerNum = newLayerNum;
 //		}
@@ -321,10 +321,10 @@ public class Agent {
 
 
 	/**
-	 * w’è‚³‚ê‚½ó‘ÔEƒŒƒCƒ„‚É‘Î‰‚·‚éƒm[ƒhƒNƒ‰ƒX‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾‚µ‚Ü‚·B
-	 * @param Object state ŠÂ‹«‘¤‚Å‚Ìó‘Ô
-	 * @param int layer    ƒŒƒCƒ„
-	 * @return Node        ƒm[ƒh
+	 * æŒ‡å®šã•ã‚ŒãŸçŠ¶æ…‹ãƒ»ãƒ¬ã‚¤ãƒ¤ã«å¯¾å¿œã™ã‚‹ãƒãƒ¼ãƒ‰ã‚¯ãƒ©ã‚¹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param Object state ç’°å¢ƒå´ã§ã®çŠ¶æ…‹
+	 * @param int layer    ãƒ¬ã‚¤ãƒ¤
+	 * @return Node        ãƒãƒ¼ãƒ‰
 	 */
 	public Node getNode(Vector state, int layer) {
 		return interfaceAgent.getNode(state, layer);
@@ -332,8 +332,8 @@ public class Agent {
 
 
 	/**
-	 * s“®Ï‚İ‚Ì‘Só‘Ô‚ğæ“¾‚µ‚Ü‚·B
-	 * @return Vector s“®Ï‚İ‚Ì‘Só‘Ô‚Ìİ’è‚³‚ê‚½Vector
+	 * è¡Œå‹•æ¸ˆã¿ã®å…¨çŠ¶æ…‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return Vector è¡Œå‹•æ¸ˆã¿ã®å…¨çŠ¶æ…‹ã®è¨­å®šã•ã‚ŒãŸVector
 	 */
 	public Vector getStateTable() {
 		return interfaceAgent.getIdToState();
@@ -341,17 +341,17 @@ public class Agent {
 
 
 	/**
-	 * ˆø”‚Åw’è‚µ‚½‘w‚ÌÀs‚Ìˆ—‚ÉŠÖ‚·‚éî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int layerNum  î•ñ‚ğæ“¾‚·‚éƒŒƒCƒ„
-	 * @return int[]        Às‚Ìˆ—‚ÉŠÖ‚·‚éî•ñ<BR>
-	 *                      ’l‚Ì‚È‚¢ó‘Ô‚É‚Â‚¢‚Ä‚Í-1‚ªİ’è‚³‚ê‚é<BR>
-	 *                      int[0] Œ»İ‚Ìó‘Ô‚ÌID<BR>
-	 *                      int[1] ƒS[ƒ‹‚Ìó‘Ô‚ÌID<BR>
-	 *                      int[2] ãˆÊ‘w‚©‚ç‚ÌƒTƒuƒS[ƒ‹‚Ìó‘Ô‚ÌID<BR>
-	 *                      int[3] Ÿ‚Ìó‘Ô‚ÌID<BR>
-	 *                      int[4] Ÿ‚Ìó‘Ô‚ğo—Í‚µ‚Ä‚¢‚éˆ—‚ÌID<BR>
-	 *                      int[5] ƒTƒuƒS[ƒ‹‚ªXV‚³‚ê‚Ä‚¢‚é‚©
-	 *                             0FXV‚³‚ê‚Ä‚¢‚È‚¢ 1FXV‚³‚ê‚Ä‚¢‚é<BR>
+	 * å¼•æ•°ã§æŒ‡å®šã—ãŸå±¤ã®å®Ÿè¡Œæ™‚ã®å‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int layerNum  æƒ…å ±ã‚’å–å¾—ã™ã‚‹ãƒ¬ã‚¤ãƒ¤
+	 * @return int[]        å®Ÿè¡Œæ™‚ã®å‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±<BR>
+	 *                      å€¤ã®ãªã„çŠ¶æ…‹ã«ã¤ã„ã¦ã¯-1ãŒè¨­å®šã•ã‚Œã‚‹<BR>
+	 *                      int[0] ç¾åœ¨ã®çŠ¶æ…‹ã®ID<BR>
+	 *                      int[1] ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã®ID<BR>
+	 *                      int[2] ä¸Šä½å±¤ã‹ã‚‰ã®ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®çŠ¶æ…‹ã®ID<BR>
+	 *                      int[3] æ¬¡ã®çŠ¶æ…‹ã®ID<BR>
+	 *                      int[4] æ¬¡ã®çŠ¶æ…‹ã‚’å‡ºåŠ›ã—ã¦ã„ã‚‹å‡¦ç†ã®ID<BR>
+	 *                      int[5] ã‚µãƒ–ã‚´ãƒ¼ãƒ«ãŒæ›´æ–°ã•ã‚Œã¦ã„ã‚‹ã‹
+	 *                             0ï¼šæ›´æ–°ã•ã‚Œã¦ã„ãªã„ 1ï¼šæ›´æ–°ã•ã‚Œã¦ã„ã‚‹<BR>
 	 */
 	public int[] getExecInfo(int layerNum) {
 		ExecInfo ei = layeredAgentArray[layerNum].getExecInfo();
@@ -359,10 +359,10 @@ public class Agent {
 	}
 
 	/**
-	 * ‘S‚Ä‚Ì‘w‚ÌÀs‚Ìˆ—‚ÉŠÖ‚·‚éî•ñ‚ğƒNƒŠƒA‚µ‚Ü‚·B<BR>
-	 * Še‘w‚ÌÀs‚Ìˆ—‚ÉŠÖ‚·‚éî•ñ‚ÍƒS[ƒ‹‚ª–³‚­‚È‚Á‚½ê‡“™A‚»‚Ì‘w‚Ìˆ—‚ª
-	 * s‚í‚ê‚È‚­‚È‚é‚½‚ßAˆÈ‘O‚Ìî•ñ‚ªc‚Á‚Ä‚µ‚Ü‚¢‚Ü‚·B
-	 * ‚±‚Ì‚½‚ß•K—v‚É‰‚¶‚Äî•ñ‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * å…¨ã¦ã®å±¤ã®å®Ÿè¡Œæ™‚ã®å‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚<BR>
+	 * å„å±¤ã®å®Ÿè¡Œæ™‚ã®å‡¦ç†ã«é–¢ã™ã‚‹æƒ…å ±ã¯ã‚´ãƒ¼ãƒ«ãŒç„¡ããªã£ãŸå ´åˆç­‰ã€ãã®å±¤ã®å‡¦ç†ãŒ
+	 * è¡Œã‚ã‚Œãªããªã‚‹ãŸã‚ã€ä»¥å‰ã®æƒ…å ±ãŒæ®‹ã£ã¦ã—ã¾ã„ã¾ã™ã€‚
+	 * ã“ã®ãŸã‚å¿…è¦ã«å¿œã˜ã¦æƒ…å ±ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 //	public void resetExecInfo() {
 //		for(int i = 0; i < layerNum; i++) {
@@ -371,17 +371,17 @@ public class Agent {
 //	}
 
 	/**
-	 * ˆø”‚Åw’è‚µ‚½‘w‚ÌƒS[ƒ‹’Tõ‚ÉŠÖ‚·‚éî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int layerNum î•ñ‚ğæ“¾‚·‚éƒŒƒCƒ„
-	 * @param int dx       î•ñ‚ğæ“¾‚·‚éˆ— D1`D4 (0`3‚Åw’è)
-	 * @return int[]       ƒS[ƒ‹‚Ì’Tõ‚ÉŠÖ‚·‚éî•ñ‚ªİ’è‚³‚ê‚½”z—ñ<BR>
-	 *                     w’è‚³‚ê‚½ˆ—‚ªs‚È‚í‚ê‚Ä‚¢‚È‚¢ê‡‚Ínull‚ğ•Ô‚·<BR>
-	 *                     int[0] ’Tõ‚³‚ê‚½ƒm[ƒh‚ÌID
-	 *                            ’Tõ‚ÌŒ‹‰ÊŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡-1<BR>
-	 *                     int[1] ’Tõ‚³‚ê‚½ƒm[ƒh‚©‚çƒS[ƒ‹‚Ü‚Å‚ÌCD‚Ì’·‚³
-	 *                            ’Tõ‚ÌŒ‹‰ÊŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡-1<BR>
-	 *                     int[2] ’Tõ‚ê‚½[‚³<BR>
-	 *                     int[3] ’Tõ‚³‚ê‚½ó‘Ô”<BR>
+	 * å¼•æ•°ã§æŒ‡å®šã—ãŸå±¤ã®ã‚´ãƒ¼ãƒ«æ¢ç´¢ã«é–¢ã™ã‚‹æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int layerNum æƒ…å ±ã‚’å–å¾—ã™ã‚‹ãƒ¬ã‚¤ãƒ¤
+	 * @param int dx       æƒ…å ±ã‚’å–å¾—ã™ã‚‹å‡¦ç† D1ã€œD4 (0ã€œ3ã§æŒ‡å®š)
+	 * @return int[]       ã‚´ãƒ¼ãƒ«ã®æ¢ç´¢ã«é–¢ã™ã‚‹æƒ…å ±ãŒè¨­å®šã•ã‚ŒãŸé…åˆ—<BR>
+	 *                     æŒ‡å®šã•ã‚ŒãŸå‡¦ç†ãŒè¡Œãªã‚ã‚Œã¦ã„ãªã„å ´åˆã¯nullã‚’è¿”ã™<BR>
+	 *                     int[0] æ¢ç´¢ã•ã‚ŒãŸãƒãƒ¼ãƒ‰ã®ID
+	 *                            æ¢ç´¢ã®çµæœè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆ-1<BR>
+	 *                     int[1] æ¢ç´¢ã•ã‚ŒãŸãƒãƒ¼ãƒ‰ã‹ã‚‰ã‚´ãƒ¼ãƒ«ã¾ã§ã®CDã®é•·ã•
+	 *                            æ¢ç´¢ã®çµæœè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆ-1<BR>
+	 *                     int[2] æ¢ç´¢ã‚ŒãŸæ·±ã•<BR>
+	 *                     int[3] æ¢ç´¢ã•ã‚ŒãŸçŠ¶æ…‹æ•°<BR>
 	 */
 //	public int[] getGoalSearchInfo(int layerNum, int dx) {
 //		GoalSearchInfo gsi = layeredAgentArray[layerNum].getGoalSearchInfo();
@@ -390,51 +390,51 @@ public class Agent {
 
 
 	/**
-	 * ˆø”‚Åw’è‚µ‚½‘w‚ÌŠwKó‹µ‚ÉŠÖ‚·‚éî•ñ‚ğæ“¾‚µ‚Ü‚·B
-	 * @param int layerNum  î•ñ‚ğæ“¾‚·‚éƒŒƒCƒ„
-	 * @return int[]        ŠwKó‹µ‚ÉŠÖ‚·‚éî•ñ<BR>
-	 *                      int[0] ‘Só‘Ô‚ÌMoveableState‚ÌƒTƒCƒY‚Ì‡Œv<BR>
-	 *                      int[1] ‘Só‘Ô‚ÌCognitiveDistance‚ÌƒTƒCƒY‚Ì‡Œv<BR>
-	 *                      int[2] ‘Só‘Ô”<BR>
-	 *                      int[3] —LŒø‚Èó‘Ô”(ƒ‰ƒ“ƒhƒ}[ƒN‚Ìíœ‚É‰e‹¿)<BR>
+	 * å¼•æ•°ã§æŒ‡å®šã—ãŸå±¤ã®å­¦ç¿’çŠ¶æ³ã«é–¢ã™ã‚‹æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @param int layerNum  æƒ…å ±ã‚’å–å¾—ã™ã‚‹ãƒ¬ã‚¤ãƒ¤
+	 * @return int[]        å­¦ç¿’çŠ¶æ³ã«é–¢ã™ã‚‹æƒ…å ±<BR>
+	 *                      int[0] å…¨çŠ¶æ…‹ã®MoveableStateã®ã‚µã‚¤ã‚ºã®åˆè¨ˆ<BR>
+	 *                      int[1] å…¨çŠ¶æ…‹ã®CognitiveDistanceã®ã‚µã‚¤ã‚ºã®åˆè¨ˆ<BR>
+	 *                      int[2] å…¨çŠ¶æ…‹æ•°<BR>
+	 *                      int[3] æœ‰åŠ¹ãªçŠ¶æ…‹æ•°(ãƒ©ãƒ³ãƒ‰ãƒãƒ¼ã‚¯ã®å‰Šé™¤æ™‚ã«å½±éŸ¿)<BR>
 	 */
 //	public int[] getLearningInfo(int layerNum) {
 //		return layeredAgentArray[layerNum].getLearningInfo();
 //	}
 
-	// 2001.08.09 ’Ç‰Á miyamoto
+	// 2001.08.09 è¿½åŠ  miyamoto
 	/**
-	 * Å¬‚Å’Tõ‚ğs‚¤[‚³‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int Å¬‚Å’Tõ‚ğs‚¤[‚³
+	 * æœ€å°ã§æ¢ç´¢ã‚’è¡Œã†æ·±ã•ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int æœ€å°ã§æ¢ç´¢ã‚’è¡Œã†æ·±ã•
 	 */
 	public int getMinSearchLngth() {
 		return LayeredAgent.minSearchLngth;
 	}
 
-	// 2001.08.09 ’Ç‰Á miyamoto
+	// 2001.08.09 è¿½åŠ  miyamoto
 	/**
-	 * Å¬‚Å’Tõ‚ğs‚¤[‚³‚ğİ’è‚µ‚Ü‚·B
-	 * @param int minSearchLngth Å¬‚Å’Tõ‚ğs‚¤[‚³
+	 * æœ€å°ã§æ¢ç´¢ã‚’è¡Œã†æ·±ã•ã‚’è¨­å®šã—ã¾ã™ã€‚
+	 * @param int minSearchLngth æœ€å°ã§æ¢ç´¢ã‚’è¡Œã†æ·±ã•
 	 */
 	public void setMinSearchLngth(int minSearchLngth) {
 		LayeredAgent.minSearchLngth = minSearchLngth;
 	}
 
 
-	// 2001.08.14 ’Ç‰Á miyamoto
+	// 2001.08.14 è¿½åŠ  miyamoto
 	/**
-	 * ó‘Ô a ‚©‚çó‘Ô b ‚Ö‚Ì“’B‰Â”\«‚ğ’²‚×‚Ü‚·B
+	 * çŠ¶æ…‹ a ã‹ã‚‰çŠ¶æ…‹ b ã¸ã®åˆ°é”å¯èƒ½æ€§ã‚’èª¿ã¹ã¾ã™ã€‚
 	 * @param Vector a
 	 * @param Vector b
-	 * @return boolean true “’B‰Â”\ false “’B•s‰Â”\
+	 * @return boolean true åˆ°é”å¯èƒ½ false åˆ°é”ä¸å¯èƒ½
 	 */
 	public boolean isReach(Vector a, Vector b) {
 		return interfaceAgent.isReach(a, b);
 	}
 
-	// 2001.08.15 ’Ç‰Á miyamoto
+	// 2001.08.15 è¿½åŠ  miyamoto
 	/**
-	 * Še‘w‚Å•Û‚µ‚Ä‚¢‚éAˆÈ‘O‚Ìó‘ÔEƒS[ƒ‹‚ÉŠÖ‚·‚éî•ñ‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * å„å±¤ã§ä¿æŒã—ã¦ã„ã‚‹ã€ä»¥å‰ã®çŠ¶æ…‹ãƒ»ã‚´ãƒ¼ãƒ«ã«é–¢ã™ã‚‹æƒ…å ±ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void resetOldValue() {
 		interfaceAgent.resetOldValue();

@@ -1,5 +1,5 @@
-/**
- * è“®‚ÅƒXƒ^ƒbƒN‚ÉƒS[ƒ‹‚ğİ’è‚·‚é‚½‚ßƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX
+ï»¿/**
+ * æ‰‹å‹•ã§ã‚¹ã‚¿ãƒƒã‚¯ã«ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã™ã‚‹ãŸã‚ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.08
  */
@@ -10,7 +10,7 @@ import java.awt.event.*;
 import java.util.*;
 
 /**
- * è“®‚ÅƒXƒ^ƒbƒN‚ÉƒS[ƒ‹‚ğİ’è‚·‚é‚½‚ßƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX
+ * æ‰‹å‹•ã§ã‚¹ã‚¿ãƒƒã‚¯ã«ã‚´ãƒ¼ãƒ«ã‚’è¨­å®šã™ã‚‹ãŸã‚ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
  */
 public class ManualAgentFrame extends Frame {
 
@@ -18,8 +18,8 @@ public class ManualAgentFrame extends Frame {
 	private Button okButton = null;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int nodeNum ƒm[ƒh”
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int nodeNum ãƒãƒ¼ãƒ‰æ•°
 	 */
 	public ManualAgentFrame(int nodeNum) {
 		super("Manual Agent");
@@ -46,15 +46,15 @@ public class ManualAgentFrame extends Frame {
 
 	Vector subgoal = null;
 	/**
-	 * è“®‚Åİ’è‚³‚ê‚½ƒTƒuƒS[ƒ‹‚ğæ“¾‚µ‚Ü‚·B
-	 * @return Vector ƒTƒuƒS[ƒ‹
+	 * æ‰‹å‹•ã§è¨­å®šã•ã‚ŒãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return Vector ã‚µãƒ–ã‚´ãƒ¼ãƒ«
 	 */
 	public Vector getSubgoal() {
 		return subgoal;
 	}
 
 	/**
-	 * “à•”‚Å•Û‚µ‚Ä‚¢‚éƒTƒuƒS[ƒ‹‚ğƒNƒŠƒA‚µ‚Ü‚·B
+	 * å†…éƒ¨ã§ä¿æŒã—ã¦ã„ã‚‹ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void clearSubgoal() {
 		subgoal = null;
@@ -64,8 +64,8 @@ public class ManualAgentFrame extends Frame {
 	// private
 
 	/**
-	 * ˆø”‚Åİ’è‚³‚ê‚½•¶š—ñ‚Ì”z—ñ‚ğƒS[ƒ‹‚Æ‚µ‚Ä“à•”‚Ì•Ï”‚Éİ’è‚µ‚Ü‚·B
-	 * @param String[] input •¶š—ñ‚Ì”z—ñ
+	 * å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸæ–‡å­—åˆ—ã®é…åˆ—ã‚’ã‚´ãƒ¼ãƒ«ã¨ã—ã¦å†…éƒ¨ã®å¤‰æ•°ã«è¨­å®šã—ã¾ã™ã€‚
+	 * @param String[] input æ–‡å­—åˆ—ã®é…åˆ—
 	 */
 	private void setSubgoal(String[] input) {
 		subgoal = new Vector();
@@ -77,7 +77,7 @@ public class ManualAgentFrame extends Frame {
 				try {
 					elm = new Integer(input[i]);
 				}catch(NumberFormatException e) {
-					// ”’lˆÈŠO‚ªİ’è‚³‚ê‚Ä‚¢‚éê‡‚Ínull‚ğİ’è
+					// æ•°å€¤ä»¥å¤–ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹å ´åˆã¯nullã‚’è¨­å®š
 				}
 				subgoal.add(elm);
 			}
@@ -85,8 +85,8 @@ public class ManualAgentFrame extends Frame {
 	}
 
 	/**
-	 * ƒeƒLƒXƒgƒtƒB[ƒ‹ƒh‚Ì‰Šú‰»‚ğ‚µ‚Ü‚·B
-	 * ‘S‚Ä‚ğnull‚Å–„‚ß‚Ü‚·B
+	 * ãƒ†ã‚­ã‚¹ãƒˆãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®åˆæœŸåŒ–ã‚’ã—ã¾ã™ã€‚
+	 * å…¨ã¦ã‚’nullã§åŸ‹ã‚ã¾ã™ã€‚
 	 */
 	private void initTextFields() {
 		for(int i = 0; i < textFields.length; i++) {
@@ -95,10 +95,10 @@ public class ManualAgentFrame extends Frame {
 	}
 
 	///////////////////////////////////////////////////////////////////////
-	// ƒCƒxƒ“ƒgˆ—
+	// ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 
 	/**
-	 * ƒ{ƒ^ƒ“‚ÌƒCƒxƒ“ƒgˆ—‚ğs‚È‚¤ƒCƒ“ƒi[ƒNƒ‰ƒX
+	 * ãƒœã‚¿ãƒ³ã®ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’è¡Œãªã†ã‚¤ãƒ³ãƒŠãƒ¼ã‚¯ãƒ©ã‚¹
 	 */
 	class ButtonActionListener implements ActionListener {
 

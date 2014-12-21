@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * GSAProp.java
- * ƒG[ƒWƒFƒ“ƒg‚Ìİ’èî•ñ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+ * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®è¨­å®šæƒ…å ±ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.07
  */
@@ -10,24 +10,24 @@ import java.io.*;
 import java.util.*;
 
 /**
- * ƒG[ƒWƒFƒ“ƒg‚Ìİ’è‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+ * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®è¨­å®šã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
  */
 public class GSAProperty {
 
-	/* ƒm[ƒh” */
+	/* ãƒãƒ¼ãƒ‰æ•° */
 	private int nodeNum;
 
-	/* ƒG[ƒWƒFƒ“ƒg‚ÉŠÖ‚·‚éİ’è */
+	/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã«é–¢ã™ã‚‹è¨­å®š */
 	/**
-	 * CognitiveDistance‚ÌƒG[ƒWƒFƒ“ƒg‚ğ•\‚·ID
+	 * CognitiveDistanceã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’è¡¨ã™ID
 	 */
 	public static final int CD = 0;
 	/**
-	 * AssociateƒG[ƒWƒFƒ“ƒg‚ğ•\‚·ID
+	 * Associateã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’è¡¨ã™ID
 	 */
 	public static final int ASSOCIATE = 1;
 	/**
-	 * LogƒG[ƒWƒFƒ“ƒg‚ğ•\‚·ID
+	 * Logã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚’è¡¨ã™ID
 	 */
 	public static final int LOG = 2;
 
@@ -36,17 +36,17 @@ public class GSAProperty {
 
 	private boolean useMana;
 
-	/* viewer‚ÉŠÖ‚·‚éİ’è */
+	/* viewerã«é–¢ã™ã‚‹è¨­å®š */
 	private boolean agentViewer = false;
 	private boolean goalStackViewer = false;
 	private boolean failAgentTreeViewer = false;
 
 	////////////////////////////////////////////////////////////////
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param String propFileName İ’èƒtƒ@ƒCƒ‹–¼
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param String propFileName è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«å
 	 * @exception FileNotFoundException
 	 * @exception IOException
 	 * @exception Exception
@@ -60,86 +60,86 @@ public class GSAProperty {
 	// public
 
 	/**
-	 * ManualAgent‚ğg—p‚·‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO‚ğæ“¾‚µ‚Ü‚·B
-	 * @return boolean  trueFg—p‚·‚é falseFg—p‚µ‚È‚¢
+	 * ManualAgentã‚’ä½¿ç”¨ã™ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return boolean  trueï¼šä½¿ç”¨ã™ã‚‹ falseï¼šä½¿ç”¨ã—ãªã„
 	 */
 	public boolean getUseMana() {
 		return useMana;
 	}
 
 	/**
-	 * ŠÂ‹«‚Åg—p‚³‚ê‚éƒm[ƒh”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int ƒm[ƒh”
+	 * ç’°å¢ƒã§ä½¿ç”¨ã•ã‚Œã‚‹ãƒãƒ¼ãƒ‰æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int ãƒãƒ¼ãƒ‰æ•°
 	 */
 	public int getNodeNum() {
 		return nodeNum;
 	}
 
 	/**
-	 * GSA‚Åg—p‚·‚éƒG[ƒWƒFƒ“ƒg‚Ì”‚ğæ“¾‚µ‚Ü‚·B
-	 * @return int ƒG[ƒWƒFƒ“ƒg”
+	 * GSAã§ä½¿ç”¨ã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®æ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+	 * @return int ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ•°
 	 */
 	public int getAgentNum() {
 		return agentNum;
 	}
 
 	/**
-	 * ˆø”‚Åw’è‚³‚ê‚½index‚ÌƒG[ƒWƒFƒ“ƒg‚Ìí—Ş‚ğæ“¾‚µ‚Ü‚·B
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸindexã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ç¨®é¡ã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @param int index
-	 * @return int ƒG[ƒWƒFƒ“ƒg‚Ìí—Ş 0F‚b‚cƒG[ƒWƒFƒ“ƒg 1F˜A‘zƒG[ƒWƒFƒ“ƒg
+	 * @return int ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ç¨®é¡ 0ï¼šï¼£ï¼¤ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ 1ï¼šé€£æƒ³ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
 	 */
 	public int getAgentType(int index) {
 		return agentsInfo[index].agentType;
 	}
 
 	/**
-	 * ˆø”‚Åw’è‚³‚ê‚½index‚ÌƒG[ƒWƒFƒ“ƒgID‚ğæ“¾‚µ‚Ü‚·B
+	 * å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸindexã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @param int index
-	 * @return int ƒG[ƒWƒFƒ“ƒgID
+	 * @return int ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
 	 */
 	public int getAgentID(int index) {
 		return agentsInfo[index].agentID;
 	}
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒg‚ªg—p‚·‚éƒm[ƒh‚Ìî•ñ‚ğæ“¾‚µ‚Ü‚·B
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒä½¿ç”¨ã™ã‚‹ãƒãƒ¼ãƒ‰ã®æƒ…å ±ã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @param int index
-	 * @return boolean[] g—p‚·‚éƒm[ƒh‚ªtrue‚Éİ’è‚³‚ê‚½boolean‚Ì”z—ñ
+	 * @return boolean[] ä½¿ç”¨ã™ã‚‹ãƒãƒ¼ãƒ‰ãŒtrueã«è¨­å®šã•ã‚ŒãŸbooleanã®é…åˆ—
 	 */
 	public boolean[] getUseNode(int index) {
 		return agentsInfo[index].useNode;
 	}
 
-	// 2001.12.14 ’Ç‰Á miyamoto
+	// 2001.12.14 è¿½åŠ  miyamoto
 	/**
-	 * ƒG[ƒWƒFƒ“ƒg‚ªg—p‚·‚éƒCƒxƒ“ƒgî•ñ‚Ìƒtƒ@ƒCƒ‹–¼‚ğæ“¾‚µ‚Ü‚·B
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆãŒä½¿ç”¨ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆæƒ…å ±ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @param int index
-	 * @return String ƒCƒxƒ“ƒgî•ñ‚Ìƒtƒ@ƒCƒ‹–¼
+	 * @return String ã‚¤ãƒ™ãƒ³ãƒˆæƒ…å ±ã®ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	public String getEventFileName(int index) {
 		return agentsInfo[index].eventFileName;
 	}
-	// ‚±‚±‚Ü‚Å
+	// ã“ã“ã¾ã§
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒg‚Ì“®ìó‹µ‚ğ•\¦‚·‚éViewer‚ğ•\¦‚·‚é‚©‚Ç‚¤‚©B
-	 * @return boolean true •\¦‚·‚é  false •\¦‚µ‚È‚¢
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®å‹•ä½œçŠ¶æ³ã‚’è¡¨ç¤ºã™ã‚‹Viewerã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹ã€‚
+	 * @return boolean true è¡¨ç¤ºã™ã‚‹  false è¡¨ç¤ºã—ãªã„
 	 */
 	public boolean isShowAgentViewer() {
 		 return agentViewer;
 	}
 
 	/**
-	 * ƒS[ƒ‹ƒXƒ^ƒbƒN‚Ìó‹µ‚ğ•\¦‚·‚éViewer‚ğ•\¦‚·‚é‚©‚Ç‚¤‚©B
-	 * @return boolean true •\¦‚·‚é  false •\¦‚µ‚È‚¢
+	 * ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã®çŠ¶æ³ã‚’è¡¨ç¤ºã™ã‚‹Viewerã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹ã€‚
+	 * @return boolean true è¡¨ç¤ºã™ã‚‹  false è¡¨ç¤ºã—ãªã„
 	 */
 	public boolean isShowGoalStackViewer() {
 		return goalStackViewer;
 	}
 
 	/**
-	 * ¸”sƒG[ƒWƒFƒ“ƒg‚ÌƒcƒŠ[‚Ìó‹µ‚ğ•\¦‚·‚éViewer‚ğ•\¦‚·‚é‚©‚Ç‚¤‚©B
-	 * @return boolean true •\¦‚·‚é  false •\¦‚µ‚È‚¢
+	 * å¤±æ•—ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ãƒ„ãƒªãƒ¼ã®çŠ¶æ³ã‚’è¡¨ç¤ºã™ã‚‹Viewerã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹ã€‚
+	 * @return boolean true è¡¨ç¤ºã™ã‚‹  false è¡¨ç¤ºã—ãªã„
 	 */
 	public boolean isShowFailAgentTreeViewer() {
 		return failAgentTreeViewer;
@@ -149,15 +149,15 @@ public class GSAProperty {
 	// private
 
 	/**
-	 * ƒtƒ@ƒCƒ‹‚©‚çî•ñ‚Ì“Ç‚İ‚İ
-	 * @param String fileName ƒtƒ@ƒCƒ‹–¼
+	 * ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰æƒ…å ±ã®èª­ã¿è¾¼ã¿
+	 * @param String fileName ãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	private void loadProperty(String fileName) throws FileNotFoundException, 
 	        IOException, NullPointerException, NumberFormatException, 
 	        NoSuchElementException, Exception {
 		Properties prop = new Properties();
 
-		/* ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ */
+		/* ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ */
 		try {
 			FileInputStream fin = new FileInputStream(fileName);
 			prop.load(fin);
@@ -170,18 +170,18 @@ public class GSAProperty {
 
 		StringTokenizer contents;
 		try {
-			/* mana‚Ìg—p */
+			/* manaã®ä½¿ç”¨ */
 			contents = new StringTokenizer(prop.getProperty("UseMana") );
 			useMana = new Boolean(contents.nextToken()).booleanValue();
 
-			/* ƒm[ƒh”‚Ì“Ç‚İ */
+			/* ãƒãƒ¼ãƒ‰æ•°ã®èª­è¾¼ã¿ */
 			contents = new StringTokenizer(prop.getProperty("NodeNum") );
 			nodeNum = new Integer(contents.nextToken()).intValue();
-			/* ƒG[ƒWƒFƒ“ƒg”‚Ì“Ç‚İ */
+			/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ•°ã®èª­è¾¼ã¿ */
 			contents = new StringTokenizer(prop.getProperty("AgentNum") );
 			agentNum = new Integer(contents.nextToken()).intValue();
 
-			/* viewer‚Ì•\¦‚ÉŠÖ‚·‚éİ’è‚Ì“Ç‚İ‚İ */
+			/* viewerã®è¡¨ç¤ºã«é–¢ã™ã‚‹è¨­å®šã®èª­ã¿è¾¼ã¿ */
 			contents = new StringTokenizer(prop.getProperty("AgentViewer") );
 			agentViewer = new Boolean(contents.nextToken()).booleanValue();
 			contents = new StringTokenizer(prop.getProperty(
@@ -207,15 +207,15 @@ public class GSAProperty {
 			agentsInfo[i] = new AgentInfo();
 		}
 
-		/* ƒm[ƒh–ˆ‚Ìİ’è‚Ì“Ç‚İ */
+		/* ãƒãƒ¼ãƒ‰æ¯ã®è¨­å®šã®èª­è¾¼ã¿ */
 		int index = 0;
 		for ( Enumeration e = prop.propertyNames(); e.hasMoreElements();) {
 			try{
-				/* ƒG[ƒWƒFƒ“ƒgIDæ“¾ */
+				/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆIDå–å¾— */
 				String key = (String)e.nextElement();
 				int agid = new Integer(key.trim()).intValue();
 
-				/* ƒG[ƒWƒFƒ“ƒg‚Ìí—Şæ“¾ */
+				/* ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã®ç¨®é¡å–å¾— */
 				StringTokenizer stringTokenizer
 				        = new StringTokenizer(prop.getProperty(key));
 				int agentType = -1;
@@ -228,7 +228,7 @@ public class GSAProperty {
 					}else if(agType.equals("LOG")) {
 						agentType = LOG;
 					}else {
-						/* CDAASSOCIATEˆÈŠO‚Ìw’è‚Í—áŠO‚ğƒXƒ[ */
+						/* CDã€ASSOCIATEä»¥å¤–ã®æŒ‡å®šã¯ä¾‹å¤–ã‚’ã‚¹ãƒ­ãƒ¼ */
 						Exception ex = new Exception
 						    ("Agent Type Error: on property file " + fileName);
 						throw ex;
@@ -240,7 +240,7 @@ public class GSAProperty {
 					throw ex;
 				}
 
-				/* g—pƒm[ƒh‚Ìæ“¾ */
+				/* ä½¿ç”¨ãƒãƒ¼ãƒ‰ã®å–å¾— */
 				boolean[] useNode = null;
 				try {
 					String str = stringTokenizer.nextToken();
@@ -252,12 +252,12 @@ public class GSAProperty {
 					throw ex;
 				}
 
-				/* ƒCƒxƒ“ƒgƒf[ƒ^ƒtƒ@ƒCƒ‹–¼‚Ìæ“¾ */
+				/* ã‚¤ãƒ™ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«åã®å–å¾— */
 				String eventFileName = null;
 				try {
 					eventFileName = stringTokenizer.nextToken();
 				}catch(NoSuchElementException nsee) {
-					/* ‚È‚­‚Ä‚à‰Â */
+					/* ãªãã¦ã‚‚å¯ */
 					eventFileName = null;
 				}
 
@@ -267,11 +267,11 @@ public class GSAProperty {
 				agentsInfo[index].eventFileName = eventFileName;
 				index++;
 			} catch (NumberFormatException nfe) {
-				// ƒm[ƒh‚Ìİ’èˆÈŠO‚Íˆ—‚ğ‚Æ‚Î‚·
+				// ãƒãƒ¼ãƒ‰ã®è¨­å®šä»¥å¤–ã¯å‡¦ç†ã‚’ã¨ã°ã™
 			}
 		}
 
-		/* Agent”‚Ìƒ`ƒFƒbƒN */
+		/* Agentæ•°ã®ãƒã‚§ãƒƒã‚¯ */
 		if( index != agentNum ) {
 			Exception ex = new Exception
 			        ("Agent Number Error: on property file " + fileName);
@@ -282,7 +282,7 @@ public class GSAProperty {
 
 
 	/////////////////////////////////////////////////////////
-	// ó‹µ•ª‰ğƒf[ƒ^“Ç‚İ‚İ
+	// çŠ¶æ³åˆ†è§£ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 
 	/**
 	 * 
@@ -292,7 +292,7 @@ public class GSAProperty {
 	public boolean[] loadDecomposeFeature(String fileName) throws
 	        FileNotFoundException, IOException {
 		boolean[] useNode = null;
-		/* ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ */
+		/* ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ */
 		try {
 			FileReader fr = new FileReader(fileName);
 			BufferedReader br = new BufferedReader(fr);
@@ -316,7 +316,7 @@ public class GSAProperty {
 	}
 
 	/**
-	 * ƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚ñ‚¾î•ñ‚ğboolean‚Ì”z—ñ‚É•ÏŠ·‚µ‚Ü‚·B
+	 * ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã‚“ã æƒ…å ±ã‚’booleanã®é…åˆ—ã«å¤‰æ›ã—ã¾ã™ã€‚
 	 * @param String str
 	 * @return boolean[]
 	 */

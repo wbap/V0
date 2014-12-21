@@ -1,6 +1,6 @@
-/**
+﻿/**
  * GoalSearchInfo.java
- * �S�[���T�����̏����Ǘ�����N���X
+ * ゴール探索時の情報を管理するクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2000.12 BSC miyamoto
  */
@@ -9,18 +9,18 @@ package wba.citta.cognitivedistance;
 import java.util.*;
 
 /**
- * �S�[���T�����̏����Ǘ�����N���X�ł��B
+ * ゴール探索時の情報を管理するクラスです。
  */
 public class GoalSearchInfo {
 
-	/* �e�������Ƃ̒T������ێ�����z�� */
+	/* 各処理ごとの探索情報を保持する配列 */
 	GoalSearchInfoSingle[] gsis;
 
 	/**
-	 * �R���X�g���N�^
+	 * コンストラクタ
 	 */
 	public GoalSearchInfo() {
-		/* �e�������Ƃ̒T������ێ�����N���X�𐶐� */
+		/* 各処理ごとの探索情報を保持するクラスを生成 */
 		gsis = new GoalSearchInfoSingle[4];
 		for(int i = 0; i < 4; i++) {
 			gsis[i] = new GoalSearchInfoSingle();
@@ -28,22 +28,22 @@ public class GoalSearchInfo {
 	}
 
 	/**
-	 * �ݒ肳��Ă�������N���A���܂��B
+	 * 設定されている情報をクリアします。
 	 */
 	public void clear() {
-		/* �e�������s�Ȃ������ǂ����̃t���O��false�ɐݒ� */
+		/* 各処理を行なったかどうかのフラグをfalseに設定 */
 		for(int i = 0; i < 4 ; i++) {
 			gsis[i].flagUsed = false;
 		}
 	}
 
 	/**
-	 * �S�[���T�����̏���ݒ肵�܂��B
+	 * ゴール探索時の情報を設定します。
 	 * 
 	 */
 	public void setGoalSearchInfo(int dx, Integer nodeID, Integer cdLngth,
 	        int searchLngth, int searchStateNum) {
-		/* �g�p���ꂽ�t���O�𗧂āA�e�l��ݒ� */
+		/* 使用されたフラグを立て、各値を設定 */
 		gsis[dx].flagUsed = true;
 		gsis[dx].searchedNodeID = nodeID;
 		gsis[dx].cdLngth = cdLngth;
@@ -53,24 +53,24 @@ public class GoalSearchInfo {
 
 
 	/**
-	 * �w�肳�ꂽ����(D1�`D4)�̒T�����̏����擾���܂��B
-	 * @param int dx  �T�����̏����擾���鏈��(0����3�Ŏw��)
-	 * @return int[]  �T�����
-	 *                �w�肳�ꂽ�������s�Ȃ��Ă��Ȃ��ꍇ��null��Ԃ��B
-	 *                int[0] �T�����ꂽ�m�[�h��ID
-	 *                       �T���̌��ʌ�����Ȃ������ꍇ-1
-	 *                int[1] �T�����ꂽ�m�[�h����S�[���܂ł�CD�̒���
-	 *                       �T���̌��ʌ�����Ȃ������ꍇ-1
-	 *                int[2] �T���ꂽ�[��
-	 *                int[3] �T�����ꂽ��Ԑ�
+	 * 指定された処理(D1〜D4)の探索時の情報を取得します。
+	 * @param int dx  探索時の情報を取得する処理(0から3で指定)
+	 * @return int[]  探索情報
+	 *                指定された処理が行なわれていない場合はnullを返す。
+	 *                int[0] 探索されたノードのID
+	 *                       探索の結果見つからなかった場合-1
+	 *                int[1] 探索されたノードからゴールまでのCDの長さ
+	 *                       探索の結果見つからなかった場合-1
+	 *                int[2] 探索れた深さ
+	 *                int[3] 探索された状態数
 	 */
 	public int[] getGoalSearchInfo(int dx) {
-		/* �w�肳�ꂽ������D1�`D4�łȂ��A�܂��͂��̏������s�Ȃ��Ă��Ȃ� */
+		/* 指定された処理がD1〜D4でない、またはその処理が行なわれていない */
 		if( (dx > 3) || (dx < 0) || (gsis[dx].flagUsed == false ) ) {
 			return null;
 		}
 
-		/* �߂�l�Ƃ��ĕԂ��ϐ��ɐݒ� */
+		/* 戻り値として返す変数に設定 */
 		int[] gsi = new int[4];
 		if(gsis[dx].searchedNodeID != null) {
 			gsi[0] = gsis[dx].searchedNodeID.intValue();
@@ -89,22 +89,22 @@ public class GoalSearchInfo {
 	}
 
 	//////////////////////////////////////////////////////////////
-	// �e�������Ƃ̃S�[���T���Ɋւ������ێ�����C���i�[�N���X
+	// 各処理ごとのゴール探索に関する情報を保持するインナークラス
 
 	/**
-	 * �e�������Ƃ̃S�[���T���Ɋւ������ێ�����C���i�[�N���X
+	 * 各処理ごとのゴール探索に関する情報を保持するインナークラス
 	 */
 	class GoalSearchInfoSingle {
 
-		/* ���̏������s�Ȃ�ꂽ�������t���O */
+		/* この処理が行なわれたか示すフラグ */
 		boolean flagUsed = false;
-		/* �T�����ꂽ�S�[�����B�\�ȃm�[�h��ID */
+		/* 探索されたゴール到達可能なノードのID */
 		Integer searchedNodeID;
-		/* �S�[���܂ł�CD�̒��� */
+		/* ゴールまでのCDの長さ */
 		Integer cdLngth;
-		/* �T�������[�� */
+		/* 探索した深さ */
 		int searchLngth;
-		/* �T��������Ԃ̐� */
+		/* 探索した状態の数 */
 		int searchStateNum;
 	}
 

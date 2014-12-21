@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * SharedMemory.java
- * StateEGoal‚ğŠÇ—‚·‚é‹¤—Lƒƒ‚ƒŠ
+ * Stateãƒ»Goalã‚’ç®¡ç†ã™ã‚‹å…±æœ‰ãƒ¡ãƒ¢ãƒª
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.07
  */
@@ -10,31 +10,31 @@ import java.util.*;
 import wba.citta.gsa.viewer.*;
 
 /**
- * StateEGoal‚ğŠÇ—‚·‚é‹¤—Lƒƒ‚ƒŠ‚Å‚·B<BR>
- * Goal‚É‚Â‚¢‚Ä‚ÍƒXƒ^ƒbƒN‚ÅŠÇ—‚µ‚Ü‚·B<BR>
- * ‹¤—Lƒƒ‚ƒŠ‚Ö‚Ì‘€ì‚ÍAŠî–{“I‚Éƒƒ\ƒbƒh‚Ìˆø”‚Åw’è‚³‚ê‚½index‚Ì—v‘f‚²‚Æ‚É
- * s‚È‚¢‚Ü‚·B
+ * Stateãƒ»Goalã‚’ç®¡ç†ã™ã‚‹å…±æœ‰ãƒ¡ãƒ¢ãƒªã§ã™ã€‚<BR>
+ * Goalã«ã¤ã„ã¦ã¯ã‚¹ã‚¿ãƒƒã‚¯ã§ç®¡ç†ã—ã¾ã™ã€‚<BR>
+ * å…±æœ‰ãƒ¡ãƒ¢ãƒªã¸ã®æ“ä½œã¯ã€åŸºæœ¬çš„ã«ãƒ¡ã‚½ãƒƒãƒ‰ã®å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸindexã®è¦ç´ ã”ã¨ã«
+ * è¡Œãªã„ã¾ã™ã€‚
  */
 public class SharedMemory {
 
-	/* State—p Integer‚Ì”z—ñ */
+	/* Stateç”¨ Integerã®é…åˆ— */
 	private Integer[] stateArray = null;
 
-	/* Goal—p LinkedList‚Ì”z—ñ LinkedList‚É‚ÍElement‚ğİ’è */
+	/* Goalç”¨ LinkedListã®é…åˆ— LinkedListã«ã¯Elementã‚’è¨­å®š */
 	private LinkedList[] goalStackArray = null;
 
 	/**
-	 * ‹¤—Lƒƒ‚ƒŠ‚Ìƒm[ƒh”
+	 * å…±æœ‰ãƒ¡ãƒ¢ãƒªã®ãƒãƒ¼ãƒ‰æ•°
 	 */
 	public final int LENGTH;
 
-	/* ƒS[ƒ‹ƒXƒ^ƒbƒN‚Ìó‘Ô‚ğ•\¦‚·‚éviewer */
+	/* ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã®çŠ¶æ…‹ã‚’è¡¨ç¤ºã™ã‚‹viewer */
 	private SharedMemoryViewer viewer;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int size ƒm[ƒh”i”z—ñ‚ÌƒTƒCƒYj
-	 * @param boolean isShowViewer ƒXƒ^ƒbƒN‚Ìó‘Ô‚ğƒOƒ‰ƒtƒBƒbƒN•\¦‚·‚é‚©‚Ç‚¤‚©
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int size ãƒãƒ¼ãƒ‰æ•°ï¼ˆé…åˆ—ã®ã‚µã‚¤ã‚ºï¼‰
+	 * @param boolean isShowViewer ã‚¹ã‚¿ãƒƒã‚¯ã®çŠ¶æ…‹ã‚’ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹
 	 */
 	public SharedMemory(int size, boolean isShowViewer) {
 		LENGTH = size;
@@ -51,7 +51,7 @@ public class SharedMemory {
 
 
 	/**
-	 * State‚Ìw’è‚³‚ê‚½ˆÊ’u(ƒm[ƒh)‚Ì’l‚ğæ“¾‚µ‚Ü‚·B
+	 * Stateã®æŒ‡å®šã•ã‚ŒãŸä½ç½®(ãƒãƒ¼ãƒ‰)ã®å€¤ã‚’å–å¾—ã—ã¾ã™ã€‚
 	 * @param int index 
 	 * @return Integer  
 	 */
@@ -60,7 +60,7 @@ public class SharedMemory {
 	}
 
 	/**
-	 * w’è‚³‚ê‚½’l‚ğState‚Ìw’è‚³‚ê‚½ˆÊ’u(ƒm[ƒh)‚Éİ’è‚µ‚Ü‚·B
+	 * æŒ‡å®šã•ã‚ŒãŸå€¤ã‚’Stateã®æŒ‡å®šã•ã‚ŒãŸä½ç½®(ãƒãƒ¼ãƒ‰)ã«è¨­å®šã—ã¾ã™ã€‚
 	 * @param int index 
 	 * @param Integer value 
 	 */
@@ -69,9 +69,9 @@ public class SharedMemory {
 	}
 
 	/**
-	 * Goal‚Ìw’è‚³‚ê‚½ˆÊ’u(ƒm[ƒh)‚Ì’l‚ğƒXƒ^ƒbƒN‚©‚çGET‚Åæ“¾‚µ‚Ü‚·B
+	 * Goalã®æŒ‡å®šã•ã‚ŒãŸä½ç½®(ãƒãƒ¼ãƒ‰)ã®å€¤ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰GETã§å–å¾—ã—ã¾ã™ã€‚
 	 * @param int index
-	 * @return GoalStackElement  ƒS[ƒ‹‚Ì—v‘f
+	 * @return GoalStackElement  ã‚´ãƒ¼ãƒ«ã®è¦ç´ 
 	 */
 	public GoalStackElement getGoal(int index) {
 		GoalStackElement elm = null;
@@ -82,10 +82,10 @@ public class SharedMemory {
 	}
 
 	/**
-	 * w’è‚³‚ê‚½ƒS[ƒ‹‚Ì—v‘f‚ğGoal‚Ìw’è‚³‚ê‚½ˆÊ’u(ƒm[ƒh)‚ÌƒXƒ^ƒbƒN‚ÉPUSH‚Å
-	 * İ’è‚µ‚Ü‚·B
+	 * æŒ‡å®šã•ã‚ŒãŸã‚´ãƒ¼ãƒ«ã®è¦ç´ ã‚’Goalã®æŒ‡å®šã•ã‚ŒãŸä½ç½®(ãƒãƒ¼ãƒ‰)ã®ã‚¹ã‚¿ãƒƒã‚¯ã«PUSHã§
+	 * è¨­å®šã—ã¾ã™ã€‚
 	 * @param int index
-	 * @param GoalStackElement elm ƒS[ƒ‹‚Ì—v‘f
+	 * @param GoalStackElement elm ã‚´ãƒ¼ãƒ«ã®è¦ç´ 
 	 */
 	public void pushGoal(int index, GoalStackElement elm) {
 		goalStackArray[index].add(elm);
@@ -95,7 +95,7 @@ public class SharedMemory {
 	}
 
 	/**
-	 * Goal‚Ìw’è‚³‚ê‚½ˆÊ’u(ƒm[ƒh)‚Ì’l‚ğƒXƒ^ƒbƒN‚©‚çíœ‚µ‚Ü‚·B
+	 * Goalã®æŒ‡å®šã•ã‚ŒãŸä½ç½®(ãƒãƒ¼ãƒ‰)ã®å€¤ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã€‚
 	 * @int index 
 	 */
 	public void removeGoal(int index) {
@@ -106,7 +106,7 @@ public class SharedMemory {
 	}
 
 	/**
-	 * Goal‚Ì—v‘f‚ğ‘S‚ÄƒNƒŠƒA‚µ‚Ü‚·B
+	 * Goalã®è¦ç´ ã‚’å…¨ã¦ã‚¯ãƒªã‚¢ã—ã¾ã™ã€‚
 	 */
 	public void removeAllGoal() {
 		for(int i = 0; i < LENGTH; i++) {
@@ -118,8 +118,8 @@ public class SharedMemory {
 	}
 
 	/**
-	 * Œ»İ‚Ìó‘Ô‚ğVector‚Åİ’è‚µ‚Ü‚·B
-	 * @param Vector state Œ»İ‚Ìó‘Ô
+	 * ç¾åœ¨ã®çŠ¶æ…‹ã‚’Vectorã§è¨­å®šã—ã¾ã™ã€‚
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
 	 */
 	public void setState(Vector state) {
 		for(int i = 0; i < LENGTH; i++) {
@@ -131,8 +131,8 @@ public class SharedMemory {
 	}
 
 	/**
-	 * ‘Sƒm[ƒh‚ÌƒS[ƒ‹‚ğVector‚Åæ“¾‚µ‚Ü‚·B
-	 * @param Vector GoalValue‚ÌVector
+	 * å…¨ãƒãƒ¼ãƒ‰ã®ã‚´ãƒ¼ãƒ«ã‚’Vectorã§å–å¾—ã—ã¾ã™ã€‚
+	 * @param Vector GoalValueã®Vector
 	 */
 	public Vector getGoalValueArray() {
 		Vector goal = new Vector();
@@ -149,8 +149,8 @@ public class SharedMemory {
 
 
 	/**
-	 * State‚Ìó‘Ô‚ğo—Í‚µ‚Ü‚·B<BR>
-	 * o—ÍŒ`®<BR>
+	 * Stateã®çŠ¶æ…‹ã‚’å‡ºåŠ›ã—ã¾ã™ã€‚<BR>
+	 * å‡ºåŠ›å½¢å¼<BR>
 	 * [shared stack]<BR>
 	 *  state<BR>
 	 *   index:0 val:22<BR>
@@ -168,8 +168,8 @@ public class SharedMemory {
 	}
 
 	/**
-	 * Goal‚Ìó‘Ô‚ğo—Í‚µ‚Ü‚·B<BR>
-	 * o—ÍŒ`®<BR>
+	 * Goalã®çŠ¶æ…‹ã‚’å‡ºåŠ›ã—ã¾ã™ã€‚<BR>
+	 * å‡ºåŠ›å½¢å¼<BR>
 	 * [shared stack]<BR>
 	 *  goal<BR>
 	 *   index:0 | 26:200 | 18:100 |<BR>

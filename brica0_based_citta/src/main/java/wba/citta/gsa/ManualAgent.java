@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * ManualAgent.java
- * è“®‚Å“®ì‚·‚éƒG[ƒWƒFƒ“ƒg
+ * æ‰‹å‹•ã§å‹•ä½œã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.08
  */
@@ -9,7 +9,7 @@ package wba.citta.gsa;
 import java.util.*;
 
 /**
- * è“®‚Å“®ì‚·‚éƒG[ƒWƒFƒ“ƒg
+ * æ‰‹å‹•ã§å‹•ä½œã™ã‚‹ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆ
  */
 public class ManualAgent extends Agent {
 
@@ -18,14 +18,14 @@ public class ManualAgent extends Agent {
 	private SharedMemory sharedMemory = null;
 	private boolean[] useNode = null;
 
-	/* ‚±‚ÌƒNƒ‰ƒX‚©‚ço—Í‚µ‚½ƒTƒuƒS[ƒ‹‚ÌƒŠƒXƒg */
+	/* ã“ã®ã‚¯ãƒ©ã‚¹ã‹ã‚‰å‡ºåŠ›ã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«ã®ãƒªã‚¹ãƒˆ */
 	private LinkedList subgoalList = null;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param int agid  ƒG[ƒWƒFƒ“ƒgID
-	 * @param boolean[] useNode  ƒm[ƒh‚Ìg—pA•sg—p‚ğİ’è‚µ‚½”z—ñ
-	 * @param SharedMemory sharedMemory  stateEgoal‚ğŠÇ—‚·‚é‹¤—Lƒƒ‚ƒŠ
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param int agid  ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆID
+	 * @param boolean[] useNode  ãƒãƒ¼ãƒ‰ã®ä½¿ç”¨ã€ä¸ä½¿ç”¨ã‚’è¨­å®šã—ãŸé…åˆ—
+	 * @param SharedMemory sharedMemory  stateãƒ»goalã‚’ç®¡ç†ã™ã‚‹å…±æœ‰ãƒ¡ãƒ¢ãƒª
 	 */
 	public ManualAgent(int agid, boolean[] useNode, SharedMemory sharedMemory) {
 		super(agid, useNode, sharedMemory);
@@ -45,12 +45,12 @@ public class ManualAgent extends Agent {
 	// public
 
 	/**
-	 * ƒG[ƒWƒFƒ“ƒgŒÅ—L‚ÌÀsˆ—‚ğs‚È‚¢‚Ü‚·B<BR>
-	 * Àsˆ—‚ğs‚È‚¤ƒG[ƒWƒFƒ“ƒg‚Æ‚µ‚Ä‘I‘ğ‚³‚ê‚½‚Æ‚«‚ÉAGUI‚Éİ’è‚³‚ê‚½
-	 * ƒS[ƒ‹’l‚ğæ“¾‚µ‚ÄA‚»‚Ì’l‚ğƒTƒuƒS[ƒ‹‚Æ‚µ‚Ä•Ô‚µ‚Ü‚·B
-	 * @param Vector state Œ»İ‚Ìó‘Ô
-	 * @param Vector goalElementArray GoalStackElement‚ÌVector
-	 * @return Vector ƒTƒuƒS[ƒ‹
+	 * ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆå›ºæœ‰ã®å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã„ã¾ã™ã€‚<BR>
+	 * å®Ÿè¡Œå‡¦ç†ã‚’è¡Œãªã†ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã¨ã—ã¦é¸æŠã•ã‚ŒãŸã¨ãã«ã€GUIã«è¨­å®šã•ã‚ŒãŸ
+	 * ã‚´ãƒ¼ãƒ«å€¤ã‚’å–å¾—ã—ã¦ã€ãã®å€¤ã‚’ã‚µãƒ–ã‚´ãƒ¼ãƒ«ã¨ã—ã¦è¿”ã—ã¾ã™ã€‚
+	 * @param Vector state ç¾åœ¨ã®çŠ¶æ…‹
+	 * @param Vector goalElementArray GoalStackElementã®Vector
+	 * @return Vector ã‚µãƒ–ã‚´ãƒ¼ãƒ«
 	 */
 	public Vector execProcess(Vector state, Vector goalElement) {
 		Vector v = manualAgentFrame.getSubgoal();
@@ -64,31 +64,31 @@ public class ManualAgent extends Agent {
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void learn(Vector state, boolean flagGoalReach, double profit) {
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void reset() {
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void save(String fileName) { 
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void load(String fileName) {
 	}
 
 	/**
-	 * AgentƒNƒ‰ƒX‚ğŒp³‚µ‚Äì¬‚µ‚Ä‚¢‚é‚½‚ßAŒ`®“I‚ÉÀ‘•<BR>
+	 * Agentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ä½œæˆã—ã¦ã„ã‚‹ãŸã‚ã€å½¢å¼çš„ã«å®Ÿè£…<BR>
 	 */
 	public void suspend() {
 	}
@@ -96,18 +96,18 @@ public class ManualAgent extends Agent {
 
 
 	/**
-	 * ƒXƒ^ƒbƒNã‚Ì©‚çİ’è‚µ‚½ƒS[ƒ‹‚É“’B‚µ‚½ê‡A‚»‚ÌƒS[ƒ‹‚ğƒXƒ^ƒbƒNE
-	 * ƒcƒŠ[‚©‚çíœ‚µ‚Ü‚·B<BR>
-	 * ’Êí‚ÌƒG[ƒWƒFƒ“ƒg‚Å‚ÍƒS[ƒ‹‚ÍÚ‘±ƒm[ƒh‘S‚Ä‚Éo—Í‚·‚é‚ªAManualAgent
-	 * ‚Å‚ÍƒS[ƒ‹‚Æ‚µ‚ÄÚ‘±ƒm[ƒh‚Ìˆê•”•ª‚ğo—Í‚·‚é‚±‚Æ‚ª‚ ‚é‚Ì‚Å“’B”»’è‚ğ
-	 * •”•ªˆê’v‚Ås‚¤•K—v‚ª‚ ‚éB‚±‚Ì‚½‚ßAgentƒNƒ‰ƒX‚Ìƒƒ\ƒbƒh‚ğƒI[ƒo[ƒ‰ƒCƒh
-	 * ‚µAˆ—“à—e‚ğ•Ï‚¦‚Ä‚¢‚éB
-	 * @return boolean “’B‚µ‚½ê‡true 
+	 * ã‚¹ã‚¿ãƒƒã‚¯ä¸Šã®è‡ªã‚‰è¨­å®šã—ãŸã‚´ãƒ¼ãƒ«ã«åˆ°é”ã—ãŸå ´åˆã€ãã®ã‚´ãƒ¼ãƒ«ã‚’ã‚¹ã‚¿ãƒƒã‚¯ãƒ»
+	 * ãƒ„ãƒªãƒ¼ã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã€‚<BR>
+	 * é€šå¸¸ã®ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã§ã¯ã‚´ãƒ¼ãƒ«ã¯æ¥ç¶šãƒãƒ¼ãƒ‰å…¨ã¦ã«å‡ºåŠ›ã™ã‚‹ãŒã€ManualAgent
+	 * ã§ã¯ã‚´ãƒ¼ãƒ«ã¨ã—ã¦æ¥ç¶šãƒãƒ¼ãƒ‰ã®ä¸€éƒ¨åˆ†ã‚’å‡ºåŠ›ã™ã‚‹ã“ã¨ãŒã‚ã‚‹ã®ã§åˆ°é”åˆ¤å®šã‚’
+	 * éƒ¨åˆ†ä¸€è‡´ã§è¡Œã†å¿…è¦ãŒã‚ã‚‹ã€‚ã“ã®ãŸã‚Agentã‚¯ãƒ©ã‚¹ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+	 * ã—ã€å‡¦ç†å†…å®¹ã‚’å¤‰ãˆã¦ã„ã‚‹ã€‚
+	 * @return boolean åˆ°é”ã—ãŸå ´åˆtrue 
 	 */
-// •”•ªƒS[ƒ‹‚Ì”»’è‚Ì‚½‚ßAÀÛ‚ÉƒXƒ^ƒbƒN‚Éo—Í‚µ‚½ƒS[ƒ‹‚ÆˆÙ‚È‚éê‡‚Å‚àA
-// nullˆÈŠO‚Ì—v‘f‚ª“¯‚¶‚Å‚ ‚ê‚ÎA“’B‚Æ‚İ‚È‚µíœ‚µ‚Ä‚µ‚Ü‚¤B
-// ‘Î‰•û–@Fo—Í‚µ‚½ƒTƒuƒS[ƒ‹‚ğƒŠƒXƒg‚Å•Û‚·‚é‚æ‚¤‚É‚µA•Û‚µ‚Ä‚ ‚éƒTƒu
-// ƒS[ƒ‹‚Æ‚Ìˆê’v‚ğ”»’è‚·‚é‚æ‚¤‚É‚·‚éB
+// éƒ¨åˆ†ã‚´ãƒ¼ãƒ«ã®åˆ¤å®šã®ãŸã‚ã€å®Ÿéš›ã«ã‚¹ã‚¿ãƒƒã‚¯ã«å‡ºåŠ›ã—ãŸã‚´ãƒ¼ãƒ«ã¨ç•°ãªã‚‹å ´åˆã§ã‚‚ã€
+// nullä»¥å¤–ã®è¦ç´ ãŒåŒã˜ã§ã‚ã‚Œã°ã€åˆ°é”ã¨ã¿ãªã—å‰Šé™¤ã—ã¦ã—ã¾ã†ã€‚
+// å¯¾å¿œæ–¹æ³•ï¼šå‡ºåŠ›ã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«ã‚’ãƒªã‚¹ãƒˆã§ä¿æŒã™ã‚‹ã‚ˆã†ã«ã—ã€ä¿æŒã—ã¦ã‚ã‚‹ã‚µãƒ–
+// ã‚´ãƒ¼ãƒ«ã¨ã®ä¸€è‡´ã‚’åˆ¤å®šã™ã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
 	public boolean removeReachGoal() {
 		Vector state = getStateReference();
 
@@ -118,10 +118,10 @@ public class ManualAgent extends Agent {
 		if( subgoalList.size() > 0 ) {
 			Vector lastSetSubgoal = (Vector)subgoalList.getLast();
 
-			/* ©‚ç‚ªİ’è‚µ‚½ƒTƒuƒS[ƒ‹‚É“’B‚µ‚Ä‚¢‚ê‚Îíœ */
+			/* è‡ªã‚‰ãŒè¨­å®šã—ãŸã‚µãƒ–ã‚´ãƒ¼ãƒ«ã«åˆ°é”ã—ã¦ã„ã‚Œã°å‰Šé™¤ */
 			if( lastSetSubgoal.equals(selfSetGoalValueArray) ) {
 				if( Util.equalsValidElement(state, selfSetGoalValueArray) ) {
-					/* íœ‚à©ŒÈİ’è•”•ª‚Ì‚İs‚¤ */
+					/* å‰Šé™¤ã‚‚è‡ªå·±è¨­å®šéƒ¨åˆ†ã®ã¿è¡Œã† */
 					removeGoal(selfSetGoalValueArray);
 					subgoalList.removeLast();
 					return true;
@@ -132,10 +132,10 @@ public class ManualAgent extends Agent {
 	}
 
 	/**
-	 * ƒS[ƒ‹‚Ìíœ‚ğs‚È‚¢‚Ü‚·B
-	 * ˆø”‚Åİ’è‚³‚ê‚½ƒS[ƒ‹‚Ì—LŒø‚È—v‘f‚ªİ’è‚³‚ê‚Ä‚¢‚éƒm[ƒh‚Ì‚İ
-	 * ƒS[ƒ‹ƒXƒ^ƒbƒN‚©‚çíœ
-	 * @param Vector goal ƒS[ƒ‹ƒXƒ^ƒbƒN‚©‚çíœ‚·‚éƒS[ƒ‹
+	 * ã‚´ãƒ¼ãƒ«ã®å‰Šé™¤ã‚’è¡Œãªã„ã¾ã™ã€‚
+	 * å¼•æ•°ã§è¨­å®šã•ã‚ŒãŸã‚´ãƒ¼ãƒ«ã®æœ‰åŠ¹ãªè¦ç´ ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹ãƒãƒ¼ãƒ‰ã®ã¿
+	 * ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å‰Šé™¤
+	 * @param Vector goal ã‚´ãƒ¼ãƒ«ã‚¹ã‚¿ãƒƒã‚¯ã‹ã‚‰å‰Šé™¤ã™ã‚‹ã‚´ãƒ¼ãƒ«
 	 */
 	private void removeGoal(Vector goal) {
 		int useNodeIndex = 0;
