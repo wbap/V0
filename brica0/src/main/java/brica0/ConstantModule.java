@@ -10,26 +10,26 @@ import java.util.HashMap;
  */
 public class ConstantModule extends Module {
 
-	//boolean dirty;
+	boolean dirty;
 	
 	public ConstantModule() {
 		super();
-//		dirty = false;
+		dirty = false;
 	}
 
-//	@Override
-//	public void set_state(String id, short[] v) {
-//		dirty = true;
-//		super.set_state(id, v);
-//	}
+	@Override
+	public void set_state(String id, short[] v) {
+		dirty = true;
+		super.set_state(id, v);
+	}
 	
 	@Override
 	public void fire() {
-/*		if(! dirty) {
+		if(! dirty) {
 			return;
-		}*/
+		}
+
 		// this is a shallow copy.  does this work?
-	    System.out.println("aaa");
 		results = new HashMap<String, short[]>(states);
 	}
 	

@@ -14,4 +14,8 @@ public class Connection {
 		this.to_port_id = to_port_id;
 	}
 
+	
+	public String toString() {
+	    return String.format("Connection %s:%s -> port:%s", from_module, from_port_id, to_port_id);
+	}
 }

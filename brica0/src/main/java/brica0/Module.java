@@ -31,7 +31,8 @@ public abstract class Module {
 		// prepare buffer 0 and 1 for output double buffering
 		buffer_0 = new HashMap<String, short[]>();
 		buffer_1 = new HashMap<String, short[]>();
-		
+
+		in_ports = new HashMap<String, short[]>();
 		states = new HashMap<String, short[]>();
 		
 		out_ports = buffer_0;
@@ -64,7 +65,7 @@ public abstract class Module {
 	}
 
 	public void set_state(String id, short[] v)	{
-		states.put(id, v);
+		states.put(id, (short[])v.clone());
 	}
 
     public short[] get_state(String id) {
@@ -75,6 +76,11 @@ public abstract class Module {
 		states.clear();
 	}
 
+	public void make_connection(Module from, String from_id, String to_id) {
+	    Connection c = new Connection(from, from_id, to_id);
+	    connections.add(c);
+	}
+	
 	public short[] get_result(String id) {
 	    return results.get(id);
 	}
@@ -86,8 +92,9 @@ public abstract class Module {
 	}
 	
 	public void update_in_port(Connection c) {
-		short[] o = c.from_module.get_out_port(c.from_port_id).clone();
-		out_ports.put(c.to_port_id, o);
+	    short[] o = c.from_module.get_out_port(c.from_port_id);
+	    o = o.clone();   // copy
+		in_ports.put(c.to_port_id, o);
 	}
 
 	public void update_output() {

@@ -18,7 +18,7 @@ public class PipeModule extends Module {
 	@Override
 	public void fire() {
 		for (String s: this.in_ports.keySet()) {
-			short[] v = this.in_ports.get(s);
+			short[] v = this.get_in_port(s);
 			if(this.results.containsKey(s)) {
 				short[] out = this.out_ports.get(s);
 				if(out.length == v.length)
