@@ -76,13 +76,16 @@ public abstract class Module {
 		states.clear();
 	}
 
-	public void connect(Module from, String fromId, String toId) {
-	    Connection c = new Connection(from, fromId, toId);
+	public void makeConnection(Connection c)
+	{
 	    connections.add(c);
+	}
+	
+	public void connect(Module from, String fromId, String toId) {
+	    makeConnection(new Connection(from, fromId, toId));
 	    
 	    // make a in port of the same length as the target out port.
-	    int length = from.getOutPort(fromId).length;
-	    makeInPort(toId, length);
+	    makeInPort(toId, from.getOutPort(fromId).length);
 	}
 	
 	public short[] getResult(String id) {

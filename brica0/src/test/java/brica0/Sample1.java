@@ -86,7 +86,7 @@ public class Sample1 {
         
         A.makeOutPort("out1", 3);
 
-        B.makeOutPort("out1",3 );
+        B.makeOutPort("out1", 3);
         B.connect(A, "out1", "in1"); // connection from A:out1 to B:in1
         B.mapPort("in1","out1");    // B:out1 is a simple reflection of B:in1.
         
@@ -99,6 +99,8 @@ public class Sample1 {
         ca.addModule("B", B);
         ca.addModule("C", C);
 
+        
+        // initially everything is [0,0,0].
         assertTrue(Arrays.equals(zero, A.getOutPort("out1")));
         assertTrue(Arrays.equals(zero, B.getInPort("in1")));
         assertTrue(Arrays.equals(zero, B.getOutPort("out1")));
