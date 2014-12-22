@@ -12,7 +12,7 @@ public class Coord {
         set(_x, _y);
     }
 
-    void set(int _x, int _y) {
+    public void set(int _x, int _y) {
         x = _x;
         y = _y;
     }

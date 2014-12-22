@@ -255,6 +255,14 @@ public class Room {
         return maze;
     }
 
+    boolean hasStairs() {
+        return hasstairs;
+    }
+
+    boolean hasKey() {
+        return haskey;
+    }
+
     int getGold() {
         int tmp = goldval;
         goldval = 0;

@@ -25,52 +25,52 @@ public class RNG {
         rng = new Random(seed);
     }
 
-    boolean nextBoolean() {
+    public boolean nextBoolean() {
         return rng.nextBoolean();
     }
 
-    void nextBytes(byte[] bytes) {
+    public void nextBytes(byte[] bytes) {
         rng.nextBytes(bytes);
     }
 
-    double nextDouble() {
+    public double nextDouble() {
         return rng.nextDouble();
     }
 
-    float nextFloat() {
+    public float nextFloat() {
         return rng.nextFloat();
     }
 
-    double nextGaussian() {
+    public double nextGaussian() {
         return rng.nextGaussian();
     }
 
-    int nextInt() {
+    public int nextInt() {
         return rng.nextInt();
     }
 
-    int nextInt(int n) {
+    public int nextInt(int n) {
         return rng.nextInt(n);
     }
 
-    long nextLong() {
+    public long nextLong() {
         return rng.nextLong();
     }
 
-    void setSeed(long seed) {
+    public void setSeed(long seed) {
         if(!secure) {
             rng.setSeed(seed);
         }
     }
 
-    void newSeed(long seed) {
+    public void newSeed(long seed) {
         if(!secure) {
             this.seed = seed;
             rng.setSeed(seed);
         }
     }
 
-    void reset() {
+    public void reset() {
         if(!secure) {
             rng.setSeed(seed);
         }

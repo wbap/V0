@@ -58,4 +58,14 @@ public class Map implements Cloneable {
     Coord getSize() {
         return size;
     }
+
+    public void print() {
+        for(int y = 0; y < size.y; ++y) {
+            for(int x = 0; x < size.x; ++x) {
+                Place tmpPlace = getPlace(x, y);
+                System.out.print(tmpPlace.type);
+            }
+            System.out.println("");
+        }
+    }
 }

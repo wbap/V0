@@ -41,7 +41,7 @@ public class Rogue {
         newLevel();
     }
 
-    void newLevel() {
+    public void newLevel() {
         visible = new Map(size);
         map = new Map(size);
 
@@ -97,6 +97,32 @@ public class Rogue {
 
     public int getMaxRooms() {
         return maxRooms;
+    }
+
+    public void setSpawn(int i) {
+        current = rooms.getRoom(i);
+        coord = current.findFloor(map);
+    }
+
+    public int[] visibleGoal() {
+        int i = 0;
+        final Coord size = map.getSize();
+        final int[] state = new int[size.y * size.x];
+        Map tmpMap = new Map(size);
+        rooms.roomWithStairs().drawRoom(tmpMap);
+
+        for(int y = 0; y < size.y; ++y) {
+            for(int x = 0; x < size.x; ++x) {
+                Place tmpPlace = tmpMap.getPlace(x, y);
+                char type = tmpPlace.type;
+                if(type == '%') {
+                    type = '@';
+                }
+                state[i++] = (int)type;
+            }
+        }
+
+        return state;
     }
 
     public int[] toGoalArray() {
@@ -248,5 +274,18 @@ public class Rogue {
 
         rooms.drawRooms(map);
         return toStateArray();
+    }
+
+    public void printVisible() {
+        Coord size = visible.getSize();
+
+        for(int y = 0; y < size.y; ++y) {
+            for(int x = 0; x < size.x; ++x) {
+                Place tmpPlace = visible.getPlace(x, y);
+                char type = tmpPlace.type;
+                System.out.print(type);
+            }
+            System.out.println();
+        }
     }
 }

@@ -183,6 +183,10 @@ public class Rooms {
         return rooms[i];
     }
 
+    Room getRoom(int i) {
+        return rooms[i];
+    }
+
     void drawRooms(Map map) {
         for(int i = 0; i < maxRooms; ++i) {
             if(!rooms[i].isGone()) {
@@ -204,6 +208,26 @@ public class Rooms {
     Room isInRoom(Coord coord) {
         for(int i = 0; i < maxRooms; ++i) {
             if(rooms[i].isInRoom(coord)) {
+                return rooms[i];
+            }
+        }
+
+        return null;
+    }
+
+    Room roomWithStairs() {
+        for(int i = 0; i < maxRooms; ++i) {
+            if(rooms[i].hasStairs()) {
+                return rooms[i];
+            }
+        }
+
+        return null;
+    }
+
+    Room roomWithKey() {
+        for(int i = 0; i < maxRooms; ++i) {
+            if(rooms[i].hasKey()) {
                 return rooms[i];
             }
         }

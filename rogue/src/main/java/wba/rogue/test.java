@@ -8,12 +8,11 @@ public class test {
     final static int MAXROOMS = 9;
 
     public static void main(String[] args) {
-        final RNG rng = new RNG(0);
+        final RNG rng = new RNG(1);
         Rogue rogue = new Rogue(new Coord(NUMCOLS, NUMLINES), MAXROOMS, rng, true);
         Avatar player = new Avatar(rogue);
 
-                int[] goal = player.getGoal();
-                printState(goal);
+        int[] goal = player.getVisibleGoal();
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String s = "4";
@@ -48,9 +47,9 @@ public class test {
                     }
                 }
 
-                player.move(direction);
-                state = player.getReal();
+                state = player.move(direction);
 
+                printState(goal);
                 printState(state);
 
                 if(player.checkGoal()) {

@@ -16,6 +16,10 @@ public class Avatar {
         return environment.toGoalArray();
     }
 
+    public int[] getVisibleGoal() {
+        return environment.visibleGoal();
+    }
+
     public int[] getReal() {
         return environment.toRealArray();
     }
@@ -26,6 +30,10 @@ public class Avatar {
 
     public void restart() {
         environment.newLevel();
+    }
+
+    public void printVisible() {
+        environment.printVisible();
     }
 
     public int[] move(int direction) {
