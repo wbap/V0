@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 
 import brica0.Connection;
@@ -9,34 +10,25 @@ import brica0.Module;
 
 public class AgentControllerModule extends Module {
 
+	
 	@Override
 	public void fire() {
 		// GSA.getExecAgentRandomOder()と同じ方針の処理
+		final int AGENT_COUNT = GSA.AGENT_COUNT;
 		
-		// TODO erase
-		final int AGENT_COUNT = 8;
-		
-		ArrayList<Integer> ids = new ArrayList<Integer>();
-	    for (int i=0; i<AGENT_COUNT; i++) {
-	    	ids.add(i);
-	    }
-	    Collections.shuffle(ids);
-	     
-	    System.out.println("AgentControllerModule.fire()");
-		
-		for (int i: ids) {
-			String port = String.valueOf(i);
-			short[] inputData = get_in_port(port);
-			
-			int agentActionResult = inputData[0];
-			if (agentActionResult == Agent.AGR_SUCCESS) {
-				// TODO set output
-				return;
-			} 
+		// select agent randomly
+		Random rnd = new Random();
+        int agentId = rnd.nextInt(AGENT_COUNT);
+     
+		for (int i=0; i<AGENT_COUNT; i++) {
+	        short[] outputData = {0};
+			if (agentId == i) {
+				outputData[0] = GSA.EXEC;
+			} else {
+				outputData[0] = GSA.DO_NOTHING;
+			}
+			results.put("out" + String.valueOf(i), outputData);
 		}
-		
-		// TODO set output
-		return;
 	}
 
 }

@@ -2,16 +2,20 @@ package brica0;
 
 public class Connection {
 
-	public Module from_module;
-	public String from_port_id;
+	public Module fromModule;
+	public String fromPortId;
 
-	// there is no to_module because to_module owns this connection.
-	public String to_port_id;
+	// there is no toModule because toModule owns this connection.
+	public String toPortId;
 	
-	public Connection(Module from, String from_port_id, String to_port_id) {
-		this.from_module = from;
-		this.from_port_id = from_port_id;
-		this.to_port_id = to_port_id;
+	public Connection(Module from, String fromPortId, String toPortId) {
+		this.fromModule = from;
+		this.fromPortId = fromPortId;
+		this.toPortId = toPortId;
 	}
 
+	
+	public String toString() {
+	    return String.format("Connection %s:%s -> port:%s", fromModule, fromPortId, toPortId);
+	}
 }

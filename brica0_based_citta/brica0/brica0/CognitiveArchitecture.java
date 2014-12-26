@@ -15,13 +15,13 @@ public class CognitiveArchitecture {
 		modules = new HashMap<String, Module>();
 	}
 
-	public void add_module(String id, Module module) {
+	public void addModule(String id, Module module) {
 		modules.put(id, module);
 
-		update_scheduler();
+		updateScheduler();
 	}
 	
-	public Module get_module(String id) {
+	public Module getModule(String id) {
 		return modules.get(id);
 	}
 	
@@ -29,7 +29,7 @@ public class CognitiveArchitecture {
 		return scheduler.step();
 	}
 
-	protected void update_scheduler() {
+	protected void updateScheduler() {
 	    scheduler.update(this);
 	}
 	

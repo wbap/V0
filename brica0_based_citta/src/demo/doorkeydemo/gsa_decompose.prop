@@ -31,8 +31,8 @@ AgentNum=8
 # Viewer‚Ìİ’è # 
 ################
 
-AgentViewer=false
+AgentViewer=true
 
-GoalStackViewer=false
+GoalStackViewer=true
 
-FailAgentTreeViewer=false
+FailAgentTreeViewer=true

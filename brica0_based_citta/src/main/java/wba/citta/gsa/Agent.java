@@ -108,17 +108,7 @@ public abstract class Agent extends Module {
 	
 	@Override
 	public void fire() {
-		// TODO
-		String port = "main";
-		short[] inputData = get_in_port(port);
-		
-		// input protocol
-		// 0: do nothing
-		// 1: run exec()
-		System.out.println("AgentId:" + String.valueOf(AGID) + " fire() " + String.valueOf(inputData[0]));
-		if (inputData[0] == 1) {
-			exec();
-		}
+		results = (HashMap<String,short[]>)states.clone();
 	}
 
 	// 2001.12.14 追加 miyamoto
@@ -180,6 +170,33 @@ public abstract class Agent extends Module {
 	public void learn(boolean flagGoalReach, double profit) {
 		Vector state = getState();
 		learn(state, flagGoalReach, profit);
+	}
+	
+
+	/**
+	 * 実行処理を行ないます。<BR>
+	 * 共有メモリからstate、goalを取得し、ユーザ定義の実行処理(protectedの
+	 * exec(Vector, Vector)経由で、abstructのexecProcess(Vector, Vector)を
+	 * 呼び出し)を行ない、ユーザ定義の実行処理で生成されたsubgoalを共有メモリ
+	 * に設定します。<BR>
+	 * @return int 実行処理の結果を示すID<BR>
+	 * AGR_SUCCESS、AGR_REACH_GOAL、AGR_UNREACH_SUBGOAL、AGR_SEARCH_FAIL、
+	 * AGR_SAME_SUBGOAL、AGR_SAME_GOALのいづれか
+	 */
+	public int checkExec() {
+
+		Vector state = getState();
+
+		/* ゴールを取得 選択は内部で */
+		Vector goalElementArray = getGoalElementArray();
+
+//		System.out.println("");
+//		System.out.println("[" + AGID + "] Agent.java");
+//		System.out.println(" state:" + state);
+//		System.out.println(" goalElementArray:" + goalElementArray);
+
+		/* 実行処理を行うか */
+		return isExec(state, goalElementArray);
 	}
 
 	/**
