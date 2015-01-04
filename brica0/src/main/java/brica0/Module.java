@@ -76,6 +76,18 @@ public abstract class Module {
 		states.clear();
 	}
 
+	public void setResult(String id, short[] v)	{
+		results.put(id, (short[])v.clone());
+	}
+
+    public short[] getResult(String id) {
+        return results.get(id);
+    }
+
+	public void clearResult() {
+		results.clear();
+	}
+
 	public void makeConnection(Connection c)
 	{
 	    connections.add(c);
@@ -86,10 +98,6 @@ public abstract class Module {
 	    
 	    // make a in port of the same length as the target out port.
 	    makeInPort(toId, from.getOutPort(fromId).length);
-	}
-	
-	public short[] getResult(String id) {
-	    return results.get(id);
 	}
 	
 	public void collectInput() {
