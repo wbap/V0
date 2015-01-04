@@ -68,7 +68,7 @@ public class Sample1 {
     }
 
     @Test
-    public void testConstPipeNullModule() {
+    public void testConstPipeNullModule() throws Exception {
         // A simple test to run the following three modules configuration.
         // ConstantModule A -> PipeModule B -> NullModule C
         
