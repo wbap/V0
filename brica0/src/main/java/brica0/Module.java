@@ -10,73 +10,7 @@ import java.util.HashMap;
  * <tt>states</tt> that stores internal states, all of these being named buffers 
  * (HashMaps that maps a string ID and a value of type short[]).
  * 
- * 
  * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
- */
-/**
- * @author shafi
- *
  */
 public abstract class Module {
 
