@@ -10,15 +10,15 @@ import java.util.HashMap;
  */
 public class ConstantModule extends Module {
 
-	public ConstantModule() {
-		super();
-	}
+    public ConstantModule() {
+        super();
+    }
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
-	public void fire() {
-		// this is a shallow copy.  does this work?
-		results = (HashMap<String,short[]>)states.clone();
-	}
-	
+    public void fire() {
+        // this is a shallow copy. does this work?
+        results = (HashMap<String, short[]>) states.clone();
+    }
+
 }
