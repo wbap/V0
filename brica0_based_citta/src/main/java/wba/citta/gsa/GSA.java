@@ -18,59 +18,52 @@ import wba.citta.gsa.viewer.*;
  */
 public class GSA {
 
+	// GSA 
 	/* エージェントの設定ファイルを読み込むクラス */
 	private GSAProperty prop;
-
-	/* エージェントの配列 */
-	private Agent[] agents = null;
-
-	/* 実行エージェントの選択方法 0:配列の順 1:ランダム */
-	private int agentSelectMode = 1;
-
-	/* State・Goalを管理する共有メモリ */
-	private SharedMemory sharedMemory = null;
-
-	/* 到達に失敗したゴールをツリーで管理するクラス */
-	private FailAgentTree failAgentTree = null;
-
+	/* ManualAgentを使用するかどうか */
+	private boolean useMana = false;
+	/* 外部から設定されたゴール */
+	private Vector target = null;
+	/* エージェントの動作状況を表示するviewer */
+	private AgentViewer viewer = null;
 	/* エージェント数 */
 	private int agentNum;
 	/* ノード数 */
 	private int nodeNum;
-
-	/* ManualAgentを使用するかどうか */
-	private boolean useMana = false;
-
-	/* 外部から設定されたゴール */
-	private Vector target = null;
-
-	/* エージェントの動作状況を表示するviewer */
-	private AgentViewer viewer = null;
-
-	/* 実行処理を行なうために選択されているエージェント */
-	private Agent agent = null;
-
 	/* 外部から設定されたゴール用の仮のエージェントID */
 	private final int GOAL_AGID = 0;
-
 	/* ManualAgentのエージェントID */
 	private final int MANUAL_AGENT_ID = 10;
-
-
 	/*
 	 * 実行エージェントの配列中のインデックス
 	 * 実行エージェントを順に選択する場合に使用
 	 */
 	private int sequenceSelectIndex = 0;
-
 	/* 実行エージェントをランダムに選択するための乱数 */
 	private int randamSelectSeed = 1;
 	private Random random = new Random(randamSelectSeed);
+
+	
+	// AgentController Module
+	/* エージェントの配列 */
+	private Agent[] agents = null;
+	/* 実行エージェントの選択方法 0:配列の順 1:ランダム */
+	private int agentSelectMode = 1;
+	/* 到達に失敗したゴールをツリーで管理するクラス */
+	private FailAgentTree failAgentTree = null;
+	/* 実行処理を行なうために選択されているエージェント */
+	private Agent agent = null;
 	/* エージェントの選択状況を示すbooleanの配列 */
 	private boolean[] useAgentFlags = null;
-
-//	private Util util;
 	
+	
+	// SharedMemory Module
+	/* State・Goalを管理する共有メモリ */
+	private SharedMemory sharedMemory = null;
+	
+	
+	// Brica Modules
 	NonRTSyncScheduler scheduler;
 	CognitiveArchitecture cognitiveArchitecture;
 	Agent[] agentModules;
@@ -79,7 +72,6 @@ public class GSA {
 	final double SCHEDULER_INTERVAL = 1;
 	final String AGENT_MODULE_ID_PREFIX = "agent_";
 	final String AGENT_CONTROLLER_MODULE_ID = "agentController";
-
 	public final static int DO_NOTHING = 0;
 	public final static int EXEC = 1;
 
@@ -283,15 +275,14 @@ public class GSA {
 
 			/* エージェントの実行処理 */
 			/* このエージェントがすでに失敗済みなら実行処理を行なわない */
-//			int isSuccess = -1;
-////			if( failAgentTree.isFail(agent.AGID) ) {
-//			if( failAgentTree.getChildAgr(agent.AGID) > -1) {
-////System.out.println("   already fail");
-//				isSuccess = Agent.AGR_FAIL_AGENT;
-//			}else {
-//				isSuccess = agent.exec();
-//			}
-			int isSuccess = agent.exec();
+			int isSuccess = -1;
+//			if( failAgentTree.isFail(agent.AGID) ) {
+			if( failAgentTree.getChildAgr(agent.AGID) > -1) {
+//System.out.println("   already fail");
+				isSuccess = Agent.AGR_FAIL_AGENT;
+			}else {
+				isSuccess = agent.exec();
+			}
 
 			// 実行処理を行なったエージェントを表示
 			if(viewer != null) {
@@ -319,7 +310,7 @@ public class GSA {
 
 				if(getNotUseAgentNum() == 0) {
 //				if(util.getNotUseNum() == 0) {
-					//removeUnsolvedGoal();
+					removeUnsolvedGoal();
 					break;
 				}
 			}

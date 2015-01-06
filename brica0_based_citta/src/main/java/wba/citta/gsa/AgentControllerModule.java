@@ -10,6 +10,8 @@ import brica0.Module;
 
 public class AgentControllerModule extends Module {
 
+	Random rnd = new Random(0);
+	
 	
 	@Override
 	public void fire() {
@@ -17,7 +19,6 @@ public class AgentControllerModule extends Module {
 		final int AGENT_COUNT = GSA.AGENT_COUNT;
 		
 		// select agent randomly
-		Random rnd = new Random();
         int agentId = rnd.nextInt(AGENT_COUNT);
      
 		for (int i=0; i<AGENT_COUNT; i++) {
