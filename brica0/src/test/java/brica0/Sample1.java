@@ -71,27 +71,27 @@ public class Sample1 {
     public void testConstPipeNullModule() throws Exception {
         // A simple test to run the following three modules configuration.
         // ConstantModule A -> PipeModule B -> NullModule C
-        
+
         ConstantModule A = new ConstantModule();
         PipeModule B = new PipeModule();
         NullModule C = new NullModule();
-        
-        short[] zero = {0,0,0};
-        short[] v = {1,2,3};
+
+        short[] zero = { 0, 0, 0 };
+        short[] v = { 1, 2, 3 };
 
         A.setState("out1", v);
-        
+
         assertTrue(Arrays.equals(A.getState("out1"), v));
-        assertNotSame(A.getState("out1"), v);  // ensure that v is cloned.
-        
+        assertNotSame(A.getState("out1"), v); // ensure that v is cloned.
+
         A.makeOutPort("out1", 3);
 
         B.makeOutPort("out1", 3);
         B.connect(A, "out1", "in1"); // connection from A:out1 to B:in1
-        B.mapPort("in1","out1");    // B:out1 is a simple reflection of B:in1.
-        
+        B.mapPort("in1", "out1"); // B:out1 is a simple reflection of B:in1.
+
         C.connect(B, "out1", "in1"); // connection from B:out1 to C:in1
-        
+
         Scheduler s = new NonRTSyncScheduler(1.0);
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
@@ -99,13 +99,12 @@ public class Sample1 {
         ca.addModule("B", B);
         ca.addModule("C", C);
 
-        
         // initially everything is [0,0,0].
         assertTrue(Arrays.equals(zero, A.getOutPort("out1")));
         assertTrue(Arrays.equals(zero, B.getInPort("in1")));
         assertTrue(Arrays.equals(zero, B.getOutPort("out1")));
         assertTrue(Arrays.equals(zero, C.getInPort("in1")));
-        
+
         // 1
         ca.step();
 
@@ -113,7 +112,7 @@ public class Sample1 {
         assertTrue(Arrays.equals(zero, B.getInPort("in1")));
         assertTrue(Arrays.equals(zero, B.getOutPort("out1")));
         assertTrue(Arrays.equals(zero, C.getInPort("in1")));
-        
+
         // 2
         ca.step();
 
@@ -121,7 +120,7 @@ public class Sample1 {
         assertTrue(Arrays.equals(v, B.getInPort("in1")));
         assertTrue(Arrays.equals(v, B.getOutPort("out1")));
         assertTrue(Arrays.equals(zero, C.getInPort("in1")));
-        
+
         // 3
         ca.step();
 
@@ -129,6 +128,6 @@ public class Sample1 {
         assertTrue(Arrays.equals(v, B.getInPort("in1")));
         assertTrue(Arrays.equals(v, B.getOutPort("out1")));
         assertTrue(Arrays.equals(v, C.getInPort("in1")));
-        
+
     }
 }
