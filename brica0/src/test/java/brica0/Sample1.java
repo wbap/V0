@@ -9,7 +9,7 @@ import org.junit.Test;
 import brica0.CognitiveArchitecture;
 import brica0.ConstantModule;
 import brica0.Module;
-import brica0.NonRTSyncScheduler;
+import brica0.VirtualTimeSyncScheduler;
 import brica0.PipeModule;
 import brica0.Scheduler;
 
@@ -17,14 +17,14 @@ public class Sample1 {
 
     @Test
     public void testCAConstruct() {
-        Scheduler s = new NonRTSyncScheduler(1.0);
+        Scheduler s = new VirtualTimeSyncScheduler(1.0);
         @SuppressWarnings("unused")
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
     }
 
     @Test
     public void testAddModule() {
-        Scheduler s = new NonRTSyncScheduler(1.0);
+        Scheduler s = new VirtualTimeSyncScheduler(1.0);
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
         Module m = new NullModule();
@@ -37,7 +37,7 @@ public class Sample1 {
 
     @Test
     public void testConstantModule() {
-        Scheduler s = new NonRTSyncScheduler(1.0);
+        Scheduler s = new VirtualTimeSyncScheduler(1.0);
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
         Module cm = new ConstantModule();
@@ -92,7 +92,7 @@ public class Sample1 {
 
         C.connect(B, "out1", "in1"); // connection from B:out1 to C:in1
 
-        Scheduler s = new NonRTSyncScheduler(1.0);
+        Scheduler s = new VirtualTimeSyncScheduler(1.0);
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
         ca.addModule("A", A);

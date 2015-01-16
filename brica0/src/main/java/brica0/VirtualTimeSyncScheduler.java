@@ -1,10 +1,10 @@
 package brica0;
 
-public class NonRTSyncScheduler extends Scheduler {
+public class VirtualTimeSyncScheduler extends Scheduler {
 
     public double interval;
 
-    public NonRTSyncScheduler(double interval) {
+    public VirtualTimeSyncScheduler(double interval) {
         super();
         this.interval = 1.0;
     }
