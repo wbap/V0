@@ -18,7 +18,7 @@ public abstract class Module {
     protected double lastInputTime;
     protected double lastOutputTime;
     protected double interval;
-    
+
     // Input / output ports of this module.
     // in ports and out ports are updated automatically.
     // Users instead should work on state and results below.
@@ -62,8 +62,12 @@ public abstract class Module {
         return lastOutputTime;
     }
     
-    double getInterval() {   // probably be renamed to MinimumInterval or so.
+    double getInterval() {   // probably be renamed to MinimumInterval or such.
         return interval;
+    }
+    
+    void setInterval(double value) {   // probably be renamed to MinimumInterval or so.
+        interval = value;
     }
     
     

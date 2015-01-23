@@ -13,7 +13,7 @@ import brica0.VirtualTimeSyncScheduler;
 import brica0.PipeModule;
 import brica0.Scheduler;
 
-public class Sample1 {
+public class VirtualTimeSyncSchedulerTest {
 
     @Test
     public void testCAConstruct() {
