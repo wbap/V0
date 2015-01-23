@@ -16,20 +16,21 @@ public class VirtualTimeSyncScheduler extends Scheduler {
 
     @Override
     public double step() {
-        this.numSteps += 1;
-        this.currentTime += this.interval;
-
         for (Module m : modules) {
-            m.input();
+            m.input(this.currentTime);
         }
 
         for (Module m : modules) {
             m.fire();
         }
 
+        this.currentTime += this.interval;  // time proceeds here.
+        
         for (Module m : modules) {
-            m.output();
+            m.output(this.currentTime);
         }
+
+        this.numSteps += 1;
 
         return this.currentTime;
     }

@@ -15,9 +15,10 @@ import java.util.HashMap;
  */
 public abstract class Module {
 
-    protected double lastTime;
+    protected double lastInputTime;
+    protected double lastOutputTime;
     protected double interval;
-
+    
     // Input / output ports of this module.
     // in ports and out ports are updated automatically.
     // Users instead should work on state and results below.
@@ -36,6 +37,10 @@ public abstract class Module {
     protected ArrayList<Connection> connections;
 
     public Module() {
+        lastInputTime = 0.0;
+        lastOutputTime = 0.0;
+        interval = 1.0;
+        
         connections = new ArrayList<Connection>();
 
         // prepare buffer 0 and 1 for output double buffering
@@ -49,6 +54,19 @@ public abstract class Module {
         results = buffer1;
     }
 
+    double getLastInputTime() {
+        return lastInputTime;
+    }
+    
+    double getLastOutputTime() {
+        return lastOutputTime;
+    }
+    
+    double getInterval() {   // probably be renamed to MinimumInterval or so.
+        return interval;
+    }
+    
+    
     /**
      * Users may override <tt>fire()</tt> method to define a new sub-class of
      * <tt>Module</tt>. <tt>fire()</tt> method implements a function of the form<br>
@@ -233,10 +251,13 @@ public abstract class Module {
      * 
      * Usually called by scheduler.
      */
-    public void input() {
+    public void input(double time) {
         for (Connection c : connections) {
             updateInPort(c);
         }
+        
+        assert lastInputTime <= time;
+        lastInputTime = time;
     }
 
     protected void updateInPort(Connection c) {
@@ -250,11 +271,14 @@ public abstract class Module {
      * 
      * Usually called by scheduler.
      */
-    public void output() {
+    public void output(double time) {
         // swap double buffers
         HashMap<String, short[]> tmp;
         tmp = outPorts;
         outPorts = results;
         results = tmp;
+        
+        assert lastOutputTime <= time;
+        lastOutputTime = time;
     }
 }

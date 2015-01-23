@@ -22,7 +22,7 @@ public abstract class Scheduler {
         this.currentTime = 0.0;
     }
 
-    public void addModule(Module m) {
+    public void addModule(Module m)  {
         modules.add(m);
     }
 

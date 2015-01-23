@@ -5,16 +5,16 @@ import java.util.PriorityQueue;
 public class VirtualTimeScheduler extends Scheduler {
 
     class Event {
-        private double t_;
+        private double time_;
         private Module module_;
          
-        Event(double t, Module module) {
-            t_ = t;
-            module_ = module;
+        Event(double t, Module m) {
+            time_ = t;
+            module_ = m;
         }        
         
         public double getTime() {
-            return t_;
+            return time_;
         }
         
         public Module getModule() {
@@ -30,11 +30,14 @@ public class VirtualTimeScheduler extends Scheduler {
     }
 
     @Override
-    publid void update(CognitiveArchitecture ca) {
+    public void update(CognitiveArchitecture ca) {
          super.update(ca);
          
-         0
-    
+         eventQueue_ = new PriorityQueue<Event>();
+         for (Module m: modules) {
+             m.input(ca.);
+             eventQueue_.add(new Event(m.getLastInputTime() + m.getInterval(), m));
+         }
     }
     
     
