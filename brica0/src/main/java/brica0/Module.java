@@ -233,7 +233,7 @@ public abstract class Module {
      * 
      * Usually called by scheduler.
      */
-    public void collectInputs() {
+    public void input() {
         for (Connection c : connections) {
             updateInPort(c);
         }
@@ -250,7 +250,7 @@ public abstract class Module {
      * 
      * Usually called by scheduler.
      */
-    public void updateOutputs() {
+    public void output() {
         // swap double buffers
         HashMap<String, short[]> tmp;
         tmp = outPorts;

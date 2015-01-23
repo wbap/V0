@@ -20,7 +20,7 @@ public class VirtualTimeSyncScheduler extends Scheduler {
         this.currentTime += this.interval;
 
         for (Module m : modules) {
-            m.collectInputs();
+            m.input();
         }
 
         for (Module m : modules) {
