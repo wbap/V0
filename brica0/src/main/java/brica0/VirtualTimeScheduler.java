@@ -35,7 +35,7 @@ public class VirtualTimeScheduler extends Scheduler {
          
          eventQueue_ = new PriorityQueue<Event>();
          for (Module m: modules) {
-             m.input(ca.);
+             //m.input(ca.);
              eventQueue_.add(new Event(m.getLastInputTime() + m.getInterval(), m));
          }
     }
@@ -43,7 +43,7 @@ public class VirtualTimeScheduler extends Scheduler {
     
     @Override
     public double step() {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
