@@ -9,34 +9,56 @@ public class SchedulerBenchmarks {
     
     public static void main(String args[]) throws Exception {
         double timing;
+
+        System.out.println("\n=== VirtualTimeSyncScheduler ===\n");
+
+        // invoke JIT
+        bench2(new VirtualTimeSyncScheduler(1.0), 100);
+        bench2(new VirtualTimeSyncScheduler(1.0), 100);
+        bench2(new VirtualTimeSyncScheduler(1.0), 100);
+
         
-        timing = bench1();
+        timing = bench1(new VirtualTimeSyncScheduler(1.0));
         System.out.println("bench1: " + timing + " ms.");
 
-        for (int i = 0; i< 5; i++) {
-            timing = bench2(1);
-        }
+        timing = bench2(new VirtualTimeSyncScheduler(1.0), 1);
         System.out.println("bench2: " + timing + " ms.");
         
-        for (int i = 0; i< 5; i++) {
-            timing = bench2(1);
-        }
-        timing = bench2(500); // 1kB
+        timing = bench2(new VirtualTimeSyncScheduler(1.0), 500);
         System.out.println("bench2 (1kB): " + timing + " ms.");
         
-        for (int i = 0; i< 5; i++) {
-            timing = bench2(1);
-        }
-        timing = bench2(5000); // 10kB
+        timing = bench2(new VirtualTimeSyncScheduler(1.0), 5000);
         System.out.println("bench2 (10kB): " + timing + " ms.");
+
+        
+        
+        System.out.println("\n=== VirtualTimeScheduler ===\n");
+
+        // invoke JIT
+        bench2(new VirtualTimeScheduler(), 100);
+        bench2(new VirtualTimeScheduler(), 100);
+        bench2(new VirtualTimeScheduler(), 100);
+        
+        timing = bench1(new VirtualTimeScheduler());
+        System.out.println("bench1: " + timing + " ms.");
+
+
+        timing = bench2(new VirtualTimeScheduler(), 1);
+        System.out.println("bench2: " + timing * 2 + " ms."); // timing * 2 where 2 is num modules.
+        
+        timing = bench2(new VirtualTimeScheduler(), 500);
+        System.out.println("bench2 (1kB): " + timing * 2 + " ms.");
+        
+        timing = bench2(new VirtualTimeScheduler(), 5000);
+        System.out.println("bench2 (10kB): " + timing * 2 + " ms.");
 
     }
 
 
-    public static double bench1() {
+    public static double bench1(Scheduler s) {
         int count = 1000000;
         
-        Scheduler s = new VirtualTimeSyncScheduler(1.0);
+        //Scheduler s = new VirtualTimeSyncScheduler(1.0);
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
         Module m = new NullModule();
@@ -57,10 +79,10 @@ public class SchedulerBenchmarks {
         return (endTime - startTime) / (double)count;
     }
 
-    public static double bench2(int dataLength) throws Exception {
+    public static double bench2(Scheduler s, int dataLength) throws Exception {
         int count = 1000000;
         
-        Scheduler s = new VirtualTimeSyncScheduler(1.0);
+        //Scheduler s = new VirtualTimeSyncScheduler(1.0);
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
         ConstantModule M1 = new ConstantModule();
