@@ -28,7 +28,7 @@ public class VirtualTimeSyncScheduler extends Scheduler {
         }
 
         for (Module m : modules) {
-            m.updateOutputs();
+            m.output();
         }
 
         return this.currentTime;
