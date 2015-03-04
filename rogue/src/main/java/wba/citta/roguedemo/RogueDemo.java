@@ -23,7 +23,7 @@ import wba.rogue.RogueViewer;
 /**
  * Citta
  */
-    public class RogueDemo {
+public class RogueDemo {
 
     /*  */
     private Rogue rogue;
