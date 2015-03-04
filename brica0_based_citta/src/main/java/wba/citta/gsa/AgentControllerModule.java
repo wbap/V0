@@ -1,4 +1,4 @@
-﻿package wba.citta.gsa;
+package wba.citta.gsa;
 
 import java.util.ArrayList;
 import java.util.Collections;

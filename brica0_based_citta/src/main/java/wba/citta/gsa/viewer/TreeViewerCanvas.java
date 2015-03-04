@@ -1,4 +1,4 @@
-﻿/**
+/**
  * TreeViewerCanvas.java
  *  ツリーの状態を描画するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

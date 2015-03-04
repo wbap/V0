@@ -1,4 +1,4 @@
-﻿/**
+/**
  * InterfaceAgent.java
  * 環境と認知距離の処理を行なうエージェントのインターフェースとして状態の変換等	 * の処理を行うクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

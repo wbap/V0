@@ -1,4 +1,4 @@
-﻿/**
+/**
  * LogAgent.java
  * ログを読み込み、ログの情報で動作するエージェント
  * COPYRIGHT FUJITSU LIMITED 2001-2002

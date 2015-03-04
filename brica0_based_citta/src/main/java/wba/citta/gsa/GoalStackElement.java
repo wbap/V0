@@ -1,4 +1,4 @@
-﻿/**
+/**
  * GoalStackElement.java
  * 共有メモリで扱うゴールの情報の単位
  * COPYRIGHT FUJITSU LIMITED 2001-2002

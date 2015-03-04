@@ -1,4 +1,4 @@
-﻿/**
+/**
  * TransitionCounter.java
  * 直接移動可能なノードへの遷移の回数を管理するクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

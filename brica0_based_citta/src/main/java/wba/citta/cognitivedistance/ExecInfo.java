@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ExecInfo.java
  * 実行時の情報を管理するクラスです
  * COPYRIGHT FUJITSU LIMITED 2001-2002

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * AssociateAgent.java
  * 連想処理を行なうGSAのエージェント
  * COPYRIGHT FUJITSU LIMITED 2001-2002

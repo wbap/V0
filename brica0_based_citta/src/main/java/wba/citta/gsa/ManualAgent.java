@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ManualAgent.java
  * 手動で動作するエージェント
  * COPYRIGHT FUJITSU LIMITED 2001-2002

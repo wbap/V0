@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CDViewerCanvas.java
  *  CognitiveDistanceの各レイヤのセグメント情報をグラフィック表示するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

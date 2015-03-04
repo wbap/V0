@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Agent.java
  * エージェントに共通の処理(共有メモリとの情報の受渡し等)を行なうクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * LayeredAgent.java
  * CognitiveDistanceの１つの層についての処理を行うエージェントのクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * MapController.java
  * 地図ファイルの管理を行なうクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

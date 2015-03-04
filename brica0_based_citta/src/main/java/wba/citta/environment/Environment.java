@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Environment.java
  *  環境の処理を行うクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

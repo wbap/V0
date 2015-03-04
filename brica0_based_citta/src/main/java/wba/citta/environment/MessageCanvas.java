@@ -1,4 +1,4 @@
-﻿/**
+/**
  * MessageCanvas.java
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.09 BSC miyamoto

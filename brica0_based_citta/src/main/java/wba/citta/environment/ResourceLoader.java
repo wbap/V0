@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ResourceLoader.java
  * リソースの読み込みを行なうクラスです
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

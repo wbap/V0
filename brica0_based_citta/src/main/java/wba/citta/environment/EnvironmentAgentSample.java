@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EnvironmentAgentSample.java
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2001.12 BSC miyamoto

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ActionController.java
  * 地図情報を解析して行動について管理するクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

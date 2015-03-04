@@ -1,4 +1,4 @@
-﻿/**
+/**
  * MapFileToArray.java
  * CSV形式の地図ファイルを配列に変換するクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

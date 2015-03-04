@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SharedMemory.java
  * State・Goalを管理する共有メモリ
  * COPYRIGHT FUJITSU LIMITED 2001-2002

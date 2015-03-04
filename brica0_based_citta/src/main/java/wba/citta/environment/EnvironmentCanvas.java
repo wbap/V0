@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EnvironmentCanvas.java
  *  環境グラフィック処理を行うクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

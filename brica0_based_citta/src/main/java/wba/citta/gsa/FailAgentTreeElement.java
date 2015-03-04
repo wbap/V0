@@ -1,4 +1,4 @@
-﻿/**
+/**
  * FailAgentTreeElement.java
  * FailAgentTreeで扱う情報の単位
  * COPYRIGHT FUJITSU LIMITED 2001-2002

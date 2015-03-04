@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ElementNumberException.java
  * CognitiveDistanceで使用する状態は一定のサイズのVectorでなくてはなりません。
  * このVectorのサイズが不正な場合にスローされる例外です。

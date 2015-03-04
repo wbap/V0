@@ -1,4 +1,4 @@
-﻿/**
+/**
  * GSAProp.java
  * エージェントの設定情報を管理するクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

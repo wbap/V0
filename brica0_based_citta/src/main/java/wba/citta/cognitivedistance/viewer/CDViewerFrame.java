@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CDViewerFrame.java
  *  各層ごとのグラフィック表示をするクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * StateList.java
  * ノードのリストと親子関係について管理するクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

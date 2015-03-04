@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Node.java
  * ノードの情報を管理するクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

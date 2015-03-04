@@ -1,4 +1,4 @@
-﻿/**
+/**
  * TreeViewer.java
  *  ツリーの状態をグラフィックス表示するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

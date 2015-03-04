@@ -1,4 +1,4 @@
-﻿/**
+/**
  * AgentViewerCanvas.java
  *  エージェントの動作状況を描画するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

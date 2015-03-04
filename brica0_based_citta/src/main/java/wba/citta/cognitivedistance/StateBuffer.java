@@ -1,4 +1,4 @@
-﻿/**
+/**
  * StateBuffer.java
  * 状態の履歴を保持するクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002

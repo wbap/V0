@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 環境の描画、操作を行なうクラス
  * EnvironmentPanel.java
  * COPYRIGHT FUJITSU LIMITED 2001-2002

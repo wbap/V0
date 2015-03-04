@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Util.java
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.10

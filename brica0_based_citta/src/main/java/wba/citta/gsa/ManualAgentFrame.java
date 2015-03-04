@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 手動でスタックにゴールを設定するためユーザーインターフェース
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * BSC miyamoto 2001.08

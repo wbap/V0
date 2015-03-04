@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SharedMemoryViewerCanvas.java
  *  共有メモリの状態を描画するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

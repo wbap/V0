@@ -1,4 +1,4 @@
-﻿/**
+/**
  * DemoProperty.java
  * 
  * COPYRIGHT FUJITSU LIMITED 2001-2002

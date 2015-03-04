@@ -1,4 +1,4 @@
-﻿/**
+/**
  * AgentViewer.java
  *  エージェントの動作状況をグラフィック表示するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

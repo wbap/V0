@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CDViewer.java
  *  CognitiveDistanceの階層化・セグメント情報をグラフィック表示するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002

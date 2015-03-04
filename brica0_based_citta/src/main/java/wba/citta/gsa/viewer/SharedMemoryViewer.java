@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SharedMemoryViewer.java
  *  ゴールスタックの状態をグラフィック表示するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
