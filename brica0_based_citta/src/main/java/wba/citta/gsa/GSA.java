@@ -10,7 +10,7 @@ package wba.citta.gsa;
 import java.util.*;
 
 import brica0.CognitiveArchitecture;
-import brica0.NonRTSyncScheduler;
+import brica0.VirtualTimeSyncScheduler;
 import wba.citta.gsa.viewer.*;
 
 /**
@@ -64,7 +64,7 @@ public class GSA {
 	
 	
 	// Brica Modules
-	NonRTSyncScheduler scheduler;
+	VirtualTimeSyncScheduler scheduler;
 	CognitiveArchitecture cognitiveArchitecture;
 	Agent[] agentModules;
 	AgentControllerModule agentController;
@@ -82,7 +82,7 @@ public class GSA {
 	 * コンストラクタ
 	 * @param String propFileName GSAの設定ファイル名
 	 */
-	public GSA(String propFileName) {
+	public GSA(String propFileName) throws Exception {
 
 		initPropFile(propFileName);
 
@@ -102,7 +102,7 @@ public class GSA {
 //util = new Util(agentNum);
 		
 		// initialize brica
-		scheduler = new NonRTSyncScheduler(SCHEDULER_INTERVAL);
+		scheduler = new VirtualTimeSyncScheduler(SCHEDULER_INTERVAL);
 		cognitiveArchitecture = new CognitiveArchitecture(scheduler);
 
 		short[] tmp = {0};

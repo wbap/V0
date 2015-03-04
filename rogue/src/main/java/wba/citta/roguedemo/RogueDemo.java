@@ -54,7 +54,7 @@ public class RogueDemo {
     /**
      * 
      */
-    public RogueDemo(String propFileName) {
+    public RogueDemo(String propFileName) throws Exception {
 
         /*  */
         try {
@@ -298,7 +298,7 @@ public class RogueDemo {
     ////////////////////////////////////////////
     //  
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         RogueDemo rogueDemo = new RogueDemo(args[0]);
         rogueDemo.repeatProcess();
     }

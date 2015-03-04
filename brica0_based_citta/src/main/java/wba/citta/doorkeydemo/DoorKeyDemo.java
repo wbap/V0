@@ -41,7 +41,7 @@ public class DoorKeyDemo {
 	/**
 	 * 
 	 */
-	public DoorKeyDemo(String propFileName) {
+	public DoorKeyDemo(String propFileName) throws Exception {
 
 		/*  */
 		try {
@@ -247,7 +247,7 @@ public class DoorKeyDemo {
 	////////////////////////////////////////////
 	//  
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		DoorKeyDemo dkDemo = new DoorKeyDemo(args[0]);
 		dkDemo.repeatProcess();
 	}
