@@ -6,246 +6,317 @@
  */
 package wba.citta.gsa.viewer;
 
-import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.JPanel;
 import wba.citta.gsa.*;
 
 /**
  *  エージェントの動作状況を描画するクラス
  */
-public class AgentViewerCanvas extends Canvas {
+public class AgentViewerCanvas extends JPanel {
+    private static final long serialVersionUID = 1L;
 
-	/* エージェントIDの配列 */
-	private int[] agents;
-	/* 選択エージェントの情報 */
-	private int execAgentID;
-	/* 削除処理エージェントの情報 */
-	private boolean[] removeAgents;
+    static class AgentDescriptor {
+        Agent agent;
+        Color color;
+        boolean isExecAgent;
+        boolean isRemoved;
 
-	/* 要素間の間隔 */
-	private final int X_SPACE = 20;
-	private final int Y_SPACE = 20;
-	/* 要素のサイズ */
-	private final int X_ELEMENT_SIZE = 30;
-	private final int Y_ELEMENT_SIZE = 30;
+        AgentDescriptor(Agent agent, Color color) {
+            this.agent = agent;
+            this.color = color;
+        }
+    }
 
-	/* 表示されている領域のサイズ */
-	private int height;
-	private int width;
+    /* エージェントIDの配列 */
+    private List<AgentDescriptor> agents;
 
-	/* ダブルバッファリング用 オフスクリーンイメージ */
-	private Image offImage;
-	private Graphics offGraphics;
+    private Map<Agent, AgentDescriptor> agentMap;
+    
+    private Agent currentExecAgent;
 
-	////////////////////////////////////////////////////////////
-	// コンストラクタ  初期化処理
+    /* 要素間の間隔 */
+    private final int X_SPACE = 20;
+    private final int Y_SPACE = 20;
+    /* 要素のサイズ */
+    private final int X_ELEMENT_SIZE = 30;
+    private final int Y_ELEMENT_SIZE = 30;
 
-	/**
-	 * コンストラクタ
-	 * @param int[] agents エージェントIDの配列
-	 * @param boolean[] removeAgents 到達ゴール削除処理を行なったエージェント
-	 * の情報
-	 */
-	public AgentViewerCanvas(int[] agents, boolean[] removeAgents) {
-		super();
+    private Image offImage;
 
-		this.agents = agents;
-		this.removeAgents = removeAgents;
-	}
+    private boolean dirty = false;
 
-	////////////////////////////////////////////////////////////
-	// public 
+    private Map<Integer, Color> colorTable;
+    private Font defaultFont = new Font("Dialog", Font.BOLD, 12);
+    private Color defaultColor;
+    private Color execAgentColor;
+    
+    private boolean batchUpdate;
+    
+    private Dimension preferredSize;
 
-	/**
-	 * 実行エージェントのIDを設定します。
-	 * @param int execAgentID 実行エージェントのID
-	 */
-	public void setExecAgentID(int execAgentID) {
-		this.execAgentID = execAgentID;
-	}
+    ////////////////////////////////////////////////////////////
+    // コンストラクタ  初期化処理
 
-	/**
-	 * updateメソッドのオーバーライド
-	 * @param Graphics g
-	 */
-	public void update(Graphics g) {
-		paint(g);
-	}
+    /**
+     * コンストラクタ
+     */
+    public AgentViewerCanvas(Map<Integer, Color> colorTable, Color defaultColor, Color execAgentColor) {
+        super();
+        agents = new ArrayList<AgentDescriptor>();
+        agentMap = new HashMap<Agent, AgentDescriptor>();
+        this.colorTable = colorTable;
+        this.defaultColor = defaultColor;
+        this.execAgentColor = execAgentColor;
+        this.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentHidden(ComponentEvent arg0) {
+            }
 
-private int xSizeOld = 0;
-private int ySizeOld = 0;
+            @Override
+            public void componentMoved(ComponentEvent arg0) {
+            }
 
-	/**
-	 * paintメソッドのオーバーライド
-	 * @param Graphics g
-	 */
-	public void paint(Graphics g) {
+            @Override
+            public void componentResized(ComponentEvent arg0) {
+                markDirty();
+            }
 
-		/* 描画するエリアのサイズを取得 */
-		int[] size = getUseCanvasSize();
+            @Override
+            public void componentShown(ComponentEvent arg0) {
+                dirty = true;
+                updateIfNecessary();
+                repaint();
+            }}
+        );
+    }
 
-		if(xSizeOld != size[0] || ySizeOld != size[1]) {
-			setSize(size[0], size[1]);
-			/* オフスクリーンイメージの作成 */
-			offImage = createImage(size[0], size[1]);
-			offGraphics = offImage.getGraphics();
-		}
+    ////////////////////////////////////////////////////////////
+    // public 
 
-		xSizeOld = size[0];
-		ySizeOld = size[1];
+    public void beginBatchUpdate() {
+        batchUpdate = true;
+    }
 
-		/* オフスクリーンへの描画 */
-		drawOffImage(offGraphics);
-		/* オフスクリーンイメージを描画 */
-		g.drawImage(offImage, 0, 0, this);
-	}
+    public void endBatchUpdate() {
+        batchUpdate = false;
+        updateIfNecessary();
+    }
 
-	/**
-	 * Canvas中の表示されている領域のサイズを設定します。
-	 * @param int width  幅
-	 * @param int height 高さ
-	 */
-	public void setViewportSize(int width, int height) {
-		this.width = width;
-		this.height = height;
-	}
+    protected void markDirty() {
+        dirty = true;
+        if (!batchUpdate) {
+            updateIfNecessary();
+        }
+    }
 
-	////////////////////////////////////////////////////////////
-	// private
+    /**
+     * 実行エージェントを設定します。
+     * @param Agent execAgent 実行エージェント
+     */
+    public void setExecAgent(Agent execAgent) {
+        if (currentExecAgent != null) {
+            final AgentDescriptor desc = agentMap.get(currentExecAgent);
+            assert desc != null;
+            desc.isExecAgent = false;
+            currentExecAgent = null;
+        }
+        if (execAgent != null) {
+            AgentDescriptor desc = agentMap.get(execAgent);
+            assert desc != null;
+            desc.isExecAgent = true;
+        }
+        currentExecAgent = execAgent;
+        markDirty();
+    }
+    
 
-	/**
-	 * オフスクリーンへの描画
-	 * @param Graphics graphics
-	 */
-	private void drawOffImage(Graphics graphics) {
+    /**
+     * 削除済みエージェントを設定します。
+     * @param Agent agent 実行エージェント
+     */
+    public void markRemoved(Agent agent) {
+        AgentDescriptor desc = agentMap.get(agent);
+        assert desc != null;
+        desc.isRemoved = true;
+        markDirty();
+    }
 
-		/* イメージのクリア */
-		clearOffImage(graphics);
+    public boolean addAgent(Agent agent) {
+        if (agentMap.get(agent) != null)
+            return false;
+        Color color = colorTable.get(agent.getId());
+        if (color == null)
+            color = defaultColor;
+        final AgentDescriptor desc = new AgentDescriptor(agent, color);
+        agents.add(desc);
+        agentMap.put(agent, desc);
+        markDirty();
+        return true;
+    }
 
-		/* 全エージェントの描画 */
-		drawAgents(graphics);
-	}
+    public boolean removeAgent(Agent agent) {
+        AgentDescriptor desc = agentMap.get(agent);
+        if (desc == null)
+            return false;
+        agents.remove(desc);
+        agentMap.remove(agent);
+        markDirty();
+        return true;
+    }
 
-	/**
-	 * オフスクリーンイメージのクリア
-	 * @param Graphics graphics
-	 */
-	private void clearOffImage(Graphics graphics) {
-		graphics.setColor(getBackground());
-		graphics.fillRect(0, 0, width, height);
-	}
+    private void calculatePreferredSize() {
+        final Dimension size = getParent().getSize();
+        int drawNum = agents.size();
+        final int hCount = Math.max((size.width - X_SPACE) / (X_ELEMENT_SIZE + X_SPACE), 1);
+        final int vCount = (drawNum + hCount - 1) / hCount;
+        preferredSize = new Dimension(
+            X_SPACE + (X_ELEMENT_SIZE + X_SPACE) * hCount,
+            Y_SPACE + (Y_ELEMENT_SIZE + Y_SPACE) * vCount
+        );
+    }
 
-	/**
-	 * エージェントの動作状況の描画を行ないます。
-	 * @param Graphics g
-	 */
-	private void drawAgents(Graphics graphics) {
-		for(int i = 0; i < agents.length; i++) {
-			drawAgent(graphics, i);
-		}
-	}
+    private void updateIfNecessary() {
+        if (!dirty || !isVisible())
+            return;
+        calculatePreferredSize();
+        /* 描画するエリアのサイズを取得 */
+        final Dimension size = preferredSize;
+        setSize(size);
+        if (offImage == null || size.width != offImage.getWidth(this) || size.height != offImage.getHeight(this)) {
+            offImage = createImage(size.width, size.height);
+        }
+        if (offImage != null)
+            drawOffscreen();
+        dirty = false;
+    }
 
-	/**
-	 * 指定されたエージェントを描画します。
-	 * @param Graphics g
-	 * @param int index 描画するエージェントの配列上の位置
-	 */
-	private void drawAgent(Graphics graphics, int index) {
+    private void drawOffscreen() {
+        assert offImage != null;
+        final Graphics2D graphics = (Graphics2D)offImage.getGraphics();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        /* オフスクリーンへの描画 */
+        try {
+            clearOffImage(graphics);
+            drawAgents(graphics);
+        } finally {
+            graphics.dispose();
+        }
+    }
 
-		/* 描画する情報の取得 */
-		int rectInfo[] = getAgentRectSize(index);
-		String agid = " " + agents[index];
+    /**
+     * paintメソッドのオーバーライド
+     * @param Graphics g
+     */
+    public void paint(Graphics g) {
+        /* オフスクリーンイメージを描画 */
+        final Rectangle r = g.getClipBounds();
+        g.clearRect(r.x, r.y, r.width, r.height);
+        if (offImage != null) {
+            g.drawImage(offImage, 0, 0, this);
+        }
+    }
 
-		/* エージェントごとの色をテーブルから取得 */
-		Color color = (Color)(ViewerProperty.colorTable).get(
-		        new Integer(agents[index]));
+    ////////////////////////////////////////////////////////////
+    // private
 
-		/* 描画処理 */
-		if(color != null) {
-			graphics.setColor(color);
-			graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
-			        rectInfo[3]);
-		}
+    private void clearOffImage(Graphics graphics) {
+        graphics.setColor(getBackground());
+        graphics.fillRect(0, 0, offImage.getWidth(this), offImage.getHeight(this));
+    }
 
-		/* 実行エージェンの場合青枠で囲む */
-		if(agents[index] == execAgentID) {
-			graphics.setColor(Color.blue);
-			for(int i = 0; i < 5; i++) {
-				graphics.drawRect(rectInfo[0]-i, rectInfo[1]-i,
-				        rectInfo[2]+(2*i), rectInfo[3]+(2*i));
-			}
-		}
+    /**
+     * エージェントの動作状況の描画を行ないます。
+     * @param Graphics g
+     */
+    private void drawAgents(Graphics2D graphics) {
+        for (int i = 0; i < agents.size(); i++) {
+            drawAgent(graphics, agents.get(i), i);
+        }
+    }
 
-		/* 到達ゴール削除エージェントの場合の灰枠で囲む */
-		if(removeAgents[index] == true) {
-			graphics.setColor(Color.gray);
-			for(int i = 0; i < 5; i++) {
-				graphics.drawRect(rectInfo[0]+i, rectInfo[1]+i,
-				        rectInfo[2]-(2*i), rectInfo[3]-(2*i));
-			}
-		}
+    /**
+     * 指定されたエージェントを描画します。
+     * @param Graphics g
+     * @param int index 描画するエージェントの配列上の位置
+     */
+    private void drawAgent(Graphics2D graphics, AgentDescriptor desc, int index) {
+        /* 描画する情報の取得 */
+        Rectangle rectInfo = getAgentRectSize(desc, index);
+        String agid = " " + desc.agent.getId();
 
-		graphics.setColor(Color.black);
-		graphics.drawRect(rectInfo[0], rectInfo[1], rectInfo[2], rectInfo[3]);
+        /* 描画処理 */
+        if (desc.color != null) {
+            graphics.setColor(desc.color);
+            graphics.fillRect(rectInfo.x, rectInfo.y, rectInfo.width, rectInfo.height);
+        }
 
-		Font f = new Font("Dialog", Font.BOLD, 20);
-		graphics.setFont(f);
-		graphics.drawString(agid, rectInfo[0]+(rectInfo[2]/2),
-		        rectInfo[1]+rectInfo[3] );
-	}
+        /* 実行エージェンの場合青枠で囲む */
+        if (desc.isExecAgent) {
+            graphics.setColor(execAgentColor);
+            for (int i = 0; i < 5; i++) {
+                graphics.drawRect(rectInfo.x + i, rectInfo.y + i,
+                        rectInfo.width - 2 * i, rectInfo.height - 2 * i);
+            }
+        }
 
-	/**
-	 * 指定された位置に描画する矩形の情報を取得します。
-	 * @param int index 配列上の位置
-	 * @return int[] int[4]の配列 順にキャンバス上の X座標・Y座標・幅・高さ
-	 */
-	private int[] getAgentRectSize(int index) {
-		int[] rectInfo = new int[4];
-		rectInfo[0] = X_SPACE + (index * (X_ELEMENT_SIZE+X_SPACE));
-		rectInfo[1] = Y_SPACE;
-		rectInfo[2] = X_ELEMENT_SIZE;
-		rectInfo[3] = Y_ELEMENT_SIZE;
-		return rectInfo;
-	}
+        /* 到達ゴール削除エージェントの場合の灰枠で囲む */
+        if (desc.isRemoved == true) {
+            graphics.setColor(Color.GRAY);
+            for (int i = 0; i < 5; i++) {
+                graphics.drawRect(rectInfo.x + i, rectInfo.y + i,
+                        rectInfo.width - 2 * i, rectInfo.height - 2 * i);
+            }
+        }
 
-	/**
-	 * キャンバスに必要なサイズを取得します。
-	 * キャンバスに必要なサイズは、描画エリアとウィンドウのサイズのうち
-	 * どちらか大きい方を利用します。
-	 * @return int[] [0]幅  [1]高さ
-	 */
-	private int[] getUseCanvasSize() {
+        graphics.setColor(Color.black);
+        graphics.drawRect(rectInfo.x, rectInfo.y, rectInfo.width, rectInfo.height);
 
-		int[] drawAreaSize = getDrawAreaSize();
-		if(drawAreaSize[0] < width) {
-			drawAreaSize[0] = width;
-		}
-		if(drawAreaSize[1] < height) {
-			drawAreaSize[1] = height;
-		}
-		return drawAreaSize;
-	}
+        graphics.setFont(defaultFont);
+        Rectangle2D bBox = graphics.getFontMetrics().getStringBounds(agid, graphics);
+        graphics.drawString(agid, (int)(rectInfo.x + rectInfo.width / 2 - bBox.getWidth() / 2), (int)(rectInfo.y + rectInfo.height / 2 + bBox.getHeight() / 2));
+    }
 
-	/**
-	 * 描画に必要なサイズを取得します。
-	 * @return int[] [0]幅  [1]高さ
-	 */
-	private int[] getDrawAreaSize() {
-		int drawNum = getDrawNum();
-		int[] drawSize = new int[2];
-		drawSize[0] = (drawNum * (X_ELEMENT_SIZE+X_SPACE)) + X_SPACE;
-		drawSize[1] = Y_ELEMENT_SIZE + (2*Y_SPACE);
-		return drawSize;
-	}
+    /**
+     * 指定された位置に描画する矩形の情報を取得します。
+     * @param int index 配列上の位置
+     * @return int[] int[4]の配列 順にキャンバス上の X座標・Y座標・幅・高さ
+     */
+    private Rectangle getAgentRectSize(AgentDescriptor desc, int index) {
+        final Dimension size = getSize();
+        final int hCount = Math.max((size.width - X_SPACE) / (X_ELEMENT_SIZE + X_SPACE), 1);
+        final int x = index % hCount, y = index / hCount;
+        return new Rectangle(
+            X_SPACE + x * (X_ELEMENT_SIZE + X_SPACE),
+            Y_SPACE + y * (Y_ELEMENT_SIZE + Y_SPACE),
+            X_ELEMENT_SIZE,
+            Y_ELEMENT_SIZE
+        );
+    }
 
-	/**
-	 * 描画する要素数を取得します。
-	 * @return int 描画する要素数
-	 */
-	private int getDrawNum() {
-		return agents.length;
-	}
-
+    /**
+     * 描画に必要なサイズを取得します。
+     * @return int[] [0]幅  [1]高さ
+     */
+    @Override
+    public Dimension getPreferredSize() {
+        return preferredSize;
+    }
 }
 
 

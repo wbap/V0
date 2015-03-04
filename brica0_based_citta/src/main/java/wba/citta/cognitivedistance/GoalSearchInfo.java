@@ -6,8 +6,6 @@
  */
 package wba.citta.cognitivedistance;
 
-import java.util.*;
-
 /**
  * ゴール探索時の情報を管理するクラスです。
  */

@@ -63,9 +63,9 @@ public class CDViewer {
 	 * @param LinkedList[] currentSubgoalList 現在の層のサブゴールに属する状態
 	 * @param LinkedList[]
 	 */
-	public void setSegmentInfo(LinkedList[] currentStateList, 
-	        LinkedList[] goalStateList, LinkedList[] upperSubgoalList,
-	        LinkedList[] currentSubgoalList, LinkedList[] optionList) {
+	public void setSegmentInfo(List<List<Integer>>[] currentStateList, 
+	        List<List<Integer>>[] goalStateList, List<List<Integer>>[] upperSubgoalList,
+	        List<List<Integer>>[] currentSubgoalList, List<List<Integer>>[] optionList) {
 		/* 対応する層のフレームに状態のリストを設定 */
 		for(int i = 0; i < layerNum; i++) {
 			frame[i].setSegmentInfo(currentStateList[i], goalStateList[i],
