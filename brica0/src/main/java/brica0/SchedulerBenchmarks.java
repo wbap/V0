@@ -1,8 +1,5 @@
 package brica0;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Arrays;
 
 public class SchedulerBenchmarks {
