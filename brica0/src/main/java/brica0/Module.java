@@ -19,6 +19,9 @@ public abstract class Module {
     protected double lastOutputTime;
     protected double interval;
 
+    protected Callback inputCallback;
+    protected Callback outputCallback;
+
     // Input / output ports of this module.
     // in ports and out ports are updated automatically.
     // Users instead should work on state and results below.
@@ -36,12 +39,19 @@ public abstract class Module {
 
     protected ArrayList<Connection> connections;
 
+    protected HashMap<String, Module> subModules;
+
     public Module() {
         lastInputTime = 0.0;
         lastOutputTime = 0.0;
         interval = 1.0;
-        
+
+        inputCallback = new VoidCallback();
+        outputCallback = new VoidCallback();
+
         connections = new ArrayList<Connection>();
+
+        subModules = new HashMap<String, Module>();
 
         // prepare buffer 0 and 1 for output double buffering
         buffer0 = new HashMap<String, short[]>();
@@ -251,11 +261,61 @@ public abstract class Module {
     }
 
     /**
+     * Add a <tt>sub-module</tt> to this <tt>Module</tt>.
+     *
+     * @param id
+     *            a string ID for the sub-module
+     * @param module
+     */
+    public void addSubModule(String id, Module module) {
+        subModules.put(id, module);
+    }
+
+    /**
+     * Get a sub-module
+     * 
+     * @param id
+     *            a string ID of the sub-module.
+     * @return a Module
+     */
+    public Module getSubModule(String id) {
+        return subModules.get(id);
+    }
+
+    /**
+     * Get all sub-modules
+     * 
+     * @return a Module
+     */
+    public ArrayList<Module> getAllSubModules() {
+        return new ArrayList<Module>(subModules.values());
+    }
+
+    /**
+     * Register a callback executed before input collection
+     *
+     * @param callback
+     */
+    public void registerInputCallback(Callback callback) {
+        inputCallback = callback;
+    }
+
+    /**
+     * Register a callback executed before output buffering
+     *
+     * @param callback
+     */
+    public void registerOutputCallback(Callback callback) {
+        outputCallback = callback;
+    }
+
+    /**
      * Obtain inputs from outputs of other Modules.
      * 
      * Usually called by scheduler.
      */
     public void input(double time) {
+        inputCallback.invoke(this, new Object());
         for (Connection c : connections) {
             updateInPort(c);
         }
@@ -281,7 +341,8 @@ public abstract class Module {
         tmp = outPorts;
         outPorts = results;
         results = tmp;
-        
+
+        outputCallback.invoke(this, new Object());
         assert lastOutputTime <= time;
         lastOutputTime = time;
     }

@@ -29,9 +29,9 @@ public class VirtualTimeSyncSchedulerTest {
 
         Module m = new NullModule();
 
-        ca.addModule("M1", m);
+        ca.addSubModule("M1", m);
 
-        Module mm = ca.getModule("M1");
+        Module mm = ca.getSubModule("M1");
         assertSame("failed to get module from ca.", m, mm);
     }
 
@@ -46,12 +46,12 @@ public class VirtualTimeSyncSchedulerTest {
         short[] setout = { 0, 1, 2 };
 
         cm.setState("out1", setout);
-        ca.addModule("M1", cm);
+        ca.addSubModule("M1", cm);
 
         double t = ca.step();
         assertEquals("wrong time after one step.", 1.0, t, 1e-18);
 
-        Module mm = ca.getModule("M1");
+        Module mm = ca.getSubModule("M1");
         assertSame("failed to get module from ca.", cm, mm);
 
         assertTrue(Arrays.equals(setout, mm.getOutPort("out1")));
@@ -95,9 +95,9 @@ public class VirtualTimeSyncSchedulerTest {
         Scheduler s = new VirtualTimeSyncScheduler(1.0);
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
-        ca.addModule("A", A);
-        ca.addModule("B", B);
-        ca.addModule("C", C);
+        ca.addSubModule("A", A);
+        ca.addSubModule("B", B);
+        ca.addSubModule("C", C);
 
         // initially everything is [0,0,0].
         assertTrue(Arrays.equals(zero, A.getOutPort("out1")));

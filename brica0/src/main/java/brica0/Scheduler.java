@@ -27,7 +27,7 @@ public abstract class Scheduler {
     }
 
     public void update(CognitiveArchitecture ca) {
-        modules = new ArrayList<Module>(ca.modules.values());
+        modules = ca.getAllSubModules();
     }
 
     public abstract double step();

@@ -28,9 +28,9 @@ public class VirtualTimeSchedulerTest {
         M2.setInterval(3.0);
         M3.setInterval(5.0);
         
-        ca.addModule("M1", M1);
-        ca.addModule("M2", M2);
-        ca.addModule("M3", M3);
+        ca.addSubModule("M1", M1);
+        ca.addSubModule("M2", M2);
+        ca.addSubModule("M3", M3);
 
         double t;
 
@@ -88,9 +88,9 @@ public class VirtualTimeSchedulerTest {
         Scheduler s = new VirtualTimeScheduler();
         CognitiveArchitecture ca = new CognitiveArchitecture(s);
 
-        ca.addModule("A", A);
-        ca.addModule("B", B);
-        ca.addModule("C", C);
+        ca.addSubModule("A", A);
+        ca.addSubModule("B", B);
+        ca.addSubModule("C", C);
 
         // initially everything is [0,0,0].
         assertArrayEquals(zero, A.getOutPort("out1"));

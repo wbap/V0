@@ -63,9 +63,9 @@ public class SchedulerBenchmarks {
 
         Module m = new NullModule();
 
-        ca.addModule("M1", m);
+        ca.addSubModule("M1", m);
 
-        Module mm = ca.getModule("M1");
+        Module mm = ca.getSubModule("M1");
 
         long startTime = System.currentTimeMillis();
         
@@ -96,8 +96,8 @@ public class SchedulerBenchmarks {
             
         M2.connect(M1, "out1", "in1"); // connection from B:out1 to C:in1
 
-        ca.addModule("M1", M1);
-        ca.addModule("M2", M2);
+        ca.addSubModule("M1", M1);
+        ca.addSubModule("M2", M2);
         
         long startTime = System.currentTimeMillis();
         
