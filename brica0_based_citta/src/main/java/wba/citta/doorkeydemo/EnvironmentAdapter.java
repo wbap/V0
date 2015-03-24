@@ -7,6 +7,7 @@
 package wba.citta.doorkeydemo;
 
 import wba.citta.doorkeydemo.environment.*;
+import wba.citta.gsa.Goal;
 
 import java.io.IOException;
 import java.util.*;
@@ -60,9 +61,9 @@ public class EnvironmentAdapter {
      * @param int action 
      * @return Vector 
      */
-    public List<Integer> move(int action) {
+    public Goal move(int action) {
 
-        if(action == -1) {
+        if (action == 1) {
             /*  */
             Integer integer = getInitAction();
             if(integer != null) {
@@ -110,9 +111,9 @@ public class EnvironmentAdapter {
      * @param int action 
      * @return Vector 
      */
-    private List<Integer> getState(int action) {
+    private Goal getState(int action) {
         final int[] xystate = environment.getXYState();
-        return Arrays.asList(
+        return new Goal(
             xystate[0],
             xystate[1],
             action,
@@ -148,7 +149,7 @@ public class EnvironmentAdapter {
      */
     private int getRandomAction() {
         /*  */
-        int randomNum = randomMoveAction.nextInt(4)*2;
+        int randomNum = randomMoveAction.nextInt(4)*2 + 2;
         return randomNum;
     }
 

@@ -27,7 +27,7 @@ public class FailAgentTree {
      * @param boolean isShowViewer ツリーの状態をグラフィック表示するか
      */
     public FailAgentTree() {
-        rootElement = new FailAgentTreeElement(null, -1, null, Agent.Status.AGR_SUCCESS);
+        rootElement = new FailAgentTreeElement(null, -1, null, IGSAAgent.Status.AGR_SUCCESS);
         currentElement = rootElement;
     }
 
@@ -45,7 +45,7 @@ public class FailAgentTree {
      */
     public void addTreeNode(int agid, List<Integer> goal) {
         FailAgentTreeElement newFailAgentTreeElement
-                = new FailAgentTreeElement(currentElement, agid, goal, Agent.Status.AGR_SUCCESS);
+                = new FailAgentTreeElement(currentElement, agid, goal, IGSAAgent.Status.AGR_SUCCESS);
         currentElement.addNext(newFailAgentTreeElement);
         currentElement = newFailAgentTreeElement;
         changeEventListeners.fire("treeChanged", new FailAgentTreeEvent(this));
@@ -58,10 +58,10 @@ public class FailAgentTree {
      * @param int agid エージェントのID
      * @param int agr 実行処理の結果を表すID
      */
-    public void addTreeNode(int agid, Agent.Status agr) {
+    public void addTreeNode(int agid, AbstractGSAAgent.Status agr) {
         /* ルートには失敗エージェントを追加しない */
         if(currentElement != rootElement) {
-            if (getChildAgr(agid) == Agent.Status.NONE) {
+            if (getChildAgr(agid) == IGSAAgent.Status.NONE) {
                 FailAgentTreeElement newFailAgentTreeElement
                        = new FailAgentTreeElement(currentElement, agid, null, agr);
                 currentElement.addNext(newFailAgentTreeElement);
@@ -96,11 +96,11 @@ public class FailAgentTree {
      * @param int agid エージェントのID
      * @return int 実行処理結果を表すID
      */
-    public Agent.Status getChildAgr(int agid) {
+    public AbstractGSAAgent.Status getChildAgr(int agid) {
         if(currentElement != null) {
             return currentElement.getChildAgr(agid);
         }      
-        return Agent.Status.NONE;
+        return IGSAAgent.Status.NONE;
     }
 
     /**

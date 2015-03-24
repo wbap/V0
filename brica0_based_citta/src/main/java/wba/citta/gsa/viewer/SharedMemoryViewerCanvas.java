@@ -34,7 +34,7 @@ public class SharedMemoryViewerCanvas extends JPanel {
     /* 現在の状態への参照 */
     private Integer[] stateArray;
     /* ゴールスタックへの参照 */
-    private List<SharedMemory.GoalStackElement>[] goalStackArray;
+    private List<IGoalStack.GoalStackElement>[] goalStackArray;
 
     /* 左右の間隔 */
     private final int X_SPACE = 40;
@@ -84,19 +84,19 @@ public class SharedMemoryViewerCanvas extends JPanel {
         });
     }
 
-    public void snapshot(SharedMemory sharedMemory) {
+    public void snapshot(ISharedMemory sharedMemory) {
         final int size = sharedMemory.getSize();
         Integer[] stateArray;
         {
-            final SharedMemory.Latch latch = sharedMemory.getLatch();
+            final ILatch latch = sharedMemory.getLatch();
             stateArray = (Integer[])latch.getState().toArray();
         }
         @SuppressWarnings("unchecked")
-        List<SharedMemory.GoalStackElement>[] goalStackArray = new List[size];
+        List<IGoalStack.GoalStackElement>[] goalStackArray = new List[size];
         {
-            final SharedMemory.GoalStack goalStack = sharedMemory.getGoalStack();
+            final IGoalStack goalStack = sharedMemory.getGoalStack();
             for (int i = 0; i < size; i++) {
-                goalStackArray[i] = new ArrayList<SharedMemory.GoalStackElement>(goalStack.getGoalStackForNode(i));
+                goalStackArray[i] = new ArrayList<IGoalStack.GoalStackElement>(goalStack.getGoalStackForNode(i));
             }
         }
         this.stateArray = stateArray;
@@ -227,8 +227,8 @@ public class SharedMemoryViewerCanvas extends JPanel {
      */
     private void drawStack(Graphics graphics, int nodeIndex) {
         for(int i = 0; i < goalStackArray[nodeIndex].size(); i++) {
-            SharedMemory.GoalStackElement element
-                    = (SharedMemory.GoalStackElement)goalStackArray[nodeIndex].get(i);
+            IGoalStack.GoalStackElement element
+                    = (IGoalStack.GoalStackElement)goalStackArray[nodeIndex].get(i);
             drawStackElement(graphics, nodeIndex, i, element);
         }
     }
@@ -241,7 +241,7 @@ public class SharedMemoryViewerCanvas extends JPanel {
      * @param SharedMemory.GoalStackElement element 描画する要素
      */
     private void drawStackElement(Graphics graphics, int x, int y,
-            SharedMemory.GoalStackElement element) {
+            IGoalStack.GoalStackElement element) {
 
         String value = Integer.toString(element.value);
         String agid = Integer.toString(element.agid);

@@ -6,18 +6,21 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GSAIteration {
+public class GSAIteration implements IGSAIteration {
     final Logger logger = LoggerFactory.getLogger(GSAIteration.class);
     final GSA gsa;
 
     /** エージェント実行ポリシー */
     final AgentExecutionStrategy.Context strategyContext;
 
+    /** 対象エージェント */
+    final List<IGSAAgent> agents;   
+
     /** まだ実行されていないエージェント */
-    final List<Agent> unusedAgents;
+    final List<IGSAAgent> unusedAgents;
     
     /** 実行されたエージェント */
-    final List<Agent> usedAgents;
+    final List<IGSAAgent> usedAgents;
 
     /** 実行結果 */
     List<Integer> result;
@@ -25,15 +28,21 @@ public class GSAIteration {
     public GSAIteration(GSA gsa) {
         this.gsa = gsa;
         strategyContext = gsa.agentExecutionStrategy.createContext(this);
-        unusedAgents = new LinkedList<Agent>(gsa.agents);
-        usedAgents = new LinkedList<Agent>();
+        agents = gsa.getGSAAgents();
+        unusedAgents = new LinkedList<IGSAAgent>(agents);
+        usedAgents = new LinkedList<IGSAAgent>();
     }
 
-    public List<Agent> getUnusedAgents() {
+    @Override
+    public List<IGSAAgent> getAgents() {
+        return agents;
+    }
+
+    public List<IGSAAgent> getUnusedAgents() {
         return unusedAgents;
     }
 
-    public List<Agent> getUsedAgents() {
+    public List<IGSAAgent> getUsedAgents() {
         return usedAgents;
     }
 
@@ -41,29 +50,30 @@ public class GSAIteration {
         return gsa;
     }
 
+    /* (non-Javadoc)
+     * @see wba.citta.gsa.IGSAIteration#tryNext()
+     */
     public boolean tryNext() {
-        final Agent agent = strategyContext.nextAgent();
+        final IGSAAgent agent = strategyContext.nextAgent();
         assert usedAgents.indexOf(agent) < 0;
         usedAgents.add(agent);
         unusedAgents.remove(agent);
         /* エージェントの実行処理 */
         /* このエージェントがすでに失敗済みなら実行処理を行なわない */
         gsa.agentEventListeners.fire("agentBeingExecuted", new GSAAgentEvent(gsa, agent));
-        Agent.Status status = Agent.Status.NONE;
-        if (gsa.failAgentTree.getChildAgr(agent.getId()) != Agent.Status.NONE) {
-            status = Agent.Status.AGR_FAIL_AGENT;
+        AbstractGSAAgent.Status status = IGSAAgent.Status.NONE;
+        if (gsa.failAgentTree.getChildAgr(agent.getId()) != IGSAAgent.Status.NONE) {
+            status = IGSAAgent.Status.AGR_FAIL_AGENT;
             logger.trace("{} already failed in this cycle", agent);
         } else {
             status = agent.exec();
-            logger.trace("{} => {}", agent, status);
+            logger.info("{} => {}", agent, status);
         }
         gsa.agentEventListeners.fire("agentExecuted", new GSAAgentEvent(gsa, agent, status));
 
-        if (status == Agent.Status.AGR_SUCCESS) {
+        if (status == IGSAAgent.Status.AGR_SUCCESS) {
             /* ゴールをツリーに設定 */
-            final List<SharedMemory.GoalStackElement> agentGoalElementArray = agent.getSelfSetGoalElementArray();
-            final List<Integer> agentGoalValueArray = agent.getGoalValueArray(agentGoalElementArray);
-            gsa.failAgentTree.addTreeNode(agent.getId(), agentGoalValueArray);
+            gsa.failAgentTree.addTreeNode(agent.getId(), agent.getLastSubgoal());
 
             return false;
         } else {

@@ -16,63 +16,84 @@ import wba.citta.util.EventPublisherSupport;
  * 共有メモリへの操作は、基本的にメソッドの引数で指定されたindexの要素ごとに
  * 行ないます。
  */
-public class SharedMemory {   
-    public class GoalStack {
-        public LinkedList<GoalStackElement>[] goalStackArray;
+public class SharedMemory implements IListenableSharedMemory {   
+    private class GoalStack implements IGoalStack {
+        public LinkedList<IGoalStack.GoalStackElement>[] goalStackArray;
 
         @SuppressWarnings("unchecked")
         public GoalStack(int size) {
             goalStackArray = new LinkedList[size];
             for(int i = 0; i < size; i++) {
-                goalStackArray[i] = new LinkedList<GoalStackElement>();
+                goalStackArray[i] = new LinkedList<IGoalStack.GoalStackElement>();
             }
         }
 
-        /**
-         * 現在のゴールスタックを取得します
+        /* (non-Javadoc)
+         * @see wba.citta.gsa.IGoalStack#getGoalStackForNode(int)
          */
-        public List<GoalStackElement> getGoalStackForNode(int i) {
+        @Override
+        public List<IGoalStack.GoalStackElement> getGoalStackForNode(int i) {
             return Collections.unmodifiableList(goalStackArray[i]);
         }
 
-        /**
-         * Goalの指定された位置(ノード)の値をスタックからGETで取得します。
-         * @param int index
-         * @return GoalStackElement  ゴールの要素
+        /* (non-Javadoc)
+         * @see wba.citta.gsa.IGoalStack#getGoalForNode(int)
          */
-        public GoalStackElement getGoalForNode(int index) {
-            GoalStackElement elm = null;
+        @Override
+        public IGoalStack.GoalStackElement getGoalForNode(int index) {
+            IGoalStack.GoalStackElement elm = null;
             if (goalStackArray[index].size() > 0) {
-                elm = (GoalStackElement)goalStackArray[index].getLast();
+                elm = (IGoalStack.GoalStackElement)goalStackArray[index].getLast();
             }
             return elm;
         }
 
-        /**
-         * 指定されたゴールの要素をGoalの指定された位置(ノード)のスタックにPUSHで
-         * 設定します。       
-         * @param int index
-         * @param GoalStackElement elm ゴールの要素
+        /* (non-Javadoc)
+         * @see wba.citta.gsa.IGoalStack#pushGoal(int, wba.citta.gsa.SharedMemory.GoalStackElement)
          */
-        public void pushGoal(int index, GoalStackElement elm) {
-            goalStackArray[index].add(elm);
+        @Override
+        public void pushGoal(int agid, boolean[] useNode, State state) {
+            if (useNode.length != goalStackArray.length)
+                throw new IllegalArgumentException();
+            for(int i = 0, j = 0; i < goalStackArray.length; i++) {
+                if (useNode[i]) {
+                    final Integer value = state.get(j);
+                    goalStackArray[i].add(new IGoalStack.GoalStackElement(agid, value));
+                    j++;
+                }
+            }
             fireSharedMemoryChanged();
         }
 
-        /**
-         * Goalの指定された位置(ノード)の値をスタックから削除します。
-         * @param index 
+        /* (non-Javadoc)
+         * @see wba.citta.gsa.IGoalStack#removeGoal(int, int)
          */
-        public void removeGoal(int index, int agid) {
-            if (goalStack.goalStackArray[index].getLast().agid != agid)
-                throw new GSAException("WTF?");
-            goalStackArray[index].removeLast();
+        @Override
+        public boolean removeGoal(int agid, boolean[] useNode) {
+            if (useNode.length != goalStackArray.length)
+                throw new IllegalArgumentException();
+            for (int i = 0; i < goalStackArray.length; i++) {
+                if (useNode[i]) {
+                    if (goalStackArray[i].size() == 0)
+                        return false;
+                    final IGoalStack.GoalStackElement last = goalStackArray[i].getLast();
+                    if (last == null || last.agid != agid)
+                        return false;
+                }
+            }
+            for (int i = 0; i < goalStackArray.length; i++) {
+                if (useNode[i]) {
+                    goalStackArray[i].removeLast();
+                }
+            }
             fireSharedMemoryChanged();
+            return true;
         }
 
-        /**
-         * Goalの要素を全てクリアします。
+        /* (non-Javadoc)
+         * @see wba.citta.gsa.IGoalStack#removeAllGoal()
          */
+        @Override
         public void removeAllGoal() {
             for(int i = 0; i < size; i++) {
                 goalStack.goalStackArray[i].clear();
@@ -80,14 +101,14 @@ public class SharedMemory {
             fireSharedMemoryChanged();
         }
 
-        /**
-         * 全ノードのゴールをVectorで取得します。
-         * @param Vector GoalValueのVector
+        /* (non-Javadoc)
+         * @see wba.citta.gsa.IGoalStack#getGoalValueArray()
          */
-        public List<Integer> getGoalValueArray() {
-            List<Integer> goal = new ArrayList<Integer>();
+        @Override
+        public Goal getGoalValueArray() {
+            Goal goal = new Goal();
             for(int i = 0; i < size; i++) {
-                GoalStackElement goalElement = goalStack.getGoalForNode(i);
+                IGoalStack.GoalStackElement goalElement = goalStack.getGoalForNode(i);
                 if(goalElement != null) {
                     goal.add(goalElement.value);
                 }else {
@@ -96,73 +117,61 @@ public class SharedMemory {
             }
             return goal;
         }
+
+        @Override
+        public State getCurrentGoal(int agid, boolean[] useNode) {
+            if (goalStackArray.length != useNode.length)
+                throw new IllegalArgumentException();
+            int useNodeCount = 0;
+            for (int i = 0; i < useNode.length; i++) {
+                if (useNode[i])
+                    useNodeCount++;
+            }
+            State retval = new State(useNodeCount);
+            for (int i = 0, j = 0; i < goalStackArray.length; i++) {
+                if (useNode[i]) {
+                    IGoalStack.GoalStackElement e = getGoalForNode(i);
+                    retval.set(j, e != null ? e.value: null);
+                    j++;
+                }
+            }
+            return retval;
+        }
     }
 
-    public class Latch {
-        public Integer[] stateArray;
+    private class Latch implements ILatch {
+        public Goal stateArray;
 
         public Latch(int size) {
-            this.stateArray = new Integer[size];
+            this.stateArray = new Goal(size);
         }
 
-        /**
-         * Stateの指定された位置(ノード)の値を取得します。
-         * @param int index 
-         * @return Integer  
+        /* (non-Javadoc)
+         * @see wba.citta.gsa.ILatch#getState()
          */
-        public List<Integer> getState() {
-            return Collections.unmodifiableList(Arrays.asList(stateArray));
+        @Override
+        public Goal getState() {
+            return (Goal)stateArray.clone();
         }
 
-        /**
-         * 現在の状態をVectorで設定します。
-         * @param Vector state 現在の状態
+        @Override
+        public State getState(boolean[] useNode) {
+            return new State(stateArray, useNode); 
+        }
+
+        /* (non-Javadoc)
+         * @see wba.citta.gsa.ILatch#setState(java.util.List)
          */
-        public void setState(List<Integer> state) {
-            assert state.size() == stateArray.length;
+        @Override
+        public void setState(Goal state) {
+            assert state.size() == stateArray.size();
             for(int i = 0; i < size; i++) {
-                latch.stateArray[i] = state.get(i);
+                stateArray.set(i, state.get(i));
             }
             fireSharedMemoryChanged();
         }
     }
 
-    /**
-     * 共有メモリで扱うゴールの情報の単位
-     */
-    public static class GoalStackElement {
-        /**
-         * ゴールの値
-         */
-        public final int value;
-    
-        /**
-         * ゴールを設定したエージェントID
-         */
-        public final int agid;
-    
-        /**
-         * コンストラクタ
-         * @param int value ゴールの値
-         * @param int agid  設定したエージェントのID
-         */
-        public GoalStackElement(int value, int agid) {
-            this.value = value;
-            this.agid = agid;
-        }
-    
-        /**
-         * ゴールの情報を表示します。
-         * @return String ゴールの情報<BR>
-         * 表示形式  val:21 id:701
-         */
-        public String toString() {
-            String str = "val:" + value + " id:" + agid;
-                return str;
-        }
-    
-    }
-    
     private Latch latch;
 
     private GoalStack goalStack;
@@ -185,29 +194,50 @@ public class SharedMemory {
         this.goalStack = new GoalStack(size);
     }
 
-    public GoalStack getGoalStack() {
+    /* (non-Javadoc)
+     * @see wba.citta.gsa.ISharedMemory#getGoalStack()
+     */
+    @Override
+    public IGoalStack getGoalStack() {
         return goalStack;
     }
 
-    public Latch getLatch() {
+    /* (non-Javadoc)
+     * @see wba.citta.gsa.ISharedMemory#getLatch()
+     */
+    @Override
+    public ILatch getLatch() {
         return latch;
     }
 
-    /**
-     * ゴールスタックの数を返します
+    /* (non-Javadoc)
+     * @see wba.citta.gsa.ISharedMemory#getSize()
      */
+    @Override
     public int getSize() {
         return size;
     }
 
+    /* (non-Javadoc)
+     * @see wba.citta.gsa.ISharedMemory#addChangeListener(wba.citta.gsa.SharedMemoryEventListener)
+     */
+    @Override
     public void addChangeListener(SharedMemoryEventListener listener) {
         changeListeners.addEventListener(listener);
     }
 
+    /* (non-Javadoc)
+     * @see wba.citta.gsa.ISharedMemory#removeChangeListener(wba.citta.gsa.SharedMemoryEventListener)
+     */
+    @Override
     public void removeChangeListener(SharedMemoryEventListener listener) {
         changeListeners.removeEventListener(listener);
     }
-    
+
+    public void bind(GSAAgentEventSource gsa) {
+        // do nothing
+    }
+
     protected void fireSharedMemoryChanged() {
         changeListeners.fire("sharedMemoryChanged", new SharedMemoryEvent(this));
     }

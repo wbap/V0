@@ -15,9 +15,12 @@ public class GSAFactory {
     int nodeNum;
     List<AgentInfo> agentInfoList;
     boolean useMana;
-    
+    SharedMemoryFactory sharedMemoryFactory = new DefaultSharedMemoryFactory();
     AgentExecutionStrategy agentExecutionStrategy = new RandomExecutionStrategy();
+    AgentFactory agentFactory = new DefaultAgentFactory();
+    
     final EventPublisherSupport<GSAFactoryEvent, GSAFactoryEventListener> gsaFactoryEventListeners = new EventPublisherSupport<>(GSAFactoryEvent.class, GSAFactoryEventListener.class);
+
     public void populateWithGSAProperty(GSAProperty props) {
         nodeNum = props.getNodeNum();
         agentInfoList = new ArrayList<AgentInfo>();
@@ -33,9 +36,10 @@ public class GSAFactory {
     }
 
     public GSA createGSA() throws IOException {
-        final SharedMemory sharedMemory = new SharedMemory(nodeNum);
+        final List<AgentInfo> agentInfoList = Collections.unmodifiableList(this.agentInfoList);
+        final ISharedMemory sharedMemory = sharedMemoryFactory.createInstance(nodeNum, agentInfoList);
         final FailAgentTree failAgentTree = new FailAgentTree();
-        final GSA gsa = new GSA(Collections.unmodifiableList(agentInfoList), sharedMemory, failAgentTree, agentExecutionStrategy);
+        final GSA gsa = new GSA(agentFactory, agentInfoList, sharedMemory, failAgentTree, agentExecutionStrategy);
         gsaFactoryEventListeners.fire("gsaCreated", new GSAFactoryEvent(this, gsa));
         return gsa;
     }
@@ -62,5 +66,22 @@ public class GSAFactory {
 
     public void removeGSAFactoryEventListener(GSAFactoryEventListener listener) {
         gsaFactoryEventListeners.removeEventListener(listener);
+    }
+
+    public SharedMemoryFactory getSharedMemoryFactory() {
+        return sharedMemoryFactory;
+    }
+
+    public void setSharedMemoryFactory(SharedMemoryFactory sharedMemoryFactory) {
+        this.sharedMemoryFactory = sharedMemoryFactory;
+    }
+
+    public AgentExecutionStrategy getAgentExecutionStrategy() {
+        return agentExecutionStrategy;
+    }
+
+    public void setAgentExecutionStrategy(
+            AgentExecutionStrategy agentExecutionStrategy) {
+        this.agentExecutionStrategy = agentExecutionStrategy;
     }
 }

@@ -7,12 +7,11 @@
 package wba.citta.gsa;
 
 import java.io.*;
-import java.util.*;
 
 /**
  * ログを読み込み、ログの情報で動作するエージェント
  */
-public class LogAgent extends Agent {
+public class LogAgent extends AbstractGSAAgent {
 
     private final String LOG_FILE_NAME = "AgentLog_";
 
@@ -22,10 +21,10 @@ public class LogAgent extends Agent {
     /**
      * コンストラクタ
      * @param int agid  エージェントID
-     * @param SharedMemory sharedMemory  state・goalを管理する共有メモリ
+     * @param EngineeredSharedMemory sharedMemory  state・goalを管理する共有メモリ
      * @param boolean[] useNode  ノードの使用、不使用を設定した配列
      */
-    public LogAgent(int agid, boolean[] useNode, SharedMemory sharedMemory) {
+    public LogAgent(int agid, boolean[] useNode, ISharedMemory sharedMemory) {
         super(agid, useNode, sharedMemory);
 
         /* ログの読み込みストリーム生成 */
@@ -47,7 +46,7 @@ public class LogAgent extends Agent {
     /**
      * Agentクラスを継承して作成しているため、形式的に実装<BR>
      */
-    public void learn(List<Integer> state, boolean flagGoalReach, double profit) {
+    public void learn(State state, boolean flagGoalReach, double profit) {
     }
 
     /**
@@ -58,12 +57,11 @@ public class LogAgent extends Agent {
      * @param Vector goalElementArray SharedMemory.GoalStackElementのVector
      * @return Vector サブゴール
      */
-    @SuppressWarnings("unchecked")
-    public List<Integer> execProcess(List<Integer> state, List<SharedMemory.GoalStackElement> goalElement) {
+    public State execProcess(State state, State goalElement) {
         /* ログの読み込み 出力 */
-        List<Integer> nextState = null;
+        State nextState = null;
         try{
-            nextState = (List<Integer>)objectInputStream.readObject();
+            nextState = (State)objectInputStream.readObject();
         } catch (IOException e) {
             throw new GSAException(e);
         } catch (ClassNotFoundException e){

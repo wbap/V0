@@ -2,6 +2,8 @@ package wba.rogue;
 
 import java.io.*;
 
+import wba.citta.gsa.Goal;
+
 public class test { 
     final static int NUMCOLS = 80;
     final static int NUMLINES = 24;
@@ -12,7 +14,7 @@ public class test {
         Rogue rogue = new Rogue(new Coord(NUMCOLS, NUMLINES), MAXROOMS, rng, true);
         Avatar player = new Avatar(rogue);
 
-        int[] goal = player.getVisibleGoal();
+        Goal goal = player.getVisibleGoal();
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String s = "4";
@@ -24,7 +26,7 @@ public class test {
             } finally {
                 char[] charArray = s.toCharArray();
 
-                int[] state;
+                Goal state;
                 int direction = 4;
 
                 if(charArray.length > 0) {
@@ -60,10 +62,10 @@ public class test {
         } while(s != null);
     }
 
-    public static void printState(int[] state) {
+    public static void printState(Goal state) {
         int i;
         for(i = 0; i < 80 * 24; ++i) {
-            System.err.print((char)state[i]);
+            System.err.print((char)(int)state.get(i));
             if((i + 1) % 80 == 0) {
                 System.err.println("");
             }

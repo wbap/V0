@@ -11,11 +11,11 @@ import java.util.*;
 /**
  * 手動で動作するエージェント
  */
-public class ManualAgent extends Agent {
+public class ManualAgent extends AbstractGSAAgent {
 
     private ManualAgentFrame manualAgentFrame = null;
 
-    private SharedMemory sharedMemory = null;
+    private ISharedMemory sharedMemory = null;
     private boolean[] useNode = null;
 
     /* このクラスから出力したサブゴールのリスト */
@@ -25,9 +25,9 @@ public class ManualAgent extends Agent {
      * コンストラクタ
      * @param int agid  エージェントID
      * @param boolean[] useNode  ノードの使用、不使用を設定した配列
-     * @param SharedMemory sharedMemory  state・goalを管理する共有メモリ
+     * @param EngineeredSharedMemory sharedMemory  state・goalを管理する共有メモリ
      */
-    public ManualAgent(int agid, boolean[] useNode, SharedMemory sharedMemory) {
+    public ManualAgent(int agid, boolean[] useNode, ISharedMemory sharedMemory) {
         super(agid, useNode, sharedMemory);
 
 
@@ -52,8 +52,8 @@ public class ManualAgent extends Agent {
      * @param Vector goalElementArray SharedMemory.GoalStackElementのVector
      * @return Vector サブゴール
      */
-    public List<Integer> execProcess(List<Integer> state, List<SharedMemory.GoalStackElement> goalElement) {
-        List<Integer> v = manualAgentFrame.getSubgoal();
+    public State execProcess(State state, State goalElement) {
+        State v = manualAgentFrame.getSubgoal();
 
         if(v != null) {
             subgoalList.add(v);
@@ -66,7 +66,7 @@ public class ManualAgent extends Agent {
     /**
      * Agentクラスを継承して作成しているため、形式的に実装<BR>
      */
-    public void learn(List<Integer> state, boolean flagGoalReach, double profit) {
+    public void learn(State state, boolean flagGoalReach, double profit) {
     }
 
     /**
@@ -104,15 +104,14 @@ public class ManualAgent extends Agent {
      * し、処理内容を変えている。
      * @return boolean 到達した場合true 
      */
-// 部分ゴールの判定のため、実際にスタックに出力したゴールと異なる場合でも、
-// null以外の要素が同じであれば、到達とみなし削除してしまう。
-// 対応方法：出力したサブゴールをリストで保持するようにし、保持してあるサブ
-// ゴールとの一致を判定するようにする。
     public boolean removeReachGoal() {
+        // 部分ゴールの判定のため、実際にスタックに出力したゴールと異なる場合でも、
+        // null以外の要素が同じであれば、到達とみなし削除してしまう。
+        // 対応方法：出力したサブゴールをリストで保持するようにし、保持してあるサブ
+        // ゴールとの一致を判定するようにする。
         List<Integer> state = getState();
 
-        List<SharedMemory.GoalStackElement> selfSetGoalElementArray = getSelfSetGoalElementArray();
-        List<Integer> selfSetGoalValueArray = getGoalValueArray(selfSetGoalElementArray);
+        State selfSetGoalValueArray = sharedMemory.getGoalStack().getCurrentGoal(id, useNode);
 
         if (subgoalList.size() > 0) {
             List<Integer> lastSetSubgoal = subgoalList.get(subgoalList.size() - 1);
@@ -121,7 +120,9 @@ public class ManualAgent extends Agent {
             if( lastSetSubgoal.equals(selfSetGoalValueArray) ) {
                 if( Util.equalsValidElement(state, selfSetGoalValueArray) ) {
                     /* 削除も自己設定部分のみ行う */
-                    removeGoal(selfSetGoalValueArray);
+                    if (!sharedMemory.getGoalStack().removeGoal(id, useNode)) {
+                        throw new GSAException(String.format("stack top is not derived from agent %d", id));
+                    }
                     subgoalList.remove(subgoalList.size() - 1);
                     return true;
                 }
@@ -129,24 +130,5 @@ public class ManualAgent extends Agent {
         }
         return false;
     }
-
-    /**
-     * ゴールの削除を行ないます。
-     * 引数で設定されたゴールの有効な要素が設定されているノードのみ
-     * ゴールスタックから削除
-     * @param Vector goal ゴールスタックから削除するゴール
-     */
-    private void removeGoal(List<Integer> goal) {
-        int useNodeIndex = 0;
-        for(int i = 0, s = sharedMemory.getSize(); i < s; i++) {
-            if( useNode[i] == true ) {
-                if(goal.get(useNodeIndex) != null) {
-                    sharedMemory.getGoalStack().removeGoal(i, id);
-                }
-                useNodeIndex++;
-            }
-        }
-    }
-
 }
 

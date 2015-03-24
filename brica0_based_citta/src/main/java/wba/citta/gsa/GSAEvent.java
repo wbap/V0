@@ -5,11 +5,11 @@ import java.util.EventObject;
 public class GSAEvent extends EventObject {
     private static final long serialVersionUID = 1L;
 
-    public GSAEvent(GSA source) {
+    public GSAEvent(GSAAgentEventSource source) {
         super(source);
     }
 
-    public GSA getSource() {
-        return (GSA)source;
+    public GSAAgentEventSource getSource() {
+        return (GSAAgentEventSource)source;
     }
 }

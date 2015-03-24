@@ -25,7 +25,7 @@ import wba.citta.gui.ViewerPanel;
 public class AgentViewer extends JPanel implements GSAAgentEventListener, ViewerPanel {
     private static final long serialVersionUID = 1L;
     private static final Set<String> roles = Collections.singleton("side");
-    private GSA currentGSA;
+    private GSAAgentEventSource currentGSA;
     private JScrollPane scrollPane = null;
     private AgentViewerCanvas canvas = null;
 
@@ -43,12 +43,12 @@ public class AgentViewer extends JPanel implements GSAAgentEventListener, Viewer
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    public synchronized void bind(GSA gsa) {
+    public synchronized void bind(GSAAgentEventSource gsa) {
         if (currentGSA != null) {
             currentGSA.removeAgentEventListener(this); 
         }
         canvas.beginBatchUpdate();
-        for (Agent agent: gsa.getAgents()) {
+        for (IGSAAgent agent: gsa.getGSAAgents()) {
             canvas.addAgent(agent);
         }
         canvas.endBatchUpdate();
@@ -80,7 +80,7 @@ public class AgentViewer extends JPanel implements GSAAgentEventListener, Viewer
 
     @Override
     public String getPreferredTitle() {
-        return "Agent Viewer";
+        return "AbstractGSAAgent Viewer";
     }
 
     public Set<String> getViewerPanelRoles() {

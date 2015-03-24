@@ -8,13 +8,12 @@
 package wba.citta.gsa;
 
 import java.io.*;
-import java.util.*;
 
 /**
  * エージェントの実行処理で出力されるサブゴールを、ログとしてファイルに保存する
  * 処理を追加したAgent
  */
-public abstract class LogOutAgent extends Agent {
+public abstract class LogOutAgent extends AbstractGSAAgent {
 
     private final String LOG_FILE_NAME = "AgentLog_";
 
@@ -26,10 +25,10 @@ public abstract class LogOutAgent extends Agent {
      * コンストラクタ
      * @param int agid  エージェントID
      * @param boolean[] useNode  ノードの使用、不使用を設定した配列
-     * @param SharedMemory sharedMemory  state・goalを管理する共有メモリ
+     * @param EngineeredSharedMemory sharedMemory  state・goalを管理する共有メモリ
      */
     public LogOutAgent(int agid, boolean[] useNode,
-             SharedMemory sharedMemory) {
+             ISharedMemory sharedMemory) {
         super(agid, useNode, sharedMemory);
         initLogFile(agid + ".log");
     }
@@ -66,9 +65,9 @@ public abstract class LogOutAgent extends Agent {
      * @param Vector goalElementArray
      * @return subgoal
      */
-    public List<Integer> exec(List<Integer> state, List<SharedMemory.GoalStackElement> goalElementArray) {
+    public State exec(State state, State goalElementArray) {
 
-        List<Integer> subgoal = execProcess(state, goalElementArray);
+        State subgoal = execProcess(state, goalElementArray);
 
         try {
             objectOutputStream.writeObject(subgoal);

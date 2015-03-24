@@ -253,7 +253,7 @@ public class TreeViewerCanvas extends JPanel {
         Color color = colorTable.get(element.agentId);
 
         /* 各要素の描画 */
-        if (element.agr == Agent.Status.AGR_SUCCESS) {
+        if (element.agr == IGSAAgent.Status.AGR_SUCCESS) {
             if(color != null) {
                 graphics.setColor(color);
                 graphics.fillRect(rectInfo[0], rectInfo[1], rectInfo[2],
@@ -264,9 +264,9 @@ public class TreeViewerCanvas extends JPanel {
                     rectInfo[3]);
 
         } else if (
-                element.agr == Agent.Status.AGR_FAIL_AGENT
-                || element.agr == Agent.Status.AGR_REACH_GOAL
-                || element.agr == Agent.Status.AGR_UNREACH_SUBGOAL) {
+                element.agr == IGSAAgent.Status.AGR_FAIL_AGENT
+                || element.agr == IGSAAgent.Status.AGR_REACH_GOAL
+                || element.agr == IGSAAgent.Status.AGR_UNREACH_SUBGOAL) {
             if(color != null) {
                 graphics.setColor(color);
                 graphics.fillArc(rectInfo[0], rectInfo[1], rectInfo[2],
@@ -280,9 +280,9 @@ public class TreeViewerCanvas extends JPanel {
                     rectInfo[1]+(rectInfo[3]/2));
 
         } else if(
-                element.agr == Agent.Status.AGR_SEARCH_FAIL
-                || element.agr == Agent.Status.AGR_SAME_SUBGOAL
-                || element.agr == Agent.Status.AGR_SAME_GOAL) {
+                element.agr == IGSAAgent.Status.AGR_SEARCH_FAIL
+                || element.agr == IGSAAgent.Status.AGR_SAME_SUBGOAL
+                || element.agr == IGSAAgent.Status.AGR_SAME_GOAL) {
             if(color != null) {
                 graphics.setColor(color);
                 graphics.fillArc(rectInfo[0], rectInfo[1], rectInfo[2],

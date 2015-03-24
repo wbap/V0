@@ -1,7 +1,8 @@
-package wba.citta.gsa;
+package wba.citta.brica0;
 
 import java.util.Random;
 
+import wba.citta.gsa.GSA;
 import brica0.Module;
 
 public class AgentControllerModule extends Module {

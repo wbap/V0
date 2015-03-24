@@ -4,10 +4,10 @@ import java.util.List;
 
 public class SerialExecutionStrategy implements AgentExecutionStrategy {
     static class ContextImpl implements Context {
-        final GSAIteration gsaIteration;
+        final IGSAIteration gsaIteration;
         int sequenceSelectIndex;
     
-        ContextImpl(GSAIteration gsaIteration) {
+        ContextImpl(IGSAIteration gsaIteration) {
             this.gsaIteration = gsaIteration;
             this.sequenceSelectIndex = 0;
         }
@@ -15,19 +15,19 @@ public class SerialExecutionStrategy implements AgentExecutionStrategy {
         /**
          * 実行処理を行なうエージェントを順番に取得します。
          * agents(エージェントの配列)に設定された順に取得。
-         * @param Agent エージェント
+         * @param AbstractGSAAgent エージェント
          */
-        public Agent nextAgent() {
-            final List<Agent> agents = gsaIteration.getGSA().getAgents();
+        public IGSAAgent nextAgent() {
+            final List<IGSAAgent> agents = gsaIteration.getAgents();
             assert sequenceSelectIndex < agents.size();
-            final Agent agent = agents.get(sequenceSelectIndex);
+            final IGSAAgent agent = agents.get(sequenceSelectIndex);
             if (++sequenceSelectIndex >= agents.size())
                 sequenceSelectIndex = 0;
             return agent;
         }
     }
     
-    public Context createContext(GSAIteration gsaIteration) {
+    public Context createContext(IGSAIteration gsaIteration) {
         return new ContextImpl(gsaIteration);
     }
 }

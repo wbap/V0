@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * GSAの本体
  */
-public class GSA {
+public class GSA implements GSAAgentEventSource {
     public final static int AGENT_COUNT = 8;
     public final static int DO_NOTHING = 0;
     public final static int EXEC = 1;
@@ -29,14 +29,16 @@ public class GSA {
     private static final int GOAL_AGID = 0;
  
     /* 外部から設定されたゴール */
-    private List<Integer> target = null;
+    private Goal target = null;
 
     /* ノード数 */
     private int nodeNum;
 
-    // AgentController Module
-    /** エージェントの配列 */
-    List<Agent> agents = null;
+    /** 全エージェントの配列 */
+    List<IAgent> agents = new ArrayList<IAgent>();
+
+    /** GSAエージェントの配列 */
+    List<IGSAAgent> gsaAgents = new ArrayList<IGSAAgent>();
 
     /* 実行エージェントの選択方法 0:配列の順 1:ランダム */
     int agentSelectMode = 1;
@@ -46,11 +48,12 @@ public class GSA {
    
     // SharedMemory Module
     /* State・Goalを管理する共有メモリ */
-    SharedMemory sharedMemory = null;
+    ISharedMemory sharedMemory = null;
 
     AgentExecutionStrategy agentExecutionStrategy;
 
-    EventPublisherSupport<GSAAgentEvent, GSAAgentEventListener> agentEventListeners = new EventPublisherSupport<>(GSAAgentEvent.class, GSAAgentEventListener.class);    
+    EventPublisherSupport<GSAAgentEvent, GSAAgentEventListener> agentEventListeners = new EventPublisherSupport<>(GSAAgentEvent.class, GSAAgentEventListener.class);
+    private AgentFactory agentFactory;    
     
     ////////////////////////////////////////////////////////////////
     // コンストラクタ 初期化メソッド
@@ -59,12 +62,14 @@ public class GSA {
      * コンストラクタ
      * @param String propFileName GSAの設定ファイル名
      */
-    public GSA(List<AgentInfo> agentInfoList, SharedMemory sharedMemory, FailAgentTree failAgentTree, AgentExecutionStrategy agentExecutionStrategy) throws IOException {
+    public GSA(AgentFactory agentFactory, List<AgentInfo> agentInfoList, ISharedMemory sharedMemory, FailAgentTree failAgentTree, AgentExecutionStrategy agentExecutionStrategy) throws IOException {
+        this.agentFactory = agentFactory;
         this.sharedMemory = sharedMemory;
         this.failAgentTree = failAgentTree;
         this.agentExecutionStrategy = agentExecutionStrategy;
         nodeNum = sharedMemory.getSize();
-        agents = buildAgents(agentInfoList, nodeNum);
+        buildGSAAgents(agentInfoList, nodeNum);
+        sharedMemory.bind(this);
     }
 
     private static String stringizeUseNode(boolean[] useNode) {
@@ -80,25 +85,17 @@ public class GSA {
     /**
      * エージェントの初期化
      */
-    private List<Agent> buildAgents(List<AgentInfo> agentInfoList, int nodeNum) throws IOException {
-        final List<Agent> agents = new ArrayList<Agent>(agentInfoList.size());
+    private void buildGSAAgents(List<AgentInfo> agentInfoList, int nodeNum) throws IOException {
         for (AgentInfo agentInfo: agentInfoList) {
             final AgentType agentType = agentInfo.getType();
             final int agentId = agentInfo.getId();
-            Agent agent = null;
+            IGSAAgent agent = null;
             if (agentType != AgentType.MANUAL) {
                 final boolean[] useNode = agentInfo.getUseNode();
                 final String eventFileName = agentInfo.getEventFileName();
     
                 log.info(String.format("agentID=%d, agentType=%s, useNode=%s", agentId, agentType, stringizeUseNode(useNode)));
-    
-                if (agentType == AgentType.CD) {
-                    agent = new CDAgent(agentId, useNode, sharedMemory);
-                } else if (agentType == AgentType.ASSOCIATE) {
-                    agent = new AssociateAgent(agentId, useNode, sharedMemory);
-                } else if (agentType == AgentType.LOG) {
-                    agent = new LogAgent(agentId, useNode, sharedMemory);
-                }
+                agent = agentFactory.createInstance(agentType, agentId, useNode, sharedMemory);
                 if (eventFileName != null) {
                     log.info(String.format("loading learning data from eventFile: %s", eventFileName));
                     agent.learnFromEventFile(eventFileName);
@@ -111,20 +108,26 @@ public class GSA {
                 }
                 agent = new ManualAgent(agentId, allNode, sharedMemory);
             }
-            agents.add(agent);
+            addAgent(agent);
         }
-        return agents;
     }
 
     ////////////////////////////////////////////////////////////////
     // public
+
+    public void addAgent(IAgent agent) {
+        agents.add(agent);
+        if (agent instanceof AbstractGSAAgent) {
+            gsaAgents.add((AbstractGSAAgent)agent);
+        }
+    }
 
     /**
      * 実行処理を行ないます。
      * @param Vector state 現在の状態
      * @return Vector サブゴール
      */
-    public List<Integer> exec(List<Integer> state) {
+    public Goal exec(Goal state) {
         /* 引数で設定された現在の状態をスタックに設定 */
         sharedMemory.getLatch().setState(state);
 
@@ -150,7 +153,7 @@ public class GSA {
          * 実行可能なエージェントが選択されるか、すべてのエージェントが失敗
          * するまで繰り返し
          */
-        GSAIteration iteration = new GSAIteration(this);
+        IGSAIteration iteration = new GSAIteration(this);
         while (iteration.tryNext());
 
         /* ゴールを返す */
@@ -166,7 +169,7 @@ public class GSA {
      * @param String fileName ファイル名
      */
     public void save(String fileName) throws IOException {
-        for (Agent agent: agents) {
+        for (IGSAAgent agent: gsaAgents) {
             agent.save(fileName + agent.getId() + ".dat");
         }
     }
@@ -179,7 +182,7 @@ public class GSA {
      * @param String fileName ファイル名
      */
     public void load(String fileName) throws IOException {
-        for (Agent agent: agents) {
+        for (IGSAAgent agent: gsaAgents) {
             agent.load(fileName + agent.getId() + ".dat");
         }
     }
@@ -193,7 +196,7 @@ public class GSA {
      */
     public void reset() {
         /* 各エージェントのreset()の呼び出し */
-        for (Agent agent: agents) {
+        for (IGSAAgent agent: gsaAgents) {
             agent.reset();
         }
         /* スタック、ツリーをクリア */
@@ -205,19 +208,17 @@ public class GSA {
      * ゴールを共有メモリに設定します。
      * @param Vector goal ゴール
      */
-    public void setGoal(List<Integer> goal) {
+    public void setGoal(Goal goal) {
+        if (goal.size() != nodeNum)
+            throw new IllegalArgumentException("goal.size() != nodeNum");
         target = goal;
+        boolean[] useNode = new boolean[nodeNum];
+        for (int i = 0; i < goal.size(); i++) {
+            useNode[i] = goal.get(i) != null;
+        }
+        State state = new State(goal, useNode);
+        sharedMemory.getGoalStack().pushGoal(GOAL_AGID, useNode, state);
         if (goal != null) {
-            if (goal.size() != nodeNum)
-                throw new IllegalArgumentException("goal.size() != nodeNum");
-            for(int i = 0; i < goal.size(); i++) {
-                Integer goalValue = (Integer)goal.get(i);
-                if(goalValue != null) {
-                    SharedMemory.GoalStackElement goalElement = new SharedMemory.GoalStackElement(
-                             goalValue.intValue(), GOAL_AGID);
-                    sharedMemory.getGoalStack().pushGoal(i, goalElement);
-                }
-            }
             failAgentTree.addTreeNode(GOAL_AGID, goal);
         }
     }
@@ -225,7 +226,7 @@ public class GSA {
     /**
      * 共有メモリを取得します
      */
-    public SharedMemory getSharedMemory() {
+    public ISharedMemory getSharedMemory() {
         return sharedMemory;
     }
 
@@ -239,8 +240,8 @@ public class GSA {
     /**
      * エージェントをすべて取得します
      */
-    public List<Agent> getAgents() {
-        return agents;
+    public List<IGSAAgent> getGSAAgents() {
+        return gsaAgents;
     }
 
     public void addAgentEventListener(GSAAgentEventListener listener) {
@@ -249,6 +250,14 @@ public class GSA {
 
     public void removeAgentEventListener(GSAAgentEventListener listener) {
         agentEventListeners.removeEventListener(listener);
+    }
+
+    public void fireAgentBeingExecuted(IGSAAgent agent) {
+        agentEventListeners.fire("agentBeingExecuted", new GSAAgentEvent(this, agent));
+    }
+    
+    public void fireAgentExecuted(IGSAAgent agent, IGSAAgent.Status status) {
+        agentEventListeners.fire("agentExecuted", new GSAAgentEvent(this, agent, status));
     }
 
     ////////////////////////////////////////////////////////////////
@@ -264,7 +273,7 @@ public class GSA {
         // 現在はある時点で自己設定ゴールが取得できるエージェントは１つに特定されるが
         // 複数のエージェントが自己設定ゴールを取得できるような場合、現在の実装では
         // 問題が発生する可能性がある。
-        for (Agent agent: agents) {
+        for (IGSAAgent agent: gsaAgents) {
             if (agent.removeSelfSetGoal()) {
                 failAgentTree.moveParent();
                 break;
@@ -283,7 +292,7 @@ public class GSA {
         boolean flagRemove;
         do {
             flagRemove = false;
-            for (final Agent agent: agents) {
+            for (final IGSAAgent agent: gsaAgents) {
                 if (agent.removeReachGoal()) {
                     // 2001.09.26 追加 
                     /* 到達ゴール削除時にツリーも操作 */
@@ -300,7 +309,7 @@ public class GSA {
      * @return boolean true:到達 false:未到達
      */
     private boolean isReachTreeGoal() {
-        for (Agent agent: agents) {
+        for (IGSAAgent agent: gsaAgents) {
             if (failAgentTree.containsGoal(agent.getId(), agent.getState()))
                 return true;
         }
@@ -322,7 +331,7 @@ public class GSA {
      */
     private void learn(boolean flagGoalReach, double p) {
         /* 全エージェントの学習処理 */
-        for (Agent agent: agents) {
+        for (IGSAAgent agent: gsaAgents) {
             agent.learn(flagGoalReach, p);
         }
     }

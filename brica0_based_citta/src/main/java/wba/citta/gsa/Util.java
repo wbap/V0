@@ -124,4 +124,23 @@ public class Util {
         return index;
     }
 
+    /**
+     * SharedMemory.GoalStackElementのVectorからGoalValueのVectorを取得します。
+     * @param Vector goalElementArray SharedMemory.GoalStackElementのVector
+     * @return Vector            goalValueのVector
+     */
+    public static State getGoalValueArray(List<IGoalStack.GoalStackElement> goalElementArray) {
+        assert goalElementArray != null;
+        State goalValueArray = new State(goalElementArray.size());
+        for(int i = 0; i < goalElementArray.size(); i++) {
+            IGoalStack.GoalStackElement e = (IGoalStack.GoalStackElement)goalElementArray.get(i);
+            if(e != null) {
+                goalValueArray.set(i, e.value);
+            }else {
+                goalValueArray.set(i, null);
+            }
+        }
+        return goalValueArray;
+    }
+
 }

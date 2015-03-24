@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * CognitiveDistanceの処理を行なうGSAのエージェント
  */
-public class CDAgent extends Agent {
+public class CDAgent extends AbstractGSAAgent {
     /* CognitiveDistanceによる処理を行なうクラス */
     private wba.citta.cognitivedistance.Agent cognitiveDistance;
 
@@ -31,9 +31,9 @@ public class CDAgent extends Agent {
      * コンストラクタ
      * @param int agid  エージェントID
      * @param boolean[] useNode  ノードの使用、不使用を設定した配列
-     * @param SharedMemory sharedMemory  state・goalを管理する共有メモリ
+     * @param EngineeredSharedMemory sharedMemory  state・goalを管理する共有メモリ
      */
-    public CDAgent(int agid, boolean[] useNode, SharedMemory sharedMemory) {
+    public CDAgent(int agid, boolean[] useNode, ISharedMemory sharedMemory) {
         super(agid, useNode, sharedMemory);
 
         cognitiveDistance = new wba.citta.cognitivedistance.Agent(cdLayerNum, maxCDLngth,
@@ -54,7 +54,7 @@ public class CDAgent extends Agent {
      * @param boolean flagGoalReach ゴールへの到達を表すフラグ
      * @param double profit 報酬
      */
-    public void learn(List<Integer> state, boolean flagGoalReach, double profit) {
+    public void learn(State state, boolean flagGoalReach, double profit) {
         try {
             cognitiveDistance.learn(state);
         }catch(Exception e) {
@@ -70,15 +70,11 @@ public class CDAgent extends Agent {
      * @param Vector goalElementArray SharedMemory.GoalStackElementのVector
      * @return Vector サブゴール
      */
-    public List<Integer> execProcess(List<Integer> state, List<SharedMemory.GoalStackElement> goalElementArray) {
-
+    public State execProcess(State state, State goalElementArray) {
         /* ゴールの値のみを取得 */
-        List<Integer> goalValueArray = getGoalValueArray(goalElementArray);
-
         /* CognitiveDistanceで次の状態を取得 */
-        List<Integer> nextState = null;
-        nextState = cognitiveDistance.exec(state, goalValueArray);
-        return nextState;
+        List<Integer> nextState = cognitiveDistance.exec(state, goalElementArray);
+        return nextState != null ? new State(nextState): null;
     }
 
     /**

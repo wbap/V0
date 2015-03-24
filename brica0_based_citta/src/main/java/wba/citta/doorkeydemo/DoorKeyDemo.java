@@ -48,11 +48,6 @@ public class DoorKeyDemo extends JFrame implements CittaRunner {
             super();
         }
 
-        public ApplicationException(String message, Throwable cause,
-                boolean enableSuppression, boolean writableStackTrace) {
-            super(message, cause, enableSuppression, writableStackTrace);
-        }
-
         public ApplicationException(String message, Throwable cause) {
             super(message, cause);
         }
@@ -88,9 +83,9 @@ public class DoorKeyDemo extends JFrame implements CittaRunner {
     private int iteration = 0;
     private int goalCount = 0;
 
-    private List<Integer> goal = null;
-    private List<Integer> state = null;
-    private List<Integer> subgoal = null;
+    private Goal goal = null;
+    private Goal state = null;
+    private Goal subgoal = null;
 
     private ViewerPanelContainer container;
     
@@ -137,7 +132,7 @@ public class DoorKeyDemo extends JFrame implements CittaRunner {
                 }
                 if (gsaProps.isShowGoalStackViewer()) {
                     SharedMemoryViewer sharedMemoryViewer = new SharedMemoryViewer(gsaProps.getColorTable());
-                    sharedMemoryViewer.bind(gsa.getSharedMemory());
+                    sharedMemoryViewer.bind((IListenableSharedMemory)gsa.getSharedMemory());
                     sharedMemoryViewer.setSize(gsaProps.getSharedMemoryViewerInitSize());
                     firePanelCreated(sharedMemoryViewer);
                 }
@@ -186,7 +181,7 @@ public class DoorKeyDemo extends JFrame implements CittaRunner {
     }
 
     private void initGoal() {
-        goal = Arrays.asList(null, null, null, 1, null, null, null);
+        goal = new Goal(null, null, null, 1, null, null, null);
     }
 
     protected void firePanelCreated(ViewerPanel panel) {
@@ -216,7 +211,7 @@ public class DoorKeyDemo extends JFrame implements CittaRunner {
             logger.trace(String.format("iteration: %d", stepCount));
         fireStepEvent();
 
-        int action = -1;
+        int action = 1;
         if (subgoal != null) {
             /* 3action */
             if(subgoal.get(2) != null) {

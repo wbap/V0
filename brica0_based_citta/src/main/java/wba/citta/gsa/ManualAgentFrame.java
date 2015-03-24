@@ -29,7 +29,7 @@ public class ManualAgentFrame extends Frame {
      * @param int nodeNum ノード数
      */
     public ManualAgentFrame(int nodeNum) {
-        super("Manual Agent");
+        super("Manual AbstractGSAAgent");
 
         setLayout(new GridLayout(1, nodeNum+1));
 
@@ -51,12 +51,12 @@ public class ManualAgentFrame extends Frame {
     ///////////////////////////////////////////////////////////////////////
     // public
 
-    List<Integer> subgoal = null;
+    State subgoal = null;
     /**
      * 手動で設定されたサブゴールを取得します。
      * @return Vector サブゴール
      */
-    public List<Integer> getSubgoal() {
+    public State getSubgoal() {
         return subgoal;
     }
 
@@ -90,7 +90,7 @@ public class ManualAgentFrame extends Frame {
                 subgoal.add(elm);
             }
         }
-        this.subgoal = subgoal;
+        this.subgoal = new State(subgoal);
     }
 
     /**

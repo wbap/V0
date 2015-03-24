@@ -1,26 +1,28 @@
 package wba.rogue;
 
+import wba.citta.gsa.Goal;
+
 public class Avatar {
     private Rogue environment;
-    private int[] state;
+    private Goal state;
 
     public Avatar(Rogue environment) {
         this.environment = environment;
     }
 
-    public int[] getState() {
+    public Goal getState() {
         return state;
     }
 
-    public int[] getGoal() {
+    public Goal getGoal() {
         return environment.toGoalArray();
     }
 
-    public int[] getVisibleGoal() {
+    public Goal getVisibleGoal() {
         return environment.visibleGoal();
     }
 
-    public int[] getReal() {
+    public Goal getReal() {
         return environment.toRealArray();
     }
 
@@ -36,8 +38,7 @@ public class Avatar {
         environment.printVisible();
     }
 
-    public int[] move(int direction) {
-        state = environment.move(direction);
-        return state;
+    public Goal move(int direction) {
+        return environment.move(direction);
     }
 }

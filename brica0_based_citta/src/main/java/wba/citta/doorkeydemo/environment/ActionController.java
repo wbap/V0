@@ -192,16 +192,16 @@ public class ActionController {
 
         int saveAction = -1;
         if(savedMove.equals("U")) {
-            saveAction = 0; 
+            saveAction = 2;
         }
         if(savedMove.equals("D")) {
-            saveAction = 4; 
+            saveAction = 6; 
         }
         if(savedMove.equals("L")) {
-            saveAction = 2; 
+            saveAction = 4; 
         }
         if(savedMove.equals("R")) {
-            saveAction = 6; 
+            saveAction = 8; 
         }
 
         if(action == saveAction) { /* 移動不可の方向への移動 */
@@ -218,7 +218,7 @@ public class ActionController {
     private Random randomMove = new Random(0);
     private int[] randomMove(int x, int y, int action, String mapData) {
         // 仮に４方向に限定
-        int randomAction = randomMove.nextInt(4)*2;
+        int randomAction = randomMove.nextInt(4) * 2 + 2;
         /* 要素の取得 */
         int[] elem = getNextState(x, y, randomAction);
         return elem;
@@ -236,47 +236,47 @@ public class ActionController {
         int[] elem = new int[2];
 
         /* 停止 */
-        if(action == -1) {
+        if(action == 1) {
             elem[0] = x;
             elem[1] = y;
         }
         /* 上 */
-        if(action == 0) {
+        else if(action == 2) {
             elem[0] = x;
             elem[1] = y-1;
         }
         /* 左上 */
-        if(action == 1) {
+        else if(action == 3) {
             elem[0] = x-1;
             elem[1] = y-1;
         }
         /* 左 */
-        if(action == 2) {
+        else if(action == 4) {
             elem[0] = x-1;
             elem[1] = y;
         }
         /* 左下 */
-        if(action == 3) {
+        else if(action == 5) {
             elem[0] = x-1;
             elem[1] = y+1;
         }
         /* 下 */
-        if(action == 4) {
+        else if(action == 6) {
             elem[0] = x;
             elem[1] = y+1;
         }
         /* 右下 */
-        if(action == 5) {
+        else if(action == 7) {
             elem[0] = x+1;
             elem[1] = y+1;
         }
         /* 右 */
-        if(action == 6) {
+        else if(action == 8) {
             elem[0] = x+1;
             elem[1] = y;
         }
         /* 右上 */
-        if(action == 7) {
+        else if(action == 9) {
             elem[0] = x+1;
             elem[1] = y-1;
         }

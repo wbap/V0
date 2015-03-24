@@ -23,6 +23,7 @@ import java.awt.event.ComponentListener;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
+
 import wba.citta.gsa.*;
 
 /**
@@ -32,12 +33,12 @@ public class AgentViewerCanvas extends JPanel {
     private static final long serialVersionUID = 1L;
 
     static class AgentDescriptor {
-        Agent agent;
+        IGSAAgent agent;
         Color color;
         boolean isExecAgent;
         boolean isRemoved;
 
-        AgentDescriptor(Agent agent, Color color) {
+        AgentDescriptor(IGSAAgent agent, Color color) {
             this.agent = agent;
             this.color = color;
         }
@@ -46,9 +47,9 @@ public class AgentViewerCanvas extends JPanel {
     /* エージェントIDの配列 */
     private List<AgentDescriptor> agents;
 
-    private Map<Agent, AgentDescriptor> agentMap;
+    private Map<IGSAAgent, AgentDescriptor> agentMap;
     
-    private Agent currentExecAgent;
+    private IGSAAgent currentExecAgent;
 
     /* 要素間の間隔 */
     private final int X_SPACE = 20;
@@ -68,8 +69,6 @@ public class AgentViewerCanvas extends JPanel {
     
     private boolean batchUpdate;
     
-    private Dimension preferredSize;
-
     ////////////////////////////////////////////////////////////
     // コンストラクタ  初期化処理
 
@@ -79,7 +78,7 @@ public class AgentViewerCanvas extends JPanel {
     public AgentViewerCanvas(Map<Integer, Color> colorTable, Color defaultColor, Color execAgentColor) {
         super();
         agents = new ArrayList<AgentDescriptor>();
-        agentMap = new HashMap<Agent, AgentDescriptor>();
+        agentMap = new HashMap<IGSAAgent, AgentDescriptor>();
         this.colorTable = colorTable;
         this.defaultColor = defaultColor;
         this.execAgentColor = execAgentColor;
@@ -127,9 +126,9 @@ public class AgentViewerCanvas extends JPanel {
 
     /**
      * 実行エージェントを設定します。
-     * @param Agent execAgent 実行エージェント
+     * @param AbstractGSAAgent execAgent 実行エージェント
      */
-    public void setExecAgent(Agent execAgent) {
+    public void setExecAgent(IGSAAgent execAgent) {
         if (currentExecAgent != null) {
             final AgentDescriptor desc = agentMap.get(currentExecAgent);
             assert desc != null;
@@ -148,16 +147,16 @@ public class AgentViewerCanvas extends JPanel {
 
     /**
      * 削除済みエージェントを設定します。
-     * @param Agent agent 実行エージェント
+     * @param AbstractGSAAgent agent 実行エージェント
      */
-    public void markRemoved(Agent agent) {
+    public void markRemoved(IGSAAgent agent) {
         AgentDescriptor desc = agentMap.get(agent);
         assert desc != null;
         desc.isRemoved = true;
         markDirty();
     }
 
-    public boolean addAgent(Agent agent) {
+    public boolean addAgent(IGSAAgent agent) {
         if (agentMap.get(agent) != null)
             return false;
         Color color = colorTable.get(agent.getId());
@@ -170,7 +169,7 @@ public class AgentViewerCanvas extends JPanel {
         return true;
     }
 
-    public boolean removeAgent(Agent agent) {
+    public boolean removeAgent(IGSAAgent agent) {
         AgentDescriptor desc = agentMap.get(agent);
         if (desc == null)
             return false;
@@ -185,10 +184,10 @@ public class AgentViewerCanvas extends JPanel {
         int drawNum = agents.size();
         final int hCount = Math.max((size.width - X_SPACE) / (X_ELEMENT_SIZE + X_SPACE), 1);
         final int vCount = (drawNum + hCount - 1) / hCount;
-        preferredSize = new Dimension(
+        setPreferredSize(new Dimension(
             X_SPACE + (X_ELEMENT_SIZE + X_SPACE) * hCount,
             Y_SPACE + (Y_ELEMENT_SIZE + Y_SPACE) * vCount
-        );
+        ));
     }
 
     private void updateIfNecessary() {
@@ -196,7 +195,7 @@ public class AgentViewerCanvas extends JPanel {
             return;
         calculatePreferredSize();
         /* 描画するエリアのサイズを取得 */
-        final Dimension size = preferredSize;
+        final Dimension size = getPreferredSize();
         setSize(size);
         if (offImage == null || size.width != offImage.getWidth(this) || size.height != offImage.getHeight(this)) {
             offImage = createImage(size.width, size.height);
@@ -307,15 +306,6 @@ public class AgentViewerCanvas extends JPanel {
             X_ELEMENT_SIZE,
             Y_ELEMENT_SIZE
         );
-    }
-
-    /**
-     * 描画に必要なサイズを取得します。
-     * @return int[] [0]幅  [1]高さ
-     */
-    @Override
-    public Dimension getPreferredSize() {
-        return preferredSize;
     }
 }
 

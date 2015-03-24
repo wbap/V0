@@ -10,11 +10,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.ArrayList;
 
 import wba.citta.gsa.GSA;
 import wba.citta.gsa.GSAFactory;
 import wba.citta.gsa.GSAProperty;
+import wba.citta.gsa.Goal;
 import wba.rogue.Avatar;
 import wba.rogue.Coord;
 import wba.rogue.RNG;
@@ -46,7 +46,7 @@ public class RogueDemo {
     private final int SLEEP_TIME;
 
     /*  */
-    private List<Integer> goal = null;
+    private Goal goal = null;
 
 
     ////////////////////////////////////////////////////////////////
@@ -104,8 +104,7 @@ public class RogueDemo {
      * 
      */
     private void initGoal() {
-        goal = arr2vec(environmentAgent.getVisibleGoal());
-        printvec(goal);
+        printvec(environmentAgent.getVisibleGoal());
     }
 
     ////////////////////////////////////////////////////////////////
@@ -123,8 +122,8 @@ public class RogueDemo {
          * 
          * xyID
          */
-        List<Integer> state = null;    /*  */
-        List<Integer> subgoal = null;  /* CITTA */
+        Goal state = null;    /*  */
+        Goal subgoal = null;  /* CITTA */
 
         /* GSA */
         while(true) {
@@ -149,7 +148,7 @@ public class RogueDemo {
                 restart();
                 subgoal = null;
 
-                state = arr2vec(environmentAgent.getState());
+                state = environmentAgent.getState();
 
                 if(isReachGoal(state, goal) ) {
                     goalReachProcess();
@@ -167,7 +166,7 @@ public class RogueDemo {
                     action = ((Integer)subgoal.get(2)).intValue();
                 }
             }
-            state = arr2vec(environmentAgent.move(action));
+            state = environmentAgent.move(action);
             //environmentAgent.printVisible();
             viewer.render();
 
@@ -218,14 +217,6 @@ public class RogueDemo {
      */
     private void setGoal() {
         gsa.setGoal(goal);
-    }
-
-    private List<Integer> arr2vec(int[] arr) {
-        List<Integer> list = new ArrayList<Integer>();
-        for(int i = 0; i < arr.length; ++i) {
-            list.add((Integer)arr[i]);
-        }
-        return list;
     }
 
     private static void printvec(List<Integer> vec) {

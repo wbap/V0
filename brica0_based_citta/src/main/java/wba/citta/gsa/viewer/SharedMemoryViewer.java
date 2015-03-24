@@ -14,7 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import wba.citta.gsa.SharedMemory;
+import wba.citta.gsa.IListenableSharedMemory;
 import wba.citta.gsa.SharedMemoryEvent;
 import wba.citta.gsa.SharedMemoryEventListener;
 import wba.citta.gui.ViewerPanel;
@@ -25,7 +25,7 @@ import wba.citta.gui.ViewerPanel;
 public class SharedMemoryViewer extends JPanel implements SharedMemoryEventListener, ViewerPanel {
     private static final long serialVersionUID = 1L;
     private static final Set<String> roles = Collections.singleton("info");
-    private SharedMemory currentSharedMemory = null;
+    private IListenableSharedMemory currentSharedMemory = null;
     private JScrollPane scrollPane = null;
     private SharedMemoryViewerCanvas canvas = null;
 
@@ -45,7 +45,7 @@ public class SharedMemoryViewer extends JPanel implements SharedMemoryEventListe
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    public synchronized void bind(SharedMemory memory) {
+    public synchronized void bind(IListenableSharedMemory memory) {
         if (currentSharedMemory != null) {
             currentSharedMemory.removeChangeListener(this);
         }

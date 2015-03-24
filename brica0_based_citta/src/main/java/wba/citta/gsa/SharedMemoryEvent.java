@@ -5,12 +5,12 @@ import java.util.EventObject;
 public class SharedMemoryEvent extends EventObject {
     private static final long serialVersionUID = 1L;
 
-    public SharedMemoryEvent(SharedMemory sharedMemory) {
+    public SharedMemoryEvent(ISharedMemory sharedMemory) {
         super(sharedMemory);
     }
     
     @Override
-    public SharedMemory getSource() {
-        return (SharedMemory)source;
+    public ISharedMemory getSource() {
+        return (ISharedMemory)source;
     }
 }

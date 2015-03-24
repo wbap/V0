@@ -21,7 +21,7 @@ public class SharedMemoryDumper {
      *   index:3 val:0<BR>
      *   index:4 val:1<BR>
      */
-    public void printState(final SharedMemory sharedMemory) {
+    public void printState(final ISharedMemory sharedMemory) {
         out.println("");
         out.println(" state");
         final List<Integer> state = sharedMemory.getLatch().getState();
@@ -41,19 +41,19 @@ public class SharedMemoryDumper {
      *   index:3 | 1:1 | 2:101 |<BR>
      *   index:4 | 1:101 | 1:101 |<BR>
      */
-    public void printGoalStack(final SharedMemory sharedMemory) {
+    public void printGoalStack(final ISharedMemory sharedMemory) {
         out.println("");
         out.println("[shared stack]");
 
         out.println(" goal");
-        final SharedMemory.GoalStack goalStack = sharedMemory.getGoalStack();
+        final IGoalStack goalStack = sharedMemory.getGoalStack();
         for(int i = 0, s = sharedMemory.getSize(); i < s; i++) {
-            final List<SharedMemory.GoalStackElement> goalStackForNode = goalStack.getGoalStackForNode(i);
+            final List<IGoalStack.GoalStackElement> goalStackForNode = goalStack.getGoalStackForNode(i);
             final int size = goalStackForNode.size();
             StringBuffer sb = new StringBuffer();
             sb.append("  index:" + i + " | ");
             for(int m = 0; m < size; m++) {
-                SharedMemory.GoalStackElement elm = (SharedMemory.GoalStackElement)goalStackForNode.get(m);
+                IGoalStack.GoalStackElement elm = (IGoalStack.GoalStackElement)goalStackForNode.get(m);
                 if(elm != null) {
                     sb.append(elm.toString() + " | " );
                 }else {

@@ -2,26 +2,26 @@ package wba.citta.gsa;
 
 public class GSAAgentEvent extends GSAEvent {
     private static final long serialVersionUID = 1L;
-    Agent agent;
-    Agent.Status status;
+    IGSAAgent agent;
+    IGSAAgent.Status status;
 
-    public GSAAgentEvent(GSA source, Agent agent) {
+    public GSAAgentEvent(GSAAgentEventSource source, IGSAAgent agent) {
         super(source);
         this.agent = agent;
-        this.status = Agent.Status.NONE;
+        this.status = IGSAAgent.Status.NONE;
     }
 
-    public GSAAgentEvent(GSA source, Agent agent, Agent.Status status) {
+    public GSAAgentEvent(GSAAgentEventSource source, IGSAAgent agent, AbstractGSAAgent.Status status) {
         super(source);
         this.agent = agent;
         this.status = status;
     }
 
-    public Agent getAgent() {
+    public IGSAAgent getAgent() {
         return agent;
     }
 
-    public Agent.Status getStatus() {
+    public AbstractGSAAgent.Status getStatus() {
         return status;
     }
 }

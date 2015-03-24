@@ -1,5 +1,7 @@
 package wba.rogue;
 
+import wba.citta.gsa.Goal;
+
 public class Rogue {
     private Coord size;
     private int maxRooms;
@@ -104,10 +106,10 @@ public class Rogue {
         coord = current.findFloor(map);
     }
 
-    public int[] visibleGoal() {
+    public Goal visibleGoal() {
         int i = 0;
         final Coord size = map.getSize();
-        final int[] state = new int[size.y * size.x];
+        final Goal state = new Goal(size.y * size.x);
         Map tmpMap = new Map(size);
         rooms.roomWithStairs().drawRoom(tmpMap);
 
@@ -118,17 +120,17 @@ public class Rogue {
                 if(type == '%') {
                     type = '@';
                 }
-                state[i++] = (int)type;
+                state.set(i++, (int)type);
             }
         }
 
         return state;
     }
 
-    public int[] toGoalArray() {
+    public Goal toGoalArray() {
         int i = 0;
         final Coord size = map.getSize();
-        final int[] state = new int[size.y * size.x];
+        final Goal state = new Goal(size.y * size.x);
 
         for(int y = 0; y < size.y; ++y) {
             for(int x = 0; x < size.x; ++x) {
@@ -137,17 +139,17 @@ public class Rogue {
                 if(type == '%') {
                     type = '@';
                 }
-                state[i++] = (int)type;
+                state.set(i++, (int)type);
             }
         }
 
         return state;
     }
 
-    public int[] toRealArray() {
+    public Goal toRealArray() {
         int i = 0;
         final Coord size = map.getSize();
-        final int[] state = new int[size.y * size.x];
+        final Goal state = new Goal(size.y * size.x);
 
         for(int y = 0; y < size.y; ++y) {
             for(int x = 0; x < size.x; ++x) {
@@ -156,7 +158,7 @@ public class Rogue {
                 if(coord.x == x && coord.y == y) {
                     type = '@';
                 }
-                state[i++] = (int)type;
+                state.set(i++, (int)type);
             }
         }
 
@@ -164,37 +166,37 @@ public class Rogue {
     }
 
     public boolean checkGoal() {
-        int[] goal = toGoalArray();
-        int[] real = toRealArray();
-        for(int i = 0; i < goal.length; ++i) {
-            if(goal[i] != real[i]) {
+        Goal goal = toGoalArray();
+        Goal real = toRealArray();
+        for(int i = 0; i < goal.size(); ++i) {
+            if(goal.get(i) != real.get(i)) {
                 return false;
             }
         }
         return true;
     }
 
-    public int[] toStateArray() {
+    public Goal toStateArray() {
         int i = 0;
         final Coord size = map.getSize();
-        final int[] state = new int[size.y * size.x + 4];
+        final Goal state = new Goal(size.y * size.x + 4);
 
         for(int y = 0; y < size.y; ++y) {
             for(int x = 0; x < size.x; ++x) {
                 Place tmpPlace = visible.getPlace(x, y);
-                state[i++] = (int)tmpPlace.type;
+                state.set(i++, (int)tmpPlace.type);
             }
         }
 
-        state[i++] = action;
-        state[i++] = hunger;
-        state[i++] = gold;
-        state[i++] = key;
+        state.set(i++, action);
+        state.set(i++, hunger);
+        state.set(i++, gold);
+        state.set(i++, key);
 
         return state;
     }
     
-    public int[] move(int direction) {
+    public Goal move(int direction) {
         visible.reset();
 
         Coord newCoord = new Coord();

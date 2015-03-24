@@ -1,5 +1,5 @@
 /**
- * Agent.java
+ * AbstractGSAAgent.java
  * 認知距離による問題解決を行なうクラス
  * COPYRIGHT FUJITSU LIMITED 2001-2002
  * 2000.10 BSC miyamoto

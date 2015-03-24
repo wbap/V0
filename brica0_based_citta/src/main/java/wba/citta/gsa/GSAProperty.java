@@ -324,7 +324,7 @@ public class GSAProperty {
                 final String typeStr = propsForAgent.get("type");
                 agentType = AgentType.valueOf(typeStr);
                 if (agentType == null) {
-                    throw new GSAException("Agent Type Error");
+                    throw new GSAException("AbstractGSAAgent Type Error");
                 }
             }
             /* 使用ノードの取得 */
@@ -351,7 +351,7 @@ public class GSAProperty {
         }
         /* Agent数のチェック */
         if(index != agentNum) {
-            throw new GSAException("Agent Number Error");
+            throw new GSAException("AbstractGSAAgent Number Error");
         }
     }
 }

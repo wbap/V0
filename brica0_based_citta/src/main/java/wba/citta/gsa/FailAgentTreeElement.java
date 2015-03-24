@@ -32,7 +32,7 @@ public class FailAgentTreeElement {
     /**
      * 実行処理の結果
      */
-    public final Agent.Status agr;
+    public final AbstractGSAAgent.Status agr;
 
     /**
      * 子のノード(FailAgentTreeElement)のリスト
@@ -47,7 +47,7 @@ public class FailAgentTreeElement {
      * @param int agr 実行処理の結果を表すID
      */
     public FailAgentTreeElement(FailAgentTreeElement parentElement, int agid,
-            List<Integer> goal, Agent.Status agr) {
+            List<Integer> goal, AbstractGSAAgent.Status agr) {
         this.parentElement = parentElement;
         this.agentId = agid;
         this.goal = goal;
@@ -83,15 +83,15 @@ public class FailAgentTreeElement {
      * agrを取得します。<BR>
      * 引数で指定されたエージェントの設定したノードがなければ-1を返します。<BR>
      * @param int agentId エージェントのID
-     * @return Agent.Status 実行処理結果を表すID
+     * @return AbstractGSAAgent.Status 実行処理結果を表すID
      */
-    public Agent.Status getChildAgr(int agentId) {
+    public AbstractGSAAgent.Status getChildAgr(int agentId) {
         for (FailAgentTreeElement e: next) {
             if (e.agentId == agentId) {
                 return e.agr;
             }
         }
-        return Agent.Status.NONE;
+        return IGSAAgent.Status.NONE;
     }
 
 
