@@ -1,0 +1,8 @@
+SaveStepNum=-15000
+SaveFileNeme=
+LoadFileName=
+TimeOutStepNum=1000
+SleepTime=10
+Environment=DoorKeyMap_c.csv
+DoorOpenMode=1
+GSAPropFileName=gsa_decompose.prop

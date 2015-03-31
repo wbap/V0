@@ -7,13 +7,14 @@
 package wba.citta.roguedemo;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Vector;
 
 import wba.citta.gsa.GSA;
+import wba.citta.gsa.GSAFactory;
+import wba.citta.gsa.GSAProperty;
+import wba.citta.gsa.Goal;
 import wba.rogue.Avatar;
 import wba.rogue.Coord;
 import wba.rogue.RNG;
@@ -45,7 +46,7 @@ public class RogueDemo {
     private final int SLEEP_TIME;
 
     /*  */
-    private Vector goal = null;
+    private Goal goal = null;
 
 
     ////////////////////////////////////////////////////////////////
@@ -64,7 +65,11 @@ public class RogueDemo {
             System.exit(0);
         }
 
-        gsa = new GSA(prop.getGSAPropFileName());
+        {
+            GSAFactory gsaFactory = new GSAFactory();
+            gsaFactory.populateWithGSAProperty(new GSAProperty(prop.getGSAPropFileName()));
+            gsa = gsaFactory.createGSA();
+        }
 
         rng = new RNG(1);
         rogue = new Rogue(new Coord(80, 24), 9, rng, true);
@@ -99,16 +104,7 @@ public class RogueDemo {
      * 
      */
     private void initGoal() {
-        goal = arr2vec(environmentAgent.getVisibleGoal());
-        printvec(goal);
-//        goal = new Vector();
-//        goal.add(null);
-//        goal.add(null);
-//        goal.add(null);
-//        goal.add(new Integer(1));
-//        goal.add(null);
-//        goal.add(null);
-//        goal.add(null);
+        printvec(environmentAgent.getVisibleGoal());
     }
 
     ////////////////////////////////////////////////////////////////
@@ -117,7 +113,7 @@ public class RogueDemo {
     /**
      * 
      */
-    public void repeatProcess() {
+    public void repeatProcess() throws IOException {
 
         int toGoalStepCount = 0; /*  */
         int stepCount = 0;       /*  */
@@ -126,8 +122,8 @@ public class RogueDemo {
          * 
          * xyID
          */
-        Vector state = null;    /*  */
-        Vector subgoal = null;  /* CITTA */
+        Goal state = null;    /*  */
+        Goal subgoal = null;  /* CITTA */
 
         /* GSA */
         while(true) {
@@ -152,25 +148,16 @@ public class RogueDemo {
                 restart();
                 subgoal = null;
 
-                state = arr2vec(environmentAgent.getState());
+                state = environmentAgent.getState();
 
                 if(isReachGoal(state, goal) ) {
                     goalReachProcess();
                 }
             }
 
-            /*  */
             toGoalStepCount++;
             stepCount++;
-            //System.out.println("");
-            //System.out.println(" step count " + stepCount);
 
-            /*  */
-            /*
-             * CITTA 
-             * 
-             */
-            
             int[] directions = {1, 3, 5, 7};
             int action = directions[arng.nextInt(4)];
             if(subgoal != null) {
@@ -179,7 +166,7 @@ public class RogueDemo {
                     action = ((Integer)subgoal.get(2)).intValue();
                 }
             }
-            state = arr2vec(environmentAgent.move(action));
+            state = environmentAgent.move(action);
             //environmentAgent.printVisible();
             viewer.render();
 
@@ -192,18 +179,6 @@ public class RogueDemo {
             }
             /* state */
             subgoal = gsa.exec(state);
-
-            /*  */
-            //			gsa.printStack();
-            //			gsa.printGoalTree();
-
-//            final long INTERVAL = 33333;
-//            long start = System.nanoTime();
-//            long end=0;
-//            do{
-//                end = System.nanoTime();
-//            }while(start + INTERVAL >= end);
-//            System.out.println(end - start);
         }
     }
 
@@ -215,20 +190,8 @@ public class RogueDemo {
      * 
      * (null)Statetrue
      */
-    private boolean isReachGoal(Vector state, Vector goal) {
+    private boolean isReachGoal(List<Integer> state, List<Integer> goal) {
         return environmentAgent.checkGoal();
-//        if(goal == null || state == null) {
-//            return false;
-//        }
-//
-//        for(int i = 0; i < state.size(); i++) {
-//            Integer sElement = (Integer)state.get(i);
-//            Integer gElement = (Integer)goal.get(i);
-//            if(gElement != null && !sElement.equals(gElement)) {
-//                return false;
-//            }
-//        }
-//        return true;
     }
 
     /**
@@ -256,16 +219,7 @@ public class RogueDemo {
         gsa.setGoal(goal);
     }
 
-    private Vector arr2vec(int[] arr) {
-        List<Integer> list = new ArrayList<Integer>();
-        for(int i = 0; i < arr.length; ++i) {
-            list.add((Integer)arr[i]);
-        }
-        Vector<Integer> vec = new Vector<Integer>(list);
-        return vec;
-    }
-
-    private void printvec(Vector vec) {
+    private static void printvec(List<Integer> vec) {
         for(int i = 0; i < vec.size(); ++i) {
             Integer t = (Integer)vec.get(i);
             System.out.print((char)(t & 255));

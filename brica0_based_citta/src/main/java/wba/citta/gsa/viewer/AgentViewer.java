@@ -1,76 +1,91 @@
 /**
- * AgentViewer.java
+\ * AgentViewer.java
  *  エージェントの動作状況をグラフィック表示するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
  *  2000.10 BSC miyamoto
  */
 package wba.citta.gsa.viewer;
 
-import java.awt.*;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+
 import wba.citta.gsa.*;
+import wba.citta.gui.ViewerPanel;
 
 /**
  *  エージェントの動作状況をグラフィック表示するクラス
  */
-public class AgentViewer extends Frame {
+public class AgentViewer extends JPanel implements GSAAgentEventListener, ViewerPanel {
+    private static final long serialVersionUID = 1L;
+    private static final Set<String> roles = Collections.singleton("side");
+    private GSAAgentEventSource currentGSA;
+    private JScrollPane scrollPane = null;
+    private AgentViewerCanvas canvas = null;
 
-	private ScrollPane scrollPane = null;
-	private AgentViewerCanvas canvas = null;
+    /**
+     * コンストラクタ
+     */
+    public AgentViewer(Map<Integer, Color> colorTable, Color defaultColor) {
+        super(new BorderLayout());
+        canvas = new AgentViewerCanvas(colorTable, defaultColor, Color.BLUE);
+        scrollPane = new JScrollPane(
+            canvas,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+        );
+        add(scrollPane, BorderLayout.CENTER);
+    }
 
-	/* ウィンドウのタイトル */
-	private static final String TITLE = "Agent Viewer";
+    public synchronized void bind(GSAAgentEventSource gsa) {
+        if (currentGSA != null) {
+            currentGSA.removeAgentEventListener(this); 
+        }
+        canvas.beginBatchUpdate();
+        for (IGSAAgent agent: gsa.getGSAAgents()) {
+            canvas.addAgent(agent);
+        }
+        canvas.endBatchUpdate();
+        currentGSA = gsa;
+        gsa.addAgentEventListener(this);
+        revalidate();
+    }
 
-	/* ウィンドウの初期サイズ */
-	private int initXSize = 460;
-	private int initYSize = 120;
+    public void agentBeingExecuted(GSAAgentEvent evt) {
+        canvas.setExecAgent(evt.getAgent());
+        canvas.repaint();
+    }
 
-	/**
-	 * コンストラクタ
-	 * @param int[] agnets 全エージェントのIDの配列
-	 * @param boolean[] removeAgents 到達ゴール削除処理を行なったエージェント
-	 * の情報
-	 */
-	public AgentViewer(int[] agents, boolean[] removeAgents) {
-		super(TITLE);
+    @Override
+    public void agentExecuted(GSAAgentEvent evt) {
+        canvas.setExecAgent(null);        
+        canvas.repaint();
+    }
 
-		canvas = new AgentViewerCanvas(agents, removeAgents);
-		scrollPane = new ScrollPane(ScrollPane.SCROLLBARS_ALWAYS);
-		scrollPane.add(canvas, null, 0);
-		add(scrollPane);
+    public void agentRemoved(GSAAgentEvent evt) {
+        canvas.markRemoved(evt.getAgent());    
+        canvas.repaint();
+    }
 
-		initXSize = ViewerProperty.agentViewerInitSize[0];
-		initYSize = ViewerProperty.agentViewerInitSize[1];
+    @Override
+    public JComponent getComponent() {
+        return this;
+    }
 
-		setSize(initXSize, initYSize);
-		setVisible(true);
-	}
+    @Override
+    public String getPreferredTitle() {
+        return "AbstractGSAAgent Viewer";
+    }
 
-	/**
-	 * 実行エージェントのIDを設定します。
-	 * @param int execAgentID 実行エージェントのID
-	 */
-	public void setExecAgentID(int execAgentID) {
-		canvas.setExecAgentID(execAgentID);
-	}
-
-	/**
-	 * 描画を更新します。
-	 */
-	private void renew() {
-		Dimension d = scrollPane.getViewportSize();
-		canvas.setViewportSize(d.width, d.height);
-		canvas.repaint();
-		validateTree();
-	}
-
-	/**
-	 * paintメソッドのオーバーライド
-	 * @param Graphics g
-	 */
-	public void paint(Graphics graphics) {
-		renew();
-	}
-
+    public Set<String> getViewerPanelRoles() {
+        return roles;
+    }
 }
 
 

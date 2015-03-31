@@ -3,5 +3,14 @@ CITTA
 
 Sourcecode of CITTA
 
-To run code go to `doorkeydemo` directory and execute:
-`java -cp ../ doorkeydemo.DoorKeyDemo task1_decompose.prop`
+Type the following at the same directory as this file resides to run the DoorKeyDemo:
+
+```
+$ (cd src/demo/doorkeydemo/ && mvn -f ../../../pom.xml exec:java -Dexec.mainClass=wba.citta.doorkeydemo.DoorKeyDemo -Dexec.args=test.prop)
+```
+
+For Brica-integrated version, do the following:
+
+```
+$ (cd src/demo/doorkeydemo/ && mvn -f ../../../pom.xml exec:java -Dexec.mainClass=wba.citta.doorkeydemo.BricaDoorKeyDemo -Dexec.args=test.prop)
+```

@@ -1,32 +1,10 @@
-###################
-# GSAに関する設定 #
-###################
-
-# マニュアルエージェントを使用するかどうか 
 UseMana=false
-
-# 環境と接続するノード数
 NodeNum=7
-
-
-############################
-# エージェントに関する設定 #
-############################
-
-# 利用するエージェント数 
 AgentNum=1
 
-# エージェントごとの設定
-# ［エージェントID］	［エージェントの種類］	［接続ノードの情報］
-600	CD	 no-decompose\\conf\\time_MS000190.conf
-
-
-################
-# Viewerの設定 # 
-################
+agent[600].type=CD
+agent[600].useNode=0,1,2,3,4,5,6
 
 AgentViewer=false
-
 GoalStackViewer=false
-
 FailAgentTreeViewer=false

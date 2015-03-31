@@ -18,8 +18,8 @@ W,x,x,x,W,x,x,x,W,x,x,x,x,x,x,x,x,W,x,x,x,x,x,x,x,x,x,W
 W,x,x,x,W,x,x,x,W,x,x,x,x,x,x,x,x,W,x,x,x,x,x,x,x,x,x,W
 W,x,x,x,W,x,x,x,W,W,W,W,W,W,W,W,W,W,W,W,x,x,x,x,x,x,x,W
 W,x,x,x,W,x,x,x,W,x,x,x,x,x,x,x,x,x,x,W,D,D,D,W,W,W,W,W
-W,x,x,x,W,x,x,x,W,x,x,x,x,x,x,x,x,x,x,W,x,x,x,x,x,x,x,W
-W,x,x,x,W,x,x,x,W,x,x,x,x,x,x,x,x,x,x,W,x,x,x,x,x,x,x,W
-W,x,S,x,W,x,x,x,W,x,x,x,x,x,x,x,x,x,x,W,x,x,x,x,x,x,x,W
-W,x,x,x,W,x,x,x,x,x,x,x,x,x,x,x,x,x,x,W,x,x,x,x,x,x,O(1),W
+W,x,x,x,W,x,x,x,W,x,x,x,x,x,x,x,x,x,x,W,X,X,X,X,X,X,X,W
+W,x,x,x,W,x,x,x,W,x,x,x,x,x,x,x,x,x,x,W,X,X,X,X,X,X,X,W
+W,x,S,x,W,x,x,x,W,x,x,x,x,x,x,x,x,x,x,W,X,X,X,X,X,X,X,W
+W,x,x,x,W,x,x,x,x,x,x,x,x,x,x,x,x,x,x,W,X,X,X,X,X,X,O(1),W
 W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W

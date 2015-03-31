@@ -235,13 +235,12 @@ public abstract class Module {
      * @param toId
      * @throws Exception
      */
-    public void connect(Module from, String fromID, String toID)
-            throws Exception {
+    public void connect(Module from, String fromID, String toID) {
         // make sure that no connection to the same inPort already exists.
         for (Connection c : connections) {
-            if (toID.equals(c.toPortID)) {
+            if (c.fromModule.equals(from) && toID.equals(c.toPortID)) {
                 // TODO: throw exception of proper type.
-                throw new Exception("Connection to this port already exists.");
+                throw new IllegalStateException("Connection to this port already exists.");
             }
         }
 
