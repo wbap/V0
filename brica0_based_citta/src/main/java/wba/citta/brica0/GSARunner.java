@@ -1,7 +1,9 @@
 package wba.citta.brica0;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import wba.citta.gsa.AgentExecutionStrategy;
 import wba.citta.gsa.FailAgentTree;
@@ -18,7 +20,7 @@ import wba.citta.util.EventPublisherSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
+public class GSARunner extends BasicBricaPerspective implements GSAAgentEventSource {
     public final static int AGENT_COUNT = 8;
     public final static int DO_NOTHING = 0;
     public final static int EXEC = 1;
@@ -31,8 +33,13 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
     /* 外部から設定されたゴール */
     private Goal target = null;
 
+    private Goal currentState = null;   
+    final String currentStatePort;
+
     /** GSAエージェントの配列 */
     List<IGSAAgent> gsaAgents = new ArrayList<IGSAAgent>();
+
+    Map<IGSAAgent, String> successPorts = new HashMap<IGSAAgent, String>();
 
     /* 実行エージェントの選択方法 0:配列の順 1:ランダム */
     int agentSelectMode = 1;
@@ -41,65 +48,64 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
     FailAgentTree failAgentTree = null;
    
     CellBackedSharedMemory sharedMemory = null;
-    Latch stateLatch = null;
     AgentExecutionStrategy agentExecutionStrategy;
 
     final EventPublisherSupport<GSAAgentEvent, GSAAgentEventListener> agentEventListeners = new EventPublisherSupport<>(GSAAgentEvent.class, GSAAgentEventListener.class);
 
-    public GSARunner(int size, String latchPort,
-            String latchAvailPort, List<String> perNodeStackPorts,
+    public GSARunner(int size, String currentStatePort, List<String> perNodeStackPorts,
             List<String> perNodeStackPushAvailPorts,
             List<String> perNodeStackTopPorts,
+            
             List<String> perNodeStackRemoveAllOpPorts,
             List<String> perNodeStackRemoveOpPorts,
             List<String> perNodeStackTopDesignationStatePorts,
             FailAgentTree failAgentTree,
             CellBackedSharedMemory sharedMemory,
             AgentExecutionStrategy agentExecutionStrategy) {
-        super(size, latchPort, latchAvailPort, perNodeStackPorts,
+        super(size, perNodeStackPorts,
                 perNodeStackPushAvailPorts, perNodeStackTopPorts,
                 perNodeStackRemoveAllOpPorts, perNodeStackRemoveOpPorts,
                 perNodeStackTopDesignationStatePorts);
+        currentState = new Goal(size);
+        makeOutPort(currentStatePort, size);
         this.sharedMemory = sharedMemory;
+        this.currentStatePort = currentStatePort;
         this.failAgentTree = failAgentTree;
-        this.stateLatch = sharedMemory.getStateLatch();
         this.agentExecutionStrategy = agentExecutionStrategy;
     }
 
-    public void addAgent(IGSAAgent agent) {
+    public void addAgent(IGSAAgent agent, String successPort) {
         gsaAgents.add(agent);
+        successPorts.put(agent, successPort);
+        this.makeInPort(successPort, 1);
     }
 
     public Goal exec(Goal state) {
         /* 引数で設定された現在の状態をスタックに設定 */
-        input(0.0);
-        initState();
         setState(state);
-        syncState();
-        output(0.0);
-        fireLatch();
-        input(0.0);
-        fire();
-        output(0.0);
-        fireLatch();
+        {
+            input(0.0);
+            fire();
+            output(0.0);
+        }
         fireStackArrays();
-        input(0.0);
-        fire();
-        output(0.0);
         removeReachGoal();
         fireStackArrays();
         if (isReachTreeGoal()) {
             logger.debug("reachTreeGoal");
             clearGoalStackAndTree();
-            fireStackArrays();
             setGoal(target);
         }
         /* エージェントの学習 */
         double reward = 0;
         learn(false/*ゴール到達フラグ*/, reward);
         fireAgents();
-        fireLatch();
-        fire();
+        {
+            input(0.0);
+            fire();
+            output(0.0);
+        }
+        fireStackArrays();
         return getGoal();
     }
 
@@ -108,6 +114,7 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
         final List<IGSAAgent> usedAgents = new ArrayList<IGSAAgent>();
         final IGSAIteration i = new IGSAIteration() {
             AgentExecutionStrategy.Context ctx = agentExecutionStrategy.createContext(this);
+            IGSAAgent successfulAgent = null;
   
             @Override
             public List<IGSAAgent> getAgents() {
@@ -123,6 +130,10 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
                 return usedAgents;
             }
 
+            public IGSAAgent getSuccessfulAgent() {
+                return successfulAgent;
+            }
+
             @Override
             public boolean tryNext() {
                 if (unusedAgents.size() == 0)
@@ -130,18 +141,44 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
                 IGSAAgent agent = ctx.nextAgent();
                 usedAgents.add(agent);
                 unusedAgents.remove(agent);
-                AgentRunner runner = ((AgentRunner)agent.getSharedMemory());
-                runner.input(0.0);
-                runner.fire();
-                runner.output(0.0);
-                fireLatch();
-                fireStackArrays();
+                for (IGSAAgent _agent: gsaAgents) {
+                    AgentRunner runner = ((AgentRunner)_agent.getSharedMemory());
+                    runner.input(0.0);
+                    if (_agent == agent) {
+                        runner.fire();
+                    } else {
+                        runner.initState();
+                        runner.syncState();
+                    }
+                    runner.output(0.0);
+                }
+                fireStackArrays();    
                 return true;
             }
         };
         while (i.tryNext());
+        input(0.0);
+        boolean unsuccessful = false;
+        for (String x: successPorts.values()) {
+            short[] v = this.getInPort(x);
+            if ((int)v[0] != 0) {
+                unsuccessful = true;
+            }
+        }
+        if (unsuccessful) {
+            removeUnsolvedGoal();
+        }
     }
 
+    void fireAgentsSilently() {        
+        for (IGSAAgent _agent: gsaAgents) {
+            AgentRunner runner = ((AgentRunner)_agent.getSharedMemory());
+            runner.initState();
+            runner.syncState();
+            runner.output(0.0);
+        }
+    }
+    
     private Goal getGoal() {
         return getGoalStack().getGoalValueArray();
     }
@@ -149,13 +186,6 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
     private void fireStackArrays() {
     	log.trace("fireStackArrays");
         sharedMemory.fireAll();
-    }
-
-    private void fireLatch() {
-    	log.trace("fireLatch");
-        stateLatch.input(0.0);
-        stateLatch.fire();
-        stateLatch.output(0.0);
     }
 
     /**
@@ -201,6 +231,11 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
         if (goal != null) {
             failAgentTree.addTreeNode(GOAL_AGID, goal);
         }
+        // stack への出力ポートの状態をリセットしないといけない
+        input(0.0);
+        initState();
+        syncState();
+        output(0.0);
     }
 
     /**
@@ -253,6 +288,7 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
         // 現在はある時点で自己設定ゴールが取得できるエージェントは１つに特定されるが
         // 複数のエージェントが自己設定ゴールを取得できるような場合、現在の実装では
         // 問題が発生する可能性がある。
+        logger.info("removeUnresolvedGoal");
         for (IGSAAgent agent: gsaAgents) {
             if (agent.removeSelfSetGoal()) {
                 failAgentTree.moveParent();
@@ -273,9 +309,10 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
         do {
             flagRemove = false;
             for (final IGSAAgent agent: gsaAgents) {
-                ((BricaPerspective)agent.getSharedMemory()).input(0.0);
+                ((BasicBricaPerspective)agent.getSharedMemory()).input(0.0);
             }
             for (final IGSAAgent agent: gsaAgents) {
+                ((BasicBricaPerspective)agent.getSharedMemory()).initState();
                 if (agent.removeReachGoal()) {
                     // 2001.09.26 追加 
                     /* 到達ゴール削除時にツリーも操作 */
@@ -283,9 +320,10 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
                     agentEventListeners.fire("agentRemoved", new GSAAgentEvent(this, agent));
                     flagRemove = true;
                 }
+                ((BasicBricaPerspective)agent.getSharedMemory()).syncState();
             }
             for (final IGSAAgent agent: gsaAgents) {
-                ((BricaPerspective)agent.getSharedMemory()).output(0.0);
+                ((BasicBricaPerspective)agent.getSharedMemory()).output(0.0);
             }
         } while (flagRemove);
     }
@@ -310,6 +348,7 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
         getGoalStack().removeAllGoal();
         syncState();
         output(0.0);
+        fireAgentsSilently();
         fireStackArrays();
         failAgentTree.clear();
     }
@@ -330,5 +369,27 @@ public class GSARunner extends BricaPerspective implements GSAAgentEventSource {
     public void doFire() {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public void setState(Goal goal) {
+        final int l = getSize();
+        assert currentState.size() == l;
+        currentState = goal;
+    }
+
+    @Override
+    public Goal getState() {
+        return currentState;
+    }
+
+    @Override
+    public void syncState() {
+        super.syncState();
+        short[] stateToSet = new short[currentState.size()];
+        for (int i = 0; i < stateToSet.length; i++) {
+            stateToSet[i] = (short)(int)currentState.get(i);
+        }
+        results.put(currentStatePort, stateToSet);
     }
 }

@@ -155,6 +155,11 @@ public class GSA implements GSAAgentEventSource {
          */
         IGSAIteration iteration = new GSAIteration(this);
         while (iteration.tryNext());
+        IGSAAgent successfulAgent = iteration.getSuccessfulAgent();
+        if (successfulAgent == null) {
+            // すべてのエージェントがゴール未出力なので、スタックをクリアする
+            removeUnsolvedGoal();
+        }
 
         /* ゴールを返す */
         return sharedMemory.getGoalStack().getGoalValueArray();

@@ -40,20 +40,23 @@ public class AgentRunner extends BricaPerspective {
         results.put(successStatePort, new short[] { (short) (success ? 1: 0) });
     }
 
-    public AgentRunner(int size, String latchPort,
-            String latchAvailPort, List<String> perNodeStackPorts,
+    public AgentRunner(int size, List<String> perNodeStackPorts,
             List<String> perNodeStackPushAvailPorts,
             List<String> perNodeStackTopPorts,
             List<String> perNodeStackRemoveAllOpPorts,
             List<String> perNodeStackRemoveOpPorts,
             List<String> perNodeStackTopDesignationStatePorts,
-            FailAgentTree failAgentTree,
-            String successStatePort) {
-        super(size, latchPort, latchAvailPort, perNodeStackPorts,
+            String latchPort,
+            String latchAvailPort, 
+            String successStatePort,
+            FailAgentTree failAgentTree) {
+        super(size, perNodeStackPorts,
                 perNodeStackPushAvailPorts, perNodeStackTopPorts,
                 perNodeStackRemoveAllOpPorts, perNodeStackRemoveOpPorts,
-                perNodeStackTopDesignationStatePorts);
+                perNodeStackTopDesignationStatePorts,
+                latchPort, latchAvailPort);
         this.failAgentTree = failAgentTree;
         this.successStatePort = successStatePort;
+        makeOutPort(successStatePort, 1);
     }
 }

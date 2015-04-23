@@ -74,11 +74,7 @@ public class CellBackedSharedMemory implements IListenableSharedMemory {
         @Override
         public Goal getState() {
             // TODO Auto-generated method stub
-            Goal retval = new Goal(size);
-            final short[] v = stateLatch.get();
-            for (int i = 0; i < size; i++)
-                retval.set(i, (int)v[i]);
-            return retval;
+            return stateLatch.getState();
         }
 
         @Override
@@ -90,10 +86,10 @@ public class CellBackedSharedMemory implements IListenableSharedMemory {
                     c++;
             }
             State retval = new State(c);
-            final short[] v = stateLatch.get();
+            final Goal v = stateLatch.getState();
             for (int i = 0, j = 0; i < size; i++) {
                 if (useNode[i]) {
-                    retval.set(j, (int)v[i]);
+                    retval.set(j, v.get(i));
                     j++;
                 }
             }
@@ -109,7 +105,7 @@ public class CellBackedSharedMemory implements IListenableSharedMemory {
     int size;
     EventPublisherSupport<SharedMemoryEvent, SharedMemoryEventListener> changeListeners = new EventPublisherSupport<SharedMemoryEvent, SharedMemoryEventListener>(SharedMemoryEvent.class, SharedMemoryEventListener.class);
     List<PerNodeStackArray> perNodeStackArrayCluster;
-    Latch stateLatch;
+    GSARunner stateLatch;
     private AgentPortNameBuilder nb;
 
     @Override
@@ -143,7 +139,7 @@ public class CellBackedSharedMemory implements IListenableSharedMemory {
 
     private static final String ID_FORMAT = "PerNodeStackArray[%d]";
 
-    public void bindAgentModule(String agentId, BricaPerspective m) {
+    public void bindAgentModule(String agentId, BasicBricaPerspective m) {
         // bind NodeStackArrays
         {
             String valuePortName = nb.getValuePortNameFor(agentId);
@@ -179,11 +175,10 @@ public class CellBackedSharedMemory implements IListenableSharedMemory {
                 );
             }          
         }
-        // bind Latch
-        {
-            m.connect(stateLatch, stateLatch.outPort, m.latchPort);
-            stateLatch.connect(m, m.latchPort, nb.getStateLatchInPortNameFor(agentId));
-            stateLatch.connect(m, m.latchAvailPort, nb.getStateLatchAvailPortName(agentId));
+        if (m instanceof GSARunner) {
+            stateLatch = (GSARunner)m;
+        } else if (m instanceof BricaPerspective) {
+            m.connect(stateLatch, stateLatch.currentStatePort, ((BricaPerspective)m).latchPort);
         }
     }
     
@@ -218,16 +213,6 @@ public class CellBackedSharedMemory implements IListenableSharedMemory {
             perNodeStackArrayCluster.add(m);
         }
         this.perNodeStackArrayCluster = perNodeStackArrayCluster;
-
-        final List<String> stateLatchInPorts = new ArrayList<String>();
-        final List<String> stateLatchAvailPorts = new ArrayList<String>();
-        for (int i = 0; i < agentIds.size(); i++) {
-            final String agentId = agentIds.get(i);
-            stateLatchInPorts.add(nb.getStateLatchInPortNameFor(agentId));
-            stateLatchAvailPorts.add(nb.getStateLatchAvailPortName(agentId));
-        }
-        this.stateLatch = new Latch(this, size, stateLatchInPorts, stateLatchAvailPorts, "state");
-        ca.addModule("State", this.stateLatch);
     }
 
     public void bind(GSAAgentEventSource gsa) {
@@ -240,9 +225,5 @@ public class CellBackedSharedMemory implements IListenableSharedMemory {
             m.fire();
             m.output(0.0);
         }
-    }
-
-    public Latch getStateLatch() {
-        return stateLatch;
     }
 }

@@ -23,7 +23,7 @@ public class GSAIteration implements IGSAIteration {
     final List<IGSAAgent> usedAgents;
 
     /** 実行結果 */
-    List<Integer> result;
+    IGSAAgent successfulAgent;
 
     public GSAIteration(GSA gsa) {
         this.gsa = gsa;
@@ -50,6 +50,10 @@ public class GSAIteration implements IGSAIteration {
         return gsa;
     }
 
+    public IGSAAgent getSuccessfulAgent() {
+        return successfulAgent;
+    }
+
     /* (non-Javadoc)
      * @see wba.citta.gsa.IGSAIteration#tryNext()
      */
@@ -73,8 +77,8 @@ public class GSAIteration implements IGSAIteration {
 
         if (status == IGSAAgent.Status.AGR_SUCCESS) {
             /* ゴールをツリーに設定 */
+            successfulAgent = agent;
             gsa.failAgentTree.addTreeNode(agent.getId(), agent.getLastSubgoal());
-
             return false;
         } else {
             /* 処理失敗のエージェントをツリーで管理 */
@@ -82,7 +86,7 @@ public class GSAIteration implements IGSAIteration {
             /* エージェント切り替え時に前エージェントの保持情報をクリア */
             agent.suspend();
             if (unusedAgents.size() == 0) {
-                gsa.removeUnsolvedGoal();
+                successfulAgent = null;
                 return false;
             } else {
                 return true;

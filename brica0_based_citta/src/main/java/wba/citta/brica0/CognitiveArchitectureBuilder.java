@@ -76,8 +76,7 @@ public class CognitiveArchitectureBuilder {
         final CellBackedSharedMemory sharedMemory = createCellBackedSharedMemory();
         final GSARunner gsaRunner = new GSARunner(
             nodeNum,
-            "state",
-            "stateAvail",
+            "currentState",
             perNodeStackPorts,
             perNodeStackPushAvailPorts,
             perNodeStackTopPorts,
@@ -96,21 +95,23 @@ public class CognitiveArchitectureBuilder {
                 throw new UnsupportedOperationException();
             final AgentRunner perspective = new AgentRunner(
                 nodeNum,
-                "state",
-                "stateAvail",
                 perNodeStackPorts,
                 perNodeStackPushAvailPorts,
                 perNodeStackTopPorts,
                 perNodeStackRemoveAllOpPorts,
                 perNodeStackRemoveOpPorts,
                 perNodeStackTopDesignationStatePorts,
-                failAgentTree,
-                "success"
+                "state",
+                "stateAvail",
+                "success",
+                failAgentTree
             );
             final IGSAAgent agent = new CDAgent(info.getId(), info.getUseNode(), perspective);
             perspective.bind(agent);
             perspective.bind(gsaRunner);
-            gsaRunner.addAgent(agent);
+            final String successPort = String.format("success[%d]", agent.getId());
+            gsaRunner.addAgent(agent, successPort);
+            gsaRunner.connect(perspective, perspective.successStatePort, successPort);
             sharedMemory.bindAgentModule(Integer.toString(agent.getId()), perspective);
             cognitiveArchitecture.addModule(String.format("Agent[%d]", agent.getId()), perspective);
         }

@@ -9,5 +9,7 @@ public interface IGSAIteration {
 
     public List<IGSAAgent> getUsedAgents();
 
+    public IGSAAgent getSuccessfulAgent();
+
     public boolean tryNext();
 }

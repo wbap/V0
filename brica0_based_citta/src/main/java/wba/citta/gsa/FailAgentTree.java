@@ -76,6 +76,8 @@ public class FailAgentTree {
      */
     public void removeCurrent() {
         FailAgentTreeElement parent = currentElement.parentElement;
+        if (parent == null)
+            throw new IllegalStateException();
         parent.removeNext(currentElement);
         currentElement = parent;
         changeEventListeners.fire("treeChanged", new FailAgentTreeEvent(this));

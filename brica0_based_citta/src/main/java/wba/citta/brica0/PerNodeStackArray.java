@@ -59,7 +59,7 @@ public class PerNodeStackArray extends Module {
             elements.removeLast();
             sharedMemory.fireSharedMemoryChanged();
         } else if (pushOpInitiatingAgent >= 0) {
-            logger.debug("push");
+            logger.debug("push {}", pushOpInitiatingAgent);
             short[] value = getInPort(valuePorts.get(pushOpInitiatingAgent));
             lastElement = new Element(pushOpInitiatingAgent, value);
             elements.add(lastElement);
