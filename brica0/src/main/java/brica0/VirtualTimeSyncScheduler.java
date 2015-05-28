@@ -6,12 +6,11 @@ public class VirtualTimeSyncScheduler extends Scheduler {
 
     public VirtualTimeSyncScheduler(double interval) {
         super();
-        this.interval = 1.0;
+        this.interval = interval;
     }
 
     public void reset() {
         super.reset();
-        this.interval = 1.0;
     }
 
     @Override
