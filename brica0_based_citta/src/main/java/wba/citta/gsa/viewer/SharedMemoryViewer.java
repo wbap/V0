@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SharedMemoryViewer.java
  *  ゴールスタックの状態をグラフィック表示するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
@@ -6,63 +6,72 @@
  */
 package wba.citta.gsa.viewer;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.*;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import wba.citta.gsa.IListenableSharedMemory;
+import wba.citta.gsa.SharedMemoryEvent;
+import wba.citta.gsa.SharedMemoryEventListener;
+import wba.citta.gui.ViewerPanel;
 
 /**
  *  ゴールスタックの状態をグラフィック表示するクラス
  */
-public class SharedMemoryViewer extends Frame {
+public class SharedMemoryViewer extends JPanel implements SharedMemoryEventListener, ViewerPanel {
+    private static final long serialVersionUID = 1L;
+    private static final Set<String> roles = Collections.singleton("info");
+    private IListenableSharedMemory currentSharedMemory = null;
+    private JScrollPane scrollPane = null;
+    private SharedMemoryViewerCanvas canvas = null;
 
-	private ScrollPane scrollPane = null;
-	private SharedMemoryViewerCanvas canvas = null;
+    /**
+     * コンストラクタ
+     * @param Integer[] stateArray 共有メモリの現在の状態への参照
+     * @param LinkedList[] goalStackArray 共有メモリのゴールスタックへの参照
+     */
+    public SharedMemoryViewer(Map<Integer, Color> colorTable) {
+        super(new BorderLayout());
+        canvas = new SharedMemoryViewerCanvas(colorTable);
+        scrollPane = new JScrollPane(
+            canvas,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+        );
+        add(scrollPane, BorderLayout.CENTER);
+    }
 
-	/* ウィンドウのタイトル */
-	private static final String TITLE = "Shared Memory Viewer";
+    public synchronized void bind(IListenableSharedMemory memory) {
+        if (currentSharedMemory != null) {
+            currentSharedMemory.removeChangeListener(this);
+        }
+        memory.addChangeListener(this);
+        currentSharedMemory = memory;
+    }
 
-	/* ウィンドウの初期サイズ */
-	private int initXSize = 320;
-	private int initYSize = 300;
+    @Override
+    public void sharedMemoryChanged(SharedMemoryEvent evt) {
+        canvas.snapshot(evt.getSource());
+    }
 
-	/**
-	 * コンストラクタ
-	 * @param Integer[] stateArray 共有メモリの現在の状態への参照
-	 * @param LinkedList[] goalStackArray 共有メモリのゴールスタックへの参照
-	 */
-	public SharedMemoryViewer(Integer[] stateArray,
-	        LinkedList[] goalStackArray) {
-		super(TITLE);
+    @Override
+    public JComponent getComponent() {
+        return this;
+    }
 
-		canvas = new SharedMemoryViewerCanvas(stateArray, goalStackArray);
-		scrollPane = new ScrollPane(ScrollPane.SCROLLBARS_ALWAYS);
-		scrollPane.add(canvas, null, 0);
-		add(scrollPane);
+    @Override
+    public String getPreferredTitle() {
+        return "Goal Stack Viewer";
+    }
 
-		initXSize = ViewerProperty.sharedMemoryViewerInitSize[0];
-		initYSize = ViewerProperty.sharedMemoryViewerInitSize[1];
-
-		setSize(initXSize, initYSize);
-		setVisible(true);
-	}
-
-	/**
-	 * 描画を更新します。
-	 */
-	private void renew() {
-		Dimension d = scrollPane.getViewportSize();
-		canvas.setViewportSize(d.width, d.height);
-		canvas.repaint();
-		validateTree();
-	}
-
-	/**
-	 * paintメソッドのオーバーライド
-	 * @param Graphics g
-	 */
-	public void paint(Graphics graphics) {
-		renew();
-	}
-
+    @Override
+    public Set<String> getViewerPanelRoles() {
+        return roles;
+    }
 }
 
 

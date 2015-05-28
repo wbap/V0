@@ -1,10 +1,5 @@
 package brica0;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-
 public class SchedulerBenchmarks {
     
     public static void main(String args[]) throws Exception {
@@ -64,8 +59,6 @@ public class SchedulerBenchmarks {
         Module m = new NullModule();
 
         ca.addModule("M1", m);
-
-        Module mm = ca.getModule("M1");
 
         long startTime = System.currentTimeMillis();
         

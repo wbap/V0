@@ -1,4 +1,4 @@
-﻿/**
+/**
  * TreeViewer.java
  *  ツリーの状態をグラフィックス表示するクラス
  *  COPYRIGHT FUJITSU LIMITED 2001-2002
@@ -6,69 +6,68 @@
  */
 package wba.citta.gsa.viewer;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import wba.citta.gsa.*;
+import wba.citta.gui.ViewerPanel;
 
 /**
  *  ツリーの状態をグラフィックス表示するクラス
  */
-public class TreeViewer extends Frame {
+public class TreeViewer extends JPanel implements ViewerPanel, FailAgentTreeEventListener {
+    private static final long serialVersionUID = 1L;
+    private static final Set<String> roles = Collections.singleton("info");
+    private JScrollPane scrollPane = null;
+    private TreeViewerCanvas canvas = null;
 
-	private ScrollPane scrollPane = null;
-	private TreeViewerCanvas canvas = null;
+    /**
+     * コンストラクタ
+     * @param FailAgentTreeElement rootElement ツリーのルートへの参照
+     */
+    public TreeViewer(Map<Integer, Color> colorTable) {
+        super(new BorderLayout());
+        canvas = new TreeViewerCanvas(colorTable);
+        scrollPane = new JScrollPane(
+            canvas,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+        );
+        add(scrollPane, BorderLayout.CENTER);
+    }
 
-	/* ウィンドウのタイトル */
-	private static final String TITLE = "Fail Agent Tree Viewer";
+    public void bind(FailAgentTree failAgentTree) {
+        canvas.setCurrentElement(failAgentTree.getRootElement());
+        failAgentTree.addFailAgentTreeEventListener(this);
+    }
 
-	/* ウィンドウの初期サイズ */
-	private int initXSize = 460;
-	private int initYSize = 740;
+    @Override
+    public JComponent getComponent() {
+        return this;
+    }
 
-	/**
-	 * コンストラクタ
-	 * @param FailAgentTreeElement rootElement ツリーのルートへの参照
-	 */
-	public TreeViewer(FailAgentTreeElement rootElement) {
-		super(TITLE);
+    @Override
+    public String getPreferredTitle() {
+        return "Fail Agent Tree Viewer";
+    }
 
-		canvas = new TreeViewerCanvas(rootElement);
-		scrollPane = new ScrollPane(ScrollPane.SCROLLBARS_ALWAYS);
-		scrollPane.add(canvas, null, 0);
-		add(scrollPane);
+    @Override
+    public void treeChanged(FailAgentTreeEvent evt) {
+        canvas.setCurrentElement(evt.getSource().getRootElement());
+        canvas.repaint();
+    }
 
-		initXSize = ViewerProperty.treeViwerInitSize[0];
-		initYSize = ViewerProperty.treeViwerInitSize[1];
-
-		setSize(initXSize, initYSize);
-		setVisible(true);
-	}
-
-	/**
-	 * 描画を更新
-	 */
-	private void renew() {
-		Dimension d = scrollPane.getViewportSize();
-		canvas.setViewportSize(d.width, d.height);
-		canvas.repaint();
-		validateTree();
-	}
-
-	/**
-	 * paintメソッドのオーバーライド
-	 * @param Graphics g
-	 */
-	public void paint(Graphics graphics) {
-		renew();
-	}
-
-	/**
-	 * ツリーのカレントを設定します。
-	 * @param FailAgentTreeElement currentElement ツリーのカレント
-	 */
-	public void setCurrentElement(FailAgentTreeElement currentElement) {
-		canvas.setCurrentElement(currentElement);
-	}
-
+    @Override
+    public Set<String> getViewerPanelRoles() {
+        return roles;
+    }
 }
 
 

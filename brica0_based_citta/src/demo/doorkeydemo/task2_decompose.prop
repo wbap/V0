@@ -1,39 +1,39 @@
 
 ####################
-# ŽÀŒ±‚ÉŠÖ‚·‚éÝ’è #
+# å®Ÿé¨“ã«é–¢ã™ã‚‹è¨­å®š #
 ####################
 
-# ŠwKƒf[ƒ^‚ðƒZ[ƒu‚·‚éƒXƒeƒbƒv”
+# å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒ¼ãƒ–ã™ã‚‹ã‚¹ãƒ†ãƒƒãƒ—æ•°
 SaveStepNum=-15000
 
-# ŠwKƒf[ƒ^‚ðƒZ[ƒu‚·‚éƒtƒ@ƒCƒ‹–¼
+# å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒ¼ãƒ–ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«å
 SaveFileNeme=
 
-# ŠwKƒf[ƒ^‚ðƒ[ƒh‚·‚éƒtƒ@ƒCƒ‹–¼
+# å­¦ç¿’ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«å
 LoadFileName=decompose\\dat\\task2\\task2_decompose_
 
-# ƒ^ƒCƒ€ƒAƒEƒg‚ÌƒXƒeƒbƒv”
+# ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã®ã‚¹ãƒ†ãƒƒãƒ—æ•°
 TimeOutStepNum=1000
 
-# ƒXƒŠ[ƒvƒ^ƒCƒ€
+# ã‚¹ãƒªãƒ¼ãƒ—ã‚¿ã‚¤ãƒ 
 SleepTime=10
 
 
 ####################
-# ŠÂ‹«‚ÉŠÖ‚·‚éÝ’è #
+# ç’°å¢ƒã«é–¢ã™ã‚‹è¨­å®š #
 ####################
 
-# ’n}î•ñ‚Ìƒtƒ@ƒCƒ‹–¼ 
+# åœ°å›³æƒ…å ±ã®ãƒ•ã‚¡ã‚¤ãƒ«å 
 Environment=DoorKeyMap_b.csv
 
-# ƒhƒA‚ªŠJ‚­ðŒ 
-# 0F‰½‚àŽ‚Á‚Ä‚¢‚È‚¢ 1FƒJƒM‚ðŽ‚Á‚Ä‚¢‚é 2F“d˜b‚ðŽ‚Á‚Ä‚¢‚é
+# ãƒ‰ã‚¢ãŒé–‹ãæ¡ä»¶ 
+# 0ï¼šä½•ã‚‚æŒã£ã¦ã„ãªã„ 1ï¼šã‚«ã‚®ã‚’æŒã£ã¦ã„ã‚‹ 2ï¼šé›»è©±ã‚’æŒã£ã¦ã„ã‚‹
 DoorOpenMode=2
 
 
 ###################
-# GSA‚ÉŠÖ‚·‚éÝ’è #
+# GSAã«é–¢ã™ã‚‹è¨­å®š #
 ###################
 
-# GSA‚ÌÝ’èƒtƒ@ƒCƒ‹–¼
+# GSAã®è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«å
 GSAPropFileName=gsa_decompose.prop

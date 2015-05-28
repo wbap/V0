@@ -6,9 +6,7 @@ import java.awt.geom.Point2D;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphMetrics;
 import java.awt.font.GlyphVector;
-import java.awt.font.TextAttribute;
 import java.awt.Graphics2D;
-import java.text.AttributedCharacterIterator;
 import java.util.HashMap;
 
 public class GraphicsRenderer {
